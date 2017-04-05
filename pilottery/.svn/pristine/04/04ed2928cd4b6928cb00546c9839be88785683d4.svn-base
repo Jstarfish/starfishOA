@@ -1,9 +1,0 @@
-package cls.taishan.web.service;
-
-import cls.taishan.web.model.WingWithdrawInputParam;
-import cls.taishan.web.model.WingWithdrawOutputParam;
-
-public interface WingWithdrawService {
-	
-	public int doWithdraw(WingWithdrawInputParam in, WingWithdrawOutputParam out);
-}

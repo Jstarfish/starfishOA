@@ -1,7 +1,0 @@
-CREATE OR REPLACE PACKAGE ecncp_dealer_order_status IS
-   /****** 订单状态（1=已受理、2=出票成功、3=出票失败、9=超时） ******/
-   accepted                    /* 1=已受理 */                    CONSTANT NUMBER := 1;
-   ticket_succ                 /* 2=出票成功 */                  CONSTANT NUMBER := 2;
-   ticket_fail                 /* 3=出票失败 */                  CONSTANT NUMBER := 3;
-   timeout                     /* 9=超时 */                      CONSTANT NUMBER := 9;
-END;

@@ -1,8 +1,0 @@
-package cls.taishan.web.service;
-
-import cls.taishan.web.model.WingSearchInputParam;
-import cls.taishan.web.model.WingSearchOutputParam;
-
-public interface WingSearchService {
-	public int doSearch(WingSearchInputParam in, WingSearchOutputParam out);
-}

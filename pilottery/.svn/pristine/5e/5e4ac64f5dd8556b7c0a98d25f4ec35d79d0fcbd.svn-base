@@ -1,7 +1,0 @@
--- CNCP 系统参数
-insert into SYS_PARAMETER (SYS_DEFAULT_SEQ, SYS_DEFAULT_DESC, SYS_DEFAULT_VALUE) values (2001, '自动返奖限额(瑞尔)，大于或者等于此金额都不会自动返奖', '1000000');
-insert into SYS_PARAMETER (SYS_DEFAULT_SEQ, SYS_DEFAULT_DESC, SYS_DEFAULT_VALUE) values (2002, '系统私钥', '1');
-insert into SYS_PARAMETER (SYS_DEFAULT_SEQ, SYS_DEFAULT_DESC, SYS_DEFAULT_VALUE) values (2003, '系统公钥', '1');
-insert into SYS_PARAMETER (SYS_DEFAULT_SEQ, SYS_DEFAULT_DESC, SYS_DEFAULT_VALUE) values (2004, '无纸化服务器IP于端口（任意一台），格式1.1.1.1:9000', '1.1.1.1:80');
-
-commit;

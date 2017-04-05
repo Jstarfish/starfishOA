@@ -1,7 +1,0 @@
-
-ADD_SUBDIRECTORY(gl-module)
-ADD_SUBDIRECTORY(ncpc-module) 
-ADD_SUBDIRECTORY(tfe-module)
-ADD_SUBDIRECTORY(tms-module)
-ADD_SUBDIRECTORY(db-module)
-

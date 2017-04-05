@@ -1,9 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD><TITLE>RETURN 404</TITLE>
-<META http-equiv=Content-Type content="text/html; charset=utf-8">
-</HEAD>
-<BODY bgColor=#ffffff>
-<TABLE height="100%" align=center border=0><TBODY><TR><TD vAlign=center align=middle>
-<DIV align=center><CENTER>
-<TABLE border=0><TBODY><TR><TD vAlign=center><IMG src="/static/image/404.png" border=0><br><br><input class="button" type="submit" value="Go Back" onclick="javascript:history.back();" /></TD></TR></TBODY></TABLE></CENTER></DIV></TD></TR></TBODY></TABLE>
-</BODY></HTML>

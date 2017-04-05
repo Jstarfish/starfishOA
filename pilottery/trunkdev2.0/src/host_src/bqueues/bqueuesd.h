@@ -1,5 +1,0 @@
-#ifndef BQUEUESD_H_INCLUDED
-#define BQUEUESD_H_INCLUDED
-
-#endif
-
