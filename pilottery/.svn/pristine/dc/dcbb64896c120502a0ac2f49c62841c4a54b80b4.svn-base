@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.report.dao.MisReportDao">
+	<select id="getReportGames" resultType="cls.pilottery.oms.report.model.GameInfo">
+		select  GAME_CODE gameCode,
+				FULL_NAME fullName,
+				SHORT_NAME shortName
+		  from  INF_GAMES where GAME_CODE in (6,7,12)		
+	</select>
+	
+	<select id="getMisReport3132List" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3132">
+		select GAME_CODE as gameCode,
+		ISSUE_NUMBER as issueNumber,
+		SUM(SALE_AMOUNT) as saleAmount,
+		SUM(HD_WINNING_SUM) as hdWinningSum,
+		SUM(HD_WINNING_AMOUNT) as hdWinningAmount,
+		SUM(LD_WINNING_SUM) as ldWinningSum,
+		SUM(LD_WINNING_AMOUNT) as ldWinningAmount,
+		SUM(WINNING_SUM) as winningSum,
+		round(sum(WINNING_SUM)/decode(sum(SALE_AMOUNT),0,1,sum(sale_amount))*10000) as winningRate
+		from MIS_REPORT_NEW_2
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and issue_number between #{beginIssue} and #{endIssue}
+		</if>
+		group by game_code,issue_number
+		order by game_code,issue_number desc
+	</select>
+  
+	<select id="getMisReport3132Sum" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3132">
+		select 
+		SUM(SALE_AMOUNT) as saleAmount,
+		SUM(HD_WINNING_SUM) as hdWinningSum,
+		SUM(HD_WINNING_AMOUNT) as hdWinningAmount,
+		SUM(LD_WINNING_SUM) as ldWinningSum,
+		SUM(LD_WINNING_AMOUNT) as ldWinningAmount,
+		SUM(WINNING_SUM) as winningSum,
+		round(sum(WINNING_SUM)/decode(sum(SALE_AMOUNT),0,1,sum(sale_amount))*10000) as winningRate
+		from MIS_REPORT_NEW_2
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and issue_number between #{beginIssue} and #{endIssue}
+		</if>
+	</select>
+	
+	<select id="getMisReport3133List" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3133">
+		SELECT GAME_CODE as gameCode,
+		PAY_ISSUE as issueNumber,
+		SUM(SALE_AMOUNT) as saleAmount,
+		SUM(HD_PAY_AMOUNT) as hdPaySum,
+		SUM(HD_PAY_BETS) as hdPayAmount,
+		SUM(LD_PAY_AMOUNT) as ldPaySum,
+		SUM(LD_PAY_BETS) as ldPayAmount,
+		SUM(PAY_AMOUNT) as paySum
+		FROM MIS_REPORT_NEW_3_ISSUE
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and PAY_ISSUE between #{beginIssue} and #{endIssue}
+		</if>
+		group by game_code,PAY_ISSUE 
+		order by game_code,PAY_ISSUE desc
+	</select>
+  
+	<select id="getMisReport3133Sum" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3133">
+		SELECT 
+		SUM(SALE_AMOUNT) as saleAmount,
+		SUM(HD_PAY_AMOUNT) as hdPaySum,
+		SUM(HD_PAY_BETS) as hdPayAmount,
+		SUM(LD_PAY_AMOUNT) as ldPaySum,
+		SUM(LD_PAY_BETS) as ldPayAmount,
+		SUM(PAY_AMOUNT) as paySum
+		FROM MIS_REPORT_NEW_3_ISSUE
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and PAY_ISSUE between #{beginIssue} and #{endIssue}
+		</if>
+	</select>
+	
+	<select id="getMisReport3134List" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3134">
+		SELECT GAME_CODE as gameCode,
+		PAY_ISSUE as issueNumber,
+		SUM(SALE_AMOUNT) as saleAmount,
+		SUM(BIG_AMOUNT) as bigPayAmount,
+		SUM(BIG_COUNT) as bigPayCount,
+		SUM(SML_AMOUNT) as smallPayAmount,
+		SUM(SML_COUNT) as smallPayCount,
+		SUM(PAY_AMOUNT) as paySum
+		FROM MIS_REPORT_NEW_9_ISSUE
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and PAY_ISSUE between #{beginIssue} and #{endIssue}
+		</if>
+		group by game_code,PAY_ISSUE 
+		order by game_code,PAY_ISSUE desc
+	</select>
+  
+	<select id="getMisReport3134Sum" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3134">
+		SELECT 
+		SUM(SALE_AMOUNT) as saleAmount,
+		SUM(BIG_AMOUNT) as bigPayAmount,
+		SUM(BIG_COUNT) as bigPayCount,
+		SUM(SML_AMOUNT) as smallPayAmount,
+		SUM(SML_COUNT) as smallPayCount,
+		SUM(PAY_AMOUNT) as paySum
+		FROM MIS_REPORT_NEW_9_ISSUE
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and PAY_ISSUE between #{beginIssue} and #{endIssue}
+		</if>
+	</select>
+	
+	<select id="getMisReport3135List" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3135">
+		SELECT 
+		GAME_CODE as gameCode,
+		ISSUE_NUMBER as issueNumber,
+		SUM(PURGED_AMOUNT) as purgedAmound,
+		SUM(LD_PURGED_SUM) as ldPurgedSum,
+		SUM(LD_PURGED_AMOUNT) as ldPurgedAmound,
+		SUM(HD_PURGED_SUM) as hdPurgedSum,
+		SUM(HD_PURGED_AMOUNT) as hdPurgedAmound
+		FROM MIS_REPORT_NEW_5
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and ISSUE_NUMBER between #{beginIssue} and #{endIssue}
+		</if>
+		group by game_code,ISSUE_NUMBER
+		order by game_code,ISSUE_NUMBER desc
+	</select>
+  
+	<select id="getMisReport3135Sum" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3135">
+		SELECT 
+		SUM(PURGED_AMOUNT) as purgedAmound,
+		SUM(LD_PURGED_SUM) as ldPurgedSum,
+		SUM(LD_PURGED_AMOUNT) as ldPurgedAmound,
+		SUM(HD_PURGED_SUM) as hdPurgedSum,
+		SUM(HD_PURGED_AMOUNT) as hdPurgedAmound
+		FROM MIS_REPORT_NEW_5
+		where 1=1
+		<if test="gameCode != null">
+			and game_code = #{gameCode}
+		</if>
+		<if test="beginIssue!=null and endIssue!=null">
+			and ISSUE_NUMBER between #{beginIssue} and #{endIssue}
+		</if>
+	</select>
+	
+	<select id="getMisReport3136Sum" parameterType="cls.pilottery.oms.report.form.MisReportForm" resultType="cls.pilottery.oms.report.model.MisReport3136">
+			select sum(v.ADJ_BEFORE) as adjbefore,
+		       sum(v.ADJ_ISSUE) as adjissue,
+		       sum(v.ADJ_ABANDON) as adjabandon,
+		       sum(v.ADJ_POOL) as adjpool,
+		       sum(v.adj_spec) as adspec,
+		       sum(v.ADJ_AFTER) as adjafter,
+		       sum(v.POOL_BEFORE) as poolbefore,
+		       sum(v.POOL_ISSUE) as poolissue,
+		       sum(v.POOL_ADJ) as pooladj,
+		       sum(v.POOL_HD_REWARD) as poolhdreward,
+		       sum(v.POOL_AFTER) as poolafter
+		       from MIS_REPORT_NEW_6 v where 1=1 
+			 <if test="gameCode!='' and gameCode!=null ">
+				 and  v.game_code =#{gameCode}
+			 </if>
+			 <if test="beginIssue!=null and beginIssue!=''">
+			     and v.issue_number=#{beginIssue}
+			 </if>
+	</select>
+</mapper>

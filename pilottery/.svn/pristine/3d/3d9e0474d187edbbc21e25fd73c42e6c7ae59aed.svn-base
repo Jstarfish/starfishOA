@@ -1,0 +1,9 @@
+{
+"redis.pool.maxTotal" : 1024,
+"redis.pool.maxIdle":200,
+"redis.maxWaitMillis":3000,
+"redis.slaver.host":"192.168.26.29",
+"redis.slaver.port":6379,
+"redis.master.host":"192.168.26.30",
+"redis.master.port":6379
+}

@@ -1,0 +1,55 @@
+CREATE OR REPLACE procedure p_cncp_fund_charge
+/****************************************************************/
+   -- 渠道商充值
+   -- add by Chen Zhen @ 2016-09-08
+/*************************************************************/
+(
+  --------------输入----------------
+  p_dealer                            in char,          -- 销售站
+  p_amount                            in char,          -- 调整金额
+  p_oper                              in number,        -- 操作人员
+  p_remark                            in varchar2,      -- 备注
+  p_key                               in varchar2,      -- 秘钥
+
+  --------------输入----------------
+  c_flow_no                           out varchar2,      -- 主键
+  c_error_code                        out number,        -- 账户余额
+  c_error_msg                         out varchar2       -- 冻结账户余额
+
+ ) is
+
+  v_be_balance               number(28);                 -- 修改前账户余额
+  v_af_balance               number(28);                 -- 修改后账户余额
+  v_be_frozen_balance        number(28);                 -- 修改前账户冻结余额
+  v_af_frozen_balance        number(28);                 -- 修改后账户冻结余额
+  
+  v_ref_no                   char(10);                   -- 调账编号
+
+begin
+
+  dbtool.set_success(errcode => c_error_code, errmesg => c_error_msg);
+  
+  -- 获取序号
+  v_ref_no := f_get_fund_charge_center_seq;
+
+  -- 调用资金修改
+  --p_cncp_dealer_fund_change(p_dealer, ecncp_flow_type.charge, p_amount, 0, v_ref_no, p_key, v_be_balance, v_af_balance, v_be_frozen_balance, v_af_frozen_balance);
+  p_cncp_dealer_fund_change(p_dealer, ecncp_flow_type.charge, p_amount, 0, v_ref_no, v_be_balance, v_af_balance, v_be_frozen_balance, v_af_frozen_balance);
+  
+  -- 插入数据
+  insert into cncp_fund_charge
+    (fund_no, dealer_code, acc_no,           oper_amount, be_account_balance, af_account_balance, oper_time, oper_admin, remark)
+  values
+    (v_ref_no, p_dealer,   p_dealer || '01', p_amount,    v_be_balance,       v_af_balance,       sysdate,   p_oper,     p_remark);
+
+  c_flow_no := v_ref_no;
+
+  COMMIT;
+
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    c_error_code := 3;
+    c_error_msg := error_msg.ERR_COMMON_1 || SQLERRM;
+
+end;

@@ -1,0 +1,25 @@
+/********************************************************************************/
+  ------------------- 返回渠道商名称-----------------------------
+  ----add by 陈震: 2016-09-08
+/********************************************************************************/
+create or replace function f_get_dealer_name(
+  p_code in string -- 渠道商编码
+
+) return string
+  result_cache
+  relies_on(cncp_inf_dealers)
+
+is
+  /*-----------    变量定义     -----------------*/
+  v_name cncp_inf_dealers.dealer_name%type; -- 返回值
+
+begin
+
+ select dealer_name
+   into v_name
+   from cncp_inf_dealers
+  where dealer_code = p_code;
+
+  return v_name;
+
+end;

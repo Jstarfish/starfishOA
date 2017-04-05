@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.business.dao.OMSAreaDao">
+
+	<select id="countAreaList" parameterType="cls.pilottery.oms.business.form.OMSAreaQueryForm"
+		resultType="Integer">
+		select count(1)
+		from inf_orgs a
+		where a.org_status = 1
+		<if test="areaCode != null and areaCode != ''">
+			and a.org_code = to_number(${areaCode})
+		</if>
+		<if test="areaName != null and areaName != ''">
+			and a.org_name like '%${areaName}%'
+		</if>
+	</select>
+
+	<select id="queryAreaList" parameterType="cls.pilottery.oms.business.form.OMSAreaQueryForm"
+		resultType="cls.pilottery.oms.business.model.areamodel.OMSArea">
+		select * from (
+		select r.*, rownum rn from (
+		select a.org_code as areaCode
+		, a.org_name as areaName
+		, a.super_org as fatherArea
+		, a.org_status as status
+		, a.org_type as areaType
+		from inf_orgs a
+		where a.org_status = 1
+		<if test="areaCode != null and areaCode != ''">
+			and a.org_code = to_number(${areaCode})
+		</if>
+		<if test="areaName != null and areaName != ''">
+			and a.org_name like '%${areaName}%'
+		</if>
+		<![CDATA[ order by a.org_code) r ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<select id="getAgencyCountInArea" parameterType="String"
+		resultType="Integer">
+		select count(1)
+		from inf_agencys s
+		where org_code = #{areaCode}
+		and status = 1
+	</select>
+
+	<select id="getTerminalCountInArea" parameterType="String"
+		resultType="Integer">
+		select count(t.terminal_code)
+		from saler_terminal t
+		join inf_agencys a on a.agency_code = t.agency_code
+		where a.org_code = #{areaCode}
+		and a.status = 1
+		and (t.status = 1 or t.status = 2)
+	</select>
+
+	<select id="getTellerCountInArea" parameterType="String"
+		resultType="Integer">
+		select count(t.teller_code)
+		from inf_tellers t
+		join inf_agencys a on a.agency_code = t.agency_code
+		where a.org_code = #{areaCode}
+		and a.status = 1
+		and (t.status = 1 or t.status = 2)
+	</select>
+
+	<select id="selectGameFromAreaAuth" parameterType="String"
+		resultType="cls.pilottery.oms.business.model.areamodel.OMSAreaAuth">
+		select a.org_code as areaCode
+		, g.short_name as gameName
+		, g.basic_type as gameType
+		, g.game_code as gameCode
+		, a.pay_commission_rate as payCommissionRate
+		, a.sale_commission_rate as saleCommissionRate
+		, a.allow_pay as allowPay
+		, a.allow_sale as allowSale
+		, a.allow_cancel as allowCancel
+		from inf_games g, auth_org a
+		where a.org_code = #{areaCode}
+		and a.game_code = g.game_code
+		order by g.game_code
+	</select>
+
+	<!-- add  by jhx -->
+	<select id="getInfOrgsList" resultType="cls.pilottery.oms.business.model.areamodel.OMSArea">
+		select o.org_code as areaCode,o.org_name as areaName from inf_orgs o
+	</select>
+</mapper>

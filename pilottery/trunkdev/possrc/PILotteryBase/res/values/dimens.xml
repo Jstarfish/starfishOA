@@ -1,0 +1,7 @@
+<resources>
+    
+	<dimen name="BodyFont">18sp</dimen>
+	<dimen name="SpecialFont">16sp</dimen>
+	<dimen name="MarkFont">14sp</dimen>
+
+</resources>

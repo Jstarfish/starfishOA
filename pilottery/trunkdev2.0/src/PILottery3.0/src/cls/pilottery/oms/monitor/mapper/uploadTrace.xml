@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.monitor.dao.UploadTraceDao">
+    <resultMap type="cls.pilottery.oms.monitor.model.UploadTrace" id="traceInfo">
+        <id column="SYS_CLOG_SEQ" property="seq" />
+        <result column="TERMINAL_CODE" property="terminalCode" />
+        <result column="SYS_CLOG_APPLY_TIME" property="applyTime" />
+        <result column="SYS_CLOG_APPLY_TYPE" property="applyType" />
+        <result column="SYS_CLOG_APPLY_ARG1" property="applyArg1" />
+        <result column="SYS_CLOG_APPLY_STATUS" property="applyStatus"/>
+        <result column="SYS_CLOG_SUCC_TIME" property="succTime" />
+        <result column="SYS_CLOG_UPLOAD_FILE" property="uploadFile" />
+    </resultMap>
+
+    <select id="getTraceList" parameterType="cls.pilottery.oms.monitor.form.UploadTraceForm" resultMap="traceInfo">  
+	select *
+	from (select tab.*, rownum rn from (select * from SYS_CLOG_INFO where 1=1
+		<if test="seq != null and seq != ''">
+			AND SYS_CLOG_SEQ = #{seq}
+		</if>
+	ORDER BY SYS_CLOG_SEQ DESC
+                <![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+    </select>
+    
+    
+    <select id="getTraceCount" resultType="int">  
+        SELECT count(t.SYS_CLOG_SEQ) FROM SYS_CLOG_INFO t where 1=1 
+        <if test="seq != null and seq != ''">
+			AND SYS_CLOG_SEQ = #{seq}
+		</if>
+    </select>
+
+ 
+    <insert id="saveTrace" parameterType="cls.pilottery.oms.monitor.form.UploadTraceForm">
+    <selectKey keyProperty="seq" resultType="String" order="BEFORE">
+	    <![CDATA[
+	        SELECT SEQ_SYS_CLOG_INFO.NEXTVAL FROM DUAL
+	    ]]>
+    </selectKey>  
+    <![CDATA[
+        insert into sys_clog_info
+		  (sys_clog_seq,
+		   terminal_code,
+		   sys_clog_apply_time,
+		   sys_clog_apply_type, 
+		   sys_clog_apply_arg1,
+		   SYS_CLOG_APPLY_STATUS)
+		values
+		  (#{seq},
+		   #{terminalCode},
+		   sysdate,
+		   #{applyType},
+		   #{applyArg1},
+		   1)
+    ]]>
+    </insert>
+    
+    <!-- 
+    <delete id="deleteTrace" parameterType="int">
+        <![CDATA[
+        	delete sys_clog_info where sys_clog_seq = #{id}
+        ]]>
+    </delete>
+     -->
+</mapper>

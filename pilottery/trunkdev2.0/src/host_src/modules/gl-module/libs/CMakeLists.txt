@@ -1,0 +1,14 @@
+
+FILE(GLOB src_files "*.cpp")
+
+ADD_LIBRARY(gl SHARED ${src_files})
+TARGET_LINK_LIBRARIES(gl dl sqlite3 dbotl)
+
+#VERSION standfor so version; SOVERSION standfor API version
+SET_TARGET_PROPERTIES(gl PROPERTIES VERSION 1.0 SOVERSION 0)
+
+INSTALL(TARGETS gl
+        RUNTIME DESTINATION task
+        LIBRARY DESTINATION libs
+        ARCHIVE DESTINATION libs
+)

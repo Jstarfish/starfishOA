@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.payout.dao.PayoutDao">
+
+    <select id="getPayoutCount" parameterType="cls.pilottery.web.payout.model.PayoutRecord"
+        resultType="Integer"
+    >
+        SELECT COUNT(1) FROM FLOW_GUI_PAY a left join ADM_INFO b on a.PAYER_ADMIN = b.ADMIN_ID WHERE 1 = 1
+        <if test="payoutDateQuery != null and payoutDateQuery != ''">
+            AND to_char(a.pay_time,'yyyy-mm-dd') = #{payoutDateQuery}
+        </if>
+        <if test="planCode != null and planCode != ''">
+            AND a.PLAN_CODE = #{planCode}
+        </if>
+         <if test="insCode!='00'">
+            and b.admin_org=#{insCode}
+        </if>
+
+    </select>
+    <select id="getPayoutList" parameterType="cls.pilottery.web.payout.model.PayoutRecord"
+        resultType="cls.pilottery.web.payout.model.PayoutRecord"
+    >
+        SELECT A.GUI_PAY_NO payNo, A.WINNERNAME WINNERNAME,
+        f_get_old_plan_name(a.plan_code,a.batch_no) planName,
+        A.CONTACT CONTACT,
+        A.CERT_NUMBER
+        PERSONALID,
+        A.PAY_AMOUNT
+        AMOUNT,
+        A.PAY_TIME DATEOFPAYOUT
+        FROM FLOW_GUI_PAY A left join ADM_INFO b on a.PAYER_ADMIN = b.ADMIN_ID
+        WHERE 1=1
+        <if test="planCode != null and planCode != ''">
+            AND a.PLAN_CODE = #{planCode}
+        </if>
+        <if test="payoutDateQuery != null and payoutDateQuery != ''">
+            AND to_char(a.pay_time,'yyyy-mm-dd') = #{payoutDateQuery}
+        </if>
+        <if test="insCode!='00'">
+            and b.admin_org=#{insCode}
+        </if>   
+         ORDER BY PAYNO DESC
+    </select>
+    <select id="isValided" parameterType="cls.pilottery.web.payout.model.WinInfo"
+        resultType="java.lang.Integer"
+    >
+        SELECT A.IS_PAID
+        FROM
+        GAME_BATCH_REWARD_DETAIL A
+        WHERE A.PLAN_CODE
+        =#{planCode}
+        AND A.BATCH_NO
+        =#{batchCode}
+        AND A.SAFE_CODE =#{safeCode}
+    </select>
+
+    <select id="getNum" parameterType="cls.pilottery.web.payout.model.PayoutRecord"
+        resultType="cls.pilottery.web.payout.model.PayoutRecord"
+    >
+        SELECT A.TRUNK_NO TRUNK, A.BOX_NO BOX, A.PACKAGE_NO PACKAGES
+        FROM
+        WH_TICKET_PACKAGE A
+        WHERE A.PLAN_CODE =#{planCode}
+        AND A.BATCH_NO
+        =#{batchCode}
+        AND A.PACKAGE_NO =#{packages}
+    </select>
+    <update id="payout" parameterType="cls.pilottery.web.payout.model.PayoutRecord"
+        statementType="CALLABLE"
+    >
+        {call p_lottery_reward (
+        #{safeCode,mode=IN,jdbcType=VARCHAR},
+        #{winnerName,mode=IN,jdbcType=VARCHAR},
+        #{contact,mode=IN,jdbcType=VARCHAR},
+        #{personalId,mode=IN,jdbcType=VARCHAR},
+        #{age,mode=IN,jdbcType=NUMERIC},
+        #{sex,mode=IN,jdbcType=NUMERIC},
+        #{paidType,mode=IN,jdbcType=NUMERIC},
+        #{planCode,mode=IN,jdbcType=VARCHAR},
+        #{batchCode,mode=IN,jdbcType=VARCHAR},
+        #{packageNo,mode=IN,jdbcType=VARCHAR},
+        #{ticketNo,mode=IN,jdbcType=NUMERIC},
+        #{operator,mode=IN,jdbcType=NUMERIC},
+        #{payAgency,mode=IN,jdbcType=VARCHAR},
+        sysdate,
+        #{amount,mode=OUT,jdbcType=NUMERIC},
+        #{payFlowNo,mode=OUT,jdbcType=VARCHAR},
+        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+        #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+
+    <update id="payoutQuery" parameterType="cls.pilottery.web.payout.model.WinInfo"
+        statementType="CALLABLE"
+    >
+        {call p_get_lottery_reward (
+        #{planCode,mode=IN,jdbcType=VARCHAR},
+        #{batchNo,mode=IN,jdbcType=VARCHAR},
+        #{packageCode,mode=IN,jdbcType=VARCHAR},
+        #{securityString,mode=IN,jdbcType=VARCHAR},
+        #{payLevel,mode=IN,jdbcType=NUMERIC},
+        #{winLevel,mode=OUT,jdbcType=NUMERIC},
+        #{amount,mode=OUT,jdbcType=NUMERIC},
+        #{winResult,mode=OUT,jdbcType=NUMERIC},
+        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+        #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+    <select id="getOrgByUser" parameterType="String"
+        resultType="cls.pilottery.web.institutions.model.InfOrgs"
+    >
+        SELECT A.ADMIN_ORG ORGCODE, B.ORG_NAME ORGNAME
+        FROM ADM_INFO A, INF_ORGS B
+        WHERE A.ADMIN_ORG = B.ORG_CODE
+        AND A.ADMIN_ID = #{userId}
+
+    </select>
+    <select id="getPayFlow1" parameterType="String" resultType="String">
+        SELECT
+        A.GUI_PAY_NO FROM FLOW_GUI_PAY A WHERE A.SECURITY_CODE =#{_parameter}
+    </select>
+    <select id="getAmount" parameterType="cls.pilottery.web.payout.model.PayoutRecord"
+        resultType="String"
+    >
+        select SINGLE_REWARD_AMOUNT from GAME_BATCH_IMPORT_REWARD where
+        PLAN_CODE=#{planCode} and BATCH_NO=#{batchCode} and
+        FAST_IDENTITY_CODE=#{safeCode}
+    </select>
+    <select id="getPrintRecord" parameterType="string" resultType="cls.pilottery.web.payout.model.PayoutRecord">
+        SELECT A.PLAN_CODE PLANCODE,
+		       f_get_old_plan_name(a.plan_code,a.batch_no) PLANNAME,
+		       A.BATCH_NO BATCHCODE,
+		       A.PACKAGE_NO PACKAGENO,
+		       A.TICKET_NO TICKETNO,
+		       A.PAY_AMOUNT AMOUNT,
+		       A.WINNERNAME WINNERNAME,
+		       A.GENDER SEX,
+		       A.CONTACT CONTACT,
+		       A.AGE AGE,
+		       A.REMARK remark,
+		       A.CERT_NUMBER PERSONALID,
+		       ORG_CODE operOrgCode,
+		       ORG_NAME operOrgName,
+		       PAYER_ADMIN operator,
+		       PAYER_NAME operaName
+		  FROM FLOW_GUI_PAY A 
+		  JOIN adm_info ON (admin_id = PAYER_ADMIN)
+		  JOIN inf_orgs ON (ORG_CODE = ADMIN_ORG)
+		  WHERE GUI_PAY_NO=#{_parameter}
+    </select>
+    <select id="getPayoutDetail" parameterType="string"
+        resultType="cls.pilottery.web.payout.model.PayoutRecord"
+    >
+        SELECT A.GUI_PAY_NO payNo,
+        f_get_old_plan_name(a.plan_code,a.batch_no) planName,
+        a.BATCH_NO
+        batchCode,
+        a.TRUNK_NO trunk,
+        a.BOX_NO box,
+        a.PACKAGE_NO
+        packages,
+        A.PAY_AMOUNT AMOUNT,
+        A.WINNERNAME WINNERNAME,
+        A.GENDER SEX,
+        A.AGE AGE,
+        A.CONTACT CONTACT,
+        A.CERT_NUMBER PERSONALID,
+        A.PAY_TIME DATEOFPAYOUT,
+        a.PAYER_NAME operaName
+        FROM FLOW_GUI_PAY A
+        WHERE 1=1 and
+        a.GUI_PAY_NO=#{_parameter}
+    </select>
+    <select id="getUsername" parameterType="long" resultType="string">
+        select
+        admin_realname from adm_info where admin_id=#{_parameter}
+    </select>
+    <select id="getPlanName" parameterType="map" resultType="string">
+         select f_get_old_plan_name(#{planCode},#{batchCode}) as planName from dual
+    </select>
+      <select id="isCompleted" parameterType="cls.pilottery.web.plans.form.PlanForm" resultType="int">
+        select count(*)
+		  from wh_batch_inbound a
+		  left join wh_goods_receipt b
+		    on a.bi_no = b.ref_no
+		 where b.status = 1
+		   and a.plan_code = #{planCodeQuery}
+		   and a.batch_no = #{batchNoQuery}
+      </select>
+      
+      <update id="updateGuiPayRemark" parameterType="cls.pilottery.web.payout.model.PayoutRecord">
+     		update FLOW_GUI_PAY set remark = #{remark} where pay_flow = #{payFlowNo}
+      </update>
+</mapper>

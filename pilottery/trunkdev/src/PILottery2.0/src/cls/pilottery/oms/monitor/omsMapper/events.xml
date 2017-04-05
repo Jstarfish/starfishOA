@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.monitor.dao.EventsDao">
+
+	<resultMap type="cls.pilottery.oms.monitor.model.Events" id="eventsResult">
+		<id column="EVENT_ID" property="eventId" jdbcType="NUMERIC"/>
+		<result column="EVENT_TIME" property="eventTime" jdbcType="VARCHAR"/>
+		<result column="EVENT_LEVEL" property="eventLevel" jdbcType="NUMERIC"/>
+		<result column="EVENT_TYPE" property="eventType" jdbcType="NUMERIC"/>
+		<result column="SERVER_ADDR" property="serverAddr" jdbcType="VARCHAR"/>
+		<result column="EVENT_CONTENT" property="eventContent" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="getEventsList" resultMap="eventsResult"
+		parameterType="cls.pilottery.oms.monitor.form.EventsForm">
+		select *
+		from (select tab.*, rownum rn
+		from (select EVENT_ID,
+		server_addr,
+		event_type,
+		event_level,
+		event_content,
+		event_time from sys_events
+		WHERE TO_CHAR(event_time,'yyyy-mm-dd') between #{beginDate} and #{endDate}
+		<if test="eventLevel != null and eventLevel != ''">
+			AND event_level = #{eventLevel}
+		</if>
+		ORDER BY event_time DESC
+	<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+
+	<select id="getEventsCount" parameterType="cls.pilottery.oms.monitor.form.EventsForm" resultType="int">
+		SELECT count(1)
+		from sys_events
+		WHERE TO_CHAR(event_time,'yyyy-mm-dd') between #{beginDate} and #{endDate}
+		<if test="eventLevel != null and eventLevel != ''">
+			AND event_level = #{eventLevel}
+		</if>
+	</select>
+
+</mapper>

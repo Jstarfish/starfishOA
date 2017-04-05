@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+     >
+	
+	<!-- 出货单详情--> 
+	<LinearLayout
+	    android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" 
+	    >
+	    <LinearLayout
+	        android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		android:paddingTop="5dp"
+    		android:paddingBottom="5dp"
+    		android:orientation="horizontal"
+    		android:background="@drawable/ListTitleBackGround"
+	        >
+	        <TextView	            
+	            android:layout_width="0dp"
+    			android:layout_height="wrap_content" 
+    			android:layout_weight="3"
+				android:gravity="center"
+	    		android:textSize="@dimen/BodyFont"
+	    		android:textColor="@drawable/black"
+	    		android:text="@string/order_lotery_name" 
+	            />
+	        <TextView	            
+	            android:layout_width="0dp"
+    			android:layout_height="wrap_content" 
+    			android:layout_weight="3"
+				android:gravity="right"
+	    		android:textSize="@dimen/BodyFont"
+	    		android:textColor="@drawable/black"
+	    		android:text="@string/order_lotery_count" 
+	            />
+	        <TextView	            
+	            android:layout_width="0dp"
+    			android:layout_height="wrap_content" 
+    			android:layout_marginRight="10dp"
+    			android:layout_weight="3"
+				android:gravity="right"
+	    		android:textSize="@dimen/BodyFont"
+	    		android:textColor="@drawable/black"
+	    		android:text="@string/withdraw_amount" 
+	            />
+	    </LinearLayout>
+		<View android:layout_width="match_parent" android:layout_height="2dp" android:background="@drawable/black" />
+	    <ListView
+	        android:id="@+id/list"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="8"
+	        style="@style/list_order_style"
+	         >
+	    </ListView>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:fadeScrollbars="false"
+	        android:background="@drawable/ListItemLine" 
+	        />
+	</LinearLayout>
+		
+		
+		
+</RelativeLayout>

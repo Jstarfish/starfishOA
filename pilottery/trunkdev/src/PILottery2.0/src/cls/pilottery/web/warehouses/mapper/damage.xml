@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cls.pilottery.web.warehouses.dao.DamageDao">
+
+    <select id="getDamageList" resultType="cls.pilottery.web.warehouses.model.DamageInfo"
+       parameterType="cls.pilottery.web.plans.form.PlanForm" >
+       SELECT * FROM ( SELECT C.*, ROWNUM RN FROM (
+	       	with plans as (
+			    select PLAN_CODE,BATCH_NO,TICKETS_EVERY_PACK from GAME_BATCH_IMPORT_DETAIL 
+			    group by PLAN_CODE,BATCH_NO,TICKETS_EVERY_PACK
+			)
+			select BROKEN_NO recordCode, ADMIN_REALNAME outPerson, APPLY_DATE regDate,sum(tickets) damageNum,sum(amount) amount from (
+			    select BROKEN_NO, ADMIN_REALNAME, APPLY_DATE, a.PACKAGES,a.packages*TICKETS_EVERY_PACK tickets,AMOUNT 
+			    from WH_BROKEN_RECODER_DETAIL a
+			    join WH_BROKEN_RECODER b using (BROKEN_NO)
+			    join ADM_INFO on (APPLY_ADMIN = ADMIN_ID)
+			    join plans using (PLAN_CODE,BATCH_NO)
+			    where 1=1
+			    <if test="insCode != '00'">
+		            AND ADMIN_ORG=#{insCode}
+		        </if>
+		        <if test="planCodeQuery != null and planCodeQuery != ''">
+		            AND PLAN_CODE = #{planCodeQuery}
+		        </if>
+		        <if test="batchNoQuery != null and batchNoQuery != ''">
+		            AND BATCH_NO = #{batchNoQuery}
+		        </if>					
+			)
+			group by BROKEN_NO, ADMIN_REALNAME, APPLY_DATE
+			order by broken_no
+	       <![CDATA[ ) C
+	        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+    </select>
+
+    <select id="getDamageCount" resultType="Integer"  parameterType="cls.pilottery.web.plans.form.PlanForm">
+        select count(1) from (
+		    select broken_no
+		    from WH_BROKEN_RECODER_DETAIL a
+		    join WH_BROKEN_RECODER b using (BROKEN_NO)
+		    join ADM_INFO on (APPLY_ADMIN = ADMIN_ID)
+		    where 1=1
+		    <if test="insCode != '00'">
+	            AND ADMIN_ORG=#{insCode}
+	        </if>
+	        <if test="planCodeQuery != null and planCodeQuery != ''">
+	            AND PLAN_CODE = #{planCodeQuery}
+	        </if>
+	        <if test="batchNoQuery != null and batchNoQuery != ''">
+	            AND BATCH_NO = #{batchNoQuery}
+	        </if>
+		    group by BROKEN_NO
+		)
+    </select>
+    <select id="getDamageDetails" parameterType="java.lang.String"  resultType="cls.pilottery.web.warehouses.model.DamageInfo" >
+        WITH DETAIL AS
+        (SELECT DISTINCT (A.BROKEN_NO) RECORDCODE,
+        A.PACKAGES,
+        A.PLAN_CODE,
+        A.BATCH_NO,
+        A.VALID_NUMBER,
+        B.APPLY_DATE REGDATE,
+        C.ADMIN_REALNAME OUTPERSON,
+        B.TOTAL_AMOUNT AMOUNT,
+        B.REMARK,
+        A.TRUNK_NO,
+        A.BOX_NO,
+        A.PACKAGE_NO
+        FROM WH_BROKEN_RECODER_DETAIL A
+        LEFT JOIN
+        WH_BROKEN_RECODER B
+        ON A.BROKEN_NO = B.BROKEN_NO
+        LEFT JOIN ADM_INFO C
+        ON
+        B.APPLY_ADMIN = C.ADMIN_ID)
+        SELECT (A.PACKAGES * B.TICKETS_EVERY_PACK) AS
+        DAMAGENUM,
+        A.PLAN_CODE PLANCODE,
+        C.FULL_NAME PLANNAME,
+        A.BATCH_NO BATCHNO,
+        A.REMARK BACKUP,
+        A.VALID_NUMBER PECIFICATION,
+        CASE
+        WHEN A.VALID_NUMBER = 1
+        THEN
+        A.TRUNK_NO
+        WHEN A.VALID_NUMBER = 2 THEN
+        A.BOX_NO
+        WHEN A.VALID_NUMBER =
+        3 THEN
+        A.PACKAGE_NO
+        ELSE
+        NULL
+        END BARENCODING,
+        case
+        when a.valid_number = 1
+        then
+        1
+        when a.valid_number = 2 then
+        1
+        when a.valid_number = 3 then
+        a.packages
+        else
+        null
+        end unitNum
+        FROM DETAIL A
+        LEFT JOIN
+        GAME_BATCH_IMPORT_DETAIL B
+        ON A.PLAN_CODE = B.PLAN_CODE
+        AND A.BATCH_NO =
+        B.BATCH_NO
+        LEFT JOIN GAME_PLANS C
+        ON A.PLAN_CODE = C.PLAN_CODE
+        WHERE 1 = 1
+        AND
+        trim(A.RECORDCODE)=#{_parameter,jdbcType=CHAR} order by a.plan_code,a.batch_no,a.trunk_no,a.box_no,a.package_no
+    </select>
+</mapper>

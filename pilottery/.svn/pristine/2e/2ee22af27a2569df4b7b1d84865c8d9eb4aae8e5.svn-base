@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.monitor.dao.MGamesDao">
+
+	<resultMap type="cls.pilottery.oms.monitor.model.Games" id="gamesResult">
+		<id column="GAME_CODE" property="gameCode" />
+		<result column="SHORT_NAME" property="shortName" />
+	</resultMap>
+	
+	<select id="queryGames" resultMap="gamesResult">  
+        <![CDATA[
+            SELECT GAME_CODE,SHORT_NAME FROM INF_GAMES
+        ]]>
+    </select>
+    
+</mapper>

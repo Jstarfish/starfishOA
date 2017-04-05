@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.business.dao.TerminalSoftwareDao">
+	<resultMap type="cls.pilottery.oms.business.model.tmversionmodel.Software" id="software">
+		<id column="soft_id" property="id" />
+		<result column="soft_name" property="name" />
+		<result column="soft_describe" property="description"/>
+		<result column="create_date" property="createdDate" jdbcType="DATE"/>
+	</resultMap>
+
+	<resultMap type="cls.pilottery.oms.business.model.tmversionmodel.SoftwareVersion" id="softwareversion">
+		<id column="soft_id" property="id" />
+		<result column="soft_name" property="name" />
+		<result column="soft_ver" property="version"/>
+		<result column="adapt_term_type" property="adaptTerminalModel"/>
+		<result column="ver_desc" property="description"/>
+		<result column="ver_size" property="size"/>
+		<result column="ver_md5" property="md5"/>
+		<result column="release_date" property="publishDate" jdbcType="DATE"/>
+	</resultMap>
+	
+	<resultMap type="cls.pilottery.oms.business.model.tmversionmodel.TerminalSoftWare" id="terminalSoftWare">
+		<result column="TERMINAL_CODE" property="tCode"/>
+		<result column="TERM_TYPE" property="termType"/>
+		<result column="ADAPT_TERM_TYPES" property="terminalTypes" javaType="cls.pilottery.oms.business.model.TerminalType" jdbcType="NUMERIC" typeHandler="cls.pilottery.oms.business.model.TerminalTypeTypeHandler" />
+		<result column="RUNNING_PKG_VER" property="runningPkgVer"/>
+		<result column="DOWNING_PKG_VER" property="downingPkgVer"/>
+		<result column="LAST_UPGRADE_DATE" property="lastUpgradeDate"/>
+		<result column="LAST_REPORT_DATE" property="lastReportDate"/>
+		<result column="LAST_UPGRADE_DATE_TOCHAR" property="lastUpgradeDateToChar"/>
+		<result column="LAST_REPORT_DATE_TOCHAR" property="lastReportDateToChar"/>
+	</resultMap>
+	
+	<!-- 终端软件个数 -->
+	<select id="countTerminalSoftware" parameterType="cls.pilottery.oms.business.form.tmversionform.TerminalSoftWareForm" resultType="Integer">
+		select	count(1)
+		from	UPG_TERM_SOFTWARE t
+		where 	1=1
+		<if test="terminalSoftWare.tCode!=null and terminalSoftWare.tCode!=''">
+			and t.TERMINAL_CODE like '%${terminalSoftWare.tCode}%'
+		</if>
+		<if test="terminalSoftWare.termType!=null and terminalSoftWare.termType!=-1">
+			and t.TERM_TYPE = ${terminalSoftWare.termType}
+		</if>
+		<if test="terminalSoftWare.runningPkgVer!=null and terminalSoftWare.runningPkgVer!=''">
+			and t.RUNNING_PKG_VER like '%${terminalSoftWare.runningPkgVer}%'
+		</if>
+		<if test="terminalSoftWare.downingPkgVer!=null and terminalSoftWare.downingPkgVer!=''">
+			and t.DOWNING_PKG_VER like '%${terminalSoftWare.downingPkgVer}%'
+		</if>
+		<if test="upgradeStartTime!=null and upgradeStartTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_UPGRADE_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{upgradeStartTime},'yyyy-MM-dd')]]>
+		</if>
+		<if test="upgradeEndTime!=null and upgradeEndTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_UPGRADE_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{upgradeEndTime},'yyyy-MM-dd')]]>
+		</if>
+		<if test="reportStartTime!=null and reportStartTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_REPORT_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{reportStartTime},'yyyy-MM-dd')]]>
+		</if>
+		<if test="reportEndTime!=null and reportEndTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_REPORT_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{reportEndTime},'yyyy-MM-dd')]]>
+		</if>
+	</select>
+	
+	<!-- 终端软件查询 -->
+	<select id="getTerminalSoftWareQuery" parameterType="cls.pilottery.oms.business.form.tmversionform.TerminalSoftWareForm" resultMap="terminalSoftWare">
+		select * from (
+		select a.*, rownum rn from (
+		select t.TERMINAL_CODE, t.TERM_TYPE, t.TERM_TYPE ADAPT_TERM_TYPES, t.RUNNING_PKG_VER, t.DOWNING_PKG_VER,
+				t.LAST_UPGRADE_DATE, t.LAST_REPORT_DATE,
+				to_char(t.LAST_UPGRADE_DATE,'yyyy-mm-dd HH24:mi:ss') "LAST_UPGRADE_DATE_TOCHAR",
+				to_char(t.LAST_REPORT_DATE,'yyyy-mm-dd HH24:mi:ss') "LAST_REPORT_DATE_TOCHAR"
+		from UPG_TERM_SOFTWARE t
+		where 1=1
+		<if test="terminalSoftWare.tCode!=null and terminalSoftWare.tCode!=''">
+			and t.TERMINAL_CODE like '%${terminalSoftWare.tCode}%'
+		</if>
+		<if test="terminalSoftWare.termType!=null and terminalSoftWare.termType!=-1">
+			and t.TERM_TYPE = ${terminalSoftWare.termType}
+		</if>
+		<if test="terminalSoftWare.runningPkgVer!=null and terminalSoftWare.runningPkgVer!=''">
+			and t.RUNNING_PKG_VER like '%${terminalSoftWare.runningPkgVer}%'
+		</if>
+		<if test="terminalSoftWare.downingPkgVer!=null and terminalSoftWare.downingPkgVer!=''">
+			and t.DOWNING_PKG_VER like '%${terminalSoftWare.downingPkgVer}%'
+		</if>
+		<if test="upgradeStartTime!=null and upgradeStartTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_UPGRADE_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{upgradeStartTime},'yyyy-MM-dd')]]>
+		</if>
+		<if test="upgradeEndTime!=null and upgradeEndTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_UPGRADE_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{upgradeEndTime},'yyyy-MM-dd')]]>
+		</if>
+		<if test="reportStartTime!=null and reportStartTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_REPORT_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{reportStartTime},'yyyy-MM-dd')]]>
+		</if>
+		<if test="reportEndTime!=null and reportEndTime!=''">
+			<![CDATA[and to_date(to_char(t.LAST_REPORT_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{reportEndTime},'yyyy-MM-dd')]]>
+		</if>
+		order by t.LAST_REPORT_DATE desc ) a )
+		<![CDATA[where rn > ${terminalSoftWare.beginNum} and rn <= ${terminalSoftWare.endNum}]]>
+	</select>
+	
+	
+	
+	
+	
+	<select id="getSoftwares" resultMap="software">  
+        select * from upg_software order by soft_id
+    </select>
+      
+    <select id="getSoftware" parameterType="int" resultMap="software">  
+        select * from upg_software where soft_id =#{id}
+    </select> 
+    
+    <select id="getSoftVersions" parameterType="int" resultMap="softwareversion">  
+        select * from upg_software s,upg_software_ver v
+		where s.soft_id = v.soft_id(+)
+		and s.soft_id = #{id}
+		order by v.adapt_term_type,v.soft_ver
+    </select> 
+    <select id="getSoftVersion" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwareVersion" resultMap="softwareversion">  
+        select * from upg_software s,upg_software_ver v
+		where s.soft_id = v.soft_id(+)
+		and s.soft_id = #{id}
+		and v.soft_ver = #{version}
+		and v.adapt_term_type = #{adaptTerminalModel}
+    </select>   
+    
+   <insert id="intsertSoftVer" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwareVersion">
+   	<![CDATA[
+	   	insert into upg_software_ver
+	  	  (soft_ver, soft_id, adapt_term_type, release_date, ver_desc, ver_size)
+		values
+		  (#{version},
+		   #{id},
+		   #{adaptTerminalModel},
+		   sysdate,
+		   #{description},
+		   #{size})
+	 ]]>
+   </insert>
+        
+   
+     <insert id="intsertSoft" parameterType="cls.pilottery.oms.business.model.tmversionmodel.Software">
+   	<![CDATA[
+	   	insert into UPG_SOFTWARE
+	  	  (SOFT_ID, SOFT_NAME, SOFT_DESCRIBE, CREATE_DATE)
+		values
+		  (
+		   #{id},
+		   #{name},
+		   #{description},
+		   sysdate
+		   )
+	 ]]>
+   </insert>
+   
+   	<!-- 更新  -->
+	<update id="updateSoftVer" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwareVersion">
+	<![CDATA[
+		update upg_software_ver
+		   set ver_desc = #{description},
+		       ver_size = #{size}     
+		 where soft_ver = #{version}
+		   and soft_id = #{id}
+		   and adapt_term_type = #{adaptTerminalModel}
+	 ]]>
+	</update>
+	
+	<!--删除  -->
+	<delete id="deleteSoftVer" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwareVersion">
+	<![CDATA[
+		delete from upg_software_ver  
+		 where soft_ver = #{version}
+		   and soft_id = #{id}
+		   and adapt_term_type = #{adaptTerminalModel}
+	 ]]>
+	</delete>
+</mapper>

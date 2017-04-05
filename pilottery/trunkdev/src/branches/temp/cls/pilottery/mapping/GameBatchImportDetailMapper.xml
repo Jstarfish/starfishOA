@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.GameBatchImportDetailMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.GameBatchImportDetail" >
+    <id column="IMPORT_NO" property="importNo" jdbcType="CHAR" />
+    <result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="LOTTERY_TYPE" property="lotteryType" jdbcType="VARCHAR" />
+    <result column="LOTTERY_NAME" property="lotteryName" jdbcType="VARCHAR" />
+    <result column="BOXES_EVERY_TRUNK" property="boxesEveryTrunk" jdbcType="DECIMAL" />
+    <result column="TRUNKS_EVERY_GROUP" property="trunksEveryGroup" jdbcType="DECIMAL" />
+    <result column="PACKS_EVERY_TRUNK" property="packsEveryTrunk" jdbcType="DECIMAL" />
+    <result column="TICKETS_EVERY_PACK" property="ticketsEveryPack" jdbcType="DECIMAL" />
+    <result column="TICKETS_EVERY_GROUP" property="ticketsEveryGroup" jdbcType="DECIMAL" />
+    <result column="FIRST_REWARD_GROUP_NO" property="firstRewardGroupNo" jdbcType="DECIMAL" />
+    <result column="TICKETS_EVERY_BATCH" property="ticketsEveryBatch" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    IMPORT_NO, PLAN_CODE, BATCH_NO, LOTTERY_TYPE, LOTTERY_NAME, BOXES_EVERY_TRUNK, TRUNKS_EVERY_GROUP, 
+    PACKS_EVERY_TRUNK, TICKETS_EVERY_PACK, TICKETS_EVERY_GROUP, FIRST_REWARD_GROUP_NO, 
+    TICKETS_EVERY_BATCH, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from GAME_BATCH_IMPORT_DETAIL
+    where IMPORT_NO = #{importNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from GAME_BATCH_IMPORT_DETAIL
+    where IMPORT_NO = #{importNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.GameBatchImportDetail" >
+    insert into GAME_BATCH_IMPORT_DETAIL (IMPORT_NO, PLAN_CODE, BATCH_NO, 
+      LOTTERY_TYPE, LOTTERY_NAME, BOXES_EVERY_TRUNK, 
+      TRUNKS_EVERY_GROUP, PACKS_EVERY_TRUNK, TICKETS_EVERY_PACK, 
+      TICKETS_EVERY_GROUP, FIRST_REWARD_GROUP_NO, 
+      TICKETS_EVERY_BATCH, STATUS)
+    values (#{importNo,jdbcType=CHAR}, #{planCode,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, 
+      #{lotteryType,jdbcType=VARCHAR}, #{lotteryName,jdbcType=VARCHAR}, #{boxesEveryTrunk,jdbcType=DECIMAL}, 
+      #{trunksEveryGroup,jdbcType=DECIMAL}, #{packsEveryTrunk,jdbcType=DECIMAL}, #{ticketsEveryPack,jdbcType=DECIMAL}, 
+      #{ticketsEveryGroup,jdbcType=DECIMAL}, #{firstRewardGroupNo,jdbcType=DECIMAL}, 
+      #{ticketsEveryBatch,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.GameBatchImportDetail" >
+    insert into GAME_BATCH_IMPORT_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="importNo != null" >
+        IMPORT_NO,
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE,
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO,
+      </if>
+      <if test="lotteryType != null" >
+        LOTTERY_TYPE,
+      </if>
+      <if test="lotteryName != null" >
+        LOTTERY_NAME,
+      </if>
+      <if test="boxesEveryTrunk != null" >
+        BOXES_EVERY_TRUNK,
+      </if>
+      <if test="trunksEveryGroup != null" >
+        TRUNKS_EVERY_GROUP,
+      </if>
+      <if test="packsEveryTrunk != null" >
+        PACKS_EVERY_TRUNK,
+      </if>
+      <if test="ticketsEveryPack != null" >
+        TICKETS_EVERY_PACK,
+      </if>
+      <if test="ticketsEveryGroup != null" >
+        TICKETS_EVERY_GROUP,
+      </if>
+      <if test="firstRewardGroupNo != null" >
+        FIRST_REWARD_GROUP_NO,
+      </if>
+      <if test="ticketsEveryBatch != null" >
+        TICKETS_EVERY_BATCH,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="importNo != null" >
+        #{importNo,jdbcType=CHAR},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryType != null" >
+        #{lotteryType,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryName != null" >
+        #{lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="boxesEveryTrunk != null" >
+        #{boxesEveryTrunk,jdbcType=DECIMAL},
+      </if>
+      <if test="trunksEveryGroup != null" >
+        #{trunksEveryGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="packsEveryTrunk != null" >
+        #{packsEveryTrunk,jdbcType=DECIMAL},
+      </if>
+      <if test="ticketsEveryPack != null" >
+        #{ticketsEveryPack,jdbcType=DECIMAL},
+      </if>
+      <if test="ticketsEveryGroup != null" >
+        #{ticketsEveryGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="firstRewardGroupNo != null" >
+        #{firstRewardGroupNo,jdbcType=DECIMAL},
+      </if>
+      <if test="ticketsEveryBatch != null" >
+        #{ticketsEveryBatch,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.GameBatchImportDetail" >
+    update GAME_BATCH_IMPORT_DETAIL
+    <set >
+      <if test="planCode != null" >
+        PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryType != null" >
+        LOTTERY_TYPE = #{lotteryType,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryName != null" >
+        LOTTERY_NAME = #{lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="boxesEveryTrunk != null" >
+        BOXES_EVERY_TRUNK = #{boxesEveryTrunk,jdbcType=DECIMAL},
+      </if>
+      <if test="trunksEveryGroup != null" >
+        TRUNKS_EVERY_GROUP = #{trunksEveryGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="packsEveryTrunk != null" >
+        PACKS_EVERY_TRUNK = #{packsEveryTrunk,jdbcType=DECIMAL},
+      </if>
+      <if test="ticketsEveryPack != null" >
+        TICKETS_EVERY_PACK = #{ticketsEveryPack,jdbcType=DECIMAL},
+      </if>
+      <if test="ticketsEveryGroup != null" >
+        TICKETS_EVERY_GROUP = #{ticketsEveryGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="firstRewardGroupNo != null" >
+        FIRST_REWARD_GROUP_NO = #{firstRewardGroupNo,jdbcType=DECIMAL},
+      </if>
+      <if test="ticketsEveryBatch != null" >
+        TICKETS_EVERY_BATCH = #{ticketsEveryBatch,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where IMPORT_NO = #{importNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.GameBatchImportDetail" >
+    update GAME_BATCH_IMPORT_DETAIL
+    set PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+      LOTTERY_TYPE = #{lotteryType,jdbcType=VARCHAR},
+      LOTTERY_NAME = #{lotteryName,jdbcType=VARCHAR},
+      BOXES_EVERY_TRUNK = #{boxesEveryTrunk,jdbcType=DECIMAL},
+      TRUNKS_EVERY_GROUP = #{trunksEveryGroup,jdbcType=DECIMAL},
+      PACKS_EVERY_TRUNK = #{packsEveryTrunk,jdbcType=DECIMAL},
+      TICKETS_EVERY_PACK = #{ticketsEveryPack,jdbcType=DECIMAL},
+      TICKETS_EVERY_GROUP = #{ticketsEveryGroup,jdbcType=DECIMAL},
+      FIRST_REWARD_GROUP_NO = #{firstRewardGroupNo,jdbcType=DECIMAL},
+      TICKETS_EVERY_BATCH = #{ticketsEveryBatch,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where IMPORT_NO = #{importNo,jdbcType=CHAR}
+  </update>
+</mapper>

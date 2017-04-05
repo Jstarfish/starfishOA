@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.taishan.web.dealer.dao.DealerDao">
+	
+	<select id="getDealerList" parameterType="cls.taishan.web.dealer.form.DealerForm" resultType="cls.taishan.web.dealer.model.Dealer">
+		select t.dealer_code as dealerCode,
+		       t.dealer_name as dealerName,
+		       t.open_time as openTime,
+		       t.dealer_status as dealerStatus,
+		       c.account_balance as accountBalance
+		  from CNCP_INF_DEALERS t
+		  LEFT JOIN CNCP_ACC_DEALER c
+		    ON t.dealer_code = c.dealer_code
+		 WHERE 1=1
+		 <if test="dealerCode!=null and dealerCode != ''">
+		 	and t.dealer_code = #{dealerCode}
+		 </if>
+		 <if test="dealerName!=null and dealerName != ''">
+		 	and t.dealer_name like '%${dealerName}%'
+		 </if>
+		 <if test="startDate!=null and startDate != ''">
+		 	and to_char(t.open_time,'yyyy-mm-dd hh24:mi:ss') between #{startDate} and #{endDate}
+		 </if>
+			 order by t.open_time desc
+	</select>
+	
+	<select id="getDealerDetail" parameterType="String" resultType="cls.taishan.web.dealer.model.Dealer">
+		select t.dealer_code     as dealerCode,
+		       t.dealer_name     as dealerName,
+		       c.account_balance as accountBalance,
+		       t.dealer_contact  as dealerContact,
+		       t.dealer_phone    as dealerPhone,
+		       t.dealer_mailbox  as dealerMail,
+		       t.dealer_status as dealerStatus,
+		       t.msg_url         as msgUrl
+		  from CNCP_INF_DEALERS t
+		  LEFT JOIN CNCP_ACC_DEALER c
+		    ON t.dealer_code = c.dealer_code
+		 WHERE t.dealer_code = #{dealerCode}
+	</select>
+	
+	<update id="updateDealer" parameterType="cls.taishan.web.dealer.model.Dealer">
+		update cncp_inf_dealers
+		   set dealer_name    = #{dealerName},
+		       dealer_contact = #{dealerContact},
+		       dealer_phone   = #{dealerPhone},
+		       dealer_mailbox = #{dealerMail},
+		       msg_url        = #{msgUrl}
+		 where dealer_code = #{dealerCode}
+	</update>
+	
+	<update id="changeDealerStatus" parameterType="cls.taishan.web.dealer.model.Dealer">
+		update cncp_inf_dealers set dealer_status = #{dealerStatus} where dealer_code = #{dealerCode}
+	</update>
+	
+	<select id="getGamePermissons" parameterType="String" resultType="cls.taishan.web.dealer.model.GamePermission">
+		select t.dealer_code as dealerCode,
+		       t.game_code as gameCode,
+		       i.full_name as gameName,
+		       t.is_sale as isSale,
+		       i.BASIC_TYPE as gameType,
+		       t.sale_commission_rate as saleCommissionRate 
+		  from cncp_auth_dealer t
+		  left join inf_games i
+		    on t.game_code = i.game_code
+		    where t.dealer_code = #{dealerCode}
+	</select>
+	
+	<update id="updateGamePermissions" parameterType="cls.taishan.web.dealer.model.GamePermission">
+		update cncp_auth_dealer
+		   set is_sale = #{isSale}, sale_commission_rate = #{saleCommissionRate}
+		 where dealer_code = #{dealerCode}
+		   and game_code = #{gameCode}
+	</update>
+	
+	<insert id="addDealer" parameterType="cls.taishan.web.dealer.model.Dealer">
+		insert into cncp_inf_dealers values(#{dealerCode},#{dealerName},#{dealerContact},#{dealerPhone},#{dealerMail},sysdate,1,#{msgUrl})
+	</insert>
+	
+	<update id="updateMsg" parameterType="cls.taishan.web.dealer.model.Security">
+		UPDATE CNCP_SECURITY_DEALER SET PUBLIC_KEY = #{publicKey} WHERE DEALER_CODE = #{dealerCode}
+	</update>
+</mapper>

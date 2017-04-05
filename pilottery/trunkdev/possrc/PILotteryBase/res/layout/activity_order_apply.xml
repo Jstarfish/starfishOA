@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" 
+    tools:context="com.huacai.assist.site.OrderListActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="20dp"
+    	android:layout_marginBottom="20dp"
+        >
+	    <TextView	   
+	        android:id="@+id/text_station_code"         
+            android:layout_width="wrap_content"
+   			android:layout_height="wrap_content" 
+   			android:paddingLeft="8dp"
+    		android:textSize="@dimen/BodyFont"
+    		android:textColor="#000000"
+    		android:text="@string/withdraw_station_code" 
+            />
+	    <Button 
+	        android:id="@+id/order_apply_add"
+	        android:layout_width="110dp"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/order_lotery_name" 
+	    		    	android:layout_alignParentRight="true"
+	    	android:gravity="center"
+	    	android:layout_marginRight="8dp"
+	    	style="@style/common_btn"
+	    	/>
+	</RelativeLayout>
+	<LinearLayout
+        android:layout_width="match_parent"
+   		android:layout_height="wrap_content"
+    	android:paddingTop="5dp"
+    	android:paddingBottom="5dp"
+    	android:background="@drawable/ListTitleBackGround"
+        >
+        <TextView	            
+            android:layout_width="0dp"
+   			android:layout_height="wrap_content" 
+			android:layout_weight="3"
+			android:gravity="center"
+    		android:textSize="@dimen/BodyFont"
+    		android:textColor="#000000"
+    		android:text="@string/order_lotery_name" 
+            />
+        <TextView	            
+            android:layout_width="0dp"
+   			android:layout_height="wrap_content" 
+			android:layout_weight="2"
+			android:gravity="right"
+    		android:textSize="@dimen/BodyFont"
+    		android:textColor="#000000"
+    		android:text="@string/order_lotery_count" 
+            />
+        <TextView	            
+            android:layout_width="0dp"
+   			android:layout_height="wrap_content" 
+			android:layout_weight="3"
+			android:gravity="right"
+    		android:textSize="@dimen/BodyFont"
+    		android:textColor="#000000"
+    		android:layout_marginRight="20dp"
+    		android:text="@string/withdraw_amount" 
+            />
+    </LinearLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/black" />
+    
+    <ListView
+        android:id="@+id/order_apply_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fadeScrollbars="false"
+        android:layout_weight="1"
+        style="@style/list_withdraw_style" >
+    </ListView>
+	
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/black" />
+    
+    <TextView	   
+        android:id="@+id/text_total_amount"         
+        android:layout_width="wrap_content"
+  		android:layout_height="wrap_content" 
+   		android:textSize="@dimen/BodyFont"
+   		android:paddingLeft="15dp"
+   		android:textColor="#FF0000"
+   		android:text="@string/order_total_amount" 
+           />
+    <Button
+        android:id="@+id/order_apply_confirm"
+    	android:layout_marginTop="10dp"
+    	android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/BodyFont"
+        android:background="@drawable/storagebtn"
+        android:text="@string/string_comfirm" />
+</LinearLayout>

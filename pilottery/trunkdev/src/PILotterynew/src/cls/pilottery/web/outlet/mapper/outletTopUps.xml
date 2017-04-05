@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.outlet.dao.OutletTopUpsDao">
+	<resultMap id="OutletTopUpsMap" type="cls.pilottery.web.outlet.model.OutletTopUps">
+		<id column="AO_CODE" property="aoCode" jdbcType="CHAR" />
+		<result column="AO_NAME" property="aoName" jdbcType="VARCHAR" />
+		<result column="AGENCY_CODE" property="agencyCode" jdbcType="VARCHAR" />
+		<result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="AGENCY_TYPE" property="agencyType" jdbcType="DECIMAL" />
+		<result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+		<result column="CONTACT_PERSON" property="contactPerson" jdbcType="VARCHAR" />
+		<result column="MARKET_MANAGER_ID" property="marketManagerId" jdbcType="DECIMAL" />
+		<result column="TRANS_PASS" property="transPass" jdbcType="VARCHAR" />
+		<result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="DECIMAL" />
+		<result column="AF_ACCOUNT_BALANCE" property="afterBalance" jdbcType="DECIMAL" />
+		<result column="FUND_NO" property="fundId" jdbcType="CHAR" />
+		<result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+		<result column="oper_amount" property="applyAmount" jdbcType="DECIMAL" />
+		<result column="ADMIN_REALNAME" property="realName" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 用于提现 -->
+	<resultMap id="cashWithdrawnMap" type="cls.pilottery.web.capital.model.withdrawnmodel.CashWithdrawn">
+		<id column="FUND_NO" property="fundNo" jdbcType="CHAR" />
+		<result column="ACCOUNT_TYPE" property="accountType" jdbcType="DECIMAL" />
+		<result column="AO_CODE" property="aoCode" jdbcType="VARCHAR" />
+		<result column="AO_NAME" property="aoName" jdbcType="VARCHAR" />
+		<result column="ACC_NO" property="accNo" jdbcType="CHAR" />
+		<result column="APPLY_AMOUNT" property="applyAmount" jdbcType="DECIMAL" />
+		<result column="APPLY_ADMIN" property="applyAdmin" jdbcType="DECIMAL" />
+		<result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+		<result column="APPLY_STATUS" property="applyStatus" jdbcType="DECIMAL" />
+		<result column="APPLY_MEMO" property="applyMemo" jdbcType="VARCHAR" />
+		<result column="IS_TERMINAL_APPLY" property="isTerminalApply" jdbcType="DECIMAL" />
+		<result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap type="cls.pilottery.web.outlet.model.AgencyExt"
+		id="AgencyExt">
+		<id column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+		<result column="PERSONAL_ID" property="personalId" jdbcType="VARCHAR" />
+		<result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 用于返回站点资金流水 add by dzg -->
+	<resultMap id="agencyflow" type="cls.pilottery.web.outlet.model.FlowAgency">
+		<id column="AGENCY_FUND_FLOW" property="agencyFundFlow" jdbcType="CHAR" />
+		<result column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+		<result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+		<result column="REF_NO" property="refNo" jdbcType="VARCHAR" />
+		<result column="FLOW_TYPE" property="flowType" jdbcType="DECIMAL" />
+		<result column="ACC_NO" property="accNo" jdbcType="CHAR" />
+		<result column="maxflow" property="maxFlow" />
+		<result column="TRADE_TIME" property="transTime" />
+		<result column="ACCOUNT_BALANCE" property="balance"	jdbcType="DECIMAL" />
+		<result column="CREDIT_LIMIT" property="credit" jdbcType="DECIMAL" />
+		<result column="CHANGE_AMOUNT" property="changeAmount" jdbcType="DECIMAL" />
+		<result column="FROZEN_AMOUNT" property="frozenAmount" jdbcType="DECIMAL" />
+		<result column="BE_ACCOUNT_BALANCE" property="beAccountBalance" jdbcType="DECIMAL" />
+		<result column="BE_FROZEN_BALANCE" property="beFrozenBalance" jdbcType="DECIMAL" />
+		<result column="AF_ACCOUNT_BALANCE" property="afAccountBalance" jdbcType="DECIMAL" />
+		<result column="AF_FROZEN_BALANCE" property="afFrozenBalance" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<select id="getOutletTopUpsList" parameterType="cls.pilottery.web.outlet.form.OutletTopUpsForm"
+		resultMap="OutletTopUpsMap">
+		select * from (
+		select tab.*,rownum rn from (select
+		 a.AGENCY_CODE,
+         a.AGENCY_NAME,
+         a.TELEPHONE,
+         a.CONTACT_PERSON,
+         a.MARKET_MANAGER_ID,
+         b.CREDIT_LIMIT,
+         b.ACCOUNT_BALANCE
+      from INF_AGENCYS a
+      left join ACC_AGENCY_ACCOUNT b
+      on (a.AGENCY_CODE = b.AGENCY_CODE)
+      WHERE 1 = 1
+		<if test="agencyCode != null and agencyCode != ''">
+			AND a.AGENCY_CODE = #{agencyCode}
+		</if>
+			and a.STATUS =1 
+			and a.MARKET_MANAGER_ID = #{currentUserId}
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- 分页记录总数 -->
+	<select id="getOutletTopUpsCount" parameterType="cls.pilottery.web.outlet.form.OutletTopUpsForm"
+		resultType="Integer">
+		SELECT count(1)
+		FROM INF_AGENCYS
+		WHERE 1 = 1
+		<if test="agencyCode != null and agencyCode != ''">
+			AND AGENCY_CODE = #{agencyCode}
+		</if>
+		and STATUS =1
+		and MARKET_MANAGER_ID = #{currentUserId}
+	</select>
+	
+	<!-- 站点充值 -->
+	<update id="forOutletTopup" parameterType="cls.pilottery.web.outlet.form.OutletTopUpsForm"
+		statementType="CALLABLE">
+		{call p_outlet_topup (
+		#{agencyCode,mode=IN,jdbcType=VARCHAR},
+		#{operAmount,mode=IN ,jdbcType=NUMERIC},
+		#{marketManagerId,mode=IN ,jdbcType=NUMERIC},
+		#{password,mode=IN ,jdbcType=VARCHAR},
+		#{fundId,mode=OUT ,jdbcType=VARCHAR},
+		#{beforeBalance,mode=OUT,jdbcType=NUMERIC},
+		#{afterBalance,mode=OUT,jdbcType=NUMERIC},
+		#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+		#{c_errmsg,mode=OUT ,jdbcType=VARCHAR}
+		)
+		}
+	</update>
+
+  <select id="getOutletTopUpsByPk" parameterType="java.lang.String" resultMap="OutletTopUpsMap">
+     select a.ao_code,
+	       a.ao_name,
+	       a.oper_amount,
+	       a.be_account_balance,
+	       a.af_account_balance,
+	       a.oper_time as apply_date,
+	       b.admin_realname,
+	       g.af_account_balance
+	  from fund_charge_center a
+	  left join adm_info b
+	    on (a.oper_admin = b.admin_id and a.account_type = 2)
+	  left join flow_agency g
+	    on (a.fund_no = g.ref_no and g.flow_type = 1)
+	 where a.fund_no = #{param1}
+   </select> 
+
+  <select id="getOutletTopUpsById" parameterType="java.lang.String" resultMap="OutletTopUpsMap">
+     select 
+     	a.agency_code,
+     	a.ACCOUNT_BALANCE,
+     	a.CREDIT_LIMIT
+	  from ACC_AGENCY_ACCOUNT a
+	 where a.AGENCY_CODE = #{aoCode}
+   </select> 
+
+		<!-- 根据站点编码 查询此站点名称  -->
+	<select id="getAgencyName" parameterType="String" resultType="cls.pilottery.web.outlet.model.Agencys">
+		select a.AGENCY_CODE as agencyCode,
+			 a.AGENCY_NAME as agencyName
+	 	 from INF_AGENCYS a
+		where 1 = 1 and a.AGENCY_CODE=#{agencyCode,jdbcType=VARCHAR}
+	</select>
+	<!-- 根据站点编码 查询此站点账户余额 -->
+	<select id="getAgencyBalance" parameterType="String" resultType="cls.pilottery.web.capital.model.OutletAccount">
+		select a.AGENCY_CODE as agencyCode,
+			 a.ACCOUNT_BALANCE as accountBalance,
+			 a.ACC_NO          as accNo
+	  	from ACC_AGENCY_ACCOUNT a
+	 	where 1 = 1 and a.AGENCY_CODE=#{agencyCode,jdbcType=VARCHAR}
+	</select>
+
+<!-- 充值准备查询查询 -->
+	<select id="getOutletInfo"  resultType="cls.pilottery.web.outlet.form.OutletTopUpsForm">
+		select a.AGENCY_CODE as agencyCode,
+			  a.AGENCY_NAME as agencyName
+	 	 from INF_AGENCYS a
+		 where 1 = 1 and a.AGENCY_CODE=#{agencyCode,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="forOutletCashWithdrawn" parameterType="cls.pilottery.web.capital.model.withdrawnmodel.CashWithdrawn">
+		INSERT INTO FUND_WITHDRAW
+		  (FUND_NO,
+		   ACCOUNT_TYPE,
+		   AO_CODE,
+		   AO_NAME,
+		   ACC_NO,
+		   APPLY_AMOUNT,
+		   APPLY_ADMIN,
+		   APPLY_DATE,
+		   APPLY_STATUS)
+		VALUES
+		  (F_GET_FUND_WITHDRAW_SEQ,
+		   #{accountType},
+		   #{aoCode},
+		   #{aoName},
+		   #{accNo},
+		   #{applyAmount},
+		   #{applyAdmin},
+		   sysdate,
+		   1)
+	</insert>
+
+</mapper>

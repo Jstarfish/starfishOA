@@ -1,0 +1,108 @@
+#container{
+	min-width: 1280px; 
+	width:expression(document.body.clientWidth < 1280? "1280px": "auto" ); 
+ }
+ 
+ .clear{
+ margin-top:10px;
+ }
+ 
+ /*排期样式*/
+#main1{
+	width:90%;
+	margin:0 auto;
+	padding:0;
+	}
+#main1 .set{
+	width:40%;
+	float:left;}
+#main1 .set  span{
+	font-size:14px; 
+	color:#2aa1d9; 
+	padding-left:10px;
+	line-height:40px;
+	}
+#main1 .set .sj{
+	background:#fff;
+	border:1px solid #27a0d7;
+	-moz-box-shadow:0px 3px 5px #999 inset;               /* For Firefox3.6+ */
+	-webkit-box-shadow:0px 3px 5px #999 inset;            /* For Chrome5+, Safari5+ */
+	box-shadow:0px 3px 5px #999 inset;                    /* For Latest Opera */
+	}
+#main1 .cs{
+	margin:10px;}
+#main1 .jiantou{
+	position:absolute;
+	top:30%;
+	left:35%;
+	}
+#main1 .show{
+	width:55%;
+	box-shadow:0px 3px 5px #999 ;  
+	background:#fff;      
+	height:490px;
+	}
+.hongzid{
+	color:#fd0505;
+	font-weight:bold;}
+	
+/*此为新增排期页面“清空与保存”按钮样式*/
+
+.btn1{
+	font-family:"microsoft yahei", "微软雅黑";
+	position: relative;
+	display: inline-block;
+	line-height: 25px;
+	padding: 4px 15px;
+	margin-top:10px ;
+	transition: all .3s ease-out;
+	text-transform: uppercase;
+	border: 1px solid #90cd00;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background-color: #90cd00;
+	font-size:14px;
+
+}
+.btn1:hover {
+  background: #9bdb03;
+}
+.input_on{
+FONT-SIZE: 18px; 
+font-family:"microsoft yahei", "微软雅黑";
+padding-left:3px;
+line-height:30px;
+border:1px solid #40a7da;
+background-color:#fff;
+height:31px;
+}
+.input_off{
+padding-left:3px;
+FONT-SIZE: 18px; 
+line-height:30px;
+border:1px solid #40a7da;
+background-color:#FFF;
+height:31px;
+font-family:"microsoft yahei", "微软雅黑";
+}
+.input_move{
+padding-left:3px;
+FONT-SIZE: 18px; 
+line-height:30px;
+border:1px solid #40a7da;
+background-color:#fff;
+height:31px;
+font-family:"microsoft yahei", "微软雅黑";
+}
+.input_out{
+padding-left:3px;
+FONT-SIZE: 18px; 
+line-height:30px;
+border:1px solid #40a7da;
+background-color:#FFF;
+height:31px;
+font-family:"microsoft yahei", "微软雅黑";
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<enumconfig>
+
+	<!-- <agencyType>
+        <item key="1" value="传统终端(预付费)" />
+        <item key="2" value="受信终端(后付费)" />
+        <item key="3" value="无纸化" />
+        <item key="4" value="中心销售站"/>
+    </agencyType> -->
+
+</enumconfig>

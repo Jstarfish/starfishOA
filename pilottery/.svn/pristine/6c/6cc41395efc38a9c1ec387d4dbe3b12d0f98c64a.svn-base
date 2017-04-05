@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.business.dao.NotifyDao">
+	<resultMap type="cls.pilottery.oms.business.model.notifymodel.TerminalNotice" id="notice">
+		<id column="notice_id" property="noticeId" />
+		<result column="CAST_STRING" property="objNames"/>
+		<result column="SEND_ADMIN" property="adminId"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="create_time" property="createTime"/>
+		<result column="send_time" property="sendTime"/>
+		<result column="create_time_tochar" property="creatTimeToChar"/>
+		<result column="send_time_tochar" property="sendTimeToChar"/>
+		
+		<!--<result column="area_level" property="objLevel" />
+		<result column="area_id" property="objId" />
+		<result column="send_id" property="adminId"/>
+		<result column="admin_account" property="adminAccount"/>
+		<result column="admin_realname" property="adminRealname"/>
+		<result column="status" property="status"/>	-->
+	</resultMap>
+       
+	<!-- 用于建立区域树的隐射 -->
+	<resultMap type="cls.pilottery.oms.business.model.notifymodel.TreeNode" id="tree">
+		<id column="id" property="id" />
+		<result column="pid" property="pid" />
+		<result column="xname" property="name"/>
+		<result column="xlevel" property="mlevel"/>
+	</resultMap>
+	
+	<resultMap type="cls.pilottery.oms.game.model.SystemParameter" id="systemParameter">
+	  <id column="SYS_DEFAULT_SEQ" property="sysDefaultSeq" />
+	  <result column="SYS_DEFAULT_DESC" property="sysDefaultDesc" />
+	  <result column="SYS_DEFAULT_VALUE" property="sysDefaultValue" />
+	</resultMap>
+	
+	<select id="getAreas" parameterType="string" resultMap="tree">  
+	    select a.org_code as id, 
+		       a.super_org as pid, 
+		       a.org_name as xname,
+		       decode(a.org_code,'00',0,1) as xlevel
+		  from inf_orgs a
+		 where a.org_status = 1
+		 <if test="areaCode!=null and areaCode!=''">
+		 	and a.org_code = #{areaCode} or a.super_org = #{areaCode}
+		 </if>
+    </select>
+    
+    <select id="getAgencys"  parameterType="string" resultMap="tree">  
+	       select   a.agency_code as id, 
+	         		a.org_code as pid, 
+	         		a.agency_name as xname,
+		       		3 as xlevel
+		  from inf_agencys a
+		 where a.status != 3	 
+		 <if test="ids != null and ids != ''">
+		 	and a.agency_code in ${ids}
+		</if>
+    </select>
+    
+    <select id="getTerminals" parameterType="string" resultMap="tree">
+    	select	a.terminal_code as id,
+    			a.agency_code as pid,
+    			a.terminal_code as xname,
+    			4 as xlevel
+    	from	saler_terminal a
+    	where	a.status != 3
+    	<if test="ids != null and ids != ''">
+    		and a.terminal_code in ${ids}
+    	</if>
+    </select>
+            
+   <select id="getNotices" parameterType="cls.pilottery.oms.business.model.notifymodel.TerminalNotice" resultMap="notice">  
+      select * from ( select a.*,rownum rn from (select u.notice_id,
+	       u.area_level,
+	       u.area_id,
+	       u.send_id,
+	       u.title,
+	       u.content,
+	       u.create_time,
+	       u.send_time,
+	       u.status,
+	       a.admin_realname,
+	       a.admin_account
+		  from sys_terminalnotice u, adm_info a
+		 where u.send_id = a.admin_id(+)
+		<if test="adminId != null and adminId != 0">
+		 and u.send_id = ${adminId}
+		</if>
+		<if test="beginDate != null and beginDate != ''">
+			<![CDATA[
+				and to_char(u.send_time,'yyyy-MM-dd') >= '${beginDate}'
+			]]>
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+				and to_char(u.send_time,'yyyy-MM-dd') <= '${endDate}'
+			]]>
+		</if>		
+	 	<if test="adminAccount != null and adminAccount != ''">
+			and a.admin_account = '${adminAccount}'  
+		</if>
+		<if test="title != null and title != ''">
+			and u.title like '%${title}%'  
+		</if>
+		<![CDATA[
+			order by u.notice_id desc)a ) where rn > ${beginNum} and rn <= ${endNum}
+		]]>
+    </select>
+    
+     <select id="getNoticesCount" parameterType="cls.pilottery.oms.business.model.notifymodel.TerminalNotice" resultType="Integer">  
+      	select count(u.notice_id)
+		  from sys_terminalnotice u, adm_info a
+		 where u.send_id = a.admin_id(+)
+		<if test="adminId != null and adminId != 0">
+		 and u.send_id = ${adminId}
+		</if>
+		<if test="beginDate != null and beginDate != ''">
+			<![CDATA[
+				and to_char(u.send_time,'yyyy-MM-dd') >= '${beginDate}'
+			]]>
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+				and to_char(u.send_time,'yyyy-MM-dd') <= '${endDate}'
+			]]>
+		</if>		
+	 	<if test="adminAccount != null and adminAccount != ''">
+			and a.admin_account = '${adminAccount}'  
+		</if>
+		<if test="title != null and title != ''">
+			and u.title like '%${title}%'  
+		</if>
+    </select>
+    
+   <select id="batchInsertNotice" parameterType="java.util.List" >     
+      Insert Into sys_terminalnotice
+	  (notice_id,
+	   area_level,
+	   area_id,
+	   send_id,
+	   title,
+	   content,
+	   create_time,
+	   send_time,
+	   status) SELECT  seq_sys_tmnoticeid.nextval as notice_id ,A.* FROM (  
+      <foreach collection="list" item="item" index="index" separator="UNION">  
+          SELECT 
+          #{item.objLevel} as area_level, 
+          #{item.objId} as area_id,
+          #{item.adminId} as send_id,
+          #{item.title} as title,
+          #{item.content} as content,
+          sysdate as create_time,
+          sysdate as send_time,
+          1 as status
+          FROM DUAL  
+      </foreach>  
+      ) A  
+	
+    </select> 
+  
+   	<!-- 更新  -->
+	<update id="updateNoticeStatus" parameterType="cls.pilottery.oms.business.model.notifymodel.TerminalNotice">
+	<![CDATA[
+		update sys_terminalnotice
+		   set status = #{status}
+		 where notice_id = #{noticeId}
+		   and send_id = #{adminId}
+	 ]]>
+	</update>
+	
+	<!-- 发布销售站公告 -->
+	<update id="sendNotice" statementType="CALLABLE" parameterType="cls.pilottery.oms.business.model.notifymodel.TerminalNotice">
+		 {call p_om_agbroadcast_create (
+		 		
+    	        #{objNames,mode=IN,jdbcType=VARCHAR},
+    	        #{objIds,mode=IN,jdbcType=VARCHAR},
+    	        #{adminId,mode=IN,jdbcType=NUMERIC},
+    	        #{title,mode=IN,jdbcType=VARCHAR},
+   	        	#{content,mode=IN,jdbcType=VARCHAR},
+   	        	#{sendTime,mode=IN,jdbcType=TIMESTAMP},
+   	        	#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+   	        	#{c_errmsg,mode=OUT,jdbcType=VARCHAR},
+   	        	#{noticeId,mode=OUT,jdbcType=NUMERIC}
+		 	)
+		 }
+	</update>
+	
+	<!-- 查询销售站公告个数 -->
+	<select id="countNotifyList" parameterType="cls.pilottery.oms.business.form.notifyform.TerminalNoticeForm" resultType="Integer">
+		select count(1)
+	  	from MSG_AGENCY_BROCAST a
+	 	where 1=1
+	 	<if test="sendStartTime!=null and sendStartTime!=''">
+	 		<![CDATA[ and to_date(to_char(a.send_time,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{sendStartTime}, 'yyyy-MM-dd')]]>
+	 	</if>
+	 	<if test="sendEndTime!=null and sendEndTime!=''">
+	 		<![CDATA[ and to_date(to_char(a.send_time,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{sendEndTime}, 'yyyy-MM-dd')]]>
+	 	</if>
+	 	<if test="terminalNotice.title!=null and terminalNotice.title!=''">
+	 		and a.title like '%${terminalNotice.title}%'
+	 	</if>
+	 	<if test="adminName!=null and adminName!=''">
+	 		and a.send_admin in
+		       (select a.admin_id
+		          from ADM_INFO a
+		         where a.admin_realname like '%${adminName}%')
+	 	</if>
+	</select>
+	
+	<!-- 查询销售站公告 -->
+	<select id="queryNotifyList" parameterType="cls.pilottery.oms.business.form.notifyform.TerminalNoticeForm" resultMap="notice">
+		select * from (
+			select a.*, rownum rn from (
+				select a.NOTICE_ID "notice_id", a.CAST_STRING, a.SEND_ADMIN,b.admin_realname "adminRealname", a.TITLE "title", 
+						a.CONTENT "content", a.CREATE_TIME "create_time", a.SEND_TIME "send_time",
+						to_char(a.CREATE_TIME,'yyyy-mm-dd HH24:mi:ss') "create_time_tochar",
+						to_char(a.SEND_TIME,'yyyy-mm-dd HH24:mi:ss') "send_time_tochar"
+				from MSG_AGENCY_BROCAST a  left join adm_info b
+                  on(a.send_admin = b.admin_id)
+				where 1=1
+				<if test="sendStartTime!=null and sendStartTime!=''">
+			 		<![CDATA[ and to_date(to_char(a.send_time,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{sendStartTime}, 'yyyy-MM-dd')]]>
+			 	</if>
+			 	<if test="sendEndTime!=null and sendEndTime!=''">
+			 		<![CDATA[ and to_date(to_char(a.send_time,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{sendEndTime}, 'yyyy-MM-dd')]]>
+			 	</if>
+			 	<if test="terminalNotice.title!=null and terminalNotice.title!=''">
+			 		and a.title like '%${terminalNotice.title}%'
+			 	</if>
+			 	<if test="adminName!=null and adminName!=''">
+			 		and a.send_admin in
+				       (select a.admin_id
+				          from ADM_INFO a
+				         where a.admin_realname like '%${adminName}%')
+			 	</if>
+			 	order by a.create_time desc
+			) a)
+		<![CDATA[ where rn > ${terminalNotice.beginNum} and rn <= ${terminalNotice.endNum}]]>
+	</select>
+	
+	<select id="getUser" resultType="java.util.HashMap">
+		select a.ADMIN_ID id, a.ADMIN_REALnAME name from ADM_INFO a
+	</select>
+	
+	<select id="getNoticeById" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select a.title title, a.content content, a.send_admin, b.ADMIN_REALNAME, to_char(a.send_time,'yyyy-MM-dd HH24:mi:ss') send_time, a.cast_string 
+		from MSG_AGENCY_BROCAST a, ADM_INFO b
+		where a.send_admin = b.admin_id
+		and a.NOTICE_ID = #{value}
+	</select>
+	
+	
+	<insert id="sendIMInfo" parameterType="cls.pilottery.oms.business.model.notifymodel.TerminalNotice">
+		<!-- 调用函数，获取序列 -->
+        <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="noticeId">
+			select F_GET_SYS_NOTICEID_SEQ id from dual
+		</selectKey>
+		insert into MSG_INSTANT values
+		(#{noticeId},#{objNames},#{adminId},#{content},#{displayTime},#{positionId},sysdate,#{sendTime,mode=IN,jdbcType=DATE})
+	</insert>
+	
+	<!-- 修改票面信息 -->
+	<update id="updateTicketMessage" parameterType="java.lang.String">
+		update SYS_TICKET_MEMO t set t.ticket_memo = #{value}
+	</update>
+	
+	<select id="getTicketInfoCount" resultType="Integer">
+		select count(1) from SYS_TICKET_MEMO
+	</select>
+	
+	<select id="getTicketMessage" resultType="java.lang.String">
+		 select ticket_memo from SYS_TICKET_MEMO 
+	</select>
+	
+	<!-- 滚动消息 -->
+	<select id="getScrollingNotice1" resultType="java.lang.String">
+		select SYS_DEFAULT_VALUE  from SYS_PARAMETER where SYS_DEFAULT_SEQ=1101
+	</select>
+	
+	<select id="getScrollingNotice2" resultType="java.lang.String">
+		select SYS_DEFAULT_VALUE from SYS_PARAMETER where SYS_DEFAULT_SEQ=1102
+	</select>
+	
+	<select id="getScrollingNotice3" resultType="java.lang.String">
+		select SYS_DEFAULT_VALUE from SYS_PARAMETER where SYS_DEFAULT_SEQ=1103
+	</select>
+	
+	<update id="updateScrollingNotice" parameterType="cls.pilottery.oms.game.model.SystemParameter">
+		update SYS_PARAMETER set SYS_DEFAULT_VALUE = #{sysDefaultValue} where SYS_DEFAULT_SEQ = #{sysDefaultSeq}
+	</update>
+</mapper>

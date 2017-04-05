@@ -1,0 +1,40 @@
+package cls.pilottery.pos.system.model.bank;
+
+public class PayCenterWithdrawRequest extends BasePayCenterMessage {
+	private String eUser;
+	private String acccount;
+	private long amount;
+	private String userAccount;
+	private String reqFlow;
+	public String geteUser() {
+		return eUser;
+	}
+	public void seteUser(String eUser) {
+		this.eUser = eUser;
+	}
+	public String getAcccount() {
+		return acccount;
+	}
+	public void setAcccount(String acccount) {
+		this.acccount = acccount;
+	}
+	public long getAmount() {
+		return amount;
+	}
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+	public String getUserAccount() {
+		return userAccount;
+	}
+	public void setUserAccount(String userAccount) {
+		this.userAccount = userAccount;
+	}
+	public String getReqFlow() {
+		return reqFlow;
+	}
+	public void setReqFlow(String reqFlow) {
+		this.reqFlow = reqFlow;
+	}
+	
+}

@@ -1,0 +1,6 @@
+CREATE OR REPLACE PACKAGE ecncp_dealer_status IS
+   /****** 渠道状态（1-可用，2-暂停，3-删除） ******/
+   enabled                  /* 1=可用 */                CONSTANT NUMBER := 1;
+   disabled                 /* 2=暂停 */                CONSTANT NUMBER := 2;
+   cancelled                /* 3=删除 */                CONSTANT NUMBER := 3;
+END;

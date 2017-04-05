@@ -1,0 +1,8 @@
+package cls.taishan.common.constants;
+
+/*
+ * 系统枚举，英文
+ */
+public class EnumConfig {
+
+}

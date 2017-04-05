@@ -1,0 +1,53 @@
+package cls.taishan.web.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import cls.taishan.web.model.WingSearchInputParam;
+import cls.taishan.web.model.WingSearchOutputParam;
+import cls.taishan.web.service.Impl.WingSearchServiceImpl;
+
+@Controller
+@RequestMapping("/API")
+public class WingSearchController {
+	
+	@Autowired
+	public WingSearchServiceImpl searchService;
+
+	@RequestMapping(value = "/wing_check", method = RequestMethod.POST)
+	@ResponseBody
+	public WingSearchOutputParam doSearch(WingSearchInputParam in){
+		WingSearchOutputParam out = new WingSearchOutputParam();
+		
+		if (in.getEUser() == null || in.getEUser().isEmpty()) {
+			out.setErrorCode(1);
+			out.setErrorMessage("EUser is empty in the input parameter.");
+			return out;
+		}
+
+		if (in.getAccount() == null || in.getAccount().isEmpty()) {
+			out.setErrorCode(1);
+			out.setErrorMessage("Account is empty in the input parameter.");
+			return out;
+		}
+
+		if (in.getReqFlow() == null || in.getReqFlow().isEmpty()) {
+			out.setErrorCode(1);
+			out.setErrorMessage("ReqFlow is empty in the input parameter.");
+			return out;
+		}
+
+		if (in.getTransType() == 0) {
+			out.setErrorCode(1);
+			out.setErrorMessage("TransType is 0 in the input parameter.");
+			return out;
+		}
+		
+		searchService.doSearch(in, out);
+		
+		return out;
+	}
+}

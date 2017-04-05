@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.StockTransferMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.StockTransfer" >
+    <id column="STB_NO" property="stbNo" jdbcType="CHAR" />
+    <result column="APPLY_ADMIN" property="applyAdmin" jdbcType="DECIMAL" />
+    <result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="APPROVE_ADMIN" property="approveAdmin" jdbcType="DECIMAL" />
+    <result column="APPROVE_DATE" property="approveDate" jdbcType="TIMESTAMP" />
+    <result column="RECEIVE_ORG" property="receiveOrg" jdbcType="CHAR" />
+    <result column="RECEIVE_WH" property="receiveWh" jdbcType="CHAR" />
+    <result column="RECEIVE_MANAGER" property="receiveManager" jdbcType="DECIMAL" />
+    <result column="RECEIVE_DATE" property="receiveDate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="IS_MATCH" property="isMatch" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STB_NO, APPLY_ADMIN, APPLY_DATE, APPROVE_ADMIN, APPROVE_DATE, RECEIVE_ORG, RECEIVE_WH, 
+    RECEIVE_MANAGER, RECEIVE_DATE, STATUS, IS_MATCH
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_TRANSFER_BILL
+    where STB_NO = #{stbNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SALE_TRANSFER_BILL
+    where STB_NO = #{stbNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.StockTransfer" >
+    insert into SALE_TRANSFER_BILL (STB_NO, APPLY_ADMIN, APPLY_DATE, 
+      APPROVE_ADMIN, APPROVE_DATE, RECEIVE_ORG, 
+      RECEIVE_WH, RECEIVE_MANAGER, RECEIVE_DATE, 
+      STATUS, IS_MATCH)
+    values (#{stbNo,jdbcType=CHAR}, #{applyAdmin,jdbcType=DECIMAL}, #{applyDate,jdbcType=TIMESTAMP}, 
+      #{approveAdmin,jdbcType=DECIMAL}, #{approveDate,jdbcType=TIMESTAMP}, #{receiveOrg,jdbcType=CHAR}, 
+      #{receiveWh,jdbcType=CHAR}, #{receiveManager,jdbcType=DECIMAL}, #{receiveDate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=DECIMAL}, #{isMatch,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.StockTransfer" >
+    insert into SALE_TRANSFER_BILL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stbNo != null" >
+        STB_NO,
+      </if>
+      <if test="applyAdmin != null" >
+        APPLY_ADMIN,
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE,
+      </if>
+      <if test="approveAdmin != null" >
+        APPROVE_ADMIN,
+      </if>
+      <if test="approveDate != null" >
+        APPROVE_DATE,
+      </if>
+      <if test="receiveOrg != null" >
+        RECEIVE_ORG,
+      </if>
+      <if test="receiveWh != null" >
+        RECEIVE_WH,
+      </if>
+      <if test="receiveManager != null" >
+        RECEIVE_MANAGER,
+      </if>
+      <if test="receiveDate != null" >
+        RECEIVE_DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="isMatch != null" >
+        IS_MATCH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stbNo != null" >
+        #{stbNo,jdbcType=CHAR},
+      </if>
+      <if test="applyAdmin != null" >
+        #{applyAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveAdmin != null" >
+        #{approveAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="approveDate != null" >
+        #{approveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveOrg != null" >
+        #{receiveOrg,jdbcType=CHAR},
+      </if>
+      <if test="receiveWh != null" >
+        #{receiveWh,jdbcType=CHAR},
+      </if>
+      <if test="receiveManager != null" >
+        #{receiveManager,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveDate != null" >
+        #{receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="isMatch != null" >
+        #{isMatch,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.StockTransfer" >
+    update SALE_TRANSFER_BILL
+    <set >
+      <if test="applyAdmin != null" >
+        APPLY_ADMIN = #{applyAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveAdmin != null" >
+        APPROVE_ADMIN = #{approveAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="approveDate != null" >
+        APPROVE_DATE = #{approveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveOrg != null" >
+        RECEIVE_ORG = #{receiveOrg,jdbcType=CHAR},
+      </if>
+      <if test="receiveWh != null" >
+        RECEIVE_WH = #{receiveWh,jdbcType=CHAR},
+      </if>
+      <if test="receiveManager != null" >
+        RECEIVE_MANAGER = #{receiveManager,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveDate != null" >
+        RECEIVE_DATE = #{receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="isMatch != null" >
+        IS_MATCH = #{isMatch,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where STB_NO = #{stbNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.StockTransfer" >
+    update SALE_TRANSFER_BILL
+    set APPLY_ADMIN = #{applyAdmin,jdbcType=DECIMAL},
+      APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      APPROVE_ADMIN = #{approveAdmin,jdbcType=DECIMAL},
+      APPROVE_DATE = #{approveDate,jdbcType=TIMESTAMP},
+      RECEIVE_ORG = #{receiveOrg,jdbcType=CHAR},
+      RECEIVE_WH = #{receiveWh,jdbcType=CHAR},
+      RECEIVE_MANAGER = #{receiveManager,jdbcType=DECIMAL},
+      RECEIVE_DATE = #{receiveDate,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      IS_MATCH = #{isMatch,jdbcType=DECIMAL}
+    where STB_NO = #{stbNo,jdbcType=CHAR}
+  </update>
+</mapper>

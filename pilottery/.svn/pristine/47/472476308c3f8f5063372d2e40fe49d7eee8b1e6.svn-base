@@ -1,0 +1,7 @@
+log_level = 0
+tcp_port = 12880
+ncpc_ip = 192.168.26.160
+ncpc_port = 20000
+worker_count = 4
+keepalive_time = 30
+

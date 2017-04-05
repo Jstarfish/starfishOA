@@ -1,0 +1,280 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	margin: 0px;
+	padding: 0px;
+	font: 14px/20px "微软雅黑", Arial, Helvetica, sans-serif;
+	background: #f2f1f1;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	overflow-y: hidden;
+}
+
+#title{
+    height:38px;
+    line-height:38px;
+    background:#fafafa;
+    font-size:24px;
+    color:#2aa1d9;
+    border-bottom:1px solid #e3e3e3;
+    padding-left:15px;
+    
+}
+#mainDiv {
+	position: absolute;
+	width: 100%;
+	top: 38px;
+    bottom: 0px;
+	overflow-y: auto;
+}
+
+#mainDiv .CPage {
+    margin-top: 20px;
+    /** border-style: solid; /**/
+}
+
+#mainDiv .CPage table {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#mainDiv .CPage .tab {
+    background: #fff;
+    height: 400px;
+    box-shadow: -1px 3px 4px 2px #dddcdc;
+    padding: 10px;
+    overflow-y: auto;
+    /** border-style: solid; /**/
+}
+/*
+#mainDiv .tab table {
+    border:1px solid #d6d6d6;
+}
+*/
+#mainDiv .CPage .tabxian {
+    border: 1px solid #d6d6d6;
+    border-collapse: collapse;
+}
+#mainDiv .CPage .tabxian_h {
+    border: 1px solid #eff1f4;
+    border-collapse: collapse;
+}
+#mainDiv .CPage .lz {
+    font-size: 18px;
+    color: #40a7da;
+    text-align: center;
+}
+#mainDiv .CPage .lzx {
+    font-size: 14px;
+    color: #40a7da;
+    padding-right:8px;
+
+}
+#mainDiv .CPage .xh {
+
+    color: #000;
+    text-align: right;
+    padding-right:8px;
+}
+#mainDiv .CPage .tit {
+    border-bottom: 1px solid #d6d6d6;
+    height: 60px;
+    line-height: 60px;
+    padding-left:10px;
+    padding-right:10px;
+    color: #27a0d7;
+}
+
+#mainDiv .CPage .bot {
+    height: 30px;
+    margin-top: 20px;
+    font-size: 12px;
+    font-family: "微软雅黑";
+    color: #40a7da;
+    line-height: 30px;
+    /** border-style: solid; /**/
+}
+
+#mainDiv .xd {
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900;
+    
+    /** border-style: solid; /**/
+}
+
+#mainDiv .xd span {
+    color: #cac9c9;
+    text-shadow: 1px 1px 1px #fff;
+    padding-right: 12px;
+}
+
+#mainDiv .xd span.zi {
+    color: #f64f48;
+}
+
+
+#mainDiv .jdt {
+    margin-top: 10px;
+    /** background: url(views/game-draw/img/jdt-1.gif) no-repeat left top; */
+    width: 957px;
+    height: 33px;
+    line-height: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    /** border-style: solid;/**/
+}
+
+.tabxian {
+    border: 1px solid #eff1f4;
+    border-collapse: collapse;
+}
+.jjzi td {
+    border-bottom: 1px solid #eff1f4;
+    border-right: 1px solid #eff1f4;
+}
+
+.biaot {
+    background-color: #2aa1d9;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    text-align: left;
+    text-indent:5px;
+}
+.jjzi {
+    text-align: left;
+    line-height: 30px;
+    text-indent:5px;
+    height: 50px;
+}
+
+._text {
+	margin-left:30px;
+	margin-right:10px;
+	border-style: solid;
+	border-width: 1px;
+
+}
+
+#nextBtn {
+	width:60px;
+	height:60px;
+    opacity: 0.3;
+}
+#nextBtn:hover{
+    opacity: 0.8;
+}
+
+#refreshBtn:hover {
+    background-image:url(../img/refresh2.png);
+}
+
+#printBtn:hover {
+    background-image:url(../img/print2.png);
+}
+
+/***--------------------------***/
+
+
+.my_select{  
+    cursor:pointer;
+    line-height:20px;
+    height:31px;
+    border-style:solid;
+    -webkit-appearance: none;
+    border-width:1px 29px 1px 1px;
+    width:245px;
+    -webkit-border-image:url("../img/select.gif") 1 29 1 1 round round ; 
+    color:#000;
+    font-family:"microsoft yahei", "微软雅黑";
+    font-size:18px; 
+    
+}
+
+/** 
+.select_init {
+    width:245px;
+    height:31px;
+    color:#000000;
+    text-align: left;
+    font-size: 18px;
+    line-height: 30px;
+    border-right: #40a7da 1px solid;
+    border-top: #40a7da 1px solid;
+    border-left: #40a7da 1px solid;
+    border-bottom: #40a7da 1px solid;
+}
+**/
+
+.my_input{
+    width:245px;
+    height: 31px;
+    border: 1px solid #40a7da;
+    font-size: 18px;
+    line-height: 30px;
+    background-color: #FFF;
+    font-family: "微软雅黑";
+    padding-left: 3px;
+}
+
+.refresh{
+    background:url(../img/_refresh1.png) no-repeat left;
+    background-position-x: -5px;
+    padding: 5px 5px 5px 5px;
+    cursor: hand;
+    border-width:1px;
+    border-style:solid;
+    border-color: transparent;
+}
+
+.refresh:hover{
+    border-style:solid;
+    background-color:#e7f8f2;
+    border-color:#aad8ef;
+    border-width:1px;
+}
+.refresh a{
+    margin-left:27px;
+    text-decoration:none;
+    color:#27a0d7;
+}
+
+.print{
+    background:url(../img/_print1.png) no-repeat left;
+    background-position-x: -5px;
+    padding: 5px 5px 5px 5px;
+    cursor: hand;
+    border-width:1px;
+    border-style:solid;
+    border-color: transparent;
+}
+
+.print:hover{
+    border-style:solid;
+    background-color:#e7f8f2;
+    border-color:#aad8ef;
+    border-width:1px;
+}
+.print a{
+    margin-left:27px;
+    text-decoration:none;
+    color:#27a0d7;
+    font-size:14px;
+}
+
+
+
+/** 校验提示样式 **/
+.tip_init{
+    color:#cac9c9;
+    font-size:14px;
+}
+.tip_error{
+    color:red;
+    font-size:14px;
+}

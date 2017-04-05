@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.taishan.system.dao.RoleDao">
+	<resultMap type="cls.taishan.system.model.Role" id="role">
+		<id column="role_id" property="roleId" />
+		<result column="role_name" property="roleName" />
+		<result column="role_comment" property="remark" />
+	</resultMap>
+
+	<select id="getAllRoles" resultMap="role">
+		select role_id,role_name,role_comment from adm_role
+	</select>
+
+	<select id="getRoleById" parameterType="Long" resultMap="role">
+		select role_id,role_name,role_comment 
+		  from adm_role
+		 where role_id = #{_parameter}
+	</select>
+	
+	<update id="updateRole" parameterType="cls.taishan.system.model.Role">
+		update adm_role 
+		   set role_name = #{roleName},role_comment = #{remark}
+		 where role_id = #{roleId}
+	</update>
+	
+	<insert id="saveRole" parameterType="cls.taishan.system.model.Role">
+		insert into adm_role(role_id,role_name,role_comment)
+		values (seq_adm_id.nextval,#{roleName}, #{remark} )
+	</insert>
+	
+	<select id="getUserCountByRole" resultType="int" parameterType="long">
+		select count(1) from adm_role_admin where role_id = #{parameter}
+	</select>
+	
+	<delete id="deleteRole" parameterType="long">
+		delete from adm_role where role_id = #{parameter} 
+	</delete>
+	
+	<delete id="deletePrivilegeByRole" parameterType="long">
+		delete from adm_role_privilege where role_id = #{parameter} 
+	</delete>
+	
+	<select id="getMenuTree" parameterType="long" resultType="cls.taishan.system.model.PrivilegeTree">
+		with role_menu as
+			(select * from adm_role_privilege where role_id = #{_parameter})
+			select privilege_id id,
+			       privilege_name name,
+			       privilege_remark remark,
+			       privilege_parent pId,
+			       case when role_id is null then
+			           0
+			          else
+			           1
+			        end checked
+			  from adm_privilege
+			  left join role_menu
+			 using (privilege_id)
+			 where privilege_system = 3
+	</select>
+	
+	<insert id="saveRolePermission" parameterType="cls.taishan.system.form.RolePermisionForm">
+		insert into adm_role_privilege(role_id,privilege_id)
+		values (#{roleId}, #{menuId} )
+	</insert>
+	
+	<delete id="deleteRolePermission" parameterType="long">
+		delete from adm_role_privilege where role_id = #{parameter} 
+	</delete>
+	
+</mapper>

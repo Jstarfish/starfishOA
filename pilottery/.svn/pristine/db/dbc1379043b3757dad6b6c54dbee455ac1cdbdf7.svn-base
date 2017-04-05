@@ -1,0 +1,9 @@
+create or replace package ecncp_error is
+  /****** CNCP错误定义   ******/
+
+  dealer_status_invalid              constant  varchar2(4000) := '渠道状态不正确';
+  dealer_game_not_auth               constant  varchar2(4000) := '渠道游戏未授权';
+  dealer_issue_not_open              constant  varchar2(4000) := '游戏期次应该为在售或者开启状态';
+  invalid_apply_flow                 constant  varchar2(4000) := '请求流水格式非法（长度应该为24位）';
+ 
+end;

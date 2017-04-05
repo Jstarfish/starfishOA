@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.report.dao.HQItemIssueReportDao">
+	
+	<select id="getAllWarehouseUnderHQ" resultType="cls.pilottery.web.warehouses.model.WarehouseInfo">
+		SELECT w.warehouse_code AS warehouseCode
+		      ,w.warehouse_name AS warehouseName
+		  FROM wh_info w
+		 WHERE w.org_code = '00' 
+	</select>
+	
+	<select id="getHQItemIssueReportList" parameterType="cls.pilottery.web.report.form.HQItemIssueReportForm" 
+			resultType="cls.pilottery.web.report.model.HQItemIssueReportVo">
+		SELECT detail.ii_no AS issueCode
+				,u.admin_realname AS operatorName
+				,to_char(issue.issue_date, 'yyyy-mm-dd hh24:mm:ss') AS issueDate
+				,wh.warehouse_name AS sendWhName
+				,org.org_name AS receiveOrgName
+				,item.item_name AS itemName
+				,detail.quantity AS quantity
+		FROM item_issue_detail detail
+			LEFT JOIN item_issue issue ON issue.ii_no = detail.ii_no
+		  	LEFT JOIN adm_info u ON u.admin_id = issue.oper_admin
+		  	LEFT JOIN wh_info wh ON wh.warehouse_code = issue.send_wh
+		  	LEFT JOIN inf_orgs org ON org.org_code = issue.receive_org
+		  	LEFT JOIN item_items item ON item.item_code = detail.item_code
+		WHERE 1 = 1
+		<if test="warehouseCode != null and warehouseCode != ''">
+			AND wh.warehouse_code = #{warehouseCode}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			<![CDATA[ AND issue.issue_date >= to_date(#{startDate},'yyyy-mm-dd') ]]>
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[ AND issue.issue_date <= to_date(#{endDate},'yyyy-mm-dd') + 1 ]]>
+		</if>
+		ORDER BY detail.ii_no DESC
+	</select>
+</mapper>

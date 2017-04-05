@@ -1,0 +1,53 @@
+                 TAISHAN 3.0 RNG INSTALLATION GUIDE
+
+Third Party Package:
+
+    NCURSES: yum install ncurses-devel
+    CMake: Please check our detailed installation document
+
+Preinstallation Arrangement: Run as superuser the following
+
+    1. Create user 'taishan'
+    2. Create directory '/ts_rng'
+    3. Create directory '/ts_rng/ipcs'
+    4. Create file '/ts_rng/ipcs/shm.key'
+    5. Make 'taishan' the owner the directory '/ts_rng' and its subdirectories 
+
+Installation Procedure:
+
+    cd ${YOUR_SRC_DIR}/build
+    cmake .. (or 'cmake -DCMAKE_BUILD_TYPE=Debug ..' if you want debug mode)
+    make
+    make install (as superuser)
+
+Start RNG:
+
+    cd /ts_rng/sbin
+    ./rng_servctl start
+    
+Stop RNG:
+
+    cd /ts_rng/sbin
+    ./rng_servctl stop
+
+Restart RNG:
+
+    cd /ts_rng/sbin
+    ./rng_servctl restart
+
+Check RNG Status:
+
+    cd /ts_rng/sbin
+    ./rng_servctl status
+
+Monitor RNG Information Using "rngview":
+
+    when the RNG has started, go to '/ts_rng/sbin' and run './rngview', a 
+    monitor program will show up and detailed network and business information
+    will be shown.
+
+CHANGELOG
+
+-- 2014, Jun, 08th -- Document created by Shawn Qingxiang Wang
+-- 2014, Aug, 21st -- Description fixes
+

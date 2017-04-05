@@ -1,0 +1,58 @@
+CREATE OR REPLACE PROCEDURE p_mis_dss_00_prepare IS
+   v_sql VARCHAR2(100);
+BEGIN
+   -- 清空临时表
+   v_sql := 'truncate table tmp_all_issue';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table TMP_SELL_ISSUE';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table TMP_WIN_ISSUE';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table TMP_ABAND_ISSUE';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table TMP_AGENCY';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_multi_cancel';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_multi_pay';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_multi_sell';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3111';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3112';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3113';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3116';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3121';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3122';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3124';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_3125';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_aband';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_ncp';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_rst_win';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_abandon';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_abandon_detail';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_cancel';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_pay';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_sell';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_sell_detail';
+   EXECUTE IMMEDIATE v_sql;
+   v_sql := 'truncate table tmp_src_win';
+   EXECUTE IMMEDIATE v_sql;
+
+END;

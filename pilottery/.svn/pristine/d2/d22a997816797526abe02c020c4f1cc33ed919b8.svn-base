@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.WhTicketTrunkMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.WhTicketTrunk" >
+    <id column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+    <id column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <id column="TRUNK_NO" property="trunkNo" jdbcType="VARCHAR" />
+    <result column="REWARD_GROUP" property="rewardGroup" jdbcType="DECIMAL" />
+    <result column="PACKAGE_NO_START" property="packageNoStart" jdbcType="VARCHAR" />
+    <result column="PACKAGE_NO_END" property="packageNoEnd" jdbcType="VARCHAR" />
+    <result column="IS_FULL" property="isFull" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CURRENT_WAREHOUSE" property="currentWarehouse" jdbcType="VARCHAR" />
+    <result column="LAST_WAREHOUSE" property="lastWarehouse" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ADMIN" property="createAdmin" jdbcType="DECIMAL" />
+    <result column="CHANGE_ADMIN" property="changeAdmin" jdbcType="DECIMAL" />
+    <result column="CHANGE_DATE" property="changeDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PLAN_CODE, BATCH_NO, TRUNK_NO, REWARD_GROUP, PACKAGE_NO_START, PACKAGE_NO_END, IS_FULL, 
+    STATUS, CURRENT_WAREHOUSE, LAST_WAREHOUSE, CREATE_DATE, CREATE_ADMIN, CHANGE_ADMIN, 
+    CHANGE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cls.pilottery.model.WhTicketTrunkKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from WH_TICKET_TRUNK
+    where PLAN_CODE = #{planCode,jdbcType=VARCHAR}
+      and BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+      and TRUNK_NO = #{trunkNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cls.pilottery.model.WhTicketTrunkKey" >
+    delete from WH_TICKET_TRUNK
+    where PLAN_CODE = #{planCode,jdbcType=VARCHAR}
+      and BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+      and TRUNK_NO = #{trunkNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.WhTicketTrunk" >
+    insert into WH_TICKET_TRUNK (PLAN_CODE, BATCH_NO, TRUNK_NO, 
+      REWARD_GROUP, PACKAGE_NO_START, PACKAGE_NO_END, 
+      IS_FULL, STATUS, CURRENT_WAREHOUSE, 
+      LAST_WAREHOUSE, CREATE_DATE, CREATE_ADMIN, 
+      CHANGE_ADMIN, CHANGE_DATE)
+    values (#{planCode,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, #{trunkNo,jdbcType=VARCHAR}, 
+      #{rewardGroup,jdbcType=DECIMAL}, #{packageNoStart,jdbcType=VARCHAR}, #{packageNoEnd,jdbcType=VARCHAR}, 
+      #{isFull,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, #{currentWarehouse,jdbcType=VARCHAR}, 
+      #{lastWarehouse,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createAdmin,jdbcType=DECIMAL}, 
+      #{changeAdmin,jdbcType=DECIMAL}, #{changeDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.WhTicketTrunk" >
+    insert into WH_TICKET_TRUNK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="planCode != null" >
+        PLAN_CODE,
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO,
+      </if>
+      <if test="trunkNo != null" >
+        TRUNK_NO,
+      </if>
+      <if test="rewardGroup != null" >
+        REWARD_GROUP,
+      </if>
+      <if test="packageNoStart != null" >
+        PACKAGE_NO_START,
+      </if>
+      <if test="packageNoEnd != null" >
+        PACKAGE_NO_END,
+      </if>
+      <if test="isFull != null" >
+        IS_FULL,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="currentWarehouse != null" >
+        CURRENT_WAREHOUSE,
+      </if>
+      <if test="lastWarehouse != null" >
+        LAST_WAREHOUSE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createAdmin != null" >
+        CREATE_ADMIN,
+      </if>
+      <if test="changeAdmin != null" >
+        CHANGE_ADMIN,
+      </if>
+      <if test="changeDate != null" >
+        CHANGE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="trunkNo != null" >
+        #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardGroup != null" >
+        #{rewardGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNoStart != null" >
+        #{packageNoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="packageNoEnd != null" >
+        #{packageNoEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="isFull != null" >
+        #{isFull,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="currentWarehouse != null" >
+        #{currentWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="lastWarehouse != null" >
+        #{lastWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createAdmin != null" >
+        #{createAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="changeAdmin != null" >
+        #{changeAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null" >
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.WhTicketTrunk" >
+    update WH_TICKET_TRUNK
+    <set >
+      <if test="rewardGroup != null" >
+        REWARD_GROUP = #{rewardGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNoStart != null" >
+        PACKAGE_NO_START = #{packageNoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="packageNoEnd != null" >
+        PACKAGE_NO_END = #{packageNoEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="isFull != null" >
+        IS_FULL = #{isFull,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="currentWarehouse != null" >
+        CURRENT_WAREHOUSE = #{currentWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="lastWarehouse != null" >
+        LAST_WAREHOUSE = #{lastWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createAdmin != null" >
+        CREATE_ADMIN = #{createAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="changeAdmin != null" >
+        CHANGE_ADMIN = #{changeAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null" >
+        CHANGE_DATE = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PLAN_CODE = #{planCode,jdbcType=VARCHAR}
+      and BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+      and TRUNK_NO = #{trunkNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.WhTicketTrunk" >
+    update WH_TICKET_TRUNK
+    set REWARD_GROUP = #{rewardGroup,jdbcType=DECIMAL},
+      PACKAGE_NO_START = #{packageNoStart,jdbcType=VARCHAR},
+      PACKAGE_NO_END = #{packageNoEnd,jdbcType=VARCHAR},
+      IS_FULL = #{isFull,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      CURRENT_WAREHOUSE = #{currentWarehouse,jdbcType=VARCHAR},
+      LAST_WAREHOUSE = #{lastWarehouse,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_ADMIN = #{createAdmin,jdbcType=DECIMAL},
+      CHANGE_ADMIN = #{changeAdmin,jdbcType=DECIMAL},
+      CHANGE_DATE = #{changeDate,jdbcType=TIMESTAMP}
+    where PLAN_CODE = #{planCode,jdbcType=VARCHAR}
+      and BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+      and TRUNK_NO = #{trunkNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

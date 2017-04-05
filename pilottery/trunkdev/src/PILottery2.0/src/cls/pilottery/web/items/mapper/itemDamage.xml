@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cls.pilottery.web.items.dao.ItemDamageDao">
+
+	<resultMap type="cls.pilottery.web.items.model.ItemDamage" id="itemDamageMap">
+		<id column="ID_NO" property="idNo"/>
+		<result column="DAMAGE_DATE" property="damageDate"/>
+		<result column="ITEM_CODE" property="itemCode"/>
+		<result column="ITEM_NAME" property="itemName"/><!-- Foreign Table -->
+		<result column="QUANTITY" property="quantity"/>
+		<result column="CHECK_ADMIN" property="checkAdmin"/>
+		<result column="ADMIN_REALNAME" property="checkAdminName"/><!-- Foreign Table -->
+		<result column="REMARK" property="remark"/>
+		<result column="WAREHOUSE_CODE" property="warehouseCode"/>
+		<result column="WAREHOUSE_NAME" property="warehouseName"/><!-- Foreign Table -->
+	</resultMap>
+
+	<!-- 获得物品损毁记录总数 -->
+	<select id="getItemDamageCount" parameterType="cls.pilottery.web.items.form.ItemDamageQueryForm" resultType="Integer">
+		SELECT COUNT(1)
+		  FROM ITEM_DAMAGE D
+		    LEFT JOIN ITEM_ITEMS I ON I.ITEM_CODE = D.ITEM_CODE
+		    LEFT JOIN WH_INFO W ON W.WAREHOUSE_CODE = D.WAREHOUSE_CODE
+		 WHERE 1 = 1
+		 <if test="itemCode != null and itemCode != ''">
+		   AND D.ITEM_CODE = #{itemCode}
+		 </if>
+		 <if test="itemName != null and itemName != ''">
+		   AND I.ITEM_NAME = #{itemName}
+		 </if>
+		 <if test="damageDate != null and damageDate != ''">
+		   AND TO_CHAR(D.DAMAGE_DATE, 'yyyy-mm-dd') = #{damageDate}
+		 </if>
+		 <if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+           AND W.ORG_CODE = #{sessionOrgCode}
+         </if>
+	</select>
+	
+	<!-- 获得物品损毁记录列表 -->
+	<select id="getItemDamageList" parameterType="cls.pilottery.web.items.form.ItemDamageQueryForm" resultMap="itemDamageMap">
+		SELECT * FROM (
+			SELECT R.*, ROWNUM AS RN FROM (
+				SELECT D.ID_NO,
+				       TO_CHAR(D.DAMAGE_DATE,'YYYY-MM-DD HH24:MM:SS') AS DAMAGE_DATE,
+				       D.ITEM_CODE,
+				       I.ITEM_NAME,
+				       D.QUANTITY,
+				       D.CHECK_ADMIN,
+				       U.ADMIN_REALNAME,
+				       D.REMARK,
+				       D.WAREHOUSE_CODE,
+				       W.WAREHOUSE_NAME
+				  FROM ITEM_DAMAGE D
+				    LEFT JOIN ITEM_ITEMS I ON I.ITEM_CODE = D.ITEM_CODE
+				    LEFT JOIN ADM_INFO U ON U.ADMIN_ID = D.CHECK_ADMIN
+				    LEFT JOIN WH_INFO W ON W.WAREHOUSE_CODE = D.WAREHOUSE_CODE
+				 WHERE 1 = 1
+				 <if test="itemCode != null and itemCode != ''">
+				   AND D.ITEM_CODE = #{itemCode}
+				 </if>
+				 <if test="itemName != null and itemName != ''">
+				   AND I.ITEM_NAME = #{itemName}
+				 </if>
+				 <if test="damageDate != null and damageDate != ''">
+				   AND TO_CHAR(D.DAMAGE_DATE, 'YYYY-MM-DD') = #{damageDate}
+				 </if>
+				 <if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+           		   AND W.ORG_CODE = #{sessionOrgCode}
+         		 </if>
+				 ORDER BY D.ID_NO DESC, DAMAGE_DATE DESC, I.ITEM_CODE ASC
+   <![CDATA[) R
+   		) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+	</select>
+	
+	<!-- 新增损毁记录 -->
+	<update id="addItemDamage" statementType="CALLABLE" parameterType="cls.pilottery.web.items.form.NewItemDamageForm">
+		{CALL P_ITEM_DAMAGE_REGISTER(
+			#{itemCode,mode=IN,jdbcType=VARCHAR},
+			#{warehouseCode,mode=IN,jdbcType=VARCHAR},
+			#{quantity,mode=IN,jdbcType=NUMERIC},
+			#{checkAdmin,mode=IN,jdbcType=NUMERIC},
+			#{remark,mode=IN,jdbcType=VARCHAR},
+			#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    		#{c_errmsg,mode=OUT,jdbcType=VARCHAR},
+			#{idNo,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</update>
+
+</mapper>

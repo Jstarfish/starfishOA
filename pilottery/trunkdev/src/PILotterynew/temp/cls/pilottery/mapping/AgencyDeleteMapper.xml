@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.AgencyDeleteMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.AgencyDelete" >
+    <id column="DELETE_NO" property="deleteNo" jdbcType="CHAR" />
+    <result column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+    <result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+    <result column="AVAILABLE_CREDIT" property="availableCredit" jdbcType="DECIMAL" />
+    <result column="TEMP_CREDIT" property="tempCredit" jdbcType="DECIMAL" />
+    <result column="MARGINAL_CREDIT" property="marginalCredit" jdbcType="DECIMAL" />
+    <result column="OPER_TIME" property="operTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ADMIN" property="operAdmin" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DELETE_NO, AGENCY_CODE, AGENCY_NAME, AVAILABLE_CREDIT, TEMP_CREDIT, MARGINAL_CREDIT, 
+    OPER_TIME, OPER_ADMIN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from INF_AGENCY_DELETE
+    where DELETE_NO = #{deleteNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from INF_AGENCY_DELETE
+    where DELETE_NO = #{deleteNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.AgencyDelete" >
+    insert into INF_AGENCY_DELETE (DELETE_NO, AGENCY_CODE, AGENCY_NAME, 
+      AVAILABLE_CREDIT, TEMP_CREDIT, MARGINAL_CREDIT, 
+      OPER_TIME, OPER_ADMIN)
+    values (#{deleteNo,jdbcType=CHAR}, #{agencyCode,jdbcType=CHAR}, #{agencyName,jdbcType=VARCHAR}, 
+      #{availableCredit,jdbcType=DECIMAL}, #{tempCredit,jdbcType=DECIMAL}, #{marginalCredit,jdbcType=DECIMAL}, 
+      #{operTime,jdbcType=TIMESTAMP}, #{operAdmin,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.AgencyDelete" >
+    insert into INF_AGENCY_DELETE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deleteNo != null" >
+        DELETE_NO,
+      </if>
+      <if test="agencyCode != null" >
+        AGENCY_CODE,
+      </if>
+      <if test="agencyName != null" >
+        AGENCY_NAME,
+      </if>
+      <if test="availableCredit != null" >
+        AVAILABLE_CREDIT,
+      </if>
+      <if test="tempCredit != null" >
+        TEMP_CREDIT,
+      </if>
+      <if test="marginalCredit != null" >
+        MARGINAL_CREDIT,
+      </if>
+      <if test="operTime != null" >
+        OPER_TIME,
+      </if>
+      <if test="operAdmin != null" >
+        OPER_ADMIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deleteNo != null" >
+        #{deleteNo,jdbcType=CHAR},
+      </if>
+      <if test="agencyCode != null" >
+        #{agencyCode,jdbcType=CHAR},
+      </if>
+      <if test="agencyName != null" >
+        #{agencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="availableCredit != null" >
+        #{availableCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="tempCredit != null" >
+        #{tempCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="marginalCredit != null" >
+        #{marginalCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="operTime != null" >
+        #{operTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operAdmin != null" >
+        #{operAdmin,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.AgencyDelete" >
+    update INF_AGENCY_DELETE
+    <set >
+      <if test="agencyCode != null" >
+        AGENCY_CODE = #{agencyCode,jdbcType=CHAR},
+      </if>
+      <if test="agencyName != null" >
+        AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="availableCredit != null" >
+        AVAILABLE_CREDIT = #{availableCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="tempCredit != null" >
+        TEMP_CREDIT = #{tempCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="marginalCredit != null" >
+        MARGINAL_CREDIT = #{marginalCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="operTime != null" >
+        OPER_TIME = #{operTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operAdmin != null" >
+        OPER_ADMIN = #{operAdmin,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DELETE_NO = #{deleteNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.AgencyDelete" >
+    update INF_AGENCY_DELETE
+    set AGENCY_CODE = #{agencyCode,jdbcType=CHAR},
+      AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      AVAILABLE_CREDIT = #{availableCredit,jdbcType=DECIMAL},
+      TEMP_CREDIT = #{tempCredit,jdbcType=DECIMAL},
+      MARGINAL_CREDIT = #{marginalCredit,jdbcType=DECIMAL},
+      OPER_TIME = #{operTime,jdbcType=TIMESTAMP},
+      OPER_ADMIN = #{operAdmin,jdbcType=DECIMAL}
+    where DELETE_NO = #{deleteNo,jdbcType=CHAR}
+  </update>
+</mapper>

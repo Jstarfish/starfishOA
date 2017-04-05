@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.fbs.dao.LeagueDao">
+	<resultMap type="cls.pilottery.fbs.model.League" id="league">
+		<id column="COMPETITION_CODE" property="competitionCode" />
+		<result column="COMPETITION_ABBR" property="abbr" />
+		<result column="COMPETITION_NAME" property="name" />
+	</resultMap>
+	
+	<!-- 分页记录总数 -->
+	<select id="getLeagueCount" parameterType="cls.pilottery.fbs.model.League" resultType="Integer">
+		select count(1) from FBS_COMPETITION
+	</select>
+	
+ 	<!-- 足球联赛列表 -->
+	<select id="getLeagueList" parameterType="cls.pilottery.fbs.model.League"
+		resultType="cls.pilottery.fbs.model.League">
+		select * from (
+		select a.*,rownum rn from (
+			select  f.COMPETITION_CODE as competitionCode,
+       				f.COMPETITION_ABBR as abbr,
+       				f.COMPETITION_NAME as  name from fbs_competition f 
+	 		where 1 = 1
+			order by competition_code
+	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	
+	<select id="getTeam" resultType="cls.pilottery.fbs.model.Team">
+		select t.team_code    as teamCode,
+		       t.full_name    as fullName,
+		       c.country_name as countryName,
+		       t.remark
+		  from FBS_COMPETITION_TEAM t
+		  left join fbs_country c
+		    on t.country_code = c.country_code
+		 order by t.team_code
+	</select>
+	
+	
+	<insert id="saveLeagueTeamRelation" parameterType="cls.pilottery.fbs.model.LeagueTeamRelation">
+		INSERT INTO FBS_COMPETITION_TEAM_RELATE(COMPETITION_CODE, TEAM_CODE)
+		VALUES (#{competitionCode},#{teamCode})
+	</insert>
+	
+	 <insert id="addLeague" parameterType="cls.pilottery.fbs.model.League">
+        INSERT INTO fbs_competition (COMPETITION_CODE,COMPETITION_ABBR,COMPETITION_NAME)
+        VALUES (#{competitionCode},#{abbr},#{name})
+	</insert> 
+	
+	
+	<delete id="deleteLeague" parameterType="cls.pilottery.fbs.model.League">
+		 DELETE from FBS_COMPETITION WHERE COMPETITION_CODE =#{competitionCode}
+	</delete>
+	
+	<select id="getLeagueByCode"  parameterType="String" resultMap="league">
+		select t.competition_code,
+		       t.COMPETITION_ABBR,
+		       t.COMPETITION_NAME from FBS_COMPETITION t
+		 where t.competition_code = #{competitionCode}
+	</select>
+	
+	 <select id="getTeamByLeagueCode" parameterType="String" resultType="cls.pilottery.fbs.model.Team">
+		select t.team_code    as teamCode,
+		       t.full_name    as fullName,
+		       c.country_name as countryName,
+		       t.remark       as remark
+		  from fbs_competition_team t
+		  left join fbs_country c
+		    on t.country_code = c.country_code
+		 where t.team_code in (select r.team_code
+		                         from fbs_competition_team_relate r
+		                        where r.competition_code = #{competitionCode})
+	</select> 
+	
+	<delete id="deleteLeagueTeam" parameterType="string">
+		delete from FBS_COMPETITION_TEAM_RELATE where COMPETITION_CODE = #{competitionCode}
+	</delete>
+	
+	<update id="updateLeague" parameterType="cls.pilottery.fbs.model.League" >
+		UPDATE fbs_competition
+		SET COMPETITION_ABBR = #{abbr},
+			<if test="name!=null and name!=''">
+			COMPETITION_NAME=#{name}
+			</if>
+		WHERE COMPETITION_CODE = #{competitionCode}
+	</update>
+	
+	<select id="getMaxLeagueCode" resultType="Integer">
+		select max(competition_code) from FBS_COMPETITION
+	</select>
+	
+</mapper>

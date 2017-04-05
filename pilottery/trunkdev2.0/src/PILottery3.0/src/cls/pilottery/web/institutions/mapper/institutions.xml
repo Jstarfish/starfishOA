@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.institutions.dao.InstitutionsDao">
+	<resultMap type="cls.pilottery.web.institutions.model.InfOrgs" id="inforgs">
+		<id column="ORG_CODE" property="orgCode" />
+		<result column="ORG_NAME" property="orgName" />
+		<result column="ORG_TYPE" property="orgType" />
+		<result column="SUPER_ORG" property="superOrg" />
+		<result column="PHONE" property="phone" />
+		<result column="DIRECTOR_ADMIN" property="directorAdmin" />
+		<result column="PERSONS" property="persons" />
+		<result column="ADDRESS" property="address" />
+		<result column="ORG_STATUS" property="orgStatus" />
+
+	</resultMap>
+		<resultMap type="cls.pilottery.web.area.model.City" id="city">
+		<id column="AREA_CODE" property="cityCode" />
+		<result column="AREA_NAME" property="cityName" />
+		<result column="SUPER_AREA" property="pid" />
+		<result column="agency_code" property="agencyCode" />
+		<result column="agency_name" property="agencyName" />
+		
+	</resultMap>
+	<!-- 分页记录总数 -->
+	<select id="getInstitutionsCount" parameterType="cls.pilottery.web.institutions.form.InstitutionsForm" resultType="Integer">
+		select count(1) from INF_ORGS org left join ADM_INFO u
+		on org.director_admin = u.admin_id
+		where 1 = 1
+		<if test="orgCode != null and orgCode != ''">
+			and org.org_code = #{orgCode}
+		</if>
+		
+	
+		<if test="orgName != null and orgName != ''">
+			and org.org_name =  #{orgName}
+		</if>
+		<if test="orgType != null and orgType != 0">
+			and org.org_type = #{orgType}
+		</if>
+		
+		and org.ORG_STATUS!=2
+	</select>
+ 	<!-- 部门列表 -->
+	<select id="getInstitutionsList" parameterType="cls.pilottery.web.institutions.form.InstitutionsForm"
+		resultType="cls.pilottery.web.institutions.model.InfOrgs">
+		select * from (
+		select a.*,rownum rn from (
+			select org.org_code as orgCode,
+		      	   org.org_name as orgName,
+		      	   u.admin_realname as directorAdmin,
+		      	   org.org_type as orgType,
+		      	   org.phone   as phone
+	 		 from INF_ORGS org left join ADM_INFO u
+	   			 on org.director_admin = u.admin_id
+	 		where 1 = 1
+			<if test="orgCode != null and orgCode != ''">
+				and org.org_code = #{orgCode}
+			</if>
+			<if test="orgName != null and orgName != ''">
+				and org.org_name =  #{orgName}
+			</if>
+			<if test="orgType != null and orgType != 0">
+				and org.org_type = #{orgType}
+			</if>
+			and org.ORG_STATUS!=2
+			order by org.ORG_CODE desc
+	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	<!-- 获取区域列表 -->
+      <select id="selectCityAreaCode" parameterType="map" resultMap="city">
+       <if test="type==1">
+       select AREA_CODE,SUPER_AREA,AREA_NAME
+         from INF_AREAS where 1=1 and   STATUS =1
+         start with area_code=      
+        <if test="pid != null">
+	     #{pid} 
+		</if>
+		<if test="pid == null">
+	     0 
+		</if>
+		connect by nocycle prior area_code=SUPER_AREA
+		 order by area_code
+	</if>
+	 <if test="type==2">
+	  select AREA_CODE,SUPER_AREA,AREA_NAME
+         from INF_AREAS a where 1=1 and   STATUS =1
+         and  a.SUPER_AREA=#{pid}  and a.area_code=#{areaCode}
+	 </if>
+    </select>
+    <!-- 查询所有部门 -->
+    <select id="getInstitutionsInfo" parameterType="cls.pilottery.web.institutions.form.InstitutionsForm" resultType="cls.pilottery.web.institutions.model.InfOrgs">
+		select org.org_code as orgCode,
+      	 org.org_name as orgName
+      	  from INF_ORGS org 
+		where 1 = 1
+		and org.ORG_STATUS!=2
+		and org.ORG_TYPE=1
+	</select>
+ 
+    <!-- add by:jhx 查询所有部门和代理商信息 -->
+    <select id="getAllInstitutionsInfo" parameterType="cls.pilottery.web.institutions.form.InstitutionsForm" resultType="cls.pilottery.web.institutions.model.InfOrgs">
+		select org.org_code as orgCode,
+      	 org.org_name as orgName
+      	  from INF_ORGS org 
+		where 1 = 1
+		and org.ORG_STATUS!=2
+		order by org.org_code
+	</select>
+	
+	
+	<!-- 新增部门 -->
+ <update id="addInforgs" statementType="CALLABLE" parameterType="cls.pilottery.web.institutions.model.InfOrgs">
+		 {call   p_institutions_create(
+    	        #{orgCode,mode=IN,jdbcType=VARCHAR},
+    	        #{orgName,mode=IN,jdbcType=VARCHAR}, 
+    	        #{orgType,mode=IN,jdbcType=NUMERIC},
+    	        #{superOrg,mode=IN,jdbcType=VARCHAR},
+    	        #{directorAdmin,mode=IN,jdbcType=VARCHAR},
+    	        #{phone,mode=IN,jdbcType=VARCHAR},
+    	        #{persons,mode=IN,jdbcType=NUMERIC},
+    	        #{address,mode=IN,jdbcType=VARCHAR},
+    	        #{areaCode,mode=IN,jdbcType=VARCHAR},
+    	        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    	        #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		 	)
+		 }
+	</update>
+	<!-- 获得组织负责人 -->
+	<select id="getUser"  resultType="cls.pilottery.web.system.model.User">
+	select u.admin_id as id, u.admin_realname as realname
+    from ADM_INFO u
+     where 1 = 1
+   and u.ADMIN_STATUS = 1
+	</select>
+	<!-- 根据id获得部门 -->
+	<select id="getInfOrgByCode" parameterType="String" resultType="cls.pilottery.web.institutions.model.InfOrgs">
+	select org.org_code as orgCode,
+         org.org_name as orgName,
+         org.director_admin as directorAdmin,
+         org.org_type as orgType,
+          org.phone   as phone,
+          org.super_org as superOrg,
+          org.persons   as persons,
+          org.address   as address
+      	from INF_ORGS org where 1=1 and org.org_code=#{oraCode}
+	</select>
+	<!-- 根据id获得区域组织区域列表 -->
+	<select  id="getInfOrgAreaByCode" parameterType="String" resultType="cls.pilottery.web.institutions.model.InfOrgArea">
+	 select orgarea.org_code as orgCode, 
+	 	orgarea.area_code as areaCode
+  		from INF_ORG_AREA orgarea
+ 			where 1 = 1
+   		and orgarea.org_code =#{oraCode}
+	</select>
+	<!--获得区域列表  -->
+	<select id="getAreaInfoByorgCode" parameterType="String" resultType="cls.pilottery.web.institutions.model.InfOrgArea">
+	select 
+	   area.area_code as areaCode,
+       orgs.org_code as orgCode,
+       area.area_name as areaName
+       from INF_ORGS orgs, INF_ORG_AREA orgarea, INF_AREAS area
+    where orgs.org_code = orgarea.org_code
+     and area.area_code = orgarea.area_code
+     and  orgs.org_code=#{orgCode}
+	
+	</select>
+	<!-- 修改部门 -->
+	 <update id="updateInforgs" statementType="CALLABLE" parameterType="cls.pilottery.web.institutions.model.InfOrgs">
+		 {call   p_institutions_modify(
+		  		 #{oldorgCode,mode=IN,jdbcType=VARCHAR},
+    	        #{orgCode,mode=IN,jdbcType=VARCHAR},
+    	        #{orgName,mode=IN,jdbcType=VARCHAR}, 
+    	        #{orgType,mode=IN,jdbcType=VARCHAR},
+    	         #{superOrg,mode=IN,jdbcType=VARCHAR},
+    	        #{directorAdmin,mode=IN,jdbcType=VARCHAR},
+    	        #{phone,mode=IN,jdbcType=VARCHAR},
+    	        #{persons,mode=IN,jdbcType=NUMERIC},
+    	         #{address,mode=IN,jdbcType=VARCHAR},
+    	         #{areaCode,mode=IN,jdbcType=VARCHAR},
+    	        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    	        #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+    	      
+    	        	        
+		 	)
+		 }
+	</update>
+	<!-- 删除部门管理 -->
+	<update id="deleteupdeSatus" parameterType="String">
+		UPDATE INF_ORGS SET ORG_STATUS =2 WHERE org_code=#{orgCode} 
+	</update>
+	<select id="getInstitutionsCode" parameterType="String" resultType="cls.pilottery.web.institutions.model.InfOrgs">
+	  select org.org_code as orgCode,
+	         org.org_name as orgName,
+	         u.admin_realname as directorAdmin,
+	         org.org_type as orgType,
+	          org.phone   as phone,
+	          org.super_org as superOrg,
+	          org.persons   as persons,
+	          org.address   as address,
+	          org1.org_name as superOrgName
+	      from INF_ORGS org left join ADM_INFO u
+	          on org.director_admin = u.admin_id
+	          left join INF_ORGS org1 on org1.org_code=org.super_org
+	     where 1 = 1
+	     and org.org_code=#{orgCode}
+	</select>
+	<select id="getArecode" parameterType="cls.pilottery.web.institutions.model.InfOrgArea" resultType="String">
+		select nvl(min(ara.area_code),'0000') as area_code
+		  from INF_ORGS orgs, INF_ORG_AREA ara
+		
+		 where orgs.org_code = ara.org_code and orgs.org_code=#{orgCode}
+	</select>
+	
+	
+	<select id="getInfOrgsList" resultType="cls.pilottery.web.institutions.model.InfOrgs">
+		select o.org_code as orgCode,o.org_name as orgName  from INF_ORGS o  where o.ORG_STATUS = 1 order by o.org_code
+	</select>
+	<select id="getDeleteCount" parameterType="String" resultType="Integer">
+		select count(1)
+          from INF_AGENCYS s
+         where 1 = 1
+           and s.ORG_CODE =#{orgCode}
+       
+	</select>
+	<select id="getAddOrgNameCount" parameterType="String" resultType="Integer">
+	select count(1) from INF_ORGS org where org.org_name=#{orgName}
+	</select>
+	
+	<select id="getInstitutionsCount1" parameterType="cls.pilottery.web.institutions.form.InstitutionsForm" resultType="Integer">
+	 select count(1) from INF_ORGS org left join ADM_INFO u
+        on org.director_admin = u.admin_id
+        where 1 = 1
+        <if test="orgCode != null and orgCode != ''">
+          and org.org_code = #{orgCode}
+        </if>
+        
+      
+        <if test="orgName != null and orgName != ''">
+          and org.org_name =  #{orgName}
+        </if>
+        <if test="orgType != null and orgType != 0">
+          and org.org_type = #{orgType}
+        </if>
+          and (org.org_code=#{opertCode} or org.super_org=#{opertCode})
+        and org.ORG_STATUS!=2
+	
+	</select>
+	<select id="getInstitutionsList1" parameterType="cls.pilottery.web.institutions.form.InstitutionsForm"
+		resultType="cls.pilottery.web.institutions.model.InfOrgs">
+		 
+          select * from (
+		    select a.*,rownum rn from (
+			    select org.org_code as orgCode,
+			         org.org_name as orgName,
+			         u.admin_realname as directorAdmin,
+			         org.org_type as orgType,
+			          org.phone   as phone
+	     from INF_ORGS org left join ADM_INFO u
+	         on org.director_admin = u.admin_id
+	    where 1 = 1
+	    <if test="orgCode != null and orgCode != ''">
+	      and org.org_code = #{orgCode}
+	    </if>
+	    <if test="orgName != null and orgName != ''">
+	      and org.org_name =  #{orgName}
+	    </if>
+	    <if test="orgType != null and orgType != 0">
+	      and org.org_type = #{orgType}
+	    </if>
+	     and (org.org_code=#{opertCode} or org.super_org=#{opertCode})
+	    and org.ORG_STATUS!=2
+	    order by org.ORG_CODE desc
+	  	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	
+	<select id="getManagementOrgInfo" parameterType="String" resultType="cls.pilottery.web.institutions.model.InfOrgs">
+		select org_code as orgCode
+      	  from ADM_ORG_RELATE 
+		where ADMIN_ID = #{_parameter}
+	</select>
+</mapper>

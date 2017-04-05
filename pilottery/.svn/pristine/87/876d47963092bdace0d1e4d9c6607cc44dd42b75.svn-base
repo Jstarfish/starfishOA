@@ -1,0 +1,1 @@
+alter table FLOW_ORG modify REF_NO VARCHAR2(30);

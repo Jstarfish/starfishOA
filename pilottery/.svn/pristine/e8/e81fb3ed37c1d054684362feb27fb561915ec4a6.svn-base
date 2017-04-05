@@ -1,0 +1,87 @@
+create or replace procedure p_cncp_dealer_fund_change
+/****************************************************************/
+   ------------------- 渠道商资金处理（不提交） -------------------
+   ---- 按照输入类型，处理渠道商资金，同时增加相应的资金流水
+   ---- 资金的调整，需要用key去做校验，然后再修改值，最后再用key去生成校验码
+   ---- add by 陈震: 2016-09-08
+   /*************************************************************/
+(
+  --------------输入----------------
+  p_dealer                            in char,          -- 销售站
+  p_type                              in char,          -- 资金类型
+  p_amount                            in char,          -- 调整金额
+  p_frozen                            in number,        -- 冻结金额
+  p_ref_no                            in varchar2,      -- 参考业务编号
+--  p_key                               in varchar2,      -- 秘钥
+
+  --------------输入----------------
+  c_be_balance                        out number,       -- 修改前账户余额
+  c_af_balance                        out number,       -- 修改后账户余额
+  c_be_f_balance                      out number,       -- 修改前冻结账户余额
+  c_af_f_balance                      out number        -- 修改后冻结账户余额
+ ) is
+
+  v_acc_no                cncp_acc_dealer.acc_no%type;					  -- 账户编码
+  v_balance               number(28);                                     -- 账户余额
+  v_frozen_balance        number(28);                                     -- 账户冻结余额
+  v_credit_limit          number(28);                                     -- 信用额度
+  v_amount                number(28);                                     -- 账户调整金额
+  v_frozen                number(28);                                     -- 冻结账户调整金额
+
+begin
+  -- 按照类型，处理正负号
+  case
+     when p_type in (ecncp_flow_type.charge, ecncp_flow_type.paid, ecncp_flow_type.sale_comm, ecncp_flow_type.refund, ecncp_flow_type.tuned) then
+        v_amount := p_amount;
+        v_frozen := 0;
+
+     when p_type in (ecncp_flow_type.withdraw, ecncp_flow_type.sale) then
+        v_amount := 0 - p_amount;
+        v_frozen := 0;
+
+     else
+        raise_application_error(-20001, dbtool.format_line(p_type) || error_msg.err_p_fund_change_2);            -- 资金类型不合法
+
+  end case;
+
+  -- 更新余额
+  update CNCP_ACC_DEALER
+     set account_balance = account_balance + v_amount,
+         frozen_balance = frozen_balance + v_frozen
+--         CHECK_CODE = dbtool.gen_check_code(to_char(CREDIT_LIMIT) + to_char(ACCOUNT_BALANCE) + to_char(FROZEN_BALANCE), p_key)
+   where dealer_code = p_dealer
+     and acc_type = eacc_type.main_account
+     and acc_status = eacc_status.available
+--     and dbtool.check_balance(to_char(CREDIT_LIMIT) + to_char(ACCOUNT_BALANCE) + to_char(FROZEN_BALANCE), p_key, CHECK_CODE) = 1
+  returning
+     acc_no,   credit_limit,   account_balance, frozen_balance
+  into
+     v_acc_no, v_credit_limit, v_balance,       v_frozen_balance;
+  if sql%rowcount = 0 then
+    raise_application_error(-20001, dbtool.format_line(p_dealer) || error_msg.err_p_fund_change_3);            -- 未发现销售站的账户，或者账户状态不正确，或者账户校验码错误
+  end if;
+  
+  -- 提现操作，提现完毕，现金必须要大于0
+  if p_type = ecncp_flow_type.withdraw then
+    if v_balance < 0 then
+      raise_application_error(-20101, error_msg.err_p_fund_change_1);            -- 账户余额不足
+    end if;
+  end if;
+  
+  -- 有一些操作类型，不需要检查最后的余额
+  if p_type in (ecncp_flow_type.charge, ecncp_flow_type.paid, ecncp_flow_type.sale_comm, ecncp_flow_type.refund, ecncp_flow_type.tuned) then
+     if v_credit_limit + v_balance < 0 then
+        raise_application_error(-20101, error_msg.err_p_fund_change_1);            -- 账户余额不足
+     end if;
+  end if;
+
+  insert into cncp_fund_detail
+    (dealer_fund_flow,      ref_no,   flow_type, acc_no,   dealer_code, change_amount, frozen_amount, be_account_balance,    be_frozen_balance,           af_account_balance, af_frozen_balance, trade_time)
+  values
+    (f_get_flow_agency_seq, p_ref_no, p_type,    v_acc_no, p_dealer,    p_amount,      p_frozen,      v_balance - v_amount,  v_frozen_balance - v_frozen, v_balance,          v_frozen_balance,  sysdate);
+
+  c_be_balance := v_balance - v_amount;
+  c_af_balance := v_balance;
+  c_be_f_balance := v_frozen_balance - v_frozen;
+  c_af_f_balance := v_frozen_balance;
+end;

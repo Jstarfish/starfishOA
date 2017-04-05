@@ -1,0 +1,23 @@
+create or replace function f_cncp_check_dealer_game(p_dealer char, p_game number)
+  return boolean
+  result_cache
+  relies_on(cncp_auth_dealer)
+ is
+/********************************************************************************/
+  ------------------- 适用于检查渠道商是否为正常状态 ----------------------------
+  ---- add by 陈震: 2016-09-09
+/********************************************************************************/
+   v_count number(1);
+begin
+  select count(*)
+    into v_count
+    from cncp_auth_dealer
+   where dealer_code = p_dealer
+     and game_code = p_game
+     and is_sale = eboolean.yesorenabled;
+  if v_count = 1 then
+    return true;
+  else
+    return false;
+  end if;
+end;

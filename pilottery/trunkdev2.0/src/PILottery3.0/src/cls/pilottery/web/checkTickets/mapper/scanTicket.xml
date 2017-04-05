@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.checkTickets.dao.ScanTicketDao">
+
+	<select id="getGameBatchInfo" resultType="cls.pilottery.web.checkTickets.model.GameBatchInfo">
+		select g.plan_code as planCode,
+		       g.full_name as planName,
+		       gb.batch_no as batchNo,
+		       g.ticket_amount as amount,
+		       de.tickets_every_group as ticketsEveryGroup
+		  from game_plans g, game_batch_import gb, game_batch_import_detail de
+		 where g.plan_code = gb.plan_code
+		   and g.plan_code = de.plan_code
+		   and de.status = 1
+	</select>
+	
+</mapper>

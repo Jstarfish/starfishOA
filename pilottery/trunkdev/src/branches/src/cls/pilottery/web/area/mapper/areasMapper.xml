@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.area.dao.AreasDao">
+
+
+    <select id="getAreaCount" resultType="java.lang.Integer"
+        parameterType="cls.pilottery.web.area.form.AreaForm"
+    >
+        SELECT COUNT(1) FROM INF_AREAS A WHERE 1 = 1
+        <if test="areaCode != null and areaCode != ''"> AND UPPER(A.area_code) LIKE
+            UPPER('%'||#{areaCode}||'%')
+        </if>
+        <if test="areaName != null and areaName != ''"> AND UPPER(A.area_name) LIKE
+            UPPER('%'||#{areaName}||'%')
+        </if>
+    </select>
+    <select id="getAreaList" resultType="cls.pilottery.web.area.form.AreaForm"
+        parameterType="cls.pilottery.web.area.form.AreaForm"
+    >
+        SELECT * FROM ( SELECT C.*, ROWNUM RN FROM (SELECT A.AREA_CODE AREACODE,
+        A.AREA_NAME AREANAME,
+        B.AREA_NAME PARENTAREANAME,
+        A.STATUS STATUS,
+        A.AREA_TYPE TYPE
+        FROM INF_AREAS A
+        LEFT JOIN INF_AREAS B
+        ON A.SUPER_AREA =
+        B.AREA_CODE
+        WHERE 1
+        = 1
+        <if test="areaCode != null and areaCode != ''"> AND UPPER(A.area_code) LIKE
+            UPPER('%'||#{areaCode}||'%')
+        </if>
+        <if test="areaName != null and areaName != ''"> AND UPPER(A.area_name) LIKE
+            UPPER('%'||#{areaName}||'%')
+        </if>
+        ORDER BY a.AREA_CODE <![CDATA[ ) C
+        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+    </select>
+</mapper>

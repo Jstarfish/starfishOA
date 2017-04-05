@@ -1,0 +1,3 @@
+
+INSTALL(FILES conf.xml DESTINATION conf)
+

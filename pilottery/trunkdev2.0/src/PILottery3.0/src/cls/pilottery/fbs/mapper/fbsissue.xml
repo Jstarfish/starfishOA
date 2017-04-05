@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.fbs.dao.FbsIssueDao">
+    <resultMap type="cls.pilottery.fbs.model.FbsIssue" id="fbsIssue">
+        <id column="FBS_ISSUE_NUMBER" property="fbsIssueNumber"/>
+        <result column="FBS_ISSUE_START" property="fbsIssueStart"/>
+        <result column="FBS_ISSUE_END" property="fbsIssueEnd"/>
+        <result column="PUBLISH_TIME" property="publishTime"/>
+        <result column="PUBLISH_STATUS" property="publishStatus"/>
+        <result column="FBS_ISSUE_DATE" property="fbsIssueDate"/>
+        <result column="MATCH_COUNT" property="matchCount"/>
+    </resultMap>
+
+    <resultMap type="cls.pilottery.fbs.model.FbsMatch" id="fbsMatch">
+        <id column="MATCH_CODE" property="matchCode"/>
+        <result column="MATCH_SEQ" property="matchSeq"/>
+        <result column="fbs_issue_number" property="matchIssue"/>
+        <result column="MATCH_DESC" property="matchDesc"/>
+        <result column="COMPETITION" property="matchComp"/>
+        <result column="HOME_TEAM_CODE" property="homeTeam"/>
+        <result column="WIN_LEVEL_LOS_SCORE" property="score310"/>
+        <result column="WIN_LOS_SCORE" property="score30"/>
+        <result column="GUEST_TEAM_CODE" property="guestTeam"/>
+        <result column="MATCH_DATE" property="matchDate"/>
+        <result column="MATCH_START_DATE" property="matchStartTime"/>
+        <result column="MATCH_END_DATE" property="matchEndTime"/>
+        <result column="BEGIN_SALE_TIME" property="beginSaleTime"/>
+        <result column="END_SALE_TIME" property="endSaleTime"/>
+        <result column="STATUS" property="matchStatus"/>
+    </resultMap>
+
+    <select id="queryFbsIssueCount" parameterType="cls.pilottery.fbs.form.FbsIssueForm"
+            resultType="Integer">
+        select count(1) from FBS_ISSUE d where 1=1
+        <if test="fbsIssueCode != null and fbsIssueCode != ''">
+            and d.FBS_ISSUE_NUMBER like '%${fbsIssueCode}%'
+        </if>
+    </select>
+
+    <select id="queryFbsIssueList" parameterType="cls.pilottery.fbs.form.FbsIssueForm"
+            resultMap="fbsIssue">
+        select * from (
+        select a.*,rownum rn from (
+        select
+        FBS_ISSUE_NUMBER,
+        to_char(FBS_ISSUE_START,'yyyy-MM-dd HH24:MI:SS') FBS_ISSUE_START,
+        to_char(FBS_ISSUE_END,'yyyy-MM-dd HH24:MI:SS') FBS_ISSUE_END,
+        to_char(PUBLISH_TIME,'yyyy-MM-dd HH24:MI:SS') PUBLISH_TIME,
+        PUBLISH_STATUS,
+        FBS_ISSUE_DATE,
+        (SELECT COUNT(*) FROM FBS_MATCH T WHERE T.FBS_ISSUE_NUMBER=D.FBS_ISSUE_NUMBER) MATCH_COUNT
+        from FBS_ISSUE d where 1=1
+        <if test="fbsIssueCode != null and fbsIssueCode != ''">
+            and d.FBS_ISSUE_NUMBER like '%${fbsIssueCode}%'
+        </if>
+        <![CDATA[ order by d.FBS_ISSUE_NUMBER desc) a ) where rn > #{beginNum} and rn <= #{endNum} ]]>
+    </select>
+
+    <select id="getMaxIssueNumber" resultType="Integer">
+        select max(FBS_ISSUE_NUMBER) from FBS_ISSUE
+    </select>
+
+    <select id="getMaxIssueDate" resultType="Date">
+        select T.FBS_ISSUE_END from FBS_ISSUE T  WHERE T.FBS_ISSUE_NUMBER= （SELECT  max(FBS_ISSUE_NUMBER)  FROM FBS_ISSUE）
+    </select>
+
+    <insert id="insertFbsIssue" parameterType="cls.pilottery.fbs.form.FbsIssueForm">
+        insert into FBS_ISSUE(
+                    GAME_CODE,
+                    FBS_ISSUE_NUMBER,
+                    FBS_ISSUE_START,
+                    FBS_ISSUE_END,
+                    PUBLISH_TIME,
+                    PUBLISH_STATUS,
+                    FBS_ISSUE_DATE)
+           values(
+                    #{gameCode},
+                    #{fbsIssueCode},
+                    to_date(#{issueStartTime},'yyyy-MM-dd HH24:mi:ss'),
+                    to_date(#{issueEndTime},'yyyy-MM-dd HH24:mi:ss'),
+                    sysdate,
+                    0,
+                    #{issueDate,jdbcType=NUMERIC})
+    </insert>
+
+    <update id="updateFbsIssue" parameterType="cls.pilottery.fbs.form.FbsIssueForm">
+        UPDATE FBS_ISSUE SET
+        FBS_ISSUE_START = TO_DATE(#{issueStartTime},'yyyy-MM-dd HH24:MI:SS'),
+        FBS_ISSUE_END = TO_DATE(#{issueEndTime},'yyyy-MM-dd HH24:MI:SS'),
+        FBS_ISSUE_DATE = #{issueDate,jdbcType=NUMERIC}
+       WHERE FBS_ISSUE_NUMBER = #{fbsIssueCode}
+    </update>
+
+    <select id="queryFbsIssueByIssueCode" parameterType="Long"
+            resultMap="fbsIssue">
+         select FBS_ISSUE_NUMBER,
+                to_char(FBS_ISSUE_START,'yyyy-MM-dd HH24:MI:SS') FBS_ISSUE_START,
+                to_char(FBS_ISSUE_END,'yyyy-MM-dd HH24:MI:SS') FBS_ISSUE_END,
+                to_char(PUBLISH_TIME,'yyyy-MM-dd HH24:MI:SS') PUBLISH_TIME,
+                PUBLISH_STATUS,
+                FBS_ISSUE_DATE
+        from FBS_ISSUE d where d.FBS_ISSUE_NUMBER=#{_parameter}
+    </select>
+
+    <select id="queryIssueMatchCount" parameterType="cls.pilottery.fbs.form.FbsMatchForm"
+            resultType="Integer">
+        select count(1) from FBS_MATCH d where
+        d.FBS_ISSUE_NUMBER =#{issueCode,jdbcType=NUMERIC}
+    </select>
+
+
+    <select id="queryIssueMatchList" parameterType="cls.pilottery.fbs.form.FbsMatchForm"
+            resultMap="fbsMatch">
+        select * from (
+        select a.*,rownum rn from (
+        select
+        MATCH_CODE,
+        fbs_issue_number,
+        MATCH_SEQ,
+        MATCH_DESC,
+        c.COMPETITION_ABBR COMPETITION,
+        t.SHORT_NAME HOME_TEAM_CODE,
+        tt.SHORT_NAME GUEST_TEAM_CODE,
+        WIN_LEVEL_LOS_SCORE,
+        WIN_LOS_SCORE,
+        to_char(MATCH_DATE,'yyyy-MM-dd') MATCH_DATE,
+        MATCH_START_DATE,
+        MATCH_END_DATE,
+        BEGIN_SALE_TIME,
+        END_SALE_TIME,
+        STATUS
+        from FBS_MATCH d
+        left join FBS_COMPETITION c
+        ON d.COMPETITION = c.COMPETITION_CODE
+        left join FBS_COMPETITION_TEAM t
+        on d.HOME_TEAM_CODE = t.TEAM_CODE
+        left join FBS_COMPETITION_TEAM tt
+        on d.GUEST_TEAM_CODE = tt.TEAM_CODE
+        where d.FBS_ISSUE_NUMBER =#{issueCode}
+        <![CDATA[ order by d.MATCH_START_DATE asc) a ) where rn > #{beginNum} and rn <= #{endNum}
+        ]]>
+    </select>
+
+    <delete id="deleteFbsIssue" parameterType="Long">
+        delete from FBS_ISSUE m where m.FBS_ISSUE_NUMBER=#{_parameter}
+    </delete>
+
+    <delete id="deleteMatchsByIssueCode" parameterType="Long">
+         delete from FBS_MATCH m where m.FBS_ISSUE_NUMBER=#{_parameter}
+    </delete>
+
+    <update id="publishFbsIssue" parameterType="Long">
+        update FBS_ISSUE m set
+        m.PUBLISH_STATUS=1,
+        m.PUBLISH_TIME=sysdate
+        where m.FBS_ISSUE_NUMBER=#{_parameter}
+    </update>
+
+    <update id="publishFbsMatch" parameterType="Long">
+        update FBS_MATCH m set
+        m.IS_SALE=1,
+        m.STATUS =1,
+        m.DRAW_STATE = 1
+        where m.FBS_ISSUE_NUMBER=#{_parameter}
+    </update>
+
+    <insert id="publishIssueResult" parameterType="Map">
+       insert into FBS_MATCH_WIN_RESULT
+      (game_code,match_code, match_subtype_code)
+    values
+      (#{gameCode,jdbcType=NUMERIC},
+      #{matchCode,jdbcType=NUMERIC},
+      #{subType,jdbcType=NUMERIC})
+    </insert>
+
+    <insert id="publishMatchResult" parameterType="Map">
+        insert into FBS_MATCH_RESULT
+        (MATCH_CODE,GAME_CODE,FBS_ISSUE_NUMBER,COMPETITION_CODE)
+        values
+        (#{matchCode,jdbcType=NUMERIC},
+        #{gameCode,jdbcType=NUMERIC},
+        #{issueCode,jdbcType=NUMERIC},
+        #{matchComp,jdbcType=NUMERIC})
+    </insert>
+
+    <insert id="insertCurrentParam"  parameterType="Map">
+       insert into FBS_CURRENT_PARAM
+        (GAME_CODE,ISSUE_NUMBER,HIS_HIS_CODE,HIS_POLICY_CODE)
+        values
+        (#{gameCode,jdbcType=NUMERIC},
+        #{issueCode,jdbcType=NUMERIC},
+        (select max(t.his_his_code) his_code from GP_HISTORY t where t.game_code = #{gameCode}),
+         (select max(t.his_policy_code) policy_code from GP_POLICY t where t.game_code = #{gameCode}))
+    </insert>
+
+    <select id="getIssueMatch" parameterType="String" resultMap="fbsMatch">
+       select match_code,COMPETITION
+       from fbs_match g
+       where g.fbs_issue_number = #{_parameter}
+    </select>
+
+
+    <select id="checkIssueCode" parameterType="Long" resultType="Integer">
+        select count(1)
+        from FBS_ISSUE d
+        where (d.FBS_ISSUE_NUMBER > #{_parameter}
+        and d.publish_status = 1) or (#{_parameter } > d.FBS_ISSUE_NUMBER
+        and d.publish_status = 0)
+    </select>
+
+
+    <select id="checkIssueDate" parameterType="String" resultType="Integer">
+        select count(1)
+        from FBS_ISSUE d
+        where d.FBS_ISSUE_DATE = #{_parameter}
+    </select>
+
+</mapper>

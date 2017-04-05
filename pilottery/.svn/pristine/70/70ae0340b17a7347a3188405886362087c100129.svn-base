@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.ItemCheckMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.ItemCheck" >
+    <id column="CHECK_NO" property="checkNo" jdbcType="CHAR" />
+    <result column="CHECK_NAME" property="checkName" jdbcType="VARCHAR" />
+    <result column="CHECK_DATE" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="CHECK_ADMIN" property="checkAdmin" jdbcType="DECIMAL" />
+    <result column="CHECK_WAREHOUSE" property="checkWarehouse" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="RESULT" property="result" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CHECK_NO, CHECK_NAME, CHECK_DATE, CHECK_ADMIN, CHECK_WAREHOUSE, STATUS, RESULT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ITEM_CHECK
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ITEM_CHECK
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.ItemCheck" >
+    insert into ITEM_CHECK (CHECK_NO, CHECK_NAME, CHECK_DATE, 
+      CHECK_ADMIN, CHECK_WAREHOUSE, STATUS, 
+      RESULT)
+    values (#{checkNo,jdbcType=CHAR}, #{checkName,jdbcType=VARCHAR}, #{checkDate,jdbcType=TIMESTAMP}, 
+      #{checkAdmin,jdbcType=DECIMAL}, #{checkWarehouse,jdbcType=CHAR}, #{status,jdbcType=DECIMAL}, 
+      #{result,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.ItemCheck" >
+    insert into ITEM_CHECK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="checkNo != null" >
+        CHECK_NO,
+      </if>
+      <if test="checkName != null" >
+        CHECK_NAME,
+      </if>
+      <if test="checkDate != null" >
+        CHECK_DATE,
+      </if>
+      <if test="checkAdmin != null" >
+        CHECK_ADMIN,
+      </if>
+      <if test="checkWarehouse != null" >
+        CHECK_WAREHOUSE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="checkNo != null" >
+        #{checkNo,jdbcType=CHAR},
+      </if>
+      <if test="checkName != null" >
+        #{checkName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkAdmin != null" >
+        #{checkAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="checkWarehouse != null" >
+        #{checkWarehouse,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.ItemCheck" >
+    update ITEM_CHECK
+    <set >
+      <if test="checkName != null" >
+        CHECK_NAME = #{checkName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkAdmin != null" >
+        CHECK_ADMIN = #{checkAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="checkWarehouse != null" >
+        CHECK_WAREHOUSE = #{checkWarehouse,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.ItemCheck" >
+    update ITEM_CHECK
+    set CHECK_NAME = #{checkName,jdbcType=VARCHAR},
+      CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+      CHECK_ADMIN = #{checkAdmin,jdbcType=DECIMAL},
+      CHECK_WAREHOUSE = #{checkWarehouse,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      RESULT = #{result,jdbcType=DECIMAL}
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+  </update>
+</mapper>

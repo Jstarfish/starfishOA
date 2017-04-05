@@ -1,0 +1,10 @@
+package cls.taishan.web.dao;
+
+import cls.taishan.web.model.WingEUserLoginInfo;
+
+public interface WingCommonDao {
+	
+	// 根据账户信息获取登录属性
+	public int getEUserLoginInfo(String euserAccount, WingEUserLoginInfo userInfo);
+	
+}

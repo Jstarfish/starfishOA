@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.report.dao.SaleReportDao">
+	<select id="getGameSalesList" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.SalesReportModel">
+		SELECT SALE_DAY saleDate,
+		       PLAN_CODE gameName,
+		       SUM(SALE_AMOUNT) salesAmount,
+		       SUM(SALE_COMM) salesCommission,
+		       SUM(PAY_AMOUNT) payoutAmount,
+		       SUM(PAY_COMM) payoutCommission,
+		       SUM(CANCEL_AMOUNT) returnAmount,
+		       SUM(CANCEL_COMM) returnCommission,
+		       SUM(INCOMING) cashIncome
+		  FROM v_report_sale_pay 
+		  LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		  WHERE 1 = 1
+		  <if test="beginDate != null and beginDate != ''">
+				AND SALE_DAY between #{beginDate} and #{endDate}
+		  </if>
+		  <if test="planCode != null and planCode != ''">
+				AND plan_code = #{planCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			and ORG_CODE = #{cuserOrg}
+		  </if>
+	      GROUP BY SALE_DAY,PLAN_CODE
+ 	      ORDER BY PLAN_CODE,SALE_DAY DESC
+	</select>
+	
+	<select id="getGameSalesSum" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.SalesReportModel">
+		SELECT sum(SALE_AMOUNT) salesAmount,
+		       sum(SALE_COMM) salesCommission,
+		       sum(PAY_AMOUNT) payoutAmount,
+		       sum(PAY_COMM) payoutCommission,
+		       SUM(CANCEL_AMOUNT) returnAmount,
+		       SUM(CANCEL_COMM) returnCommission,
+		       SUM(INCOMING) cashIncome
+		  FROM v_report_sale_pay 
+		  LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		  WHERE 1 = 1
+		  <if test="beginDate != null and beginDate != ''">
+			  AND SALE_DAY between #{beginDate} and #{endDate}
+		  </if>
+		  <if test="planCode != null and planCode != ''">
+			  AND plan_code = #{planCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			and ORG_CODE = #{cuserOrg}
+		  </if>
+	</select>
+	
+	<select id="getInstitutionSalesList" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.SalesReportModel">
+		SELECT PLAN_CODE gameName,
+		       ORG_NAME orgName,
+		       SUM(SALE_AMOUNT) salesAmount,
+		       SUM(SALE_COMM) salesCommission,
+		       SUM(PAY_AMOUNT) payoutAmount,
+		       SUM(PAY_COMM) payoutCommission,
+		       SUM(CANCEL_AMOUNT) returnAmount,
+		       SUM(CANCEL_COMM) returnCommission,
+		       SUM(INCOMING) cashIncome
+		  FROM v_report_sale_pay 
+		  LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		  LEFT JOIN INF_ORGS USING (ORG_CODE)
+		  WHERE 1 = 1
+		  <if test="beginDate != null and beginDate != ''">
+		  		AND SALE_DAY between #{beginDate} and #{endDate}
+		  </if>
+		  <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			and ORG_CODE = #{cuserOrg}
+		  </if>
+		  GROUP BY PLAN_CODE,ORG_NAME,ORG_CODE
+		  ORDER BY ORG_CODE,PLAN_CODE
+	</select>
+	
+	<select id="getInstitutionSalesSum" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.SalesReportModel">
+		SELECT sum(SALE_AMOUNT) salesAmount,
+		       sum(SALE_COMM) salesCommission,
+		       sum(PAY_AMOUNT) payoutAmount,
+		       sum(PAY_COMM) payoutCommission,
+		       SUM(CANCEL_AMOUNT) returnAmount,
+		       SUM(CANCEL_COMM) returnCommission,
+		       SUM(INCOMING) cashIncome
+		  FROM v_report_sale_pay 
+		  LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		  LEFT JOIN INF_ORGS USING (ORG_CODE)
+		  WHERE 1 = 1
+		  <if test="beginDate != null and beginDate != ''">
+		  		AND SALE_DAY between #{beginDate} and #{endDate}
+		  </if>
+		  <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			and ORG_CODE = #{cuserOrg}
+		  </if>
+	</select>
+	
+	<select id="getInventoryList" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.InventoryModel">
+		SELECT calc_date calcDate,
+		       SUM(tickets) tickets,
+		       SUM(amount) amount,
+		       full_name gameName
+		  FROM v_report_lot_inventory 
+		  LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		  WHERE 1 = 1
+		  <if test="beginDate != null and beginDate != ''">
+		  		AND calc_date between #{beginDate} and #{endDate}
+		  </if>
+		  <if test="planCode != null and planCode != ''">
+				AND plan_code = #{planCode}
+		  </if>
+		  <if test="warehouseCode != null and warehouseCode != ''">
+				AND WAREHOUSE = #{warehouseCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			and WAREHOUSE in (select WAREHOUSE_CODE from WH_INFO where org_code = #{cuserOrg})
+		  </if>
+		  GROUP BY calc_date,full_name
+		  ORDER BY calc_date desc,full_name
+	</select>
+	
+	<select id="getInventorySum" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.InventoryModel">
+		SELECT sum(tickets) tickets,
+		       sum(amount) amount
+		  FROM v_report_lot_inventory 
+		  LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		  WHERE 1 = 1
+		  <if test="beginDate != null and beginDate != ''">
+		  		AND calc_date between #{beginDate} and #{endDate}
+		  </if>
+		  <if test="planCode != null and planCode != ''">
+				AND plan_code = #{planCode}
+		  </if>
+		  <if test="warehouseCode != null and warehouseCode != ''">
+				AND WAREHOUSE = #{warehouseCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			and WAREHOUSE in (select WAREHOUSE_CODE from WH_INFO where org_code = #{cuserOrg})
+		  </if>
+	</select>
+	
+	<select id="getWarehouseList" parameterType="string" resultType="cls.pilottery.web.report.model.WarehouseModel">
+		  select WAREHOUSE_CODE warehouseCode,
+		  	WAREHOUSE_NAME warehouseName
+		  from WH_INFO
+		  WHERE 1=1 
+		  <if test="_parameter != '00'">
+			and WAREHOUSE_CODE in (select WAREHOUSE_CODE from WH_INFO where org_code = #{_parameter})
+		  </if>
+	</select>
+	
+	<select id="getInstitutionList" parameterType="string" resultType="cls.pilottery.web.report.model.InstitutionModel">
+		  select ORG_CODE institutionCode, 
+		  		 ORG_NAME institutionName,
+		  		 ORG_TYPE orgType
+		  from INF_ORGS
+		  WHERE 1=1 
+		  <if test="_parameter != '00'">
+			AND ORG_CODE = #{_parameter}
+		  </if>
+	</select>
+
+	<select id="getPlanList" resultType="cls.pilottery.web.sales.model.PlanModel">
+		select plan_code planCode,SHORT_NAME planName from game_plans
+	</select>
+	
+	<select id="getInstitutionFundList" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select tab.*,org_name orgName from (
+			select 0 as tjType,
+			       CALC_DATE as balanceDate,
+			       org_code as orgCode,
+			       BE_ACCOUNT_BALANCE as initialBalance,
+			       nvl(charge, 0) as topUp ,
+			       nvl(withdraw, 0) as withdraw,
+			       nvl(sale, 0)+nvl(lot_sale, 0) as saleAmount,
+			       nvl(sale_comm, 0)+nvl(lot_sale_comm, 0) as saleComm,
+			       nvl(paid, 0)+nvl(lot_paid, 0) as payout,
+			       nvl(pay_comm, 0)+nvl(lot_pay_comm, 0) as payoutComm,
+			       nvl(rtv, 0)+nvl(lot_rtv, 0) as returnAmount,
+			       nvl(rtv_comm, 0)+nvl(lot_rtv_comm, 0) as returnComm,
+			       nvl(CENTER_PAY, 0)+nvl(lot_CENTER_PAY, 0) as centerPayAmount,
+			       nvl(CENTER_PAY_COMM, 0)+nvl(lot_CENTER_PAY_COMM, 0) as centerPayComm,
+			       nvl(LOT_CENTER_RTV,0) as cancelAmount,
+			       nvl(INCOMING, 0) as income,
+			       nvl(PAY_UP,0) payUp,
+			       AF_ACCOUNT_BALANCE finalBalance
+			  from v_his_org_fund_report
+			  where CALC_DATE between #{beginDate} and #{endDate}
+			    <if test="institutionCode != null and institutionCode != ''">
+					AND ORG_CODE = #{institutionCode}
+		  		</if>
+		  		<if test="cuserOrg != '00'">
+			  	   	AND ORG_CODE = #{cuserOrg}
+			  	</if>
+			 ) tab 
+			 join inf_orgs on (tab.orgCode = inf_orgs.org_code)
+			 order by balanceDate desc,orgCode
+	</select>
+	
+	<select id="getOutletFundList" resultType="cls.pilottery.web.report.model.OutletFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		with base as
+			(select *
+			    from his_agency_fund
+			   where CALC_DATE between #{beginDate} and #{endDate} 
+			   <if test="outletCode != null and outletCode != ''">
+					AND AGENCY_CODE = #{outletCode}
+		  	   </if>
+		  	   <if test="cuserOrg != null and cuserOrg != ''">
+		  	   		AND AGENCY_CODE IN (select agency_code from INF_AGENCYS where org_code = #{cuserOrg} )
+		  	   </if>
+		  	   ),
+		fund as
+		 (select *
+		    from (select CALC_DATE,AGENCY_CODE, FLOW_TYPE, AMOUNT from base)
+		  pivot(sum(amount)
+		     for FLOW_TYPE in(1 as charge,
+		                     2 as withdraw,
+		                     5 as sale_comm,
+		                     6 as pay_comm,
+		                     7 as sale,
+		                     8 as paid,
+		                     11 as rtv,
+		                     13 as rtv_comm))),
+		agency_ava as
+		 (select CALC_DATE,AGENCY_CODE, BE_ACCOUNT_BALANCE, AF_ACCOUNT_BALANCE
+		    from base
+		   where flow_type = 0)
+		select CALC_DATE balanceDate,
+			   AGENCY_CODE agencyCode, 
+		       BE_ACCOUNT_BALANCE initialBalance,
+		       nvl(charge, 0) topUp,
+		       nvl(withdraw, 0) withdraw,
+		       nvl(sale, 0) saleAmount,
+		       nvl(sale_comm, 0) saleComm,
+		       nvl(paid, 0) payout,
+		       nvl(pay_comm, 0) payoutComm,
+		       nvl(rtv, 0) returnAmount,
+		       nvl(rtv_comm, 0) returnComm,
+		       nvl(sale,0) - nvl(sale_comm,0) - nvl(paid,0) -nvl(pay_comm,0) - nvl(rtv,0) + nvl(rtv_comm,0) income,
+		       AF_ACCOUNT_BALANCE finalBalance
+		  from fund
+		  join agency_ava
+		 using (AGENCY_CODE,CALC_DATE)
+		 order by balanceDate desc,agencyCode
+	</select>
+	
+	<select id="getInstitutionFundListSum" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select * from (
+			select 0 as tjType,
+			       sum(nvl(charge, 0)) as topUp ,
+			       sum(nvl(withdraw, 0)) as withdraw,
+			       sum(nvl(sale, 0)+nvl(lot_sale, 0)) as saleAmount,
+			       sum(nvl(sale_comm, 0)+nvl(lot_sale_comm, 0)) as saleComm,
+			       sum(nvl(paid, 0)+nvl(lot_paid, 0)) as payout,
+			       sum(nvl(pay_comm, 0)+nvl(lot_pay_comm, 0)) as payoutComm,
+			       sum(nvl(rtv, 0)+nvl(lot_rtv, 0)) as returnAmount,
+			       sum(nvl(rtv_comm, 0)+nvl(lot_rtv_comm, 0)) as returnComm,
+			       sum(nvl(CENTER_PAY, 0)+nvl(lot_CENTER_PAY, 0)) as centerPayAmount,
+			       sum(nvl(CENTER_PAY_COMM, 0)+nvl(lot_CENTER_PAY_COMM, 0)) as centerPayComm,
+			       sum(nvl(LOT_CENTER_RTV,0)) as cancelAmount,
+			       sum(nvl(INCOMING, 0)) as income,
+			       sum(nvl(PAY_UP,0)) payUp
+			  from v_his_org_fund_report
+			  where CALC_DATE between #{beginDate} and #{endDate}
+			    <if test="institutionCode != null and institutionCode != ''">
+					AND ORG_CODE = #{institutionCode}
+		  		</if>
+		  		<if test="cuserOrg != '00'">
+			  	   	AND ORG_CODE = #{cuserOrg}
+			  	</if>
+			 ) tab 
+	</select>
+	
+	<select id="getOutletFundListSum" resultType="cls.pilottery.web.report.model.OutletFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		with base as
+			(select *
+			    from his_agency_fund
+			   where CALC_DATE between #{beginDate} and #{endDate} 
+			   <if test="outletCode != null and outletCode != ''">
+					AND AGENCY_CODE = #{outletCode}
+		  	   </if>
+		  	   <if test="cuserOrg != null and cuserOrg != ''">
+		  	   		AND AGENCY_CODE IN (select agency_code from INF_AGENCYS where org_code = #{cuserOrg} )
+		  	   </if>
+		  	   ),
+		fund as
+		 (select *
+		    from (select CALC_DATE,AGENCY_CODE, FLOW_TYPE, AMOUNT from base)
+		  pivot(sum(amount)
+		     for FLOW_TYPE in(1 as charge,
+		                     2 as withdraw,
+		                     5 as sale_comm,
+		                     6 as pay_comm,
+		                     7 as sale,
+		                     8 as paid,
+		                     11 as rtv,
+		                     13 as rtv_comm))),
+		agency_ava as
+		 (select CALC_DATE,AGENCY_CODE, BE_ACCOUNT_BALANCE, AF_ACCOUNT_BALANCE
+		    from base
+		   where flow_type = 0)
+		select 
+		       sum(nvl(charge, 0)) topUp,
+		       sum(nvl(withdraw, 0)) withdraw,
+		       sum(nvl(sale, 0)) saleAmount,
+		       sum(nvl(sale_comm, 0)) saleComm,
+		       sum(nvl(paid, 0)) payout,
+		       sum(nvl(pay_comm, 0)) payoutComm,
+		       sum(nvl(rtv, 0)) returnAmount,
+		       sum(nvl(rtv_comm, 0)) returnComm,
+		       sum(nvl(sale,0) - nvl(sale_comm,0) - nvl(paid,0) -nvl(pay_comm,0) - nvl(rtv,0) + nvl(rtv_comm,0)) income
+		  from fund
+		  join agency_ava
+		 using (AGENCY_CODE,CALC_DATE)
+	</select>
+		
+	<select id="getMnanagerFundList" resultType="cls.pilottery.web.report.model.ManagerFundReportVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select *
+		  from (select m.calc_date as calcDate,
+		               m.market_admin as marketAdmin,
+		               sum(decode(m.flow_type, 9, m.amount, 0)) topUp,
+		               sum(decode(m.flow_type, 10, m.amount, 0)) paid,
+		               sum(decode(m.flow_type, 14, m.amount, 0)) withdrawn,
+		               sum(decode(m.flow_type, 0, m.be_account_balance, 0)) initialBalance,
+		               sum(decode(m.flow_type, 0, m.af_account_balance, 0)) finalBalance
+		          from his_mm_fund m
+		         group by m.calc_date, m.market_admin) aa,
+		       (select a.admin_id       as adminId,
+		               a.admin_realname marketName,
+		               org.org_code     orgCode
+		          from adm_info a, INF_ORGS org
+		         where a.admin_org = org.org_code) bb
+		 where bb.adminId = aa.marketAdmin
+		 	<if test="cuserOrg != '00'">
+		  	   	AND aa.marketAdmin in (select ADMIN_ID from ADM_INFO where IS_COLLECTER = 1 and admin_org = #{cuserOrg})
+		  	</if>
+ 			<if test="beginDate!=null and beginDate!=''">
+		    	 <![CDATA[ and aa.calcDate >=#{beginDate} ]]>
+		    </if>
+		    <if test="endDate!=null and endDate!=''">
+		     	<![CDATA[ and aa.calcDate <=#{endDate} ]]>
+		    </if>
+		     <if test="marketName!=null and marketName!=''">
+		     and bb.marketName  like '%'||#{marketName}||'%' 
+		    </if> 
+		    order by calcDate DESC,marketAdmin
+	</select>
+
+	<select id="getInventoryDaliyReportList" parameterType="cls.pilottery.web.report.form.SaleReportForm" resultType="cls.pilottery.web.report.model.InventoryDaliyReportVo">
+			select hi.calc_date        as calcDate,
+			       ad.admin_realname   as marketAdmin,
+			       g.full_name         as planName,
+			       hi.open_inv         as openInv,
+			       hi.close_inv        as closeInv,
+			       hi.got_tickets      as gotTickets,
+			       hi.saled_tickets    as saledTickets,
+			       hi.canceled_tickets as canceledTickets,
+			       hi.broken_tickets   as brokenTickets,
+			       hi.return_tickets   as returnTickets
+			 		  from HIS_MM_INVENTORY hi,
+			       game_plans g,
+			       (select *
+			          from adm_info a, INF_ORGS org
+			         where a.admin_org = org.org_code
+			          <if test="cuserOrg != '00'">
+			          and org.org_code = #{cuserOrg}
+			         </if>
+			        ) ad
+			 where ad.admin_id = hi.market_admin
+			   and hi.plan_code = g.plan_code
+			   and (GOT_TICKETS+SALED_TICKETS+CANCELED_TICKETS+RETURN_TICKETS+BROKEN_TICKETS) > 0
+		    <if test="beginDate!=null and beginDate!=''">
+		    	 <![CDATA[ and hi.calc_date >=#{beginDate} ]]>
+		    </if>
+		    <if test="endDate!=null and endDate!=''">
+		     	<![CDATA[ and hi.calc_date <=#{endDate} ]]>
+		    </if>
+		    <if test="marketName!=null and marketName!=''">
+		     and ad.admin_realname  like '%'||#{marketName}||'%' 
+		    </if>
+		    order by hi.calc_date desc,ad.admin_realname,g.full_name
+	</select>
+
+
+	<select id="getInstitutionFundUSDList" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select tab.*,org_name orgName from (
+			select 0 as tjType,
+			       CALC_DATE as balanceDate,
+			       org_code as orgCode,
+			       ROUND(BE_ACCOUNT_BALANCE/f_get_sys_param(100),3) as initialBalance,
+			       ROUND(nvl(charge, 0)/f_get_sys_param(100),3) as topUp ,
+			       ROUND(nvl(withdraw, 0)/f_get_sys_param(100),3) as withdraw,
+			       ROUND(nvl(sale, 0)+nvl(lot_sale, 0)/f_get_sys_param(100),3) as saleAmount,
+			       ROUND(nvl(sale_comm, 0)+nvl(lot_sale_comm, 0)/f_get_sys_param(100),3) as saleComm,
+			       ROUND(nvl(paid, 0)+nvl(lot_paid, 0)/f_get_sys_param(100),3) as payout,
+			       ROUND(nvl(pay_comm, 0)+nvl(lot_pay_comm, 0)/f_get_sys_param(100),3) as payoutComm,
+			       ROUND(nvl(rtv, 0)+nvl(lot_rtv, 0)/f_get_sys_param(100),3) as returnAmount,
+			       ROUND(nvl(rtv_comm, 0)+nvl(lot_rtv_comm, 0)/f_get_sys_param(100),3) as returnComm,
+			       ROUND(nvl(CENTER_PAY, 0)+nvl(lot_CENTER_PAY, 0)/f_get_sys_param(100),3) as centerPayAmount,
+			       ROUND(nvl(CENTER_PAY_COMM, 0)+nvl(lot_CENTER_PAY_COMM, 0)/f_get_sys_param(100),3) as centerPayComm,
+			       ROUND(nvl(LOT_CENTER_RTV,0)/f_get_sys_param(100),3) as cancelAmount,
+			       ROUND(nvl(INCOMING, 0)/f_get_sys_param(100),3) as income,
+			       ROUND(nvl(PAY_UP,0)/f_get_sys_param(100),3) payUp,
+			       ROUND(AF_ACCOUNT_BALANCE/f_get_sys_param(100),3) finalBalance
+			  from v_his_org_fund_report
+			  where CALC_DATE between #{beginDate} and #{endDate}
+			    <if test="institutionCode != null and institutionCode != ''">
+					AND ORG_CODE = #{institutionCode}
+		  		</if>
+		  		<if test="cuserOrg != '00'">
+			  	   	AND ORG_CODE = #{cuserOrg}
+			  	</if>
+			 ) tab 
+			 join inf_orgs on (tab.orgCode = inf_orgs.org_code)
+			 order by balanceDate desc,orgCode
+	</select>
+	
+	<select id="getOutletFundUSDList" resultType="cls.pilottery.web.report.model.OutletFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		with base as
+			(select *
+			    from his_agency_fund
+			   where CALC_DATE between #{beginDate} and #{endDate} 
+			   <if test="outletCode != null and outletCode != ''">
+					AND AGENCY_CODE = #{outletCode}
+		  	   </if>
+		  	   <if test="cuserOrg != null and cuserOrg != ''">
+		  	   		AND AGENCY_CODE IN (select agency_code from INF_AGENCYS where org_code = #{cuserOrg} )
+		  	   </if>
+		  	   ),
+		fund as
+		 (select *
+		    from (select CALC_DATE,AGENCY_CODE, FLOW_TYPE, AMOUNT from base)
+		  pivot(sum(amount)
+		     for FLOW_TYPE in(1 as charge,
+		                     2 as withdraw,
+		                     5 as sale_comm,
+		                     6 as pay_comm,
+		                     7 as sale,
+		                     8 as paid,
+		                     11 as rtv,
+		                     13 as rtv_comm))),
+		agency_ava as
+		 (select CALC_DATE,AGENCY_CODE, BE_ACCOUNT_BALANCE, AF_ACCOUNT_BALANCE
+		    from base
+		   where flow_type = 0)
+		select CALC_DATE balanceDate,
+			   AGENCY_CODE agencyCode, 
+		       ROUND(BE_ACCOUNT_BALANCE/f_get_sys_param(100),3) initialBalance,
+		       ROUND(nvl(charge, 0)/f_get_sys_param(100),3) topUp,
+		       ROUND(nvl(withdraw, 0)/f_get_sys_param(100),3) withdraw,
+		       ROUND(nvl(sale, 0)/f_get_sys_param(100),3) saleAmount,
+		       ROUND(nvl(sale_comm, 0)/f_get_sys_param(100),3) saleComm,
+		       ROUND(nvl(paid, 0)/f_get_sys_param(100),3) payout,
+		       ROUND(nvl(pay_comm, 0)/f_get_sys_param(100),3) payoutComm,
+		       ROUND(nvl(rtv, 0)/f_get_sys_param(100),3) returnAmount,
+		       ROUND(nvl(rtv_comm, 0)/f_get_sys_param(100),3) returnComm,
+		       ROUND((nvl(sale,0) - nvl(sale_comm,0) - nvl(paid,0) -nvl(pay_comm,0) - nvl(rtv,0) + nvl(rtv_comm,0))/f_get_sys_param(100),3) income,
+		       ROUND(AF_ACCOUNT_BALANCE/f_get_sys_param(100),3) finalBalance
+		  from fund
+		  join agency_ava
+		 using (AGENCY_CODE,CALC_DATE)
+		 order by balanceDate desc,agencyCode
+	</select>
+	
+	<select id="getInstitutionFundUSDListSum" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select * from (
+			select 0 as tjType,
+			       ROUND(sum(nvl(charge, 0))/f_get_sys_param(100),3) as topUp ,
+			       ROUND(sum(nvl(withdraw, 0))/f_get_sys_param(100),3) as withdraw,
+			       ROUND(sum(nvl(sale, 0)+nvl(lot_sale, 0))/f_get_sys_param(100),3) as saleAmount,
+			       ROUND(sum(nvl(sale_comm, 0)+nvl(lot_sale_comm, 0))/f_get_sys_param(100),3) as saleComm,
+			       ROUND(sum(nvl(paid, 0)+nvl(lot_paid, 0))/f_get_sys_param(100),3) as payout,
+			       ROUND(sum(nvl(pay_comm, 0)+nvl(lot_pay_comm, 0))/f_get_sys_param(100),3) as payoutComm,
+			       ROUND(sum(nvl(rtv, 0)+nvl(lot_rtv, 0))/f_get_sys_param(100),3) as returnAmount,
+			       ROUND(sum(nvl(rtv_comm, 0)+nvl(lot_rtv_comm, 0))/f_get_sys_param(100),3) as returnComm,
+			       ROUND(sum(nvl(CENTER_PAY, 0)+nvl(lot_CENTER_PAY, 0))/f_get_sys_param(100),3) as centerPayAmount,
+			       ROUND(sum(nvl(CENTER_PAY_COMM, 0)+nvl(lot_CENTER_PAY_COMM, 0))/f_get_sys_param(100),3) as centerPayComm,
+			       ROUND(sum(nvl(LOT_CENTER_RTV,0))/f_get_sys_param(100),3) as cancelAmount,
+			       ROUND(sum(nvl(INCOMING, 0))/f_get_sys_param(100),3) as income,
+			       ROUND(sum(nvl(PAY_UP,0))/f_get_sys_param(100),3) payUp
+			  from v_his_org_fund_report
+			  where CALC_DATE between #{beginDate} and #{endDate}
+			    <if test="institutionCode != null and institutionCode != ''">
+					AND ORG_CODE = #{institutionCode}
+		  		</if>
+		  		<if test="cuserOrg != '00'">
+			  	   	AND ORG_CODE = #{cuserOrg}
+			  	</if>
+			 ) tab 
+	</select>
+	
+	<select id="getOutletFundUSDListSum" resultType="cls.pilottery.web.report.model.OutletFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		with base as
+			(select *
+			    from his_agency_fund
+			   where CALC_DATE between #{beginDate} and #{endDate} 
+			   <if test="outletCode != null and outletCode != ''">
+					AND AGENCY_CODE = #{outletCode}
+		  	   </if>
+		  	   <if test="cuserOrg != null and cuserOrg != ''">
+		  	   		AND AGENCY_CODE IN (select agency_code from INF_AGENCYS where org_code = #{cuserOrg} )
+		  	   </if>
+		  	   ),
+		fund as
+		 (select *
+		    from (select CALC_DATE,AGENCY_CODE, FLOW_TYPE, AMOUNT from base)
+		  pivot(sum(amount)
+		     for FLOW_TYPE in(1 as charge,
+		                     2 as withdraw,
+		                     5 as sale_comm,
+		                     6 as pay_comm,
+		                     7 as sale,
+		                     8 as paid,
+		                     11 as rtv,
+		                     13 as rtv_comm))),
+		agency_ava as
+		 (select CALC_DATE,AGENCY_CODE, BE_ACCOUNT_BALANCE, AF_ACCOUNT_BALANCE
+		    from base
+		   where flow_type = 0)
+		select 
+		       ROUND(sum(nvl(charge, 0))/f_get_sys_param(100),3) topUp,
+		       ROUND(sum(nvl(withdraw, 0))/f_get_sys_param(100),3) withdraw,
+		       ROUND(sum(nvl(sale, 0))/f_get_sys_param(100)) saleAmount,
+		       ROUND(sum(nvl(sale_comm, 0))/f_get_sys_param(100),3) saleComm,
+		       ROUND(sum(nvl(paid, 0))/f_get_sys_param(100),3) payout,
+		       ROUND(sum(nvl(pay_comm, 0))/f_get_sys_param(100),3) payoutComm,
+		       ROUND(sum(nvl(rtv, 0))/f_get_sys_param(100),3) returnAmount,
+		       ROUND(sum(nvl(rtv_comm, 0))/f_get_sys_param(100),3) returnComm,
+		       ROUND((sum(nvl(sale,0) - nvl(sale_comm,0) - nvl(paid,0) -nvl(pay_comm,0) - nvl(rtv,0) + nvl(rtv_comm,0)))/f_get_sys_param(100),3) income
+		  from fund
+		  join agency_ava
+		 using (AGENCY_CODE,CALC_DATE)
+	</select>
+
+	<select id="getOrgInventoryDaliyReport" resultType="cls.pilottery.web.report.model.OrgInventoryDaliyReportVo" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		SELECT CALC_DATE calcDate,
+			   ORG_CODE institutionCode,
+		       ORG_NAME institutionName,
+		       PLAN_CODE planCode,
+		       FULL_NAME planName,
+		       NVL(OPENING_TICKETS,0) beginTickets,
+		       NVL(TB_IN_TICKETS,0) receiptTickets,
+		       NVL(TB_OUT_TICKETS,0) issueTickets,
+		       NVL(AGENCY_SALE_TICKETS,0) salesTickets,
+		       NVL(AGENCY_RETURN_TICKETS,0) returnTickets,
+		       NVL(BROKEN_TICKETS,0) damageTickets,
+		       NVL(CLOSING_TICKETS,0) inventoryTickets
+		  FROM v_his_org_inventory
+		  JOIN INF_ORGS using (ORG_CODE)
+		  JOIN GAME_PLANS using (PLAN_CODE)
+		 WHERE CALC_DATE BETWEEN #{beginDate} AND #{endDate}
+		   AND ORG_CODE != '00'
+		  	<if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+		  	order by calcDate desc,ORG_CODE,PLAN_CODE
+	</select>
+	<select id="getOutletInventoryDaliyReport" resultType="cls.pilottery.web.report.model.OutletInventoryDaliyReportVo" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		WITH base AS (SELECT * FROM HIS_AGENCY_INV),
+		     calc_result
+		     AS (SELECT *
+		           FROM base PIVOT (SUM (TICKETS) TICKETS, SUM (AMOUNT) AMOUNT
+		                     FOR OPER_TYPE
+		                     IN (10 AS return, 20 AS sale)))
+		  SELECT CALC_DATE calcDate,
+		         AGENCY_CODE outletCode,
+		         AGENCY_NAME outletName,
+		         PLAN_CODE planCode,
+		         FULL_NAME planName,
+		         NVL (RETURN_TICKETS, 0) returnTickets,
+		         NVL (SALE_TICKETS, 0) receiptTickets,
+		         NVL (SALE_TICKETS, 0) - NVL (RETURN_TICKETS, 0) inventoryTickets
+		    FROM calc_result
+		         JOIN GAME_PLANS USING (PLAN_CODE)
+		         JOIN INF_AGENCYS USING (AGENCY_CODE)
+		   WHERE CALC_DATE BETWEEN #{beginDate} AND #{endDate}
+	       <if test="outletCode != null and outletCode != ''">
+				AND AGENCY_CODE = #{outletCode}
+	  	   </if>
+	  	   <if test="cuserOrg != '00'">
+	  	   		AND AGENCY_CODE IN (select agency_code from INF_AGENCYS where org_code = #{cuserOrg} )
+	  	   </if>
+		ORDER BY CALC_DATE DESC, AGENCY_CODE, PLAN_CODE
+	</select>
+	
+	<select id="getInstitutionPayableList" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select CALC_DATE as balanceDate,
+			   org_code as orgCode,
+		       org_name as orgName,
+		       nvl(charge, 0) as topUp ,
+		       nvl(withdraw, 0) as withdraw,
+		       nvl(CENTER_PAY, 0)+nvl(lot_center_pay, 0) as payout,
+		       nvl(lot_center_rtv,0) cancelAmount,
+		       nvl(PAY_UP,0) payUp
+		  from  v_his_org_fund_report
+		  right join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 1
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+		  order by balanceDate desc,orgCode
+	</select>
+	<select id="getInstitutionPayableListSum" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select 
+		       sum(nvl(charge, 0)) as topUp ,
+		       sum(nvl(withdraw, 0)) as withdraw,
+		       sum(nvl(CENTER_PAY, 0)+nvl(lot_center_pay, 0)) as payout,
+		       sum(nvl(lot_center_rtv,0)) cancelAmount,
+		       sum(nvl(PAY_UP,0)) payUp
+		  from  v_his_org_fund_report
+		  join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 1
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+	</select>
+	<select id="getInstitutionPayableUSDList" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select CALC_DATE as balanceDate,
+			   org_code as orgCode,
+		       org_name as orgName,
+		       ROUND(nvl(charge, 0)/f_get_sys_param(100),3) as topUp ,
+		       ROUND(nvl(withdraw, 0)/f_get_sys_param(100),3) as withdraw,
+		       ROUND((nvl(CENTER_PAY, 0)+nvl(lot_center_pay, 0))/f_get_sys_param(100),3) as payout,
+		       ROUND(nvl(lot_center_rtv,0)/f_get_sys_param(100),3) cancelAmount,
+		       ROUND(nvl(PAY_UP,0)/f_get_sys_param(100),3) payUp
+		  from  v_his_org_fund_report
+		  right join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 1
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+		  order by balanceDate desc,orgCode
+	</select>
+	<select id="getInstitutionPayableUSDListSum" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select 
+		       ROUND(sum(nvl(charge, 0))/f_get_sys_param(100),3) as topUp ,
+		       ROUND(sum(nvl(withdraw, 0))/f_get_sys_param(100),3) as withdraw,
+		       ROUND(sum(nvl(CENTER_PAY, 0)+nvl(lot_center_pay, 0))/f_get_sys_param(100),3) as payout,
+		       ROUND(sum(nvl(lot_center_rtv,0))/f_get_sys_param(100),3) cancelAmount,
+		       ROUND(sum(nvl(PAY_UP,0))/f_get_sys_param(100),3) payUp
+		  from  v_his_org_fund_report
+		  join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 1
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+	</select>
+	
+	<select id="getAgentFundReport" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select CALC_DATE as balanceDate,
+			   org_code as orgCode,
+		       org_name as orgName,
+		       nvl(BEGINING_AMOUNT, 0) as initialBalance,
+		       nvl(CHARGE_AMOUNT, 0) as topUp ,
+		       nvl(WITHDRAW_AMOUNT, 0) as withdraw,
+		       nvl(SALE_AMOUNT, 0) as saleAmount,
+		       nvl(ORG_COMM_AMOUNT,0) saleComm,
+		       nvl(ORG_RETURN_AMOUNT, 0) as returnAmount ,
+		       nvl(ORG_COMM_ORG_RETURN_AMOUNT, 0) as returnComm,
+		       nvl(ORG_CENTER_PAY_AMOUNT, 0) + nvl(lot_org_center_pay_amount,0) as centerPayAmount,
+		       nvl(ORG_CENTER_PAY_COMM_AMOUNT, 0) + nvl(lot_ORG_CENTER_PAY_COMM_AMOUNT, 0) as centerPayComm ,
+		       nvl(ORG_AGENCY_PAY_AMOUNT, 0) + nvl(lot_org_agency_pay_amount,0) as payout,
+		       nvl(ORG_AGENCY_PAY_COMM_AMOUNT, 0) + nvl(lot_org_agency_pay_comm_amount,0) as payoutComm,
+		       nvl(lot_org_center_cancel_amount,0) cancelAmount,
+		       nvl(lot_agency_sale_comm_amount,0) agencySaleComm,
+		       nvl(lot_agency_cancel_comm_amount,0) agencyCancelComm,
+		       nvl(ENDING_AMOUNT, 0) as finalBalance
+		  from v_his_agent_fund_report
+		  right join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 2
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+		  order by balanceDate desc,orgCode
+	</select>
+	<select id="getAgentFundReportSum" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select  
+			   sum(nvl(CHARGE_AMOUNT, 0)) as topUp ,
+		       sum(nvl(WITHDRAW_AMOUNT, 0)) as withdraw,
+		       sum(nvl(SALE_AMOUNT, 0)) as saleAmount,
+		       sum(nvl(ORG_COMM_AMOUNT,0)) saleComm,
+		       sum(nvl(ORG_RETURN_AMOUNT, 0)) as returnAmount ,
+		       sum(nvl(ORG_COMM_ORG_RETURN_AMOUNT, 0)) as returnComm,
+		       sum(nvl(ORG_AGENCY_PAY_COMM_AMOUNT, 0) + nvl(lot_org_agency_pay_comm_amount,0)) as payoutComm,
+		       sum(nvl(ORG_AGENCY_PAY_AMOUNT, 0) + nvl(lot_org_agency_pay_amount,0)) as payout,
+		       sum(nvl(ORG_CENTER_PAY_COMM_AMOUNT, 0)+ nvl(lot_org_center_pay_comm_amount,0)) as centerPayComm ,
+		       sum(nvl(ORG_CENTER_PAY_AMOUNT, 0) + nvl(lot_org_center_pay_amount,0)) as centerPayAmount,
+		       sum(nvl(lot_org_center_cancel_amount,0)) cancelAmount,
+		       sum(nvl(lot_agency_sale_comm_amount,0)) agencySaleComm,
+		       sum(nvl(lot_agency_cancel_comm_amount,0)) agencyCancelComm
+		  from v_his_agent_fund_report
+		  join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 2
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+	</select>
+	<select id="getAgentFundReportUSD" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select CALC_DATE as balanceDate,
+			   org_code as orgCode,
+		       org_name as orgName,
+		       ROUND(nvl(BEGINING_AMOUNT, 0)/f_get_sys_param(100),3) as initialBalance,
+		       ROUND(nvl(CHARGE_AMOUNT, 0)/f_get_sys_param(100),3) as topUp ,
+		       ROUND(nvl(WITHDRAW_AMOUNT, 0)/f_get_sys_param(100),3) as withdraw,
+		       ROUND(nvl(SALE_AMOUNT, 0)/f_get_sys_param(100),3) as saleAmount,
+		       ROUND(nvl(ORG_COMM_AMOUNT,0)/f_get_sys_param(100),3) saleComm,
+		       ROUND(nvl(ORG_RETURN_AMOUNT, 0)/f_get_sys_param(100),3) as returnAmount ,
+		       ROUND((nvl(ORG_COMM_ORG_RETURN_AMOUNT, 0))/f_get_sys_param(100),3) as returnComm,
+		       ROUND((nvl(ORG_CENTER_PAY_AMOUNT, 0) + nvl(lot_org_center_pay_amount,0))/f_get_sys_param(100),3) as centerPayAmount,
+		       ROUND((nvl(ORG_CENTER_PAY_COMM_AMOUNT, 0)+ nvl(lot_org_center_pay_comm_amount,0))/f_get_sys_param(100),3) as centerPayComm ,
+		       ROUND((nvl(ORG_AGENCY_PAY_AMOUNT, 0) + nvl(lot_org_agency_pay_amount,0))/f_get_sys_param(100),3) as payout,
+		       ROUND((nvl(ORG_AGENCY_PAY_COMM_AMOUNT, 0) + nvl(lot_org_agency_pay_comm_amount,0))/f_get_sys_param(100),3) as payoutComm,
+		       ROUND(nvl(lot_org_center_cancel_amount,0)/f_get_sys_param(100),3) cancelAmount,
+		       ROUND(nvl(lot_agency_sale_comm_amount,0)/f_get_sys_param(100),3) agencySaleComm,
+		       ROUND(nvl(lot_agency_cancel_comm_amount,0)/f_get_sys_param(100),3) agencyCancelComm,
+		       ROUND(nvl(ENDING_AMOUNT, 0)/f_get_sys_param(100),3) as finalBalance
+		  from v_his_agent_fund_report
+		  right join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 2
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+		  order by balanceDate desc,orgCode
+	</select>
+	<select id="getAgentFundReportUSDSum" resultType="cls.pilottery.web.report.model.InstitutionFundVO" parameterType="cls.pilottery.web.report.form.SaleReportForm">
+		select 
+			   ROUND(sum(nvl(CHARGE_AMOUNT, 0))/f_get_sys_param(100),3) as topUp ,
+		       ROUND(sum(nvl(WITHDRAW_AMOUNT, 0))/f_get_sys_param(100),3) as withdraw,
+		       ROUND(sum(nvl(SALE_AMOUNT, 0))/f_get_sys_param(100),3) as saleAmount,
+		       ROUND(sum(nvl(ORG_COMM_AMOUNT,0))/f_get_sys_param(100),3) saleComm,
+		       ROUND(sum(nvl(ORG_RETURN_AMOUNT, 0))/f_get_sys_param(100),3) as returnAmount ,
+		       ROUND(sum(nvl(ORG_COMM_ORG_RETURN_AMOUNT, 0))/f_get_sys_param(100),3) as returnComm,
+		       ROUND(sum(nvl(ORG_AGENCY_PAY_COMM_AMOUNT, 0) + nvl(lot_org_agency_pay_comm_amount,0))/f_get_sys_param(100),3) as payoutComm,
+		       ROUND(sum(nvl(ORG_AGENCY_PAY_AMOUNT, 0) + nvl(lot_org_agency_pay_amount,0))/f_get_sys_param(100),3) as payout,
+		       ROUND(sum(nvl(ORG_CENTER_PAY_COMM_AMOUNT, 0) + nvl(lot_org_center_pay_comm_amount,0))/f_get_sys_param(100),3) as centerPayComm ,
+		       ROUND(sum(nvl(ORG_CENTER_PAY_AMOUNT, 0) + nvl(lot_org_center_pay_amount,0))/f_get_sys_param(100),3) as centerPayAmount,
+		       ROUND(sum(nvl(lot_org_center_cancel_amount,0))/f_get_sys_param(100),3) cancelAmount,
+		       ROUND(sum(nvl(lot_agency_sale_comm_amount,0))/f_get_sys_param(100),3) agencySaleComm,
+		       ROUND(sum(nvl(lot_agency_cancel_comm_amount,0))/f_get_sys_param(100),3) agencyCancelComm
+		  from v_his_agent_fund_report
+		  join inf_orgs using (org_code)
+		  where CALC_DATE between #{beginDate} and #{endDate} and ORG_TYPE = 2
+		    <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+	  		</if>
+	  		<if test="cuserOrg != '00'">
+		  	   	AND ORG_CODE = #{cuserOrg}
+		  	</if>
+	</select>
+	
+</mapper>

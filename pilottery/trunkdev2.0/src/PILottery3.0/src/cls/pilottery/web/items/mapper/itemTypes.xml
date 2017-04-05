@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cls.pilottery.web.items.dao.ItemTypeDao">
+
+	<resultMap type="cls.pilottery.web.items.model.ItemType" id="itemTypeMap">
+        <id column="ITEM_CODE" property="itemCode"/>
+        <result column="ITEM_NAME" property="itemName"/>
+        <result column="BASE_UNIT_NAME" property="baseUnitName"/>
+        <result column="STATUS" property="status"/>
+    </resultMap>
+
+	<!-- 获得物品类别总数 -->
+    <select id="getItemTypeCount" parameterType="cls.pilottery.web.items.form.ItemTypeQueryForm" resultType="Integer">
+        SELECT COUNT(1)
+        FROM ITEM_ITEMS
+        WHERE 1 = 1
+        <if test="itemCodeQuery != null and itemCodeQuery != ''">
+            AND ITEM_CODE = #{itemCodeQuery}
+        </if>
+        
+        <if test="itemNameQuery != null and itemNameQuery != ''">
+            AND ITEM_NAME = #{itemNameQuery}
+        </if>
+        AND STATUS = 1
+    </select>
+    
+    <!-- 获得物品查询记录 -->
+    <select id="getItemTypeList" parameterType="cls.pilottery.web.items.form.ItemTypeQueryForm" resultMap="itemTypeMap">
+        SELECT * FROM (
+            SELECT A.*, ROWNUM RN FROM (
+                SELECT ITEM_CODE, 
+                       ITEM_NAME, 
+                       BASE_UNIT_NAME
+                FROM ITEM_ITEMS
+                WHERE 1 = 1
+        
+                <if test="itemCodeQuery != null and itemCodeQuery != ''">
+                AND ITEM_CODE = #{itemCodeQuery}
+                </if>
+
+                <if test="itemNameQuery != null and itemNameQuery != ''">
+                AND ITEM_NAME = #{itemNameQuery}
+                </if>
+                AND STATUS = 1
+                ORDER BY ITEM_CODE DESC
+  <![CDATA[ ) A
+        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+    </select>
+    
+    <!-- 添加新物品类别 -->
+    <insert id="addItemType" parameterType="cls.pilottery.web.items.model.ItemType">
+        INSERT INTO ITEM_ITEMS (ITEM_CODE,ITEM_NAME,BASE_UNIT_NAME,STATUS) VALUES
+        (f_get_item_code_seq, #{itemName}, #{baseUnitName}, 1)
+    </insert>
+    
+    <!-- 修改物品类别信息 -->
+    <update id="modifyItemType" parameterType="cls.pilottery.web.items.model.ItemType">
+        UPDATE ITEM_ITEMS
+        SET ITEM_NAME = #{itemName}, BASE_UNIT_NAME = #{baseUnitName}
+        WHERE ITEM_CODE = #{itemCode}
+    </update>
+    
+    <!-- 删除物品类别信息 -->
+    <update id="deleteItemType" statementType="CALLABLE" parameterType="cls.pilottery.web.items.form.ItemTypeDeleteForm">
+        {CALL P_ITEM_DELETE(
+        	#{itemCode,mode=IN,jdbcType=VARCHAR},
+        	#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+        )}
+    </update>
+    
+    <!-- 获得全部可用物品用于下拉框选择 -->
+    <select id="getItemsForSelect" resultMap="itemTypeMap">
+    	SELECT ITEM_CODE, 
+    	       ITEM_NAME, 
+    	       BASE_UNIT_NAME
+        FROM ITEM_ITEMS
+        WHERE STATUS = 1
+        ORDER BY ITEM_CODE
+    </select>
+    
+</mapper>

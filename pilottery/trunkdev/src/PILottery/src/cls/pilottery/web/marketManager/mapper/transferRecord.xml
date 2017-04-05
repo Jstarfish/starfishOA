@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.marketManager.dao.TransferRecordDao">
+<select id="getTransferRecordList" parameterType="cls.pilottery.web.marketManager.form.MMTransferRecordForm" 
+			resultType="cls.pilottery.web.marketManager.model.MMTransferRecordModel">
+		select  DD.DEAL_TIME AS contractDate,
+				DD.AGENCY_CODE AS outletCode,
+				DD.DEAL_TYPE AS dealType,
+				DD.AMOUNT AS amount,
+				DD.CONTRACT_NO AS contractNo,
+				DD.FLOW_NO AS flowNo,
+				DD.AGENCY_NAME AS outletName,
+				DD.ADMIN_REALNAME AS marketManagerName 
+		  from (select rownum rn, t.*
+		          from (select aa.*, bb.agency_name, 
+								bb.admin_realname,
+								BB.CONTRACT_NO
+		                  from (select SALE_TIME deal_time,
+		                               agency_code,
+		                               1 as deal_type,
+		                               sum(SALE_AMOUNT) AMOUNT,
+		                               SGR_NO flow_no
+		                          from flow_sale
+		                         WHERE 1 = 1
+		                         group by SALE_TIME, agency_code, 
+								SGR_NO
+		                        union all
+		                        select CANCEL_TIME,
+		                               agency_code,
+		                               3 as deal_type,
+		                               sum(SALE_AMOUNT) SALE_AMOUNT,
+		                               SGI_NO
+		                          from FLOW_CANCEL
+		                         WHERE 1 = 1
+		                         group by CANCEL_TIME, agency_code, 
+								SGI_NO
+		                        union all
+		                        select pay_time,
+		                               PAY_AGENCY,
+		                               2 as deal_type,
+		                               SUCC_AMOUNT,
+		                               DJXQ_NO
+		                          from SALE_PAID) aa,
+		                       (SELECT agency_code, c.AGENCY_NAME, d.admin_realname,CONTRACT_NO
+		                          FROM inf_agencys c
+		                          left join adm_info d on c.market_manager_id = d.admin_id
+		                          JOIN INF_AGENCY_EXT USING (AGENCY_CODE)
+		                         WHERE 1=1 
+		                         <if test="cuserOrg!=null and cuserOrg!=''">
+		                           <if test="cuserOrg!='00'">
+		                            MARKET_MANAGER_ID = #{marketManagerId}
+		                           </if>
+		                         </if>
+		                        ) bb
+		                 WHERE aa.agency_code = bb.AGENCY_CODE
+			<if test="marketManagerName != null and marketManagerName != ''">
+				and bb.admin_realname like '%'||#{marketManagerName}||'%' 
+			</if> 
+			<if test="outletCode != null and outletCode != ''">
+				AND  aa.AGENCY_CODE = #{outletCode}
+			</if>
+			order by deal_time desc
+		<![CDATA[ ) t ) DD where DD.rn > ${beginNum} and DD.rn <= 
+			${endNum} ]]>
+	</select>
+	
+	 <select id="getTransferRecordCount" parameterType="cls.pilottery.web.marketManager.form.MMTransferRecordForm"
+		resultType="Integer">
+		select  count(1) 
+		  from (select t.*
+		          from (select aa.*, bb.agency_name, 
+								bb.admin_realname
+		                  from (select SALE_TIME deal_time,
+		                               agency_code,
+		                               1 as deal_type,
+		                               sum(SALE_AMOUNT) AMOUNT,
+		                               SGR_NO flow_no
+		                          from flow_sale
+		                         WHERE 1 = 1
+		                         group by SALE_TIME, agency_code, 
+								SGR_NO
+		                        union all
+		                        select CANCEL_TIME,
+		                               agency_code,
+		                               3 as deal_type,
+		                               sum(SALE_AMOUNT) SALE_AMOUNT,
+		                               SGI_NO
+		                          from FLOW_CANCEL
+		                         WHERE 1 = 1
+		                         group by CANCEL_TIME, agency_code, 
+								SGI_NO
+		                        union all
+		                        select pay_time,
+		                               PAY_AGENCY,
+		                               2 as deal_type,
+		                               SUCC_AMOUNT,
+		                               DJXQ_NO
+		                          from SALE_PAID) aa,
+		                       (SELECT c.agency_code, 
+								c.AGENCY_NAME, d.admin_realname
+		                          FROM inf_agencys c
+		                          left join adm_info d
+		                            on c.market_manager_id = 
+									d.admin_id
+		                         WHERE 1=1 
+		                         <if test="cuserOrg!=null and cuserOrg!=''">
+		                           <if test="cuserOrg!='00'">
+		                            MARKET_MANAGER_ID = #{marketManagerId}
+		                           </if>
+		                         </if>
+		                        ) bb
+		                 WHERE aa.agency_code = bb.AGENCY_CODE
+			<if test="marketManagerName != null and marketManagerName != ''">
+				and bb.admin_realname like '%'||#{marketManagerName}||'%' 
+			</if> 
+			<if test="outletCode != null and outletCode != ''">
+				AND  aa.AGENCY_CODE = #{outletCode}
+			</if>
+			order by deal_time desc ) t ) DD
+	</select> 
+	
+	<select id="getSaleDetailOne" parameterType="String" resultType="cls.pilottery.web.marketManager.model.SalesDetailModel">
+			select  SALE_TIME saleDate,
+	       			agency_code outletCode,
+	       			sum(SALE_AMOUNT) saleAmount,
+	      			sum(COMM_AMOUNT) saleComm
+	 		 from WH_GOODS_RECEIPT
+	  		 join FLOW_SALE
+	 		 using (sgr_no)
+		 where sgr_no = #{contractNo}
+	 	group by SALE_TIME, agency_code
+	</select>
+	<select id="getSaleDetailTwo" parameterType="String" resultType="cls.pilottery.web.marketManager.model.SalesDetailModel">
+			select a.plan_code as planCode,
+			       sum(a.tickets) as tickets,
+			       sum(a.amount) as sumAmount
+			  from wh_goods_receipt_detail a
+			 where SGR_NO = #{contractNo}
+			 group by a.plan_code
+	</select>
+	<select id="getSaleDetailThree" parameterType="String"	resultType="cls.pilottery.web.marketManager.model.SalesDetailModel">
+			select plan_code || '-' || batch_no || '-' ||
+			       decode(VALID_NUMBER, 1, trunk_no, 2, box_no, 
+				package_no) as saleSpecification,
+			       AMOUNT as amount
+			  from WH_GOODS_RECEIPT_detail
+			 where SGR_NO = #{contractNo}
+	</select>
+	
+	<!-- 兑奖详情信息查询 -->
+ 	<select id="getPayoutDetailOne" parameterType="String" resultType="cls.pilottery.web.marketManager.model.PayoutDetailModel">
+	 	  SELECT a.PAY_AGENCY as outletCode,
+		         a.PAY_TIME as payoutDate,
+		         SUM (NVL (PAY_AMOUNT, 0)) as payoutAmount,
+		         SUM (NVL (COMM_AMOUNT, 0)) as payoutComm
+		    FROM SALE_PAID a
+		         JOIN SALE_PAID_DETAIL
+		            USING (DJXQ_NO)
+		         LEFT JOIN FLOW_PAY
+		            USING (PAY_FLOW)
+		   WHERE trim(DJXQ_NO) = trim(#{_parameter})
+		GROUP BY a.PAY_AGENCY, a.PAY_TIME  
+	</select>
+	<select id="getPayoutDetailTwo" parameterType="String"	resultType="cls.pilottery.web.marketManager.model.PayoutDetailModel">
+			SELECT PAY_AMOUNT as levelAmount,
+			 	   SUM(PAY_AMOUNT) as amount,
+			       COUNT(1) as tickets
+			  FROM SALE_PAID_DETAIL
+			  JOIN FLOW_PAY
+			 USING (PAY_FLOW)
+			 WHERE trim(DJXQ_NO) = trim(#{_parameter})
+			 GROUP BY PAY_AMOUNT
+	</select>
+	<select id="getPayoutDetailThree" parameterType="String"	resultType="cls.pilottery.web.marketManager.model.PayoutDetailModel">
+			select PLAN_CODE || '-' || BATCH_NO || '-' || 
+					PACKAGE_NO || '-' ||
+			       TICKET_NO as payoutSpecification,
+			       PAID_STATUS as payoutStatus
+			  from SALE_PAID_DETAIL
+			 where trim(DJXQ_NO) = trim(#{_parameter})
+	</select>
+
+	<!-- 退票详情查询-->
+	<select id="getReturnDetailOne" parameterType="String"	resultType="cls.pilottery.web.marketManager.model.ReturnDetailModel">
+			select  CANCEL_TIME returnlDate,
+	               AGENCY_CODE outletCode,
+	               sum(SALE_AMOUNT) returnAmount,
+	              sum(COMM_AMOUNT) returnComm
+	        from WH_GOODS_ISSUE
+	         join flow_cancel
+	        using (SGI_NO)
+	     where SGI_NO = #{contractNo}
+		 	group by CANCEL_TIME, AGENCY_CODE
+	</select>
+
+	<select id="getReturnDetailTwo" parameterType="String"	resultType="cls.pilottery.web.marketManager.model.ReturnDetailModel">
+			 SELECT PLAN_CODE as planCode,
+			 	    SUM(AMOUNT) as sumAmount,
+           			SUM(TICKETS) as tickets		      
+			  FROM WH_GOODS_ISSUE_DETAIL
+			 WHERE SGI_NO = #{contractNo}
+			 GROUP BY PLAN_CODE
+	</select>
+
+	<select id="getReturnDetailThree" parameterType="String"	resultType="cls.pilottery.web.marketManager.model.ReturnDetailModel">
+			select plan_code || '-' || batch_no || '-' ||
+              decode(VALID_NUMBER, 1, trunk_no, 2, box_no, package_no) as returnSpecification,
+              AMOUNT as amount
+         from WH_GOODS_ISSUE_DETAIL
+        where SGI_NO = #{contractNo}
+	</select>
+</mapper>
+
+

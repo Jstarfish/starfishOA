@@ -1,0 +1,38 @@
+.base-margin {
+	margin-right: 15px;
+	margin-left: 15px;
+	width:100%;
+}
+.btn-right {
+	float: right;
+	margin-right: 30px;
+}
+body{
+	overflow: hidden;
+}
+
+.icon-disabled,.icon-disabled:hover,.icon-disabled:focus{
+	background-color: #fff;
+    border-color: #ccc;
+    color:#ccc;
+}
+
+.report-print-button {
+    font-family: "microsoft yahei", "微软雅黑";
+    position: relative;
+    line-height: 25px;
+    padding: 1px 20px;
+    transition: all .3s ease-out;
+    border: 1px solid #90cd00;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background-color: #90cd00;
+    font-size: 14px;
+    margin-right: 0px;
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+}

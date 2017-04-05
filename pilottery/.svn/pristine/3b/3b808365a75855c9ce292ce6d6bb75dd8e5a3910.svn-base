@@ -1,0 +1,33 @@
+create or replace procedure p_cncp_ticket_timeout
+/****************************************************************/
+   -- 出票超时
+   -- add by chen zhen @ 2016-09-20
+/*************************************************************/
+(
+  --------------输入----------------
+  p_flow                              in char,          -- 申请流水
+
+  --------------输入----------------
+  c_error_code                        out number,        -- 错误码
+  c_error_msg                         out varchar2       -- 错误内容
+
+ ) is
+
+begin
+
+  dbtool.set_success(errcode => c_error_code, errmesg => c_error_msg);
+  
+  -- 修改记录状态为出票失败
+  update cncp_trade_sale
+     set order_status = ecncp_dealer_order_status.timeout
+   where sale_flow = p_flow;
+
+  commit;
+
+exception
+  when others then
+    rollback;
+    c_error_code := -1;
+    c_error_msg := error_msg.err_common_1 || sqlerrm;
+
+end;

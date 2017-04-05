@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.business.dao.SoftwarePackageDao">
+
+	<resultMap type="cls.pilottery.oms.business.model.tmversionmodel.SoftwarePackage" id="softwarePackage">	 
+	
+		<result column="PKG_VER" property="packageVersion" />
+		<result column="ADAPT_TERM_TYPE" property="terminalType"/>
+		<result column="ADAPT_TERM_TYPES" property="terminalTypes" javaType="cls.pilottery.oms.business.model.TerminalType" jdbcType="NUMERIC" typeHandler="cls.pilottery.oms.business.model.TerminalTypeTypeHandler" />
+		<result column="PKG_DESC" property="packageDescription"  />
+		<result column="RELEASE_DATE" property="releaseDate" />
+		<result column="RELEASE_DATE_TOCHAR" property="releaseDateToChar" />
+		<result column="IS_VALID" property="isValid"  />
+	 	<collection property="softwareVersionList" ofType="cls.pilottery.oms.business.model.tmversionmodel.PackageContext"
+	 	             resultMap="PackageContext">
+	 	</collection>
+	</resultMap>
+
+
+	<resultMap type="cls.pilottery.oms.business.model.tmversionmodel.PackageContext" id="PackageContext">
+		<id column="PKG_VER" property="packageVersion" />
+		<id column="SOFT_ID" property="softId" />		
+		<result column="SOFT_VER" property="softVersion" />
+		<result column="ADAPT_TERM_TYPE" property="terminalType"/>
+	</resultMap>
+	
+	<select id="getCount" resultType="Integer">
+		SELECT count(1)
+		  FROM UPG_PACKAGE a
+		 ORDER BY RELEASE_DATE
+	</select>
+	
+	<select id="getSoftwarePackages" resultMap="softwarePackage">  
+		select * from (
+	        select a.*, rownum rn from (
+	        	SELECT a.PKG_VER, a.ADAPT_TERM_TYPE, a.ADAPT_TERM_TYPE ADAPT_TERM_TYPES, a.PKG_DESC, a.IS_VALID, to_char(a.RELEASE_DATE,'yyyy-mm-dd HH24:mi:ss') "RELEASE_DATE_TOCHAR"
+			  	FROM UPG_PACKAGE a
+			 	ORDER BY RELEASE_DATE desc) a )
+		<![CDATA[where rn > ${beginNum} and rn <= ${endNum}]]>
+    </select>
+    
+   
+   <insert id="insertPackage" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwarePackage">
+   	
+	   	INSERT INTO UPG_PACKAGE	  	
+		VALUES
+		  (#{packageVersion},
+		   #{terminalType},
+		   #{packageDescription},
+		   sysdate,
+		   1
+		  )   
+	
+   </insert>   
+   <insert id="insertPackageContext" parameterType="cls.pilottery.oms.business.model.tmversionmodel.PackageContext">
+   	
+	   INSERT INTO UPG_PKG_CONTEXT	  	
+		VALUES
+		  (#{packageVersion},
+		   #{softId},
+		   #{softVersion},
+		   #{terminalType}
+		   	
+		  )   
+	
+   </insert>
+   
+   <update id="updatePackageValid" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwarePackage">
+   	
+	   	UPDATE UPG_PACKAGE	  	
+		SET IS_VALID = #{isValid}
+		WHERE PKG_VER = #{packageVersion} AND ADAPT_TERM_TYPE = #{terminalType}
+   </update> 
+	
+	<!--删除  -->
+	<delete id="deletePackageContext" parameterType="cls.pilottery.oms.business.model.tmversionmodel.SoftwarePackage">
+	
+		DELETE FROM UPG_PKG_CONTEXT	
+		WHERE  PKG_VER = #{packageVersion} AND ADAPT_TERM_TYPE = #{terminalType}
+	
+	</delete>
+	
+	
+	<resultMap type="cls.pilottery.oms.business.model.tmversionmodel.SimpleSoftPack" id="simplePack">	
+		<result column="PKG_VER" property="packageVersion" />
+		<result column="ADAPT_TERM_TYPE" property="terminalType"/>
+		<result column="PKG_DESC" property="packageDescription"  />		
+	</resultMap>
+	<select id="getPackVersForTermType" parameterType="Integer" resultMap="simplePack">  
+        SELECT ADAPT_TERM_TYPE,PKG_VER,PKG_DESC
+        FROM  UPG_PACKAGE
+        WHERE ADAPT_TERM_TYPE = #{termType} and IS_VALID = 1
+        ORDER BY PKG_VER
+    </select>
+    
+    <select id="ifExistSoftWarePackageNo" parameterType="java.util.HashMap" resultType="Integer">
+    	select count(1) from UPG_PACKAGE t where trim(t.PKG_VER) = #{packageVersion} and trim(t.ADAPT_TERM_TYPE) = #{terminalType}
+    </select>
+    
+    <select id="ifBiggerThanOther" parameterType="java.util.HashMap" resultType="Integer">
+    	<![CDATA[select count(1) from UPG_PACKAGE t where trim(t.ADAPT_TERM_TYPE) = #{terminalType} and trim(t.PKG_VER) >= #{packageVersion}]]>
+    </select>
+    
+    <select id="maxSoftwarePackNo" parameterType="java.util.HashMap" resultType="java.lang.String">
+    	select max(t.pkg_ver) from UPG_PACKAGE t where trim(t.ADAPT_TERM_TYPE) = #{terminalType}
+    </select>
+    
+     <select id="getPlanName" resultType="java.lang.String">
+    	select trim(t.SCHEDULE_NAME) from UPG_UPGRADEPLAN t where t.SCHEDULE_ID = #{value}
+    </select>
+    
+    <select id="validSoftVersionNo" resultType="java.util.HashMap">
+    	select a.pkg_ver "pkgVer"
+    	FROM UPG_PACKAGE a
+    	where a.is_valid = 1
+    	order by a.PKG_VER
+    </select>
+    
+    <select id="isFullNum" parameterType="java.lang.String" resultType="Integer">
+    	select count(1) from UPG_PACKAGE t where trim(t.ADAPT_TERM_TYPE) = #{value} and t.IS_VALID = 1
+    </select>
+    
+    <select id="getUpdateTime" parameterType="java.lang.String" resultType="java.lang.String">
+    	select	t.SCHEDULE_SW_DATE
+    	from	UPG_UPGRADEPLAN t
+    	where	t.SCHEDULE_ID = #{value}
+    </select>
+</mapper>

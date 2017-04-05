@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.issue.dao.GameDrawDao">
+
+	<resultMap type="cls.pilottery.oms.issue.model.GameDrawInfo" id="gameDrawInfo">
+		<result column="GAME_CODE" property="gameCode" />
+		<result column="SHORT_NAME" property="shortName" />
+		<result column="ISSUE_NUMBER" property="issueNumber" />
+		<result column="ISSUE_STATUS" property="issueStatus" />
+		<result column="DRAW_STATE" property="drawStatus" />
+		<result column="FIRST_DRAW_USER_ID" property="firstDrawUserId" />
+		<result column="FIRST_DRAW_NUMBER" property="firstDrawNumher" />
+		<result column="SECOND_DRAW_USER_ID" property="secondDrawUserId" />
+		<result column="SECOND_DRAW_NUMBER" property="secondDrawNumher" />
+		<result column="WINNING_BRODCAST" property="winnerBrodcast" />
+		<result column="WINNER_LOCAL_INFO" property="winnerLocalInfo" />
+		<result column="WINNER_CONFIRM_INFO" property="winnerConfirmInfo" />
+		<result column="final_draw_number" property="finalDrawNumber" />
+		<result column="WINNING_PROCESS" property="winnerProcess" />
+		<result column="issue_sale_amount" property="isssueSaleAmount" />
+		<result column="issue_sale_tickets" property="isssueSaleTickets" />
+		<result column="issue_sale_bets" property="isssueSaleBets" />
+		<result column="real_close_time" property="realColseTime" />
+		<result column="issue_end_time" property="issueEndTime" />
+	</resultMap>
+	<resultMap type="cls.pilottery.oms.issue.model.PrizeLevel"
+		id="prizeLevel">
+		<result column="prule_level" property="level" />
+		<result column="prule_name" property="name" />
+	</resultMap>
+	<resultMap type="cls.pilottery.oms.issue.model.AreaSaleDetail"
+		id="areaSaleDetail">
+		<result column="org_code" property="areaCode" />
+		<result column="org_name" property="areaName" />
+	</resultMap>
+
+	<select id="getManualDrawGameList" resultMap="gameDrawInfo">
+        <![CDATA[
+        SELECT DISTINCT g.game_code,g.short_name,min(gi.issue_number) as issue_number
+          FROM INF_GAMES g, ISS_GAME_ISSUE gi, gp_static gp
+           WHERE g.game_code = gi.game_code
+             and g.game_code = gp.game_code
+             AND gi.issue_status >= 5
+             AND gi.issue_status < 12
+             AND (gp.draw_mode = 2 OR gp.draw_mode = 3) group by g.game_code,g.short_name
+		]]>
+	</select>
+
+	<select id="getCurrentGameIssue" parameterType="cls.pilottery.oms.issue.model.GameDrawInfo"
+		resultMap="gameDrawInfo">
+        <![CDATA[
+	      SELECT gi.GAME_CODE,
+	             gi.ISSUE_NUMBER,
+	             gi.ISSUE_STATUS,
+	             gi.DRAW_STATE,
+	             gi.FIRST_DRAW_USER_ID,
+	             gi.FIRST_DRAW_NUMBER,
+	             gi.SECOND_DRAW_USER_ID,
+	             gi.SECOND_DRAW_NUMBER,
+	             gi.issue_sale_amount,
+	             gi.issue_sale_tickets,
+	             gi.issue_sale_bets,
+	             gi.final_draw_number,
+	             gi.real_close_time,
+	             gi.issue_end_time,
+	             g.short_name,
+	             gix.WINNING_BRODCAST,
+	             gix.WINNER_LOCAL_INFO,
+	             gix.WINNER_CONFIRM_INFO,
+	             gix.WINNING_PROCESS
+	        FROM ISS_GAME_ISSUE gi, INF_GAMES g, ISS_GAME_ISSUE_XML gix
+	       WHERE gi.GAME_CODE = #{gameCode}
+	         and g.GAME_CODE = gi.GAME_CODE
+	         and gix.GAME_CODE = gi.GAME_CODE
+	         and gix.ISSUE_NUMBER = gi.ISSUE_NUMBER
+	         AND gi.ISSUE_NUMBER = #{issueNumber}
+        ]]>
+	</select>
+
+	<update id="updateGameIssue" parameterType="cls.pilottery.oms.issue.model.GameDrawInfo">
+        <![CDATA[
+			update ISS_GAME_ISSUE
+			   set DRAW_STATE = #{drawStatus}
+        ]]>
+		<if test="firstDrawUserId != null and firstDrawUserId != 0">
+	        <![CDATA[
+		       ,FIRST_DRAW_USER_ID = #{firstDrawUserId}
+		       ,FIRST_DRAW_NUMBER = #{firstDrawNumher}
+	        ]]>
+		</if>
+		<if test="secondDrawUserId != null and secondDrawUserId != 0">
+            <![CDATA[
+			       ,SECOND_DRAW_USER_ID = #{secondDrawUserId}
+			       ,SECOND_DRAW_NUMBER = #{secondDrawNumher}
+			]]>
+		</if>
+        <![CDATA[
+			 WHERE GAME_CODE = #{gameCode}
+			   AND ISSUE_NUMBER = #{issueNumber}
+		]]>
+	</update>
+
+	<select id="getPrizeLevels" parameterType="int" resultMap="prizeLevel">
+        <![CDATA[
+           select * from V_GP_PRIZE_RULE_CURRENT where game_code = #{gameCode} order by disp_order 
+        ]]>
+	</select>
+
+	<select id="getLevelAreas" resultMap="areaSaleDetail">
+        <![CDATA[
+           select org_code,org_name from INF_ORGS
+        ]]>
+	</select>
+	
+	<update id="redrawGameIssue" parameterType="cls.pilottery.oms.issue.model.GameDrawInfo">
+			update ISS_GAME_ISSUE
+			   set DRAW_STATE = 1,
+			       FIRST_DRAW_USER_ID = null,
+			       SECOND_DRAW_USER_ID = null
+			 where GAME_CODE = #{gameCode}
+			   and ISSUE_NUMBER = #{issueNumber}
+	</update>
+
+</mapper>

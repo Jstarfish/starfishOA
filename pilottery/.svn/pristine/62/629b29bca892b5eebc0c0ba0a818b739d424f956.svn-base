@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/ListTitleBackGround"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/store_daily_date"
+        android:layout_width="match_parent"
+    	android:layout_height="50dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="@dimen/BodyFont"
+        android:textColor="@drawable/black" />
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#000000"/>
+<!-- 
+    <LinearLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+    	android:background="#CC9999">
+	    <TextView
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_marginLeft="15dp"
+	        android:gravity="left"
+	        android:text="@string/order_lotery_name"
+	        android:textSize="@dimen/BodyFont"
+	        android:textColor="@drawable/black" />
+	    <TextView
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_marginRight="15dp"
+	        android:gravity="right"
+	        android:text="@string/order_lotery_count"
+	        android:textSize="@dimen/BodyFont"
+	        android:textColor="@drawable/black" />
+        
+    </LinearLayout>
+ -->
+</LinearLayout>

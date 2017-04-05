@@ -1,0 +1,207 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ include file="/views/common/taglibs.jsp"%>
+<html>
+<head>
+
+<title></title>
+
+<%@ include file="/views/common/meta.jsp" %>
+<link rel="stylesheet" type="text/css" href="${basePath}/css/style.css" />
+<link rel="stylesheet" href="${basePath}/component/messageBox/myJsBox.css" type="text/css"/>
+
+<script type="text/javascript" src="${basePath}/component/messageBox/myJsBox_zh.js"></script>
+<script type="text/javascript" src="${basePath}/component/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/js/jquery/jquery-1.9.1.js"></script>
+
+<script type="text/javascript" src="${basePath}/js/mydate.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#selDate').change(function(){
+		var select = $('#selDate').val();
+		if(select == 0){
+			$("input[name='beginDate']").val(getToday());
+			$("input[name='endDate']").val(getToday());
+		}
+		if(select == 1){
+			$("input[name='beginDate']").val(getYestoday(getToday()));
+			$("input[name='endDate']").val(getYestoday(getToday()));
+			
+		}
+		if(select == 2){
+			$("input[name='beginDate']").val(getWeekStartDate());
+			$("input[name='endDate']").val(getToday());
+		}
+		if(select == 3){
+			$("input[name='beginDate']").val(getLastWeekStartDate());
+			$("input[name='endDate']").val(getLastWeekEndDate());
+		}
+		if(select == 4){
+			$("input[name='beginDate']").val(getMonthStartDate());
+			$("input[name='endDate']").val(getToday());
+		}
+		if(select == 5){
+			$("input[name='beginDate']").val(getLastMonthStartDate());
+			$("input[name='endDate']").val(getLastMonthEndDate());
+		}
+	});
+	var selDate = '${form.selDate }';
+    $('#selDate').val(selDate);
+});
+</script>
+</head>
+<body>
+    <!-- 顶部标题块 -->
+    <div id="title">Net Sales Statistics Report</div>
+   
+    <!-- 查询条件块 -->
+    <div class="queryDiv">
+        <form action="analysis.do?method=netSalesStatistcs" id="queryForm" method="post">
+            <div class="left">
+            	<span>Institution:
+            		<select class="select-normal" name="institutionCode" >
+            			<option value="">--All--</option>
+                   	   <c:forEach var="obj" items="${institutionList}" varStatus="plan">
+                   	   		<c:if test="${obj.institutionCode == form.institutionCode}">
+                   	   			<option value="${obj.institutionCode}" selected="selected">${obj.institutionName}</option>
+                   	   		</c:if>
+                   	   		<c:if test="${obj.institutionCode != form.institutionCode}">
+                   	   			<option value="${obj.institutionCode}">${obj.institutionName}</option>
+                   	   		</c:if>
+                   	   </c:forEach>
+                    </select>
+            	</span>
+                <span>Date:
+                    <input name="beginDate" value="${form.beginDate }" class="Wdate text-normal" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:true})"/> 
+                    	-
+                    <input name="endDate" value="${form.endDate }" class="Wdate text-normal" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:true})"/>
+                </span>
+                <span>
+	              <select name="selDate" id="selDate" class="select-normal" style="width:180px" >
+						<option value="0">--Please select date--</option>
+						<option	value="1">Yesterday</option>
+						<option	value="2" >ThisWeek</option>
+						<option	value="3" >LastWeek</option>
+						<option	value="4" >ThisMonth</option>
+						<option	value="5" >LastMonth</option>
+					</select>
+				</span>
+                <input type="submit" value="Query" class="button-normal"></input>
+            </div>
+             <div style="overflow: right;">
+	        	<span style="position: absolute;right: 80px;">
+	        		<input type="hidden" id="reportTitle" name="reportTitle" value="Net Sales Summary Daily Report">
+	            	<er:exportReport url="${pageContext.request.contextPath }/er/exportReportServlet" types="excel" classs="icon-lz" tableId="exportPdf"  title="exportPdf"></er:exportReport>
+	            </span>
+        	</div>
+        </form>
+    </div>
+    
+    <!-- 列表表头块 -->
+    <div id="headDiv">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+            <tr>
+                <td>
+                    <table class="datatable" id="exportPdf">
+                        <tr class="headRow">
+                        	<td style="width:10px;" noExp="true">&nbsp;</td>
+                        	<td style="width:5%">Date</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%">Institution</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="PIL Sales Amount(KHR)">PIL Sales Amount(KHR)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="PIL Return Amount(KHR)">PIL Return Amount(KHR)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="CTG Sales Amount(KHR)">CTG Sales Amount(KHR)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="CTG Return Amount(KHR)">CTG Return Amount(KHR)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="PIL Sales Amount(USD)">PIL Sales Amount(USD)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="PIL Return Amount(USD)">PIL Return Amount(USD)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="PIL Net Sales(USD)">PIL Net Sales(USD)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="CTG Sales Amount(USD)">CTG Sales Amount(USD)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="CTG Return Amount(USD)">CTG Return Amount(USD)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:7%" title="CTG Net Sales(USD)">CTG Net Sales(USD)</td>
+                            <td width="1%" noExp="true">|</td>
+                            <td style="width:*%" title="All Net Sales(USD)">All Net Sales(USD)</td>
+                        </tr>
+                    </table>
+                 </td>
+                 <!-- 表头和下方数据对齐 -->
+                 <td style="width:17px;background:#2aa1d9"></td>
+             </tr>
+        </table>
+    </div>
+    
+    <!-- 列表内容块 -->
+    <div id="bodyDiv">
+        <table class="datatable" id="exportPdfData">
+        <c:if test="${fn:length(list) > 0}">
+        	<tr class="dataRow">
+            	<td style="width:10px;" noExp="true">&nbsp;</td>
+            	<td style="width:5%">Total</td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%">&nbsp;</td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.pilKHRSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.pilKHRReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.ctgKHRSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.ctgKHRReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.pilUSDSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.pilUSDReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.pilUSDNetSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.ctgUSDSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.ctgUSDReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${sum.ctgUSDNetSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:*%;text-align: right;"><fmt:formatNumber value="${sum.netSaleAmount }" /></td>
+            </tr>
+        </c:if>
+        <c:forEach var="obj" items="${list}" varStatus="status" >
+            <tr class="dataRow">
+            	<td style="width:10px;" noExp="true">&nbsp;</td>
+            	<td style="width:5%">${obj.showDate }</td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%" title="${obj.institutionName }">${obj.institutionName }</td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.pilKHRSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.pilKHRReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.ctgKHRSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.ctgKHRReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.pilUSDSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.pilUSDReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.pilUSDNetSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.ctgUSDSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.ctgUSDReturnAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:7%;text-align: right;"><fmt:formatNumber value="${obj.ctgUSDNetSaleAmount }" /></td>
+                <td width="1%" noExp="true">&nbsp;</td>
+                <td style="width:*%;text-align: right;"><fmt:formatNumber value="${obj.netSaleAmount }" /></td>
+            </tr>
+          </c:forEach>
+        </table>
+    </div>
+</body>
+</html>

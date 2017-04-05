@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.pos.system.dao.OutletsManageDao">
+	
+	<select id="getCashWithdrawnList" parameterType="map" resultType="cls.pilottery.pos.system.model.WithDrawRecordResponse">
+		SELECT FUND_NO withdrawnCode,
+		       APPLY_AMOUNT amount,
+		       TO_CHAR(APPLY_DATE,'MM-DD HH24:MI') time,
+		       APPLY_STATUS status
+		  FROM FUND_WITHDRAW
+		 WHERE AO_CODE = #{outletCode}
+	  ORDER BY time desc
+	</select>
+	
+	<select id="getOutletsBalance" parameterType="String" resultType="cls.pilottery.pos.system.model.BalanceInfo">
+		select ACCOUNT_BALANCE balance,CREDIT_LIMIT credit from ACC_AGENCY_ACCOUNT where agency_code = #{outletCode}
+	</select>
+	
+	<select id="getOutletDailyList" parameterType="cls.pilottery.pos.system.model.OutletDaliyReportRequest" 
+		resultType="cls.pilottery.pos.system.model.OutletSalesReocrd">
+		<![CDATA[
+			with days as 
+				(select D_DAY CALC_DATE from HIS_DIM_DWM
+				  where HIS_DIM_DWM.d_day >= to_char((trunc(to_date(#{follow},'yyyy-mm-dd'))-#{count}),'yyyy-mm-dd')
+					and HIS_DIM_DWM.d_day < #{follow}
+				 ),
+			base as (                
+				SELECT *
+				  FROM (SELECT CALC_DATE, FLOW_TYPE, AMOUNT
+						  FROM HIS_AGENCY_FUND
+					 WHERE agency_code = #{outletCode}) PIVOT (SUM (amount)
+														 FOR flow_type
+														 IN  (1 AS topup,
+															 2 AS withdrawn,
+															 5 AS pil_saleComm,
+															 43 as ctg_saleComm,
+															 6 AS pil_payoutComm,
+															 44 AS ctg_payoutComm,
+															 7 AS pil_sale,
+															 45 as ctg_sale,
+															 8 AS pil_payout,
+															 41 as ctg_payout,
+															 11 as pil_return,
+															 42 as ctg_return,
+															 13 as pil_returnComm,
+															 47 as ctg_returnComm                                                 
+															 )) 
+			)
+			select CALC_DATE calDate,
+				nvl(pil_sale,0)+nvl(ctg_sale,0) sale,
+			    nvl(pil_saleComm,0)+nvl(ctg_saleComm,0) saleCommission,
+			    nvl(pil_payout,0)+nvl(ctg_payout,0) payout,
+			    nvl(pil_payoutComm,0)+nvl(ctg_payoutComm,0) payoutCommission,
+			    nvl(topup,0) topup,
+			    nvl(withdrawn,0) withdrawn,
+			    nvl(pil_return,0)+nvl(ctg_return,0) returned, 
+			    nvl(pil_returnComm,0)+nvl(ctg_returnComm,0) returnCommission
+			from days
+			left join base USING (CALC_DATE)
+			ORDER BY calDate DESC
+		]]>
+	</select>
+	
+	<!-- 提现审批  修改状态同时修改账户余额 -->
+	<update id="spAgencyCashWithdrawn" statementType="CALLABLE" parameterType="cls.pilottery.web.capital.form.CashWithdrawnForm">
+		{call p_withdraw_approve_mm(
+			#{fundNo,mode=IN,jdbcType=VARCHAR},
+			#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+			#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+			)
+		}
+	</update>
+	
+	<resultMap id="payoutMap" type="cls.pilottery.pos.system.model.PayTicketResponse">
+		<result column="outletCode" property="outletCode" />
+		<result column="winAmount" property="winAmount" />
+		<result column="winTickets" property="winTickets" />
+		<collection property="winningList" ofType="cls.pilottery.pos.system.model.WinTicketInfo">
+			<result column="ticketCode" property="ticketCode" />
+			<result column="payStatus" property="payStatus" />
+			<result column="ticketFlag" property="ticketFlag" />
+			<result column="amount" property="amount" />
+		</collection>
+	</resultMap>
+	<select id="getPayoutResult" parameterType="string"	resultMap="payoutMap">
+		select PAY_AGENCY outletCode, 
+			NVL(SUCC_AMOUNT,0) winAmount,
+			NVL (SUCC_TICKETS, 0) winTickets,
+			plan_code||'-'||batch_no||'-'||PACKAGE_NO||'-'||TICKET_NO ticketCode,
+			PAID_STATUS payStatus, 
+			NVL(REWARD_AMOUNT,0) amount, 
+			IS_OLD_TICKET ticketFlag 
+		from SALE_PAID
+		join SALE_PAID_DETAIL using (DJXQ_NO)
+		where DJXQ_NO = #{_parameter}
+		order by DJXQ_SEQ_NO
+	</select>
+
+</mapper>

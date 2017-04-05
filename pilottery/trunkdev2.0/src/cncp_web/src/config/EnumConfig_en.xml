@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<enumconfig>
+
+	<!-- <agencyType>
+        <item key="1" value="Prepaid Outlet" />
+        <item key="2" value="Accredited Outlet" />
+        <item key="3" value="Paperles Outlet" />
+        <item key="4" value="Central Outlet"/>
+    </agencyType> -->
+
+	<issueStatus>
+		<item key="0" value="PreSale" />
+		<item key="1" value="Opened" />
+		<item key="2" value="Paused" />
+		<item key="3" value="Closed" />
+		<item key="4" value="Draw" />
+		<item key="5" value="Completed" />
+	</issueStatus>
+</enumconfig>

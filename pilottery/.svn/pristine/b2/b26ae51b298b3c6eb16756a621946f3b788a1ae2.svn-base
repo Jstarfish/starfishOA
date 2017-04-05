@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/order_lottery_name"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="6"
+        android:gravity="center"
+        android:text=""
+        android:textSize="@dimen/BodyFont"
+        android:textColor="@drawable/gray" />
+ 	<TextView
+        android:id="@+id/order_count"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="5"
+        android:gravity="right"
+        android:text=""
+        android:textSize="@dimen/BodyFont"
+        android:textColor="@drawable/gray" />
+
+    <TextView
+        android:id="@+id/order_amount"
+        android:layout_width="0dp"
+        android:paddingRight="10dp"
+        android:layout_height="30dp"
+        android:layout_weight="8"
+        android:gravity="right"
+        android:text=""
+        android:textSize="@dimen/BodyFont"
+        android:textColor="@drawable/gray" />
+</LinearLayout>

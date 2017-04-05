@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.goodsIssues.dao.GoodsIssuesDao">
+<!-- 记录总数 -->
+<select id="getgoodsIssuesCount"  parameterType="cls.pilottery.web.goodsIssues.form.GoodsIssuesForm" resultType="Integer">
+select count(1)
+
+  from WH_GOODS_ISSUE iss,(select distinct wh.warehouse_code from WH_MANAGER  wh where wh.org_code=#{orgCode}) w
+ where 1 = 1
+ 
+  
+   		and w.warehouse_code=iss.SEND_WH
+	<if test="sgiNo1!=null and sgiNo1!=''">
+  		and  iss.sgi_no=#{sgiNo1}
+   </if>
+   
+   <if test="sendDate!=null and sendDate!=''">
+    and to_char(iss.ISSUE_END_TIME,'yyyy-mm-dd') =  #{sendDate}
+   </if>
+ 
+   
+</select>
+<!-- 出库查询列表 -->
+<select id="getgoodsIssuesInfoList" parameterType="cls.pilottery.web.goodsIssues.form.GoodsIssuesForm" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssuesVo" >
+
+	select * from (
+		select a.*,rownum rn from (
+		select iss.sgi_no         as sgino,
+                       iss.issue_end_time as senddate,
+                       a.org_name         as orgname,
+                       ad.admin_realname          as sendmanger,
+                       iss.issue_type     as issueType,
+                       iss.ref_no         as refNo,
+                       iss.act_issue_amount  as actAmount,
+                       iss.act_issue_tickets as actTickets,
+                       iss.STATUS            as status,
+                       iss.ISSUE_TICKETS     as tickets
+                  from wh_goods_issue iss, inf_orgs a,(select distinct wh.warehouse_code from WH_MANAGER  wh where wh.org_code=#{orgCode}) w,
+                  adm_info ad
+                 where 1 = 1
+	   and iss.send_org = a.org_code
+	 and w.warehouse_code=iss.SEND_WH
+     and ad.admin_id=iss.create_admin
+	<if test="sgiNo1!=null and sgiNo1!=''">
+  		and  iss.sgi_no=#{sgiNo1}
+   </if>
+   <if test="sendDate!=null and sendDate!=''">
+    and to_char(iss.ISSUE_END_TIME,'yyyy-mm-dd') =  #{sendDate}
+   </if>
+	
+	order by iss.ISSUE_END_TIME desc
+	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+</select>
+<select id="getSaleDeliverList" parameterType="cls.pilottery.web.goodsIssues.form.GoodsIssuesForm" resultType="cls.pilottery.web.goodsIssues.model.SaleDeliverOrder">
+	select distinct sa.do_no as doNo from SALE_DELIVERY_ORDER sa 
+	 left join adm_info d on sa.apply_admin = d.admin_id
+	where 1=1 and sa.status=1
+	<if test="orgCode!=null and orgCode!=''">
+	  and d.admin_org=#{orgCode}
+	 
+	</if>
+	  order by sa.do_no
+</select>
+<select id="getSaleDeliverDitalList" parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.SaleDeliverOrderDetail">
+select sa.do_no     as doNO,
+       sa.plan_code as planCode,
+       sa.tickets   as tickets,
+       sa.amount    as amount,
+       sa.packages  as pack,
+  gp.full_name as planName
+  from SALE_DELIVERY_ORDER_DETAIL sa,game_plans gp
+  where sa.do_no=#{doNo} and gp.plan_code=sa.plan_code
+</select>
+<select id="getGoodsIssuesById" parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssuesVo">
+select 
+gd.act_issue_amount as actAmount, 
+gd.act_issue_tickets as actTickets,
+gd.issue_amount as amount,
+gd.issue_tickets as tickets
+  from WH_GOODS_ISSUE gd
+ where gd.REF_NO=#{sgiNo}
+</select>
+<select id="getGoodsIssuseOutPrint" parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssuesVo">
+select s.out_date as sendDate,
+ a.admin_realname as sendManger,
+ g.org_name       as orgName
+  from SALE_DELIVERY_ORDER s
+  left join inf_orgs g
+    on g.org_code = s.wh_org
+  left join adm_info a
+    on s.wh_admin = a.admin_id
+    where 1=1 and s.do_no=#{refNo}
+</select>
+<select id="getGoodsIssuseOutPrintList" parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssuesStockDetailVo">
+select s.plan_code as planCode,
+       g.full_name as planName,
+       g.ticket_amount as tickAmount,
+       
+       nvl(sum(s.tickets), 0) as tickets,
+       nvl(sum(s.amount), 0) as amount
+  from wh_goods_issue_detail s
+  left join game_plans g
+    on g.plan_code = s.plan_code
+ where s.ref_no =#{refNo}
+ group by s.plan_code,
+          g.full_name,
+          g.ticket_amount
+
+</select>
+<select id="getGoodsIssuseOutPrintListSum"  parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssuesStockDetailVo">
+
+    select 
+       nvl(sum(s.tickets),0)       as tickets,
+       nvl(sum(s.amount),0)        as amount
+  from wh_goods_issue_detail s
+ 
+    where s.ref_no=#{refNo}
+
+</select>
+
+<select id="getDeliveryOrderInfo"  parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.DeleveryOrderInfo">
+	SELECT APPLY_ADMIN applyAdmin,
+	       admin_realname applyAdminName,
+	       ADMIN_ORG orgCode,
+	       ORG_NAME orgName,
+	       to_char(APPLY_DATE,'yyyy-mm-dd hh24:mi:ss') applyTime
+	  FROM SALE_DELIVERY_ORDER
+	       JOIN adm_info ON (APPLY_ADMIN = ADMIN_ID)
+	       JOIN INF_ORGS ON (ADMIN_ORG = ORG_CODE)
+	 WHERE do_no = #{doNo}
+</select>
+</mapper>

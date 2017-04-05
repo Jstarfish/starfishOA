@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.ItemCheckDetailBeforeMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.ItemCheckDetailBefore" >
+    <id column="CHECK_NO" property="checkNo" jdbcType="CHAR" />
+    <id column="SEQUENCE_NO" property="sequenceNo" jdbcType="DECIMAL" />
+    <result column="ITEM_CODE" property="itemCode" jdbcType="CHAR" />
+    <result column="QUANTITY" property="quantity" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CHECK_NO, SEQUENCE_NO, ITEM_CODE, QUANTITY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cls.pilottery.model.ItemCheckDetailBeforeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ITEM_CHECK_DETAIL_BE
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cls.pilottery.model.ItemCheckDetailBeforeKey" >
+    delete from ITEM_CHECK_DETAIL_BE
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.ItemCheckDetailBefore" >
+    insert into ITEM_CHECK_DETAIL_BE (CHECK_NO, SEQUENCE_NO, ITEM_CODE, 
+      QUANTITY)
+    values (#{checkNo,jdbcType=CHAR}, #{sequenceNo,jdbcType=DECIMAL}, #{itemCode,jdbcType=CHAR}, 
+      #{quantity,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.ItemCheckDetailBefore" >
+    insert into ITEM_CHECK_DETAIL_BE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="checkNo != null" >
+        CHECK_NO,
+      </if>
+      <if test="sequenceNo != null" >
+        SEQUENCE_NO,
+      </if>
+      <if test="itemCode != null" >
+        ITEM_CODE,
+      </if>
+      <if test="quantity != null" >
+        QUANTITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="checkNo != null" >
+        #{checkNo,jdbcType=CHAR},
+      </if>
+      <if test="sequenceNo != null" >
+        #{sequenceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCode != null" >
+        #{itemCode,jdbcType=CHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.ItemCheckDetailBefore" >
+    update ITEM_CHECK_DETAIL_BE
+    <set >
+      <if test="itemCode != null" >
+        ITEM_CODE = #{itemCode,jdbcType=CHAR},
+      </if>
+      <if test="quantity != null" >
+        QUANTITY = #{quantity,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.ItemCheckDetailBefore" >
+    update ITEM_CHECK_DETAIL_BE
+    set ITEM_CODE = #{itemCode,jdbcType=CHAR},
+      QUANTITY = #{quantity,jdbcType=DECIMAL}
+    where CHECK_NO = #{checkNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </update>
+</mapper>

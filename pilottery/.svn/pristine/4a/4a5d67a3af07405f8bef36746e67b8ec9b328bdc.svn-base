@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.fbs.dao.FbsGameDao">
+	<!-- 分页记录总数 -->
+	<select id="getMatchCount" parameterType="cls.pilottery.fbs.form.FbsMatchForm" resultType="Integer">
+		select count(1) from FBS_MATCH  where 1=1 
+		<if test="issueCode != null and issueCode != ''">
+            and FBS_ISSUE_NUMBER = #{issueCode}
+        </if>
+        <if test="matchComp != null and matchComp != ''">
+            and COMPETITION = #{matchComp}
+        </if>
+        <if test="startQueryTime != null and startQueryTime != ''">
+            and to_char(BEGIN_SALE_TIME,'yyyy-mm-dd') = #{startQueryTime}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+	</select>
+	
+ 	<!-- 部门列表 -->
+	<select id="getMatchList" parameterType="cls.pilottery.fbs.form.FbsMatchForm" resultType="cls.pilottery.fbs.model.Match">
+		select * from (
+		select tab.*,rownum rn from (
+			SELECT MATCH_CODE matchCode,
+		       FBS_ISSUE_NUMBER fbsIssueNumber,
+		       COMPETITION competition,
+		       HOME_TEAM_CODE homeTeamCode,
+		       GUEST_TEAM_CODE guestTeamCode,
+		       BEGIN_SALE_TIME matchStartDate,
+		       END_SALE_TIME matchEndDate,
+		       STATUS status,
+		       B.COMPETITION_ABBR competitionName,
+		       C.FULL_NAME homeTeamName,
+		       D.FULL_NAME guestTeamName
+		  FROM FBS_MATCH A
+		       LEFT JOIN FBS_COMPETITION B ON (COMPETITION = COMPETITION_CODE)
+		       LEFT JOIN FBS_COMPETITION_TEAM C ON (HOME_TEAM_CODE = C.TEAM_CODE)
+		       LEFT JOIN FBS_COMPETITION_TEAM D ON (GUEST_TEAM_CODE = D.TEAM_CODE)
+		  where 1=1 
+		  	<if test="issueCode != null and issueCode != ''">
+            	and A.FBS_ISSUE_NUMBER = #{issueCode}
+	        </if>
+	        <if test="matchComp != null and matchComp != ''">
+	            and A.COMPETITION = #{matchComp}
+	        </if>
+	        <if test="startQueryTime != null and startQueryTime != ''">
+	            and to_char(A.BEGIN_SALE_TIME,'yyyy-mm-dd') = #{startQueryTime}
+	        </if>
+	        <if test="status != null and status != ''">
+	            and A.status = #{status}
+	        </if>
+		<![CDATA[ ) tab ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	
+	<select id="getAllCompetition" resultType="cls.pilottery.fbs.model.Competition">
+		select competition_code competitionCode,COMPETITION_ABBR competitionName from FBS_Competition order by competition_code desc
+	</select>
+	
+	<select id="getTeamsByComptt" resultType="cls.pilottery.fbs.model.Team" parameterType="String">
+		select TEAM_CODE teamCode,SHORT_NAME shortName from FBS_COMPETITION_TEAM
+	</select>
+	
+	<insert id="saveMatch" parameterType="cls.pilottery.fbs.model.Match">
+		INSERT INTO FBS_MATCH(GAME_CODE,MATCH_CODE, MATCH_SEQ, MATCH_DESC, IS_SALE, COMPETITION, COMPETITION_ROUND, HOME_TEAM_CODE, GUEST_TEAM_CODE,
+			 MATCH_DATE, LOCATION, MATCH_START_DATE, MATCH_END_DATE, BEGIN_SALE_TIME, STATUS, FBS_ISSUE_NUMBER, END_SALE_TIME,DRAW_STATE,WIN_LEVEL_LOS_SCORE,WIN_LOS_SCORE)
+		VALUES (#{gameCode},#{matchCode},0,' ',0,#{competition},0,#{homeTeamCode},#{guestTeamCode},
+			#{matchStartDate},' ',#{matchStartDate},#{matchEndDate},#{beginSaleDate},1,#{fbsIssueNumber},#{endSaleDate},0,#{winLevelLosScore},#{winLosScore})
+	</insert>
+	
+	<select id="getMatchInfo" parameterType="String" resultType="cls.pilottery.fbs.model.Match">
+		SELECT A.MATCH_CODE matchCode,
+		       A.FBS_ISSUE_NUMBER fbsIssueNumber,
+		       A.COMPETITION competition,
+		       A.HOME_TEAM_CODE homeTeamCode,
+		       A.GUEST_TEAM_CODE guestTeamCode,
+		       A.MATCH_START_DATE matchStartDate,
+		       A.MATCH_END_DATE matchEndDate,
+		       A.BEGIN_SALE_TIME beginSaleDate,
+		       A.END_SALE_TIME endSaleDate,
+		       A.WIN_LEVEL_LOS_SCORE winLevelLosScore,
+		       A.WIN_LOS_SCORE winLosScore,
+		       A.IS_SALE isSale,
+		       A.STATUS status,
+		       B.FULL_HOME_SCORE homeScore,
+		       B.FULL_GUEST_SCORE guestScore,
+		       C.FULL_NAME homeTeamName,
+		       D.FULL_NAME guestTeamName,
+		       E.COMPETITION_NAME competitionName
+		  FROM FBS_MATCH A
+		       LEFT JOIN FBS_MATCH_RESULT B ON (A.match_code = B.match_code)
+		       JOIN FBS_COMPETITION_TEAM C ON (A.HOME_TEAM_CODE = C.TEAM_CODE)
+		       JOIN FBS_COMPETITION_TEAM D ON (A.GUEST_TEAM_CODE = D.TEAM_CODE)
+		       JOIN FBS_COMPETITION E ON (A.COMPETITION = E.COMPETITION_CODE)
+		 WHERE a.match_code = #{matchCode}
+	</select>
+	
+	<update id="updateMatch" parameterType="cls.pilottery.fbs.model.Match">
+			update FBS_MATCH 
+			set	COMPETITION = #{competition},
+				HOME_TEAM_CODE = #{homeTeamCode},
+				GUEST_TEAM_CODE = #{guestTeamCode},
+				MATCH_DATE = #{matchStartDate},
+				MATCH_START_DATE = #{matchStartDate},
+				MATCH_END_DATE = #{matchEndDate},
+				BEGIN_SALE_TIME = #{beginSaleDate},
+				FBS_ISSUE_NUMBER = #{fbsIssueNumber},
+				END_SALE_TIME = #{endSaleDate},
+				WIN_LEVEL_LOS_SCORE = #{winLevelLosScore},
+				WIN_LOS_SCORE = #{winLosScore}
+			where MATCH_CODE = #{matchCode}
+	</update>
+	
+	<delete id="deleteMatch" parameterType="String">
+			delete from FBS_MATCH where MATCH_CODE = #{matchCode}
+	</delete>
+
+	<select id="getMaxMatchCount" resultType="Integer" parameterType="String">
+		select max(substr(t.match_code,
+                  length(t.match_code) - 2,
+                  length(t.match_code)))
+                  from FBS_MATCH t where t.FBS_ISSUE_NUMBER = #{issueCode}
+	</select>
+</mapper>

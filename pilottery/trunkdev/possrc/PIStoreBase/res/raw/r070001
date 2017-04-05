@@ -1,0 +1,18 @@
+{
+	"errcode": 0,
+    "errmesg": "",
+    "method": "070001",
+    "msn": 3,
+    "result": {
+        "follow": "MM14000001",
+        "recordList": [
+        	{"sgrNo":"1","time":"2015-12-16 09:44:32","amount":1000123,"type":"批次","typeValue":"1","sendOrg":"四仓库","status":"0"},
+        	{"sgrNo":"2","time":"2015-12-16 10:44:32","amount":1456123,"type":"出货单","typeValue":"2","sendOrg":"一仓库","status":"0"},
+        	{"sgrNo":"3","time":"2015-12-16 11:44:32","amount":1987123,"type":"还货单","typeValue":"3","sendOrg":"二仓库","status":"0"},
+        	{"sgrNo":"4","time":"2015-12-16 09:44:32","amount":1000123,"type":"批次","typeValue":"1","sendOrg":"四仓库","status":"1"},
+        	{"sgrNo":"5","time":"2015-12-16 09:44:32","amount":1000123,"type":"批次","typeValue":"1","sendOrg":"四仓库","status":"1"},
+        	{"sgrNo":"6","time":"2015-12-16 09:44:32","amount":1000123,"type":"批次","typeValue":"1","sendOrg":"四仓库","status":"1"},
+        	{"sgrNo":"7","time":"2015-12-16 09:44:32","amount":1000123,"type":"批次","typeValue":"1","sendOrg":"四仓库","status":"0"}
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+	"errcode": 0,
+    "errmesg": "",
+    "method": "02501",
+    "msn": 3,
+    "result": {
+        "follow": "MM14000001",
+		"outletCode":"12345678",
+		"time":"2015-12-09 12:12:12",
+		"returnAmount":123456789,
+		"returnComm":9876543219,
+        "planList": [
+        	{"plan":"iPhone","amount":1234567,"tickets":500},
+        	{"plan":"Football","amount":1234567,"tickets":500},
+        	{"plan":"Lottery","amount":1234567,"tickets":500}
+        ],
+        "recordList":[
+        	{"tagNo":"12123-12321-12-3","amount":43345623},
+        	{"tagNo":"12123-12321-12-3","amount":43323123},
+        	{"tagNo":"12123-12321-12-3","amount":432323623},
+        	{"tagNo":"12123-12321-12-3","amount":431115623},
+        	{"tagNo":"12123-12321-12-3","amount":43345555},
+        	{"tagNo":"12123-12321-12-3","amount":4444623}
+        ]
+    }
+}

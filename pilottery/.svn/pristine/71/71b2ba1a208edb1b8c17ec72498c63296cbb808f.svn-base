@@ -1,0 +1,76 @@
+@charset "utf-8";
+    /* CSS Document */
+
+
+/*CSS meneame style pagination*/
+.fy {
+    padding-top:10px;
+    padding-bottom:10px;
+    background:#fff;
+}
+.fy1 {
+    padding-top:10px;
+    padding-bottom:10px;
+    background:#fff;
+    height:40px;
+    line-height:40px;
+    clear:left;
+}
+DIV.meneame {
+    PADDING-RIGHT:3px;
+    PADDING-LEFT:3px;
+    FONT-SIZE:14px;
+    PADDING-BOTTOM:3px;
+    MARGIN:3px;
+    COLOR:#2aa1d9;
+    PADDING-TOP:3px;
+    TEXT-ALIGN:RIGHT;
+    margin-top:-45px;
+}
+DIV.meneame A {
+    PADDING-RIGHT:10px;
+    BACKGROUND-POSITION:50% bottom;
+    PADDING-LEFT:10px;
+    PADDING-BOTTOM:5px;
+    COLOR:#2aa1d9;
+    MARGIN-RIGHT:3px;
+    PADDING-TOP:5px;
+    TEXT-DECORATION:none
+}
+DIV.meneame A:hover {
+    BACKGROUND-IMAGE:none;
+    COLOR:#fff;
+    BACKGROUND-COLOR:#363a40
+}
+DIV.meneame A:active {
+    COLOR:#fff;
+    BACKGROUND-COLOR:#0e72a0
+}
+DIV.meneame SPAN.current {
+    PADDING-RIGHT:10px;
+    PADDING-LEFT:10px;
+    FONT-WEIGHT:bold;
+    PADDING-BOTTOM:5px;
+    COLOR:#fff;
+    MARGIN-RIGHT:3px;
+    PADDING-TOP:5px;
+    BACKGROUND-COLOR:#2aa1d9
+}
+DIV.meneame SPAN.disabled {
+    PADDING-RIGHT:7px;
+    PADDING-LEFT:7px;
+    PADDING-BOTTOM:5px;
+    COLOR:#fff;
+    MARGIN-RIGHT:3px;
+    PADDING-TOP:5px;
+    background:#e7e7e7;
+}
+
+.result{
+    font-size:12px;
+    color:#c7c6c6;
+    position:relative;
+    left:40%;
+    float:left;
+    width:400px;
+}

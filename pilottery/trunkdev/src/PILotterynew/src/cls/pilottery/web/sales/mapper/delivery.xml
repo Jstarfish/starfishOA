@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.sales.dao.DeliveryDao">
+	<resultMap id="deliveryMap" type="cls.pilottery.web.sales.entity.DeliveryOrder">
+		<id column="DO_NO" property="doNo" />
+		<result column="APPLY_ADMIN" property="applyAdmin" />
+		<result column="APPLY_DATE" property="applyDate" />
+		<result column="WH_CODE" property="whCode" />
+		<result column="WH_ORG" property="org" />
+		<result column="WH_ADMIN" property="managerAdmin" />
+		<result column="WH_ADMIN_NAME" property="managerAdminName" />
+		<result column="OUT_DATE" property="outDate" />
+		<result column="STATUS" property="status" />
+		<result column="TOTAL_TICKETS" property="totalTickets" />
+		<result column="TOTAL_AMOUNT" property="totalAmount" />
+		<result column="ADMIN_REALNAME" property="applyAdminName" />
+		<result column="ORG_NAME" property="orgName" />
+		<result column="REMARK" property="remark" />
+		<collection property="deliveryDetail" ofType="cls.pilottery.web.sales.entity.DeliveryOrderDetail">
+			<id column="DO_NO" property="doNo" />
+			<id column="SEQUENCE_NO" property="sequenceNo" />
+			<result column="PLAN_CODE" property="planCode" />
+			<result column="PLAN_NAME" property="planName" />
+			<result column="PACKAGES" property="packages" />
+			<result column="TICKETS" property="tickets" />
+			<result column="AMOUNT" property="amount" />
+		</collection>
+		<collection property="doRelation" ofType="cls.pilottery.web.sales.entity.DeliveryOrderRelation">
+			<id column="DO_NO" property="doNo" />
+			<id column="ORDER_NO" property="orderNo" />
+		</collection>
+	</resultMap>
+
+	<select id="getDeliveryList" parameterType="cls.pilottery.web.sales.form.DeliveryForm"	resultMap="deliveryMap">
+		select * from (
+		select tab.*,rownum rn from (
+		SELECT DO_NO,
+		APPLY_ADMIN,
+		APPLY_DATE,
+		WH_CODE,
+		WH_ORG,
+		OUT_DATE,
+		STATUS,
+		TICKETS TOTAL_TICKETS,
+		AMOUNT TOTAL_AMOUNT,
+		B.ADMIN_REALNAME,
+		ORG_NAME,
+		WH_ADMIN,
+		D.ADMIN_REALNAME WH_ADMIN_NAME,
+		REMARK 
+		FROM SALE_DELIVERY_ORDER a
+		LEFT JOIN ADM_INFO b ON (a.APPLY_ADMIN = b.ADMIN_ID)
+		LEFT JOIN INF_ORGS c ON (a.WH_ORG = c.ORG_CODE)
+		LEFT JOIN ADM_INFO d ON (a.WH_ADMIN = d.ADMIN_ID)
+		WHERE A.APPLY_ADMIN = #{currentUserId}
+		<if test="deliveryOrderNo != null and deliveryOrderNo != ''">
+			AND a.DO_NO = #{deliveryOrderNo}
+		</if>
+		<if test="applyDate != null and applyDate != ''">
+			AND to_char(a.APPLY_DATE,'yyyy-mm-dd') = #{applyDate}
+		</if>
+		ORDER BY APPLY_DATE DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} 
+		ORDER BY APPLY_DATE DESC
+		]]>
+	</select>
+
+	<select id="getDeliveryCount" parameterType="cls.pilottery.web.sales.form.DeliveryForm"	resultType="Integer">
+		SELECT count(1)
+		FROM SALE_DELIVERY_ORDER
+		WHERE APPLY_ADMIN = #{currentUserId}
+		<if test="deliveryOrderNo != null and deliveryOrderNo != ''">
+			AND DO_NO = #{deliveryOrderNo}
+	    </if>
+		<if test="applyDate != null and applyDate != ''">
+			AND to_char(APPLY_DATE,'yyyy-mm-dd') = #{applyDate}
+	    </if>
+	</select>
+	
+	<select id="getDeliveryListForInquery" parameterType="cls.pilottery.web.sales.form.DeliveryForm"	resultMap="deliveryMap">
+		select * from (
+		select tab.*,rownum rn from (
+		SELECT DO_NO,
+		APPLY_ADMIN,
+		APPLY_DATE,
+		WH_CODE,
+		WH_ORG,
+		OUT_DATE,
+		STATUS,
+		TICKETS TOTAL_TICKETS,
+		AMOUNT TOTAL_AMOUNT,
+		B.ADMIN_REALNAME,
+		ORG_NAME,
+		WH_ADMIN,
+		D.ADMIN_REALNAME WH_ADMIN_NAME,
+		REMARK 
+		FROM SALE_DELIVERY_ORDER a
+		LEFT JOIN ADM_INFO b ON (a.APPLY_ADMIN = b.ADMIN_ID)
+		LEFT JOIN INF_ORGS c ON (a.WH_ORG = c.ORG_CODE)
+		LEFT JOIN ADM_INFO d ON (a.WH_ADMIN = d.ADMIN_ID)
+		WHERE STATUS != 2
+		<if test="deliveryOrderNo != null and deliveryOrderNo != ''">
+			AND a.DO_NO = #{deliveryOrderNo}
+		</if>
+		<if test="applyDate != null and applyDate != ''">
+			AND to_char(a.APPLY_DATE,'yyyy-mm-dd') = #{applyDate}
+		</if>
+		<if test="cuserOrg != '00'">
+			and (a.APPLY_ADMIN in (select admin_id from adm_info 
+			        where ADMIN_ORG in (select org_code from INF_ORGS where ORG_CODE = #{cuserOrg} ))
+				)
+		</if>
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} 
+		ORDER BY APPLY_DATE DESC
+		]]>
+	</select>
+
+	<select id="getDeliveryCountForInquery" parameterType="cls.pilottery.web.sales.form.DeliveryForm"	resultType="Integer">
+		SELECT count(1)
+		FROM SALE_DELIVERY_ORDER
+		WHERE STATUS != 2
+		<if test="deliveryOrderNo != null and deliveryOrderNo != ''">
+			AND DO_NO = #{deliveryOrderNo}
+	    </if>
+		<if test="applyDate != null and applyDate != ''">
+			AND to_char(APPLY_DATE,'yyyy-mm-dd') = #{applyDate}
+	    </if>
+	    <if test="cuserOrg != '00'">
+			and (APPLY_ADMIN in (select admin_id from adm_info 
+			        where ADMIN_ORG in (select org_code from INF_ORGS where ORG_CODE = #{cuserOrg} ))
+				)
+		</if>
+	</select>
+
+	<select id="getDeliveryDetail" parameterType="string"	resultMap="deliveryMap">
+		with orders as (
+		    SELECT DO_NO,
+		           APPLY_ADMIN,
+		           APPLY_DATE,
+		           WH_CODE,
+		           WH_ORG,
+		           OUT_DATE,
+		           STATUS,
+		           TICKETS TOTAL_TICKETS,
+		           AMOUNT TOTAL_AMOUNT,
+		           B.ADMIN_REALNAME,
+		           ORG_NAME,
+		           WH_ADMIN,
+				   D.ADMIN_REALNAME WH_ADMIN_NAME,
+		           REMARK
+		      FROM SALE_DELIVERY_ORDER a
+		           LEFT JOIN ADM_INFO b ON (a.APPLY_ADMIN = b.ADMIN_ID)
+		           LEFT JOIN INF_ORGS c ON (a.WH_ORG = c.ORG_CODE)
+		           LEFT JOIN ADM_INFO d ON (a.WH_ADMIN = d.ADMIN_ID)
+		     WHERE DO_NO = #{deliveryOrderNo}
+		),
+		details as (
+		    select DO_NO, SEQUENCE_NO, x.PLAN_CODE,y.full_name as plan_name, TICKETS, PACKAGES, AMOUNT
+		    from SALE_DELIVERY_ORDER_DETAIL x,game_plans y
+		    where x.plan_code = y.plan_code
+		    and DO_NO = #{deliveryOrderNo}
+		),
+		porder as (
+            select DO_NO,ORDER_NO from SALE_DELIVERY_ORDER_ALL where DO_NO = #{deliveryOrderNo}
+        )
+		select orders.DO_NO,APPLY_ADMIN,APPLY_DATE, WH_CODE, WH_ORG, OUT_DATE,STATUS,TOTAL_TICKETS,TOTAL_AMOUNT,ADMIN_REALNAME,ORG_NAME,REMARK,WH_ADMIN,WH_ADMIN_NAME,
+		details.*,porder.order_no
+		from orders,details,porder
+		where orders.do_no = details.do_no
+		and orders.do_no = porder.do_no(+)
+	</select>
+	
+	<select id="getDeliveryOrderSeq" resultType="String">
+		select F_GET_SALE_DELIVERY_ORDER_SEQ from dual
+	</select>
+
+	<insert id="saveDeliveryOrderDetail" parameterType="cls.pilottery.web.sales.entity.DeliveryOrderDetail">
+		INSERT INTO SALE_DELIVERY_ORDER_DETAIL (DO_NO, SEQUENCE_NO, PLAN_CODE, TICKETS, PACKAGES, AMOUNT)
+     		 VALUES (#{doNo},F_GET_DETAIL_SEQUENCE_NO_SEQ,#{planCode},#{tickets},#{packages},#{amount})
+	</insert>
+	
+	<insert id="saveDeliverOrderRelation" parameterType="cls.pilottery.web.sales.entity.DeliveryOrderRelation">
+		INSERT INTO SALE_DELIVERY_ORDER_ALL(DO_NO, ORDER_NO)
+		VALUES (#{doNo},#{orderNo})
+	</insert>
+	
+	<insert id="saveDeliveryOrder" parameterType="cls.pilottery.web.sales.entity.DeliveryOrder">
+		INSERT INTO SALE_DELIVERY_ORDER (DO_NO, APPLY_ADMIN, APPLY_DATE, STATUS, TICKETS, AMOUNT,REMARK)
+	     VALUES (#{doNo},#{applyAdmin},sysdate,1,#{totalTickets},#{totalAmount},#{remark})
+	</insert>
+	
+	<update id="modifyDeliveryOrderStatus" parameterType="map" >
+		UPDATE SALE_DELIVERY_ORDER
+		SET STATUS = #{status}
+		WHERE DO_NO = #{doNo}
+	</update>
+	
+	<delete id="deleteDeliveryDetails" parameterType="string">
+		DELETE FROM SALE_DELIVERY_ORDER_DETAIL WHERE DO_NO = #{doNo}
+	</delete>
+
+	<update id="updateDeliveryOrder" parameterType="cls.pilottery.web.sales.entity.DeliveryOrder" >
+		UPDATE SALE_DELIVERY_ORDER
+		SET APPLY_DATE = sysdate,
+			STATUS = 1,
+			TICKETS = #{totalTickets},
+			AMOUNT = #{totalAmount}
+			<if test="remark!=null and remark!=''">
+			,REMARK=#{remark}
+			</if>
+		WHERE DO_NO = #{doNo}
+	</update>
+
+	<select id="getMktManagerBalance" parameterType="short" resultType="long">
+		with max_amount as (
+		    select MAX_AMOUNT_TICKETSS amount from INF_MARKET_ADMIN where MARKET_ADMIN = #{userId}
+		    ),
+		has_amount as (
+		    select sum(amount) amount from ACC_MM_TICKETS  where MARKET_ADMIN = #{userId}
+		),
+		delivery as(
+			select sum(amount) delivery_sum from SALE_DELIVERY_ORDER where status = 1 and apply_admin = #{userId}
+		)
+		SELECT NVL (max_amount.amount, 0) - NVL (has_amount.amount, 0) - nvl(delivery_sum,0) from max_amount,has_amount,delivery
+	</select>
+	
+	<update id="modifyOrderStatus" parameterType="string">
+		update SALE_ORDER set status = 1 
+		where ORDER_NO IN (select order_no from SALE_DELIVERY_ORDER_ALL where DO_NO = #{doNo} ) 
+	</update>
+	
+	<delete id="deleteDeliveryOrders" parameterType="string">
+		delete from SALE_DELIVERY_ORDER_ALL where DO_NO = #{doNo}
+	</delete>
+
+</mapper>

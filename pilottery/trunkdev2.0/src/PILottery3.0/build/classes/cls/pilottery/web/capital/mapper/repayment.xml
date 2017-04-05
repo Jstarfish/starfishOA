@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cls.pilottery.web.capital.dao.RepaymentDao">
+	
+	<resultMap type="cls.pilottery.web.capital.model.RepaymentRecord" id="repaymentRecordMap">
+		<id column="MCR_NO" property="mcrNo"/>
+		<result column="MARKET_ADMIN" property="marketManagerCode"/>
+		<result column="ADMIN_REALNAME" property="marketManagerName"/>
+		<result column="REPAY_TIME" property="repaymentDate"/>
+		<result column="REPAY_AMOUNT" property="repaymentAmount"/>
+		<result column="BE_ACCOUNT_BALANCE" property="balanceBeforeRepayment"/>
+		<result column="AF_ACCOUNT_BALANCE" property="balanceAfterRepayment"/>
+		<result column="REMARK" property="remark"/>
+	</resultMap>
+	 
+	<resultMap type="cls.pilottery.web.capital.model.MarketManagerAccount" id="marketManagerAccountMap">
+		<id column="ACC_NO" property="accountNo"/>
+		<result column="MARKET_ADMIN" property="marketAdmin"/>
+		<result column="ADMIN_REALNAME" property="adminRealName"/>
+		<result column="ACC_TYPE" property="accountType"/>
+		<result column="ACC_NAME" property="accountName"/>
+		<result column="ACC_STATUS" property="accountStatus"/>
+		<result column="CREDIT_LIMIT" property="creditLimit"/>
+		<result column="ACCOUNT_BALANCE" property="accountBalance"/>
+		<result column="CHECK_CODE" property="checkCode"/>
+	</resultMap>
+	
+	<select id="getRepaymentCount" parameterType="cls.pilottery.web.capital.form.RepaymentQueryForm" resultType="Integer">
+		SELECT COUNT(1)
+		FROM FUND_MM_CASH_REPAY R
+		  LEFT JOIN ADM_INFO A ON R.MARKET_ADMIN = A.ADMIN_ID
+		  LEFT JOIN FLOW_MARKET_MANAGER F ON R.MCR_NO = F.REF_NO
+		WHERE 1 = 1
+		<if test="marketManagerCode != null and marketManagerCode != ''">
+			AND R.MARKET_ADMIN = #{marketManagerCode}
+		</if>
+		
+		<if test="marketManagerName != null and marketManagerName != ''">
+			AND A.ADMIN_REALNAME = #{marketManagerName}
+		</if>
+		
+		<if test="repaymentDate != null and repaymentDate != ''">
+			AND TO_CHAR(R.REPAY_TIME, 'yyyy-mm-dd') = #{repaymentDate}
+		</if>
+		
+		<if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+			AND A.ADMIN_ORG = #{sessionOrgCode}
+		</if>
+	</select>
+	
+	<select id="getRepaymentList" parameterType="cls.pilottery.web.capital.form.RepaymentQueryForm" resultMap="repaymentRecordMap">
+		SELECT * FROM (
+			SELECT X.*, ROWNUM RN FROM (
+				SELECT R.MCR_NO,
+				       R.REPAY_TIME,
+				       R.MARKET_ADMIN,
+				       A.ADMIN_REALNAME,
+				       F.BE_ACCOUNT_BALANCE,
+				       R.REPAY_AMOUNT,
+				       F.AF_ACCOUNT_BALANCE,
+				       R.REMARK
+				FROM FUND_MM_CASH_REPAY R
+				  LEFT JOIN ADM_INFO A ON R.MARKET_ADMIN = A.ADMIN_ID
+				  LEFT JOIN FLOW_MARKET_MANAGER F ON R.MCR_NO = F.REF_NO
+				WHERE 1 = 1
+				<if test="marketManagerCode != null and marketManagerCode != ''">
+					AND R.MARKET_ADMIN = #{marketManagerCode}
+				</if>
+				
+				<if test="marketManagerName != null and marketManagerName != ''">
+					AND A.ADMIN_REALNAME = #{marketManagerName}
+				</if>
+				
+				<if test="repaymentDate != null and repaymentDate != ''">
+					AND TO_CHAR(R.REPAY_TIME, 'yyyy-mm-dd') = #{repaymentDate}
+				</if>
+								
+				<if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+					AND A.ADMIN_ORG = #{sessionOrgCode}
+				</if>
+				ORDER BY R.REPAY_TIME DESC
+  <![CDATA[ ) X
+        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+	</select>
+	
+	<select id="getMarketManagerAccountList" parameterType="String" resultMap="marketManagerAccountMap">
+		SELECT M.MARKET_ADMIN,
+		       A.ADMIN_REALNAME,
+		       M.ACC_TYPE,
+		       M.ACC_NAME,
+		       M.ACC_STATUS,
+		       M.ACC_NO,
+		       M.CREDIT_LIMIT,
+		       M.ACCOUNT_BALANCE,
+		       M.CHECK_CODE
+		  FROM ACC_MM_ACCOUNT M
+		  LEFT JOIN ADM_INFO A ON M.MARKET_ADMIN = A.ADMIN_ID
+		 WHERE M.ACC_TYPE = 1
+		   AND M.ACC_STATUS = 1
+		<if test="_parameter != null and _parameter != '' and _parameter != '00'">
+		   AND A.ADMIN_ORG = #{_parameter}
+		</if>
+	</select>
+	
+	<update id="addRepayment" statementType="CALLABLE" parameterType="cls.pilottery.web.capital.form.NewRepaymentForm">
+		{CALL P_MM_FUND_REPAY(
+			#{repaymentAmount,mode=IN,jdbcType=NUMERIC},
+			#{marketManagerCode,mode=IN,jdbcType=NUMERIC},
+			#{operatorCode,mode=IN,jdbcType=NUMERIC},
+			#{remark,mode=IN,jdbcType=VARCHAR},
+			#{repaymentFlowNumber,mode=OUT,jdbcType=VARCHAR},
+			#{balanceBeforeRepayment,mode=OUT,jdbcType=NUMERIC},
+			#{balanceAfterRepayment,mode=OUT,jdbcType=NUMERIC},
+			#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</update>
+	
+</mapper>

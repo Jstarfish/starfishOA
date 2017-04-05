@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.taishan.web.capital.dao.CapitalDao">
+	
+	<select id="getTransactionsCount" parameterType="cls.taishan.web.capital.form.TransactionForm" resultType="int">
+		select count(*)  from (
+			select dealer_fund_flow as dealerFundFlow,
+			       flow_type        as flowType,
+			       dealer_code      as dealerCode,
+			       change_amount    as changeAmount,
+			       to_char(trade_time,'yyyy-MM-dd hh24:mi:ss')       as tradeTime,
+			       dealer_name      as dealerName
+			  from cncp_fund_detail
+          left join cncp_inf_dealers
+         using (dealer_code)
+			 WHERE 1 = 1 
+		 <if test="dealerFundFlow !=null and dealerFundFlow != ''">
+		 	and dealer_fund_flow = #{dealerFundFlow}
+		 </if>	
+		 <if test="dealerCode!=null and dealerCode != ''">
+		 	and dealer_code = #{dealerCode}
+		 </if>
+		 <if test="flowType!=null and flowType != ''">
+		 	and flow_type = #{flowType}
+		 </if>
+		 <if test="startDate!=null and startDate != ''">
+		 	and to_char(trade_time, 'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if>
+		 )
+	</select>
+	<select id="getFundTransaction" parameterType="cls.taishan.web.capital.form.TransactionForm" resultType="cls.taishan.web.capital.model.Transactions">
+		select *  from (select tab.*, rownum rn from (
+			select dealer_fund_flow as dealerFundFlow,
+			       flow_type        as flowType,
+			       dealer_code      as dealerCode,
+			       change_amount    as changeAmount,
+			       to_char(trade_time,'yyyy-MM-dd hh24:mi:ss') as tradeTime,
+			       dealer_name      as dealerName
+			  from cncp_fund_detail
+          left join cncp_inf_dealers
+         using (dealer_code)
+			 WHERE 1 = 1 	
+		 <if test="dealerFundFlow !=null and dealerFundFlow != ''">
+		 	and dealer_fund_flow = #{dealerFundFlow}
+		 </if>
+		 <if test="dealerCode!=null and dealerCode != ''">
+		 	and dealer_code = #{dealerCode}
+		 </if>
+		 <if test="flowType!=null and flowType != ''">
+		 	and flow_type = #{flowType}
+		 </if>
+		 <if test="startDate!=null and startDate != ''">
+		 	and to_char(trade_time, 'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if>
+		  <![CDATA[ ) tab where rownum <= #{endNum}  ]]>  
+			       ) where rn > #{beginNum}
+		<if test="sortName!=null and sortName != ''">
+				order by ${sortName} ${sortOrder}
+		</if>
+	</select>
+	
+	<select id="getTopUpList" parameterType="cls.taishan.web.capital.form.CapitalForm" resultType="cls.taishan.web.capital.model.Capital">
+		select t.fund_no     as fundNo,
+		       t.dealer_code as dealerCode,
+		       c.dealer_name as dealerName,
+		       t.oper_amount as operAmount,
+		       to_char(t.oper_time,'yyyy-MM-dd hh24:mi:ss')   as operTime,
+		       t.remark      as remark
+		  from cncp_fund_charge t
+		  left join cncp_inf_dealers c
+		    on t.dealer_code = c.dealer_code
+		     WHERE 1=1 
+		 <if test="dealerCode!=null and dealerCode != ''">
+		 	and t.dealer_code = #{dealerCode}
+		 </if>
+		 <if test="startDate!=null and startDate != ''">
+		 	and to_char(t.oper_time,'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if>
+		 order by t.fund_no desc
+	</select>
+	
+	<select id="getDealerNameByCode" parameterType="String" resultType="String">
+		select DEALER_NAME dealerName from CNCP_INF_DEALERS where DEALER_CODE = #{dealerCode}
+	</select>
+	
+	<update id="topUp" statementType="CALLABLE"
+		parameterType="cls.taishan.web.capital.form.CapitalForm">
+		{call p_cncp_fund_charge(
+		#{dealerCode,mode=IN,jdbcType=VARCHAR},
+		#{operAmount,mode=IN,jdbcType=VARCHAR},
+		#{operAdmin,mode=IN,jdbcType=NUMERIC},
+		#{remark,mode=IN,jdbcType=VARCHAR},
+		#{secretKey,mode=IN,jdbcType=VARCHAR},
+		#{fundNo,mode=OUT,jdbcType=VARCHAR},
+		#{procErrorCode,mode=OUT,jdbcType=NUMERIC},
+		#{procErrorMsg,mode=OUT,jdbcType=VARCHAR}
+		)
+		}
+	</update>
+	
+	
+	<select id="getWithdrawList" parameterType="cls.taishan.web.capital.form.CapitalForm" resultType="cls.taishan.web.capital.model.Capital">
+		select t.fund_no     as fundNo,
+		       t.dealer_code as dealerCode,
+		       c.dealer_name as dealerName,
+		       t.oper_amount as operAmount,
+		       to_char(t.oper_time,'yyyy-MM-dd hh24:mi:ss') as operTime,
+		       t.remark      as remark
+		  from CNCP_FUND_WITHDRAW t
+		  left join cncp_inf_dealers c
+		    on t.dealer_code = c.dealer_code
+		 WHERE 1 = 1
+		<if test="dealerCode !=null and dealerCode != ''">
+		 	and t.dealer_code = #{dealerCode}
+		 </if>
+		 <if test="startDate !=null and startDate != ''">
+		 	and to_char(t.oper_time,'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if>
+		 order by t.fund_no desc
+	</select>
+	
+	<!-- 调账列表查询 -->
+	<select id="getAdjustmentList" parameterType="cls.taishan.web.capital.form.CapitalForm" resultType="cls.taishan.web.capital.model.Capital">
+		select t.fund_no     as fundNo,
+		       t.dealer_code as dealerCode,
+		       c.dealer_name as dealerName,
+		       t.oper_amount as operAmount,
+		       t.be_account_balance as beforeAccountBalance,
+	         	   t.af_account_balance as afterAccountBalance, 
+		       to_char(t.oper_time,'yyyy-MM-dd hh24:mi:ss') as operTime,
+		       t.remark      as remark,
+		       t.OPER_ADMIN  as  operAdmin,
+		       a.admin_realname     as operAdminName   
+		  from CNCP_FUND_TUNE t
+		  left join cncp_inf_dealers c
+		    on t.dealer_code = c.dealer_code
+		  left join adm_info a
+	    	 on t.oper_admin = a.admin_id 
+		 WHERE 1 = 1
+		<if test="dealerCode!=null and dealerCode != ''">
+		 	and t.dealer_code = #{dealerCode}
+		 </if>
+		 <if test="startDate!=null and startDate != ''">
+		 	and to_char(t.oper_time,'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if>
+		 order by t.fund_no desc
+	</select>
+	
+	<!-- 提现sp -->
+	<update id="withdraw" statementType="CALLABLE"
+		parameterType="cls.taishan.web.capital.form.CapitalForm">
+		{call p_cncp_fund_withdraw(
+		#{dealerCode,mode=IN,jdbcType=VARCHAR},
+		#{operAmount,mode=IN,jdbcType=NUMERIC},
+		#{operAdmin,mode=IN,jdbcType=NUMERIC},
+		#{remark,mode=IN,jdbcType=VARCHAR},
+		#{secretKey,mode=IN,jdbcType=VARCHAR},
+		#{fundNo,mode=OUT,jdbcType=VARCHAR},
+		#{procErrorCode,mode=OUT,jdbcType=NUMERIC},
+		#{procErrorMsg,mode=OUT,jdbcType=VARCHAR}
+		)
+		}
+	</update>
+	
+	<select id="getDealerInfoByCode" parameterType="String" resultType="cls.taishan.web.capital.model.Capital">
+		select c.DEALER_NAME dealerName,
+		       a.account_balance beforeAccountBalance
+		  from CNCP_INF_DEALERS c, CNCP_ACC_DEALER a
+		 where c.DEALER_CODE = a.DEALER_CODE
+		   and a.DEALER_CODE = #{dealerCode}
+	</select>
+	
+	<!-- 调账 -->
+	<update id="adjustAccount" statementType="CALLABLE"
+		parameterType="cls.taishan.web.capital.form.CapitalForm">
+		{call p_cncp_fund_tune(
+		#{dealerCode,mode=IN,jdbcType=VARCHAR},
+		#{operAmount,mode=IN,jdbcType=NUMERIC},
+		0,
+		#{operAdmin,mode=IN,jdbcType=NUMERIC},
+		#{remark,mode=IN,jdbcType=VARCHAR},
+		#{secretKey,mode=IN,jdbcType=VARCHAR},
+		#{fundNo,mode=OUT,jdbcType=VARCHAR},
+		#{procErrorCode,mode=OUT,jdbcType=NUMERIC},
+		#{procErrorMsg,mode=OUT,jdbcType=VARCHAR}
+		)
+		}
+	</update>
+	
+	<!-- 根据FundNo获取充值凭证信息 -->
+	<select id="getTopUpInfo" parameterType="String" resultType="cls.taishan.web.capital.model.Capital">
+		select t.fund_no            as fundNo,
+		       t.dealer_code        as dealerCode,
+		       t.oper_admin         as operAdmin,
+		       a.admin_realname     as operAdminName,
+		       c.dealer_name        as dealerName,
+		       t.af_account_balance as afterAccountBalance,
+		       t.oper_amount        as operAmount,
+		       to_char(t.oper_time,'yyyy-MM-dd hh24:mi:ss') as operTime,  
+		       t.remark as remark
+		  from cncp_fund_charge t
+		  left join cncp_inf_dealers c
+		    on t.dealer_code = c.dealer_code
+		  left join adm_info a
+	    	 on t.oper_admin = a.admin_id
+		 WHERE 1 = 1 and t.fund_no = #{fundNo}
+	</select>
+
+	<!-- 根据FundNo获取提现凭证信息 -->
+	<select id="getWithdrawInfo" parameterType="String" resultType="cls.taishan.web.capital.model.Capital">
+		select t.fund_no            as fundNo,
+		       t.dealer_code        as dealerCode,
+		       c.dealer_name        as dealerName,
+		       t.af_account_balance as afterAccountBalance,
+		       t.oper_amount        as operAmount,
+		       to_char(t.oper_time,'yyyy-MM-dd hh24:mi:ss') as operTime,  
+		       t.remark as remark,
+		       t.oper_admin         as operAdmin,
+		       a.admin_realname     as operAdminName
+		  from CNCP_FUND_WITHDRAW t
+		  left join cncp_inf_dealers c
+		    on t.dealer_code = c.dealer_code
+		  left join adm_info a
+	    	 on t.oper_admin = a.admin_id
+		 WHERE 1 = 1 and t.fund_no = #{fundNo}
+	</select>
+
+	<!-- 根据FundNo获取调账凭证信息 -->
+	<select id="getAdjustmentInfo" parameterType="String" resultType="cls.taishan.web.capital.model.Capital">
+		select t.fund_no            as fundNo,
+		       t.dealer_code        as dealerCode,
+		       c.dealer_name        as dealerName,
+		       t.af_account_balance as afterAccountBalance,
+		       t.oper_amount        as operAmount,
+		       to_char(t.oper_time,'yyyy-MM-dd hh24:mi:ss') as operTime,    
+		       t.remark as remark,
+		       t.oper_admin         as operAdmin,
+		       a.admin_realname     as operAdminName
+		  from CNCP_FUND_TUNE t
+		  left join cncp_inf_dealers c
+		    on t.dealer_code = c.dealer_code
+		  left join adm_info a
+	    	 on t.oper_admin = a.admin_id
+		 WHERE 1 = 1 and t.fund_no = #{fundNo}
+	</select>
+</mapper>

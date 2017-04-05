@@ -1,0 +1,37 @@
+﻿$axure.loadCurrentPage({
+  "url":"库存查询.html",
+  "generationDate":new Date(1443166057554.73),
+  "isCanvasEnabled":false,
+  "variables":["OnLoadVariable",
+"yz_msg"],
+  "page":{
+    "packageId":"9e377a88f3644662b02ce0f007d7aa73",
+    "type":"Axure:Page",
+    "name":"库存查询",
+    "notes":{
+},
+    "style":{
+      "baseStyle":"627587b6038d43cca051c114ac41ad32",
+      "pageAlignment":"near",
+      "fill":{
+        "fillType":"solid",
+        "color":0xFFFFFFFF},
+      "image":null,
+      "imageHorizontalAlignment":"near",
+      "imageVerticalAlignment":"near",
+      "imageRepeat":"auto",
+      "favicon":null,
+      "sketchFactor":"0",
+      "colorStyle":"appliedColor",
+      "fontName":"应用字体",
+      "borderWidth":"0"},
+    "adaptiveStyles":{
+},
+    "interactionMap":{
+},
+    "diagram":{
+      "objects":[]}},
+  "masters":{
+},
+  "objectPaths":{
+}});

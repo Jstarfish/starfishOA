@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-autowire="byName">
+
+	<!-- 自动扫瞄 -->
+	<context:component-scan base-package="cls.pilottery" />
+	
+	<import resource="classpath:config/spring-redis.xml"/>
+	
+	<context:property-placeholder location="classpath:config/*.properties" />
+	
+	<!-- 加入Aspectj配置 
+	<aop:aspectj-autoproxy />-->
+	
+	<!-- db1配置 -->
+	<bean name="dataSourceOne" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.db1.driver}" />
+		<property name="url" value="${jdbc.db1.url}" />
+		<property name="username" value="${jdbc.db1.username}" />
+		<property name="password" value="${jdbc.db1.password}" />
+		<property name="initialSize" value="20"></property>
+		<property name="maxActive" value="30"></property>
+		<property name="minIdle" value="2"></property>
+		<property name="maxWait" value="60000"></property>
+		<property name="validationQuery" value="${jdbc.db1.validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+	</bean>
+	<bean id="sqlSessionFactoryOne" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceOne" />
+		<property name="mapperLocations" value="classpath*:cls/pilottery/**/mapper/*.xml"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 配置dao与sqlSessionFactory的映射关系，多个dao包时，用逗号分隔 -->
+		<property name="basePackage" value="cls.pilottery.web.**.dao,cls.pilottery.pos.**.dao,cls.pilottery.webncp.**.dao.pil" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryOne"></property>
+	</bean>
+	
+	<!-- 事务配置，全注解形式 -->
+	<bean id="transactionManagerOne" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceOne"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManagerOne" />
+	
+	
+	<!-- db2配置 -->
+	<bean name="dataSourceTwo" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.db2.driver}" />
+		<property name="url" value="${jdbc.db2.url}" />
+		<property name="username" value="${jdbc.db2.username}" />
+		<property name="password" value="${jdbc.db2.password}" />
+		<property name="initialSize" value="20"></property>
+		<property name="maxActive" value="30"></property>
+		<property name="minIdle" value="2"></property>
+		<property name="maxWait" value="60000"></property>
+		<property name="validationQuery" value="${jdbc.db2.validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+	</bean>
+	<bean id="sqlSessionFactoryTwo" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceTwo" />
+		<property name="mapperLocations" value="classpath*:cls/pilottery/**/omsMapper/*.xml"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 配置dao与sqlSessionFactory的映射关系，多个dao包时，用逗号分隔 -->
+		<property name="basePackage" value="cls.pilottery.oms.**.dao,cls.pilottery.webncp.**.dao.oms" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryTwo"></property>
+	</bean>
+	<bean id="jdbcTemplateTwo" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSourceTwo" />
+    </bean>
+	<!-- 事务配置，全注解形式 -->
+	<bean id="transactionManagerTwo" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceTwo"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManagerTwo" />
+	
+	<bean class="cls.pilottery.common.utils.SpringContextUtil"/>
+	
+</beans>

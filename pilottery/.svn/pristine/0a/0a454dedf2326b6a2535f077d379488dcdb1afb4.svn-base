@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="horizontal" >
+    <LinearLayout 
+	    android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+	    android:background="#ffffff"
+	    android:layout_weight="5"
+	    android:gravity="center_horizontal"
+	    android:layout_marginTop="5dp"
+	    android:layout_marginBottom="5dp"
+	    android:orientation="vertical" >
+	    <TextView	 
+		    android:id="@+id/date"  
+		    android:layout_width="wrap_content"         
+			android:layout_height="wrap_content" 
+	  		android:textSize="@dimen/BodyFont"
+	  		android:layout_marginTop="3dp"
+	 		android:layout_marginLeft="15dp"
+	  		android:layout_gravity="center|left"
+	   		android:textColor="@drawable/black"
+	  		android:text="12-09 12:32" 
+	        />
+	     <TextView
+	        android:id="@+id/type" 
+	        android:layout_width="wrap_content" 	            
+			android:layout_height="wrap_content" 
+	 		android:textSize="@dimen/BodyFont"
+	 		android:layout_marginTop="3dp"
+	 		android:layout_marginLeft="15dp"
+	  		android:layout_gravity="center|left"
+	   		android:textColor="@drawable/black"
+	 		android:text="Return" 
+	        />
+	    
+     </LinearLayout>
+     <LinearLayout 
+	    android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="4"
+	    android:gravity="center_horizontal"
+	    android:background="#ffffff"
+	    android:layout_marginTop="5dp"
+	    android:layout_marginBottom="5dp"
+	    android:orientation="vertical" >
+	    <TextView	 
+		    android:id="@+id/site"  
+		    android:layout_width="wrap_content"         
+			android:layout_height="wrap_content" 
+	  		android:textSize="@dimen/BodyFont"
+	  		android:layout_marginTop="3dp"
+	  		android:layout_gravity="center|right"
+	   		android:textColor="@drawable/black"
+	  		android:text="12345678" 
+	        />
+	     <TextView
+	        android:id="@+id/money" 
+	        android:layout_width="wrap_content"	            
+			android:layout_height="wrap_content" 
+	 		android:textSize="@dimen/BodyFont"
+	 		android:layout_marginTop="3dp"
+	  		android:layout_gravity="center|right"
+	   		android:textColor="@drawable/black"
+	 		android:text="123,123,12 R" 
+	        />
+    </LinearLayout>
+	<ImageView 
+	    android:layout_width="10dp"
+		android:layout_height="20dp" 
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="25dp"
+		android:layout_marginRight="10dp"
+		android:background="@drawable/arrow"
+	    />
+</LinearLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.taishan.web.order.dao.OrderDao">
+	
+	<select id="getTotalCount" parameterType="cls.taishan.web.order.form.OrderForm" resultType="int">
+		select count(1) from
+		   (select t.sale_flow    saleFlow,
+	               t.game_code    gameCode,
+	               i.full_name    gameName,
+	               t.issue_number issueNumber,
+	               t.order_amount orderAmount,
+	               to_char(t.order_time,'yyyy-MM-dd hh24:mi:ss')   orderTime,
+	               t.dealer_code dealerCode,
+              	   d.dealer_name dealerName,
+	               t.order_status orderStatus
+	          from cncp_trade_sale t, inf_games i,cncp_inf_dealers d
+	         where t.game_code = i.game_code
+	         and t.dealer_code = d.dealer_code
+	         <if test="saleFlow !=null and saleFlow != ''">
+		 	and t.sale_flow = #{saleFlow}
+		 </if>
+		 <if test="gameCode !=null and gameCode != ''">
+		 	and t.game_code = #{gameCode}
+		 </if>
+		 <if test="issueNumber !=null and issueNumber != ''">
+		 	and to_char(t.issue_number) = #{issueNumber}
+		 </if>
+		 <if test="orderStatus !=null and orderStatus != ''">
+		 	and t.order_status = #{orderStatus}
+		 </if>
+		 <if test="dealerCode !=null and dealerCode != ''">
+		 	and t.dealer_code = #{dealerCode}
+		 </if>
+		 <if test="startDate !=null and startDate != ''">
+		 	and to_char(t.order_time,'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if> )
+	</select>
+	
+	<select id="getOrderList" parameterType="cls.taishan.web.order.form.OrderForm" resultType="cls.taishan.web.order.model.Order">
+		select * from (select tab.*, rownum rn from (
+		select t.sale_flow    saleFlow,
+		       t.game_code    gameCode,
+		       i.full_name    gameName,
+		       t.issue_number issueNumber,
+		       t.order_amount orderAmount,
+		       to_char(t.order_time,'yyyy-MM-dd hh24:mi:ss')   orderTime,
+		       t.dealer_code dealerCode,
+               d.dealer_name dealerName,
+		       t.order_status orderStatus
+		  from cncp_trade_sale t, inf_games i,cncp_inf_dealers d
+		 where t.game_code = i.game_code
+		 and t.dealer_code = d.dealer_code
+		 <if test="saleFlow !=null and saleFlow != ''">
+		 	and t.sale_flow = #{saleFlow}
+		 </if>
+		 <if test="gameCode !=null and gameCode != ''">
+		 	and t.game_code = #{gameCode}
+		 </if>
+		 <if test="issueNumber !=null and issueNumber != ''">
+		 	and to_char(t.issue_number) = #{issueNumber}
+		 </if>
+		 <if test="dealerCode !=null and dealerCode != ''">
+		 	and t.dealer_code = #{dealerCode}
+		 </if>
+		 <if test="orderStatus !=null and orderStatus != ''">
+		 	and t.order_status = #{orderStatus}
+		 </if>
+		 <if test="startDate !=null and startDate != ''">
+		 	and to_char(t.order_time,'yyyy-mm-dd') between #{startDate} and #{endDate}
+		 </if> 
+		 <![CDATA[ ) tab where rownum <= #{endNum}  ]]>  
+			       ) where rn > #{beginNum}
+		 <if test="sortName!=null and sortName != ''">
+				order by ${sortName} ${sortOrder}
+		 </if>
+	</select>
+	
+	<select id="getOrderDeatil" parameterType="String" resultType="cls.taishan.web.order.model.Order">
+		select t.sale_flow    saleFlow,
+		       t.sale_tsn     saleTsn,
+		       t.game_code    gameCode,
+		       i.full_name    gameName,
+		       t.issue_number issueNumber,
+		       t.dealer_code  dealerCode,
+		       c.dealer_name  dealerName,
+		       t.order_amount orderAmount,
+		       to_char(t.order_time,'yyyy-MM-dd hh24:mi:ss')   orderTime,
+		       to_char(t.ticket_time,'yyyy-MM-dd hh24:mi:ss')  ticketTime,
+		       t.order_status orderStatus,
+		       t.fail_reson remark
+		  from cncp_trade_sale t, inf_games i, cncp_inf_dealers c
+		 where t.game_code = i.game_code 
+		 	and t.dealer_code = c.dealer_code
+		 	and t.sale_flow = #{saleFlow}
+	</select>
+	
+	<select id="getTicketDetail" parameterType="String" resultType="String">
+		select ticket_detail as ticketDetail from cncp_trade_sale_detail where sale_flow = #{saleFlow}
+	</select>
+	
+	<select id="getGameList" resultType="cls.taishan.web.order.model.Game">
+		select g.game_code gameCode,g.full_name gameName from inf_games g
+	</select>
+</mapper>

@@ -1,0 +1,25 @@
+package cls.taishan.web.dao;
+
+import cls.taishan.web.model.WingWithdrawDBParam;
+import cls.taishan.web.model.WingWithdrawInputParam;
+import cls.taishan.web.model.WingWithdrawOutputParam;
+import cls.taishan.web.model.WingWithdrawReq;
+import cls.taishan.web.model.WingWithdrawRes;
+
+public interface WingWithdrawDao {
+	// 记录发起报文的信息
+	public int recordWithdrawJsonData(WingWithdrawInputParam in, String eTradeFlow, String currency);
+	
+	// 与Wing网关交互
+	public int restWingWithdraw(WingWithdrawReq req, WingWithdrawRes res, int httpStatusCode);
+
+	// 记录Wing交互结果（发起交易前）
+	public int recordWithdrawBeforeDB(WingWithdrawReq req, WingWithdrawDBParam dbParm);
+
+	// 记录Wing交互结果（发起交易后）
+	public int recordWithdrawPostDB(WingWithdrawRes res, WingWithdrawDBParam dbParm);
+	
+	// 生成返回参数
+	public int genOutParam(WingWithdrawOutputParam out, String eTradeFlow);
+
+}

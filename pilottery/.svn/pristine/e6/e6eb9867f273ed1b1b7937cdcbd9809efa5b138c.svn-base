@@ -1,0 +1,2 @@
+
+INSTALL(PROGRAMS libfmapiv100.so DESTINATION libs)

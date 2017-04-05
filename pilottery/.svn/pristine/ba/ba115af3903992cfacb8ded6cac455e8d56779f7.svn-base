@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.monitor.dao.MonitorDao">
+	<select id="getHoursSaleForSummary" resultType="long" parameterType="map">
+		with all_hour as
+		    ( select hour24 from (select rownum as hour24 from dual connect by 
+		    <![CDATA[ rownum <= to_number(to_char(sysdate, 'hh24')) and rownum <= 21) where hour24 >= 7),]]>
+		    src_detail as 
+		      (SELECT trunc(calc_time/12) calc_time,SUM(SALE_AMOUNT-CANCEL_AMOUNT) saleAmount
+		            FROM HIS_SALE_HOUR
+		           WHERE CALC_DATE = #{date}
+		           <![CDATA[  and calc_time > 84 and calc_time <= 252 ]]>
+		             <if test="orgCode != '00'">
+				         AND ORG_CODE = #{orgCode}
+				     </if>
+		        group by trunc(calc_time/12))
+		select nvl(saleAmount, 0) as saleAmount
+		  from all_hour left join src_detail on (all_hour.hour24 = src_detail.calc_time)
+		 order by hour24
+	</select>
+	
+	<select id="getHoursSaleForSummaryTotal" resultType="long" parameterType="map"> 
+		with all_hour as
+		 	( select hour24 from (select rownum-1 as hour24 from dual connect by 
+		    <if test="hour != null and hour != ''">
+		    	<![CDATA[ rownum <= to_number(to_char(sysdate, 'hh24')) * 60 / 5 + trunc(to_number(to_char(sysdate, 'mi')) / 5) and rownum <= 252) where hour24 > 84),]]>
+		    </if>
+		    <if test="hour == null or hour == ''">
+		    	<![CDATA[ rownum <= 252) where hour24 > 84),]]>
+		    </if>	
+		source_sql as 
+		  (SELECT calc_time,SUM(DAY_SALE_AMOUNT-DAY_CANCEL_AMOUNT) saleAmount
+		        FROM HIS_SALE_HOUR
+		       WHERE CALC_DATE = #{date}
+		       <![CDATA[  and calc_time > 84 and calc_time <= 252 ]]>
+		       <if test="orgCode != '00'">
+		            AND ORG_CODE = #{orgCode}
+		       </if>
+		    GROUP BY calc_time)
+		select 
+			nvl(saleAmount, 0) as saleAmount
+		  from all_hour left join source_sql on (all_hour.hour24 = source_sql.calc_time)
+		 order by hour24
+	</select>
+	
+	<select id="getSalePerByGames" parameterType="map" resultType="cls.pilottery.web.monitor.model.SummaryStatisticsModel">
+		WITH max_line as
+		 (select max(CALC_TIME) max_time
+		    from HIS_SALE_HOUR
+		   where CALC_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')),
+		sum_sales AS
+		 (SELECT plan_code, SUM(DAY_SALE_AMOUNT - DAY_CANCEL_AMOUNT) sale_sum
+		    FROM HIS_SALE_HOUR
+		   WHERE CALC_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		     AND CALC_TIME = (select max_time from max_line)
+		    <if test="orgCode != '00'">
+	   			AND ORG_CODE = #{orgCode}
+	    	</if>
+		   group by plan_code),
+		rtv as
+		 (select plan_code,
+		         sale_sum,
+		         (case
+		            when (sum(sale_sum) over()) = 0 then
+		             0
+		            else
+		             sale_sum / (sum(sale_sum) over())
+		         end) as salerate
+		    from sum_sales)
+		SELECT SHORT_NAME planName, ROUND (salerate * 1000) / 10 AS perOfsale
+	    FROM rtv 
+	    JOIN GAME_PLANS USING (PLAN_CODE)
+		ORDER BY perOfsale DESC
+	</select>
+	
+	<select id="getSalePerByInstitution" parameterType="int" resultType="cls.pilottery.web.monitor.model.SummaryStatisticsModel">
+		WITH max_line as
+			 (select max(CALC_TIME) max_time
+			    from HIS_SALE_HOUR
+			   where CALC_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')),
+		sum_sales as (
+		    select sum(DAY_SALE_AMOUNT-DAY_CANCEL_AMOUNT) sum_sales from HIS_SALE_HOUR 
+		    where CALC_DATE = TO_CHAR(SYSDATE,'yyyy-mm-dd') and CALC_TIME = (select max_time from max_line)
+		)
+		select ORG_NAME orgName,round(nvl(sum(DAY_SALE_AMOUNT-DAY_CANCEL_AMOUNT),0)/sum_sales*1000)/10 perOfsale from HIS_SALE_HOUR a,sum_sales,INF_ORGS c
+		 where  a.org_code = c.org_code 
+		  and CALC_DATE = TO_CHAR(SYSDATE,'yyyy-mm-dd') and CALC_TIME = (select max_time from max_line)
+		  AND (DAY_SALE_AMOUNT - DAY_CANCEL_AMOUNT)  > 0
+		group by ORG_NAME,sum_sales
+		order by perOfsale desc
+	</select>
+	
+	<select id="getRankingByInstitution" parameterType="map" resultType="cls.pilottery.web.monitor.model.SummaryStatisticsModel">
+		WITH total_sale
+		     AS (  SELECT agency_code, MAX (DAY_SALE_AMOUNT) sale_mount
+		             FROM HIS_SALE_HOUR_AGENCY
+		            WHERE calc_date = #{queryDate}
+		            AND AREA_CODE IN (SELECT AREA_CODE  FROM INF_ORG_AREA  WHERE org_code = #{orgCode})
+		         GROUP BY agency_code),
+		     calc_stats
+		     AS (SELECT agency_code,
+		                sale_mount,
+		                (CASE
+		                    WHEN (SUM (sale_mount) OVER ()) = 0 THEN 0
+		                    ELSE sale_mount / SUM (sale_mount) OVER ()
+		                 END)
+		                   sale_rate
+		           FROM total_sale)
+		  SELECT agency_code||':'||AGENCY_NAME orgName,
+		         round(NVL (sale_rate, 0)*1000/10) perOfsale
+		    FROM INF_AGENCYS LEFT JOIN calc_stats USING (AGENCY_CODE)
+		ORDER BY perOfsale DESC
+	</select>
+	
+	<select id="getOutletRankingCount" parameterType="cls.pilottery.web.monitor.form.MonitorForm" resultType="int">
+		SELECT COUNT(1)
+		  FROM INF_AGENCYS 
+		 WHERE status != 3
+		 <if test="orgCode != '00'">
+		  	 AND AREA_CODE IN (SELECT AREA_CODE  FROM INF_ORG_AREA  WHERE org_code = #{orgCode})
+		 </if>
+		 <if test="areaCode != null and areaCode != ''">
+		  	 AND AREA_CODE  = #{areaCode}
+		 </if>
+	</select>
+	
+	<select id="getOutletRankingList" parameterType="cls.pilottery.web.monitor.form.MonitorForm" resultType="cls.pilottery.web.monitor.model.RankingModel">
+		with sale as (
+		    SELECT AGENCY_CODE,
+		           sum(SALE_AMOUNT) saleAmount,
+		           sum(CANCEL_AMOUNT) cancelAmount,
+		           sum(PAY_AMOUNT) payAmount
+		      FROM HIS_SALE_HOUR_AGENCY 
+		     WHERE calc_date = #{queryDate}
+		     <if test="planCode != null and planCode != ''">
+			  	 AND PLAN_CODE = #{planCode}
+			 </if>
+		    GROUP BY AGENCY_CODE
+		)
+		select AGENCY_NAME agencyName,
+			AGENCY_CODE agencyCode,
+			NVL(saleAmount,0) saleAmount,
+			NVL(cancelAmount,0) cancelAmount,
+			NVL(payAmount,0) payAmount 
+		from INF_AGENCYS
+		left join sale using (AGENCY_CODE)
+		where status != 3
+		 <if test="orgCode != '00'">
+		  	 AND AREA_CODE IN (SELECT AREA_CODE  FROM INF_ORG_AREA  WHERE org_code = #{orgCode})
+		 </if>
+		 <if test="areaCode != null and areaCode != ''">
+		  	 AND AREA_CODE  = #{areaCode}
+		 </if>
+		order by NVL(saleAmount,0) desc
+	</select>
+	
+	<select id="getHoursSalesTrend" resultType="long" parameterType="map"> 
+		with all_hour as
+		 	( select hour24 from (select rownum-1 as hour24 from dual connect by 
+		    <if test="hour != null and hour != ''">
+		    	<![CDATA[ rownum <= to_number(to_char(sysdate, 'hh24')) * 60 / 5 + trunc(to_number(to_char(sysdate, 'mi')) / 5) and rownum <= 252) where hour24 > 84),]]>
+		    </if>
+		    <if test="hour == null or hour == ''">
+		    	<![CDATA[ rownum <= 252) where hour24 > 84),]]>
+		    </if>	
+		source_sql as 
+		  (SELECT calc_time,SUM(DAY_SALE_AMOUNT-DAY_CANCEL_AMOUNT) saleAmount
+		        FROM HIS_SALE_HOUR
+		       WHERE CALC_DATE = #{date}
+		       <![CDATA[  and calc_time > 84 and calc_time <= 252 ]]>
+		       <if test="orgCode != '00'">
+		            AND ORG_CODE = #{orgCode}
+		      </if>
+		      <if test="planCode != null and planCode != ''">
+		            AND PLAN_CODE = #{planCode}
+		      </if>
+		    GROUP BY calc_time)
+		select nvl(saleAmount, 0) as saleAmount
+		  from all_hour left join source_sql on (all_hour.hour24 = source_sql.calc_time)
+		 order by hour24
+	</select>
+	
+	<!-- Institution Sales -->
+	<select id="getDataForOrgSales" parameterType="map" resultType="cls.pilottery.web.monitor.model.OrgSalesModel">
+		SELECT A.ORG_CODE AS orgCode,
+		       B.ORG_NAME AS orgName,
+		       SUM(A.SALE_AMOUNT - A.CANCEL_AMOUNT) AS salesAmount
+		  FROM HIS_SALE_ORG A 
+			LEFT JOIN INF_ORGS B ON A.ORG_CODE = B.ORG_CODE
+		 WHERE A.CALC_DATE BETWEEN #{startDate} AND #{endDate}
+		 <if test="sessionOrgCode != '00'">
+		 	AND A.ORG_CODE = #{sessionOrgCode}
+		 </if>
+	  GROUP BY A.ORG_CODE, B.ORG_NAME
+	  ORDER BY A.ORG_CODE
+	</select>
+	
+	<select id="getDataForOrgSalesDrillDown" parameterType="map" resultType="cls.pilottery.web.monitor.model.OrgSalesDrillDownModel">
+		SELECT A.PLAN_CODE AS planCode,
+		       B.FULL_NAME AS fullName,
+		       SUM(A.SALE_AMOUNT - A.CANCEL_AMOUNT) AS salesAmount
+		  FROM HIS_SALE_ORG A
+		    LEFT JOIN GAME_PLANS B ON A.PLAN_CODE = B.PLAN_CODE
+		 WHERE A.CALC_DATE BETWEEN #{startDate} AND #{endDate}
+		   AND A.ORG_CODE = #{orgCode}
+	  GROUP BY A.PLAN_CODE, B.FULL_NAME
+	  ORDER BY A.PLAN_CODE
+	</select>
+	
+	<select id="getMonthcategories" parameterType="cls.pilottery.web.monitor.form.YearMonthForm" resultType="cls.pilottery.web.monitor.model.SalesStatisticsYearModel">
+        with time_scope as
+		 (select D_MONTH, D_DAY from HIS_DIM_DWM where D_YEAR = #{year}),
+		detail as
+		 (select ORG_CODE,D_MONTH, nvl(SALE_AMOUNT, 0) SALE_AMOUNT
+		    from time_scope
+		    left join HIS_SALE_ORG
+		      on (time_scope.D_DAY = HIS_SALE_ORG.CALC_DATE))
+		select D_MONTH MONTH, sum(SALE_AMOUNT) AMOUNT
+		  from detail where 1=1
+          <if test="insCode != '00'">
+          and org_code=#{insCode}
+          </if>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+		 group by D_MONTH
+		 order by D_MONTH
+    </select>
+    
+    <select id="getDayofAmount" parameterType="cls.pilottery.web.monitor.form.YearMonthForm" resultType="cls.pilottery.web.monitor.model.SalesStatisticsDayModel">
+		 with time_scope as
+		 (select D_DAY from HIS_DIM_DWM where D_MONTH = to_char(#{year}) || '-' || lpad(to_char(#{month}),2,'0')),
+		detail as
+		 (select org_code,D_DAY, nvl(SALE_AMOUNT, 0) SALE_AMOUNT
+		    from time_scope
+		    left join HIS_SALE_ORG
+		      on (time_scope.D_DAY = HIS_SALE_ORG.CALC_DATE))
+		select D_DAY day,sum(SALE_AMOUNT) as AMOUNT
+		  from detail where 1=1
+          <if test="insCode != '00'">
+          and org_code=#{insCode}
+          </if>
+		 group by D_DAY
+		 order by D_DAY
+    </select>
+    
+    <select id="getAreasInfo" parameterType="string" resultType="cls.pilottery.web.monitor.model.AreasInfo">
+		select area_code areaCode,area_name areaName from inf_areas
+		where area_code in (
+		    select area_code from INF_ORG_AREA 
+		    where 1 = 1
+		    <if test="_parameter != '00'">
+		          AND ORG_CODE = #{_parameter}
+		    </if>
+		)
+		and status = 1
+		order by area_code    
+    </select>
+    
+    
+</mapper>

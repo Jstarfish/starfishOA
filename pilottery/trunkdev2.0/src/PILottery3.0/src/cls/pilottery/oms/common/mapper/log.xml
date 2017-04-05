@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.common.dao.LogDao">
+
+	<resultMap type="cls.pilottery.oms.common.entity.MessageLog" id="logResult">
+		<id column="LOG_ID" property="seq" />
+		<result column="LOG_TIME" property="time" />
+		<result column="LOG_INFO" property="body" />
+		<result column="LOG_STATUS" property="status" />
+	</resultMap>
+	<select id="selectMaxFailed" resultMap="logResult">
+	<![CDATA[
+		SELECT 
+			LOG_ID,
+			to_char(LOG_TIME,'YYYY-MM-DD HH24:MI:SS') as LOG_TIME,
+			LOG_INFO,
+			LOG_STATUS
+		FROM
+			SYS_HOST_COMM_LOG
+		WHERE LOG_STATUS <> 1
+		order by(log_id) asc
+	]]>
+	</select>
+
+    <select id="getNextSeq" resultType="long">
+        select F_GET_SYS_HOSTLOGID_SEQ from dual
+    </select>
+
+    <insert id="insertLog" parameterType="cls.pilottery.oms.common.entity.MessageLog">
+    	insert into SYS_HOST_COMM_LOG
+    	   (LOG_ID,
+    	    LOG_TIME,
+            LOG_INFO,
+            LOG_STATUS)
+    	values
+	    	(#{seq},
+	    	sysdate,
+	    	#{body},
+	    	#{status})
+    </insert>
+
+	<update id="updateLog" parameterType="cls.pilottery.oms.common.entity.MessageLog" >
+		UPDATE SYS_HOST_COMM_LOG 
+			SET LOG_STATUS = 1				
+		WHERE LOG_ID = #{seq}
+	</update>
+
+</mapper>

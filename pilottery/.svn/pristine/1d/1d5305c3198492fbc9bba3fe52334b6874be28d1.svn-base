@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.capital.dao.CashWithdrawnDao">
+	<resultMap id="newcashWithdrawnMap" type="cls.pilottery.web.capital.model.withdrawnmodel.CashWithdrawn">
+		<id column="FUND_NO" property="fundNo" jdbcType="CHAR" />
+		<result column="ACCOUNT_TYPE" property="accountType" jdbcType="DECIMAL" />
+		<result column="AO_CODE" property="aoCode" jdbcType="VARCHAR" />
+		<result column="AO_NAME" property="aoName" jdbcType="VARCHAR" />
+		<result column="ACC_NO" property="accNo" jdbcType="CHAR" />
+		<result column="APPLY_AMOUNT" property="applyAmount" jdbcType="DECIMAL" />
+		<result column="APPLY_ADMIN" property="applyAdmin" jdbcType="DECIMAL" />
+		<result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+		<result column="APPLY_STATUS" property="applyStatus" jdbcType="DECIMAL" />
+		<result column="APPLY_MEMO" property="applyMemo" jdbcType="VARCHAR" />
+		<result column="IS_TERMINAL_APPLY" property="isTerminalApply" jdbcType="DECIMAL" />
+		<result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+		<result column="APPLY_CHECK_TIME" property="applyCheckTime" jdbcType="TIMESTAMP" />
+		<result column="CHECK_ADMIN_ID" property="checkAdminId" jdbcType="DECIMAL" />
+		<result column="ADMIN_REALNAME" property="realName" jdbcType="VARCHAR" />
+		<result column="af_account_balance" property="afterAccountBalance" jdbcType="VARCHAR" />
+	</resultMap>
+	
+		<resultMap id="institutionAcctMap" type="cls.pilottery.web.capital.model.InstitutionAccount">
+		<id column="ORG_CODE" property="orgCode" jdbcType="CHAR" />
+		<result column="ACC_TYPE" property="accType" jdbcType="DECIMAL" />
+		<result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+		<result column="ACC_STATUS" property="accStatus" jdbcType="DECIMAL" />
+		<result column="ACC_NO" property="accNo" jdbcType="CHAR" />
+		<result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance"
+			jdbcType="DECIMAL" />
+		<result column="FROZEN_BALANCE" property="frozenBalance"
+			jdbcType="DECIMAL" />
+		<result column="CHECK_CODE" property="checkCode" jdbcType="VARCHAR" />
+		</resultMap>
+
+		<!-- 提现审批列表，不包含已撤销的 -->
+	<select id="getCashWithdrawnList" parameterType="cls.pilottery.web.capital.form.CashWithdrawnForm"
+		resultMap="newcashWithdrawnMap">
+			select *
+			  from (select tab.*, rownum rn
+			          from (select w.*,
+			                       nvl(bb.af_account_balance, ac.account_balance) as accountBalance
+			                  from fund_withdraw w
+			                  left join (select b1.ref_no, b1.af_account_balance
+			                              from flow_org b1
+			                             where b1.flow_type = 2
+			                            union
+			                            select b2.ref_no, b2.af_account_balance
+			                              from flow_agency b2
+			                             where b2.flow_type = 2) bb
+			                    on w.fund_no = bb.ref_no
+			                  left join (select ac1.acc_no, ac1.account_balance
+			                              from acc_agency_account ac1
+			                            union
+			                            select ac2.acc_no, ac2.account_balance
+			                              from acc_org_account ac2) ac
+			                    on w.acc_no = ac.acc_no
+			                  left join (select a.agency_code as sonOrg,
+			                                   a.org_code    as orgCode
+			                              from inf_agencys a
+			                              left join acc_agency_account agc
+			                                on a.agency_code = agc.agency_code
+			                            union
+			                            select b.org_code  as sonOrg,
+			                                   b.super_org as orgCode
+			                              from inf_orgs b
+			                              left join acc_org_account orc
+			                                on b.org_code = orc.org_code) f
+			                    on w.ao_code = f.sonorg
+			                 where 1 = 1
+		<if test="aoName != null and aoName != ''">
+			and w.ao_name = #{aoName}
+		</if> 
+		<if test="applyDate != null and applyDate != ''">
+			AND to_char(w.apply_date,'yyyy-mm-dd') = #{applyDate}
+		</if> 
+		<!--  will modify: 根据账户类型判断不是总部的话就只能看到自己管理站点的提现信息，弊端是可能会让分公司无法看到自己的代理商提现信息 
+							还有不属于总部的分公司？？-->
+		<if test="aoCode != '00'">
+			AND w.ACCOUNT_TYPE = 2
+		</if> 
+			and f.orgcode = #{aoCode}
+			ORDER BY w.apply_date DESC,w.fund_no DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- 提现审批分页记录总数 -->
+	<select id="getCashWithdrawnCount" parameterType="cls.pilottery.web.capital.form.CashWithdrawnForm"
+		resultType="Integer">
+		SELECT count(1)
+ 		 FROM (select *
+          from fund_withdraw w
+          left join (select a.agency_code as sonOrg, a.org_code as orgCode
+                      from inf_agencys a
+                      left join acc_agency_account ac
+                        on a.agency_code = ac.agency_code
+                    union
+                    select b.org_code as sonOrg, b.super_org as orgCode
+                      from inf_orgs b
+                      left join acc_org_account oc
+                        on b.org_code = oc.org_code) f
+            on w.ao_code = f.sonorg
+         where 1 = 1
+		 <if test="aoName != null and aoName != ''">
+			and w.ao_name = #{aoName}
+		</if> 
+		 <if test="applyDate != null and applyDate != ''">
+			AND to_char(w.apply_date,'yyyy-mm-dd') = #{applyDate}
+		</if> 
+		and f.orgcode = #{aoCode}	
+	)
+	</select>
+	
+	<!-- 部门提现列表 -->
+	<select id="getInstitutionCashWithdrawnList" parameterType="cls.pilottery.web.capital.form.CashWithdrawnForm"
+		resultMap="newcashWithdrawnMap">
+		select * from (
+		select tab.*,rownum rn from (select a.fund_no,
+       a.account_type,
+       a.ao_code,
+       a.ao_name,
+       a.apply_amount,
+      <!--  b.af_account_balance as afterAccountBalance, -->
+	  nvl(b.af_account_balance, 0) as afterAccountBalance,  
+       a.apply_date,
+       a.apply_status
+	  from Fund_Withdraw a
+	  left join FLOW_ORG b
+	    on (a.fund_no = b.ref_no)
+	 	WHERE 1 = 1
+		 <if test="aoName != null and aoName != ''">
+			and a.ao_name = #{aoName}
+		</if> 
+		 <if test="applyDate != null and applyDate != ''">
+			AND to_char(a.apply_date,'yyyy-mm-dd') = #{applyDate}
+		</if> 
+		<if test="accountType!=null and accountType!=''">
+			and a.account_type= #{accountType}
+		</if>
+		<if test="aoCode != '00'">
+			and a.AO_CODE=#{aoCode}
+		</if>
+		ORDER BY fund_no DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	
+		<!-- 分页记录总数 -->
+	<select id="getInstitutionCashWithdrawnCount" parameterType="cls.pilottery.web.capital.form.CashWithdrawnForm"
+		resultType="Integer">
+		SELECT count(1)
+		FROM Fund_Withdraw
+		WHERE 1 = 1
+		<if test="aoName != null and aoName != ''">
+			and ao_name = #{aoName}
+		</if>
+		<if test="applyDate != null and applyDate != ''">
+			AND to_char(apply_date,'yyyy-mm-dd') = #{applyDate}
+		</if>
+		<if test="aoCode != '00'">
+			and AO_CODE=#{aoCode}
+		</if>
+			AND ACCOUNT_TYPE = 1
+	</select>
+	
+	<!--修改提现申请的状态  -->
+	<update id="modifyWithdrawnStatus" parameterType="map">
+		update FUND_WITHDRAW set APPLY_STATUS = #{applyStatus,jdbcType=DECIMAL} where trim(FUND_NO) = trim(#{fundNo,jdbcType=VARCHAR}) 
+	</update>
+	
+	<!-- 删除已取消的提现申请 -->
+	<delete id="deleteWithdrawn" parameterType="String">
+		DELETE FROM FUND_WITHDRAW WHERE trim(FUND_NO)= trim(#{fundNo})
+	</delete>
+	
+	<!-- 获取部门账户的信息,为了联动效果 -->
+	<select id="getInstitutionAccountList" parameterType="String" resultMap="institutionAcctMap">
+		SELECT  A.ORG_CODE,
+				A.ACC_NAME,
+				A.ACC_STATUS,
+				A.ACC_NO,
+				A.CREDIT_LIMIT,
+				A.ACCOUNT_BALANCE,
+				B.ORG_NAME,
+				B.ORG_STATUS
+				FROM ACC_ORG_ACCOUNT A
+			    LEFT
+				JOIN
+				INF_ORGS b ON (A.ORG_CODE = B.ORG_CODE)
+				WHERE A.ACC_TYPE = 1
+		        AND B.ORG_STATUS = 1
+		        AND A.ORG_CODE=#{orgCode}
+	</select>
+	
+	<!-- 获取提现申请信息 -->
+	<select id="getCashWithdrawnInfo" parameterType="cls.pilottery.web.capital.model.withdrawnmodel.CashWithdrawn" resultMap="newcashWithdrawnMap">
+		select  b.acc_no 
+	 	from ACC_ORG_ACCOUNT b
+	 	WHERE 1 = 1
+	    and b.ORG_CODE=#{aoCode}
+	</select>
+	
+	<!-- 提现确认 修改状态为 已提现 -->
+	<update id="updateWithdrawnAproval" parameterType="cls.pilottery.web.capital.model.withdrawnmodel.CashWithdrawn">
+		update FUND_WITHDRAW
+   		set APPLY_STATUS = 5,
+       CHECK_ADMIN_ID = #{checkAdminId,jdbcType=DECIMAL},
+       APPLY_CHECK_TIME = sysdate
+	   where FUND_NO = #{fundNo,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 根据提现编号 获取提现的信息 用于提现确认和 提现凭证 -->
+	<select id="getCashWithdrawnInfoById" parameterType="String"  resultMap="newcashWithdrawnMap" >
+	      select a.fund_no,
+	    a.account_type,
+             a.ao_code,
+             a.ao_name,
+             a.apply_amount,
+             a.APPLY_DATE,
+             b.ocode,
+             b.credit_limit,
+             b.account_balance,
+             c.admin_realname
+        from fund_withdraw a
+        left join (select x1.org_code as ocode,
+                          x1.credit_limit,
+                          x1.account_balance
+                     from ACC_ORG_ACCOUNT x1
+                    where x1.ACC_STATUS = 1
+                   union
+                   select x2.agency_code as ocode,
+                          x2.credit_limit,
+                          x2.account_balance
+                     from ACC_AGENCY_ACCOUNT x2
+                    where x2.ACC_STATUS = 1) b
+          on a.ao_code = b.ocode
+        left join ADM_INFO c
+          on (a.apply_admin = c.admin_id)
+		WHERE 1 = 1
+		and trim(a.fund_no)=trim(#{fundNo})
+</select>
+
+	<!-- 提现审批  修改状态同时修改账户余额 -->
+	<update id="approveWithdrawn" statementType="CALLABLE"
+		parameterType="cls.pilottery.web.capital.form.CashWithdrawnForm">
+		{call p_withdraw_approve(
+			#{fundNo,mode=IN,jdbcType=VARCHAR},
+			#{checkAdminId,mode=IN,jdbcType=NUMERIC},
+			#{checkResult,mode=IN,jdbcType=NUMERIC},
+			#{applyMemo,mode=IN,jdbcType=NUMERIC},
+			#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+			#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</update>
+	
+	<!-- 审批拒绝 -->
+	<update id="refuseWithdrawn" parameterType="map">
+		update FUND_WITHDRAW set APPLY_STATUS = 4 where FUND_NO = #{fundNo,jdbcType=VARCHAR} 
+	</update>
+	
+		<!-- 根据部门账户表的部门编码查找ACC_NO -->
+	<select id="getAccNoByOrgCode" parameterType="String" resultType="String">
+		select t.acc_no from ACC_ORG_ACCOUNT t where t.org_code= #{_parameter}
+	</select>
+</mapper>

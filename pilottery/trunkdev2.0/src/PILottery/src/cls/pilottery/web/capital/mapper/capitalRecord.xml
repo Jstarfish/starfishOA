@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.capital.dao.CapitalRecordDao">
+	
+	<select id="getCapitalRecordList" parameterType="cls.pilottery.web.capital.form.CapitalRecordForm" resultType="cls.pilottery.web.capital.model.CapitalRecord">
+		select * from (
+			select tab.*,rownum rn from (
+			SELECT 
+				ORG_FUND_FLOW flowNo,
+				FLOW_TYPE type,
+		         ORG_CODE orgCode,
+		         ORG_NAME orgName,
+		         CHANGE_AMOUNT amount,
+		         TRADE_TIME tradeTime,
+		         BE_ACCOUNT_BALANCE beforeBalance,
+		         AF_ACCOUNT_BALANCE afterBalance
+		    FROM FLOW_ORG JOIN INF_ORGS USING (ORG_CODE)
+		   WHERE TO_CHAR(TRADE_TIME,'yyyy-mm-dd') =  #{beginDate}
+		   <if test="type != null and type != ''">
+		   		AND FLOW_TYPE = #{type}
+		   </if>
+		   <if test="crtorg != null and crtorg != ''">
+				and ORG_CODE = #{crtorg}
+		   </if>
+		ORDER BY TRADE_TIME DESC
+	<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	
+	<select id="getCapitalRecordCount" parameterType="cls.pilottery.web.capital.form.CapitalRecordForm" resultType="int">
+		SELECT count(1)
+	    FROM FLOW_ORG JOIN INF_ORGS USING (ORG_CODE)
+	   WHERE TO_CHAR(TRADE_TIME,'yyyy-mm-dd') = #{beginDate}
+	   <if test="type != null and type != ''">
+	   		AND FLOW_TYPE = #{type}
+	   </if>
+	   <if test="crtorg != null and crtorg != ''">
+			and ORG_CODE = #{crtorg}
+	   </if>
+	</select>
+	
+	<select id="getCapitalRecordDetail" parameterType="String" resultType="cls.pilottery.web.capital.model.InstitutionCommDetailVO">
+		select a.agency_code           agencyCode,
+               a.trade_time            transDate,
+               sum(a.trade_amount)          Amount,
+               sum(a.agency_sale_amount)    saleAmount,
+               sum(a.org_sale_comm)         saleComm,
+               sum(a.agency_cancel_amount)  returnAmount,
+               sum(a.org_cancel_comm)       returnComm,
+               sum(a.agency_pay_amount)     payout,
+               sum(a.org_pay_amount)        payoutComm
+          from flow_org_comm_detail a
+         where a.org_fund_comm_flow = #{_parameter}
+         group by a.agency_code,a.trade_time
+         order by a.trade_time desc,a.agency_code
+	</select>
+	<select id="getCapitalRecordDetailSum" parameterType="String" resultType="cls.pilottery.web.capital.model.InstitutionCommDetailVO">
+		select 
+               sum(a.trade_amount)          Amount,
+               sum(a.agency_sale_amount)    saleAmount,
+               sum(a.org_sale_comm)         saleComm,
+               sum(a.agency_cancel_amount)  returnAmount,
+               sum(a.org_cancel_comm)       returnComm,
+               sum(a.agency_pay_amount)     payout,
+               sum(a.org_pay_amount)        payoutComm
+          from flow_org_comm_detail a
+         where a.org_fund_comm_flow = #{_parameter}
+	</select>
+	
+	<select id="getTransFlowList" resultType="Integer" parameterType="String">
+		select distinct flow_type from flow_org
+		<if test="_parameter != '00'">
+			where org_code = #{_parameter}
+		</if>
+	</select>
+</mapper>

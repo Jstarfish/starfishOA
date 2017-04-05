@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.lottery.dao.BadTicketDao">
+    <resultMap type="cls.pilottery.oms.lottery.model.BadTicket"
+               id="badTicket">
+        <id column="APPLYFLOW_SELL" property="applyFlow"/>
+        <result column="AGENCY_CODE" property="agencyCode"/>
+        <result column="FULL_NAME" property="gameName"/>
+        <result column="SALETIME" property="saleTime"/>
+        <result column="ISSUE_NUMBER" property="issueNumber"/>
+        <result column="SALE_TSN" property="saleTsn"/>
+        <result column="trans_seq" property="sellSeq"/>
+        <collection property="betlist"
+                    column="APPLYFLOW_SELL" select="queryBetInfo"/>
+    </resultMap>
+
+    <select id="queryBadTicketCount" parameterType="cls.pilottery.oms.lottery.form.BadTicketForm"
+            resultType="Integer">
+        select count(1)
+        from HIS_SELLTICKET s where 1=1
+        <if test="agencyCode != null and agencyCode!=''">
+            and s.agency_code = #{agencyCode}
+        </if>
+        <if test="startqueryTime != null and startqueryTime!=''">
+            <![CDATA[ and s.saletime >= to_date(#{startqueryTime},'yyyy-MM-dd HH24:MI:SS')  ]]>
+        </if>
+        <if test="endqueryTime!=null and endqueryTime!=''">
+            <![CDATA[  and s.saletime<=to_date(#{endqueryTime},'yyyy-MM-dd HH24:MI:SS') ]]>
+        </if>
+    </select>
+
+    <select id="queryBadTicket" parameterType="cls.pilottery.oms.lottery.form.BadTicketForm"
+            resultMap="badTicket">
+        select *
+        from (select b.*,rownum rn from(
+        select
+        s.AGENCY_CODE,
+        s.saletime,
+        s.issue_number,
+        s.sale_tsn,
+        s.trans_seq,
+        s.APPLYFLOW_SELL,
+        g.FULL_NAME
+        from HIS_SELLTICKET s
+        left join INF_GAMES g
+        on s.GAME_CODE = g.GAME_CODE
+        where 1=1
+        <if test="agencyCode != null and agencyCode!=''">
+            and s.agency_code = #{agencyCode}
+        </if>
+        <if test="startqueryTime != null and startqueryTime!=''">
+            <![CDATA[ and s.saletime >= to_date(#{startqueryTime},'yyyy-MM-dd HH24:MI:SS')  ]]>
+        </if>
+        <if test="endqueryTime!=null and endqueryTime!=''">
+            <![CDATA[  and s.saletime<=to_date(#{endqueryTime},'yyyy-MM-dd  HH24:MI:SS') ]]>
+        </if>
+        order by s.saletime desc
+        )b ) where
+        <![CDATA[
+     rn >
+    ${beginNum} and rn <= ${endNum}
+    ]]>
+    </select>
+
+    <select id="queryBetInfo" parameterType="java.lang.String"
+            resultType="cls.pilottery.oms.lottery.model.Betinfo">
+            SELECT
+            r.RULE_NAME as play,
+            t.SECTION as bettingnumber,
+            t.BET_AMOUNT as multiple,
+            t.LINE_AMOUNT as lineAmount
+            FROM HIS_SELLTICKET_DETAIL t
+            LEFT JOIN HIS_SELLTICKET s
+            on t.APPLYFLOW_SELL = s.APPLYFLOW_SELL
+            LEFT JOIN GP_RULE r
+            ON (t.SUBTYPE = r.RULE_CODE and r.GAME_CODE = s.GAME_CODE)
+             WHERE t.APPLYFLOW_SELL = #{applyFlow}
+     </select>
+
+</mapper>

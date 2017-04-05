@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.monitor.dao.OperateLogDao">
+
+	<select id="getOperateLogList" resultType="cls.pilottery.oms.monitor.model.OperateLog"
+		parameterType="cls.pilottery.oms.monitor.form.OperateLogForm">
+		select *
+		from (select tab.*, rownum rn
+		from (select s.oper_no         as operNo,
+					 s.oper_time       as operTime,
+			       	 s.oper_admin      as operAdmin,
+			      	 i2.admin_realname as operAdminName,
+			      	 s.oper_mode_id    as operModeId,
+			      	 m.oper_mode_name as operModeName,
+			      	 s.oper_status     as operStatus,
+			     	 s.org_code        as orgCode,
+			     	 o.org_name        as orgName,
+			     	 s.agency_code     as agencyCode,
+			     	 a.agency_name     as agencyName,
+			     	 s.market_admin    as marketAdmin,
+			     	 i1.admin_realname as marketAdminName,
+			     	 s.oper_contents   as operContents
+			  from SYS_OPER_LOG s
+			  left join adm_info i1
+			    on i1.admin_id = s.market_admin
+			  left join adm_info i2
+			    on i2.admin_id = s.oper_admin
+			  left join inf_orgs o
+			    on o.org_code = s.org_code
+			  left join inf_agencys a
+		    on a.agency_code = s.agency_code
+		      left join sys_oper_mode m 
+		    on s.oper_mode_id = m.oper_mode_id
+		WHERE TO_CHAR(s.oper_time,'yyyy-mm-dd') between #{startTime} and #{endTime}
+		 <if test="operAdminName != null and operAdminName != ''">
+			AND i2.admin_realname = #{operAdminName}
+		</if> 
+		 <if test="agencyCode != null and agencyCode != ''">
+			AND s.agency_code = #{agencyCode}
+		</if> 
+		 <if test="marketAdminName != null and marketAdminName != ''">
+			AND i1.admin_realname = #{marketAdminName}
+		</if> 
+		<if test="orgCode != null and orgCode != ''">
+			AND s.org_code = #{orgCode}
+		</if>
+		<if test="operStatus != null and operStatus != ''">
+			AND s.oper_status = #{operStatus}
+		</if>
+		<if test="operModeId != null and operModeId != ''">
+			AND s.oper_mode_id = #{operModeId}
+		</if>
+		ORDER BY s.oper_time DESC
+	<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+
+	<select id="getOperateLogCount" parameterType="cls.pilottery.oms.monitor.form.OperateLogForm" resultType="int">
+		select count(*)
+		  from (select s.oper_no         as operNo,
+		  			   s.oper_time       as operTime,
+		               s.oper_admin      as operAdmin,
+		               i2.admin_realname as operAdminName,
+		               s.oper_status     as operStatus,
+		               s.org_code        as orgCode,
+		               o.org_name        as orgName,
+		               s.agency_code     as agencyCode,
+		               a.agency_name     as agencyName,
+		               s.market_admin    as marketAdmin,
+		               i1.admin_realname as marketAdminName
+		          from SYS_OPER_LOG s
+		          left join adm_info i1
+		            on i1.admin_id = s.market_admin
+		          left join adm_info i2
+		            on i2.admin_id = s.oper_admin
+		          left join inf_orgs o
+		            on o.org_code = s.org_code
+		          left join inf_agencys a
+		            on a.agency_code = s.agency_code
+		            WHERE TO_CHAR(s.oper_time,'yyyy-mm-dd') between #{startTime} and #{endTime}
+		 <if test="operAdminName != null and operAdminName != ''">
+			AND i2.admin_realname = #{operAdminName}
+		</if> 
+		 <if test="agencyCode != null and agencyCode != ''">
+			AND s.agency_code = #{agencyCode}
+		</if> 
+		 <if test="marketAdminName != null and marketAdminName != ''">
+			AND i1.admin_realname = #{marketAdminName}
+		</if> 
+		<if test="orgCode != null and orgCode != ''">
+			AND s.org_code = #{orgCode}
+		</if>
+		<if test="operStatus != null and operStatus != ''">
+			AND s.oper_status = #{operStatus}
+		</if>
+		<if test="operModeId != null and operModeId != ''">
+			AND s.oper_mode_id = #{operModeId}
+		</if>
+		   )
+	</select>
+	
+	<select id="getOperateTypeCount" parameterType="cls.pilottery.oms.monitor.form.OperateTypeForm" resultType="int">
+		select count(1) from sys_oper_mode
+	</select>
+	
+	<select id="getOperateTypeList" parameterType="cls.pilottery.oms.monitor.form.OperateTypeForm" resultType="cls.pilottery.oms.monitor.model.OperateType">
+		select *
+		from (select tab.*, rownum rn
+		from (select s.oper_mode_id as operModeId,
+		       s.oper_mode_name as operModeName,
+		       s.oper_mode_threshold as operModeThreshold,
+		       s.oper_contents as operContents
+        from sys_oper_mode s
+        <![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+	
+	<select id="getOperateTypeInfo" parameterType="String" resultType="cls.pilottery.oms.monitor.model.OperateType">
+		select s.oper_mode_id as operModeId,
+		       s.oper_mode_name as operModeName,
+		       s.oper_mode_threshold as operModeThreshold,
+		       s.oper_contents as operContents from sys_oper_mode s where oper_mode_id = #{param_1}
+	</select>
+	
+	<update id="updateOperateType" parameterType="cls.pilottery.oms.monitor.model.OperateType">
+		   update sys_oper_mode s set 
+		   		s.oper_mode_name = #{operModeName},
+	       		s.oper_mode_threshold = #{operModeThreshold},
+	       		s.oper_contents = #{operContents}
+	       where s.oper_mode_id = #{operModeId}
+	</update>
+
+	<select id="getAllOperateType" resultType="cls.pilottery.oms.monitor.model.OperateType">
+		select s.oper_mode_id as operModeId,
+		       s.oper_mode_name as operModeName
+		    from sys_oper_mode s
+	</select>
+	
+	<!-- 插入操作日志信息 -->
+	 <insert id="insertOperateLog" parameterType="cls.pilottery.oms.monitor.model.OperateLog">
+		insert into sys_oper_log
+			  (OPER_NO,
+			   OPER_PRIVILEGE,
+			   OPER_ADMIN,
+			   OPER_TIME,
+			   OPER_MODE_ID,
+			   OPER_STATUS
+	   <if test="orgCode !=null and orgCode !=''">
+		,ORG_CODE
+      	</if>
+      	<if test="agencyCode !=null and agencyCode !=''">
+		,AGENCY_CODE
+      	</if>
+      	<if test="marketAdmin !=null and marketAdmin !=''">
+		,MARKET_ADMIN
+      	</if>
+	   ,OPER_CONTENTS) values
+	   (f_get_sys_oper_log_seq,#{operPrivilege,jdbcType=NUMERIC},#{operAdmin,jdbcType=NUMERIC},sysdate,#{operModeId,jdbcType=NUMERIC},#{operStatus,jdbcType=NUMERIC}
+	   <if test="orgCode !=null and orgCode !=''">
+		,#{orgCode,jdbcType=CHAR}
+      	</if>
+      	<if test="agencyCode !=null and agencyCode !=''">
+		,#{agencyCode,jdbcType=CHAR}
+      	</if>
+      	<if test="marketAdmin !=null and marketAdmin !=''">
+		,#{marketAdmin}
+      	</if>
+	   ,#{operContents,jdbcType=VARCHAR})
+	</insert> 
+	
+	<select id="getOperateContent" parameterType="String" resultType="String">
+		select t.oper_contents as operContents from SYS_OPER_LOG t where t.oper_no = #{operNo}
+	</select>
+	
+	<select id="getThreshold" parameterType="int" resultType="String">
+		select t.oper_mode_threshold as operModeThreshold from SYS_OPER_MODE t where t.oper_mode_id = #{operModeId}
+	</select>
+</mapper>

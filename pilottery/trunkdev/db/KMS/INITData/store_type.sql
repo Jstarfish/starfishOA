@@ -1,0 +1,17 @@
+insert into INF_STORETYPES values (61,'កត់ឆ្នោត/彩票店',1);
+insert into INF_STORETYPES values (62,'កាត៉ដេរ/裁缝店',1);
+insert into INF_STORETYPES values (63,'កាត់សក់/理发店',1);
+insert into INF_STORETYPES values (64,'កាហ្វេ/咖啡店',1);
+insert into INF_STORETYPES values (65,'កីឡា/健身馆',1);
+insert into INF_STORETYPES values (66,'ចាប់ហួយ/小卖店',1);
+insert into INF_STORETYPES values (67,'ដូរលុយ/换钱处',1);
+insert into INF_STORETYPES values (68,'ទូរស័ព្ច/手机店',1);
+insert into INF_STORETYPES values (69,'ទូរស័ព្ទ/手机店',1);
+insert into INF_STORETYPES values (70,'ប្តូរប្រាក់/换钱处',1);
+insert into INF_STORETYPES values (71,'រោងចក្រ/工厂',1);
+insert into INF_STORETYPES values (72,'លក់ខោអាវ/服装店',1);
+insert into INF_STORETYPES values (73,'លក់បាយ/饭店',1);
+insert into INF_STORETYPES values (74,'វេលុយ/汇钱处',1);
+insert into INF_STORETYPES values (75,'ស្នុកឃ័រ/台球',1);
+insert into INF_STORETYPES values (76,'អ៊ុតសក់/理发店（女）',1);
+commit;

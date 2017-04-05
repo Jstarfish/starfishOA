@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.taishan.system.dao.InstitutionDao">
+	<resultMap type="cls.taishan.system.model.Institution" id="inforgs">
+		<id column="ORG_CODE" property="orgCode" />
+		<result column="ORG_NAME" property="orgName" />
+		<result column="ORG_TYPE" property="orgType" />
+		<result column="SUPER_ORG" property="superOrg" />
+		<result column="PHONE" property="phone" />
+		<result column="DIRECTOR_ADMIN" property="directorAdmin" />
+		<result column="PERSONS" property="persons" />
+		<result column="ADDRESS" property="address" />
+		<result column="ORG_STATUS" property="orgStatus" />
+	</resultMap>
+
+ 	<!-- 部门列表 -->
+	<select id="getInstitutionList" parameterType="cls.taishan.system.form.InstitutionForm"
+		resultType="cls.taishan.system.model.Institution">
+			select org.org_code as orgCode,
+		      	   org.org_name as orgName,
+		      	   u.admin_realname as directorAdmin,
+		      	   org.org_type as orgType,
+		      	   org.phone   as phone,
+		      	   org.ORG_STATUS as orgStatus
+	 		 from INF_ORGS org left join ADM_INFO u
+	   			 on org.director_admin = u.admin_id
+	 		where 1 = 1
+			<if test="orgName != null and orgName != ''">
+				and org.org_name =  #{orgName}
+			</if>
+			<if test="orgStatus != null and orgStatus != 0">
+				and org.ORG_STATUS = #{orgStatus}
+			</if>
+			order by org.ORG_CODE desc
+	</select>
+	
+	<!-- 获得组织负责人 -->
+	<select id="getUser" resultType="cls.taishan.system.model.User">
+	select u.admin_id as id, u.admin_realname as realName
+		from ADM_INFO u
+		where 1 = 1
+		and u.ADMIN_STATUS = 1
+</select>
+    
+	<insert id="saveInstitution" parameterType="cls.taishan.system.model.Institution">
+	insert into inf_orgs
+	(ORG_CODE,ORG_NAME,ORG_TYPE,ORG_STATUS,SUPER_ORG,PHONE,DIRECTOR_ADMIN,PERSONS,ADDRESS)
+	values
+	(#{orgCode},#{orgName},#{orgType},1,#{superOrg},#{phone},#{directorAdmin},#{persons},#{address})
+	</insert>
+	
+	<update id="updateOrg" parameterType="cls.taishan.system.model.Institution">
+		update inf_orgs set 
+		ORG_TYPE=#{orgType},
+		PHONE=#{phone},
+		DIRECTOR_ADMIN=#{directorAdmin},
+		PERSONS=#{persons},
+		ADDRESS=#{address}
+		where org_code=#{orgCode}
+	</update>
+	
+	
+	
+	<!-- 根据id获得部门 -->
+	<select id="getOrgInfoByCode" parameterType="String" resultType="cls.taishan.system.model.Institution">
+	select org.org_code as orgCode,
+         org.org_name as orgName,
+         org.director_admin as directorAdmin,
+         org.org_type as orgType,
+          org.phone   as phone,
+          org.super_org as superOrg,
+          org.persons   as persons,
+          org.address   as address
+      	from INF_ORGS org where 1=1 and org.org_code=#{orgCode}
+	</select>
+	
+	<!-- 删除部门管理 -->
+	<update id="deleteOrg" parameterType="String">
+		UPDATE INF_ORGS SET ORG_STATUS =2 WHERE org_code=#{orgCode} 
+	</update>
+	
+	<select id="getOrgCode" parameterType="String" resultType="String">
+		select t.org_code from inf_orgs t where t.org_code= #{orgCode}
+	</select>
+	
+</mapper>

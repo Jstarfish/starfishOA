@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.system.dao.MarketPwdDao">
+	<resultMap type="cls.pilottery.web.capital.model.MarketManager"
+		id="marketManager">
+		<id column="MARKET_ADMIN" property="marketAdmin" />
+		<result column="TRANS_PASS" property="transPass" />
+		<result column="CREDIT_BY_TRAN" property="credit" />
+		<result column="MAX_AMOUNT_TICKETSS" property="maxAmountTickets" />
+	</resultMap>
+
+	<!-- 更新市场管理员交易密码 -->
+	<update id="updatePwd" parameterType="cls.pilottery.web.capital.model.MarketManager">
+		update INF_MARKET_ADMIN a
+		set a.TRANS_PASS=#{transPass} where a.MARKET_ADMIN=#{marketAdmin}
+	</update>
+
+	<select id="getMarketById" parameterType="long" resultMap="marketManager">
+		select * from INF_MARKET_ADMIN where MARKET_ADMIN = #{marketAdmin}
+	</select>
+</mapper>

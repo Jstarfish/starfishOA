@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.DeliveryOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.DeliveryOrderDetail" >
+    <id column="DO_NO" property="doNo" jdbcType="CHAR" />
+    <id column="SEQUENCE_NO" property="sequenceNo" jdbcType="DECIMAL" />
+    <result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+    <result column="TICKETS" property="tickets" jdbcType="DECIMAL" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DO_NO, SEQUENCE_NO, PLAN_CODE, TICKETS, AMOUNT, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cls.pilottery.model.DeliveryOrderDetailKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_DELIVERY_ORDER_DETAIL
+    where DO_NO = #{doNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cls.pilottery.model.DeliveryOrderDetailKey" >
+    delete from SALE_DELIVERY_ORDER_DETAIL
+    where DO_NO = #{doNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.DeliveryOrderDetail" >
+    insert into SALE_DELIVERY_ORDER_DETAIL (DO_NO, SEQUENCE_NO, PLAN_CODE, 
+      TICKETS, AMOUNT, REMARK
+      )
+    values (#{doNo,jdbcType=CHAR}, #{sequenceNo,jdbcType=DECIMAL}, #{planCode,jdbcType=VARCHAR}, 
+      #{tickets,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.DeliveryOrderDetail" >
+    insert into SALE_DELIVERY_ORDER_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="doNo != null" >
+        DO_NO,
+      </if>
+      <if test="sequenceNo != null" >
+        SEQUENCE_NO,
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE,
+      </if>
+      <if test="tickets != null" >
+        TICKETS,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="doNo != null" >
+        #{doNo,jdbcType=CHAR},
+      </if>
+      <if test="sequenceNo != null" >
+        #{sequenceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tickets != null" >
+        #{tickets,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.DeliveryOrderDetail" >
+    update SALE_DELIVERY_ORDER_DETAIL
+    <set >
+      <if test="planCode != null" >
+        PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tickets != null" >
+        TICKETS = #{tickets,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DO_NO = #{doNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.DeliveryOrderDetail" >
+    update SALE_DELIVERY_ORDER_DETAIL
+    set PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      TICKETS = #{tickets,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where DO_NO = #{doNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </update>
+</mapper>

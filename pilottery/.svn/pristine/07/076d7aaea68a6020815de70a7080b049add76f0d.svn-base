@@ -1,0 +1,13 @@
+package cls.taishan.web.dao;
+
+import cls.taishan.web.model.WingSearchInputParam;
+import cls.taishan.web.model.WingSearchOutputParam;
+
+public interface WingSearchDao {
+	
+	// 根据输入的请求参数查询交易结果
+	public int searchTrade(WingSearchInputParam in, WingSearchOutputParam out);
+	
+	// 校验输入是否合法
+	public boolean checkInput(WingSearchInputParam in);
+}

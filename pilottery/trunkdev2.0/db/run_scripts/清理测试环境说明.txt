@@ -1,0 +1,6 @@
+1、用SYS用户，清理现在kws用户（直接删除kws用户），可以使用脚本\db\DB_Work\clean-user.sql
+2、用SYS用户，执行\db\run_scripts\01-Create-User.sql，建立kws用户，同时授予权限
+3、SVN 更新 http://219.143.41.247/svn/pilottery/trunkdev/db
+4、执行 gen_cr.bat ，生成脚本 \db\run_scripts\10-kws.sql
+5、用kws用户，执行 \db\run_scripts\10-kws.sql
+6、用kws用户，执行补充SQL，\db\run_scripts\21-Create_job.sql

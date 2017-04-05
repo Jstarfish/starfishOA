@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.system.dao.UserDao">
+	<resultMap type="cls.pilottery.web.system.model.User" id="user">
+		<id column="admin_id" property="id" />
+		<result column="admin_realname" property="realName" />
+		<result column="admin_login" property="loginId" />
+		<result column="admin_password" property="password" />
+		<result column="admin_gender" property="gender" />
+		<result column="admin_email" property="email" />
+		<result column="admin_birthday" property="birthday" />
+		<result column="ADMIN_MOBILE" property="mobilePhone" />
+		<result column="ADMIN_TEL" property="officePhone" />
+		<result column="ADMIN_PHONE" property="homePhone" />
+		<result column="admin_address" property="homeAddress" />
+		<result column="admin_org" property="institutionCode" />
+		<result column="admin_status" property="status" />
+		<result column="login_status" property="loginStatus" />
+		<result column="is_collecter" property="isCollector" />
+		<result column="is_warehouse_m" property="isWarehouseManger" />
+		<result column="admin_create_time" property="createTime" />
+		<result column="create_admin_id" property="createAdminId" />
+		<result column="admin_login_time" property="loginTime" />
+		<result column="admin_login_count" property="loginCount" />
+		<result column="org_name" property="institutionName" />
+		<result column="admin_remark" property="remark" />
+		<result column="warehouse_code" property="warehouseCode" />
+		<result column="warehouse_name" property="warehouseName" />
+		<result column="org_leader" property="institutionLeader" />
+	</resultMap>
+
+	<!-- 关联查询 -->
+	<resultMap type="cls.pilottery.web.system.model.User" id="userRoleMap"
+		extends="user">
+		<!-- <collection property="roleList" ofType="cls.pilottery.web.system.model.Role" 
+			column="ADMIN_ID" select="selectUserRole"/> -->
+	</resultMap>
+
+	<!-- 用户登陆 -->
+	<select id="getUserByLogin" parameterType="String" resultMap="user">
+		select a.*, o.org_name, m.warehouse_code, h.warehouse_name,nvl(o.director_admin,-1) as org_leader
+		from adm_info a
+		left join inf_orgs o
+		on a.admin_org = o.org_code
+		left join wh_manager m
+		on a.admin_id = m.manager_id
+		and m.is_valid = 1
+		left join wh_info h
+		on m.warehouse_code = h.warehouse_code
+		where a.admin_login = #{str}
+	</select>
+
+	<select id="getUserCount" parameterType="cls.pilottery.web.system.form.UserForm"
+		resultType="Integer">
+		select count(1) from adm_info i left join inf_orgs o
+		on i.admin_org = o.org_code
+		where 1=1 
+			and i.admin_status != 2
+		<if test="loginId != null and loginId != ''">
+			and i.admin_login = #{loginId}
+		</if>
+		<if test="status != null and status != 0">
+			and i.admin_status =#{status}
+		</if>
+		<if test="institutionCode != null and institutionCode != ''">
+			and o.org_code = #{institutionCode}
+		</if>
+		 and i.ADMIN_STATUS!=2
+	</select>
+
+	<select id="getUserList" parameterType="cls.pilottery.web.system.form.UserForm"
+		resultMap="user">
+		select * from (
+		select a.*,rownum rn from (
+		select i.*, o.org_name
+		from
+		adm_info i
+		left join inf_orgs o
+		on i.admin_org = o.org_code
+		where 1 = 1
+		<if test="loginId != null and loginId != ''">
+			and i.admin_login = #{loginId}
+		</if>
+		<if test="status != null and status != 0">
+			and i.admin_status =#{status}
+		</if>
+		<if test="institutionCode != null and institutionCode != ''">
+			and o.org_code = #{institutionCode}
+		</if>
+		 and i.ADMIN_STATUS!=2 
+	<![CDATA[ order by i.admin_id) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- add by dzg 根据角色获取用户及其非角色用户 -->
+	<select id="getAllUserByRoleId" parameterType="Int" resultMap="user">
+		<![CDATA[
+		select distinct i.*, o.org_name 
+		  from adm_info i
+		  left join inf_orgs o
+		    on i.admin_org = o.org_code
+		  left join adm_role_admin r
+		    on i.admin_id = r.admin_id
+		   where r.role_id =#{id}
+		   and i.admin_status <> 2
+		]]>
+	</select>
+	
+	<select id="getUserDetail" parameterType="String" resultMap="user">
+		select a.*, g.org_name
+		  from ADM_INFO a
+		  left join inf_orgs g
+		    on a.ADMIN_ORG = g.org_code
+		    where a.ADMIN_ID = #{id}
+	</select>
+
+	<select id="getAllNotUserByRoleId" parameterType="Int"
+		resultMap="user">
+		<![CDATA[
+		select distinct i.*, o.org_name 
+		  from adm_info i
+		  left join inf_orgs o
+		    on i.admin_org = o.org_code
+		  left join adm_role_admin r
+		    on i.admin_id = r.admin_id
+		   where (r.role_id <> #{id} or r.role_id is null)
+		   and i.admin_status <> 2
+		]]>
+	</select>
+
+	<!-- 根据user表中的id查询用户信息 -->
+	<select id="getUserById" parameterType="long" resultMap="userRoleMap">
+		select *
+		from ADM_INFO where ADMIN_ID = #{id}
+	</select>
+
+	<!-- 插入用户信息 使用form传过去的值，不是model -->
+	<!-- <insert id="saveUser" parameterType="cls.pilottery.web.system.form.UserForm"> 
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="id"> SELECT 
+		f_get_adm_id_seq FROM DUAL </selectKey> insert into ADM_INFO (ADMIN_ID, ADMIN_REALNAME, 
+		ADMIN_LOGIN, ADMIN_PASSWORD, ADMIN_GENDER, ADMIN_EMAIL, ADMIN_BIRTHDAY, ADMIN_TEL, 
+		ADMIN_MOBILE, ADMIN_PHONE, ADMIN_ORG, ADMIN_ADDRESS, ADMIN_REMARK) values 
+		(#{f_get_adm_id_seq(),jdbcType=NUMERIC},#{realName,jdbcType=VARCHAR},#{loginId,jdbcType=VARCHAR},#{password,jdbcType=CHAR},#{gender,jdbcType=NUMERIC},#{email,jdbcType=VARCHAR},#{birthday,jdbcType=DATE},#{mobilePhone,jdbcType=VARCHAR},#{officePhone,jdbcType=VARCHAR},#{homePhone,jdbcType=VARCHAR},#{institutionCode,jdbcType=CHAR},#{homeAddress,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR}) 
+		</insert> -->
+
+	<update id="saveUser" statementType="CALLABLE"
+		parameterType="cls.pilottery.web.system.model.User">
+		{call p_admin_create(
+		#{realName,mode=IN,jdbcType=VARCHAR},
+		#{loginId,mode=IN,jdbcType=VARCHAR},
+		#{password,mode=IN,jdbcType=VARCHAR},
+		#{gender,mode=IN,jdbcType=NUMERIC},
+		#{institutionCode,mode=IN,jdbcType=VARCHAR},
+		#{birthday,mode=IN,jdbcType=DATE},
+		#{mobilePhone,mode=IN,jdbcType=VARCHAR},
+		#{officePhone,mode=IN,jdbcType=VARCHAR},
+		#{homePhone,mode=IN,jdbcType=VARCHAR},
+		#{email,mode=IN,jdbcType=VARCHAR},
+		#{homeAddress,mode=IN,jdbcType=VARCHAR},
+		#{remark,mode=IN,jdbcType=VARCHAR},
+		#{isCollector,mode=IN,jdbcType=NUMERIC},
+		#{id,mode=OUT,jdbcType=NUMERIC},
+		#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		)
+		}
+	</update>
+    <update id="updateUser" statementType="CALLABLE" 
+		parameterType="cls.pilottery.web.system.model.User">
+		{call p_admin_modify (
+		#{id,mode=IN,jdbcType=NUMERIC},
+        #{realName,mode=IN,jdbcType=VARCHAR},
+		#{loginId,mode=IN,jdbcType=VARCHAR},
+		#{gender,mode=IN,jdbcType=NUMERIC},
+		#{institutionCode,mode=IN,jdbcType=VARCHAR},
+		#{birthday,mode=IN,jdbcType=DATE},
+		#{mobilePhone,mode=IN,jdbcType=VARCHAR},
+		#{officePhone,mode=IN,jdbcType=VARCHAR},
+		#{homePhone,mode=IN,jdbcType=VARCHAR},
+		#{email,mode=IN,jdbcType=VARCHAR},
+		#{homeAddress,mode=IN,jdbcType=VARCHAR},
+		#{remark,mode=IN,jdbcType=VARCHAR},
+		#{password,mode=IN,jdbcType=VARCHAR},
+		#{isCollector,mode=IN,jdbcType=NUMERIC},
+		#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		)
+		}
+	</update>
+
+	<!-- note: 删除用户前需要先进行判断,有正在进行的工作则不能删除该用户 , 订单撤销的话可以删除，则
+		加上判断状态的条件 -->
+	<select id="judgeIfCanDelete" parameterType="long" resultType="Integer">
+	select sum(tt)
+	  from (select sum(nvl(ac1.account_balance, 0)) as tt
+	          from acc_mm_account ac1
+	         where ac1.market_admin = #{id}
+	        union
+	        select sum(nvl(ac2.tickets, 0)) as tt
+	          from acc_mm_tickets ac2
+	         where ac2.market_admin = #{id}
+	        union
+	        select count(o1.order_no) as tt
+	          from sale_order o1
+	         where o1.apply_admin = #{id}
+	         <!-- and o1.status != 2 -->
+	        union
+	        select count(o2.do_no) as tt
+	          from sale_delivery_order o2
+	         where o2.apply_admin = #{id}
+	        union
+	        select count(o3.stb_no) as tt
+	          from sale_transfer_bill o3
+	         where o3.apply_admin = #{id}
+	        union
+	        select count(o4.return_no) as tt
+	          from sale_return_recoder o4
+	         where o4.market_manager_admin = #{id}
+	         ) x
+	</select>
+
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="cls.pilottery.web.system.form.UserForm">
+		update ADM_INFO a set a.ADMIN_STATUS=2 where a.ADMIN_ID=#{id}
+	</delete>
+
+	<!-- 更新用户密码 -->
+	<update id="updatePwd" parameterType="cls.pilottery.web.system.model.User">
+		update ADM_INFO a set a.ADMIN_PASSWORD=#{password} where a.ADMIN_ID=#{id}
+	</update>
+
+	<!-- 锁定/解锁用户 -->
+	<update id="changeUserActive" parameterType="cls.pilottery.web.system.model.User">
+		update ADM_INFO a set a.ADMIN_STATUS=#{status} where a.ADMIN_ID=#{id}
+	</update>
+ 
+ 	<delete id="deleteInstSetting" parameterType="String">
+ 		DELETE FROM ADM_ORG_RELATE WHERE ADMIN_ID = #{_parameter}
+ 	</delete>
+ 	
+ 	<update id="saveInstSetting" parameterType="map">
+ 		INSERT INTO ADM_ORG_RELATE(ADMIN_ID,ORG_CODE)
+ 		VALUES (#{userId},#{orgCode})
+ 	</update>
+	
+</mapper>

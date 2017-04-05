@@ -1,0 +1,64 @@
+package cls.taishan.cncp.cmi.handler;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import cls.taishan.cncp.cmi.model.Req1101Notify;
+import cls.taishan.common.encrypt.RSASignature;
+import cls.taishan.common.helper.FastJsonHelper;
+import cls.taishan.common.model.BaseMessage;
+import cls.taishan.common.utils.DateUtils;
+import cls.taishan.common.utils.HttpClientUtils;
+import cls.taishan.common.utils.VertxConfiguration;
+import io.vertx.core.Handler;
+import io.vertx.core.http.HttpServerRequest;
+import io.vertx.ext.web.RoutingContext;
+import lombok.extern.log4j.Log4j;
+
+/**
+ * 奖期推送Handler
+ * 
+ * @author huangchy
+ *
+ * @2016年9月22日
+ *
+ * 消息编码 1101：当期次信息发生变化时，主动向渠道商推送
+ */
+@Log4j
+public class IssueNotifyHandler implements Handler<RoutingContext> {
+
+		@Override
+		public void handle(RoutingContext event) {
+			HttpServerRequest request = event.request();
+			String gameCode = request.getParam("gameCode");
+			String issueNumber = request.getParam("issueNumber");
+			
+			Req1101Notify body = null;
+			log.debug("获取奖级通知消息，游戏："+gameCode + "，期次：" + issueNumber);
+			
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("gameCode", gameCode);
+			map.put("issueNumber", issueNumber);
+			//获取渠道商服务器url及渠道商编码列表
+			map.put("dealerCode", "");
+			
+			//body = service.get1101IssueNotify(map) 
+			BaseMessage<Req1101Notify> result = new BaseMessage<Req1101Notify>();
+			result.setBody(body);
+			result.setTransType(1101);
+			result.setTimestamp(DateUtils.getStringDateByLongDate(System.currentTimeMillis(),"yyyyMMddHHmmss"));
+			result.setToken("");
+			result.setMessengerId(DateUtils.getStringDateByLongDate(System.currentTimeMillis(),"yyMMddHHmmssSSS"));
+			String transMessage = FastJsonHelper.converter(result);
+			
+			String signstr=RSASignature.sign(transMessage,VertxConfiguration.configStr("cls_privateKey")); 
+			String bodyString = FastJsonHelper.joinPostParam("", "1101", transMessage, signstr);
+			
+			log.debug("发送期次消息推送，推送消息如下");
+			log.debug(bodyString);
+			String resResult = HttpClientUtils.postString(VertxConfiguration.configStr("agency_host_url"), bodyString);
+			log.debug("收到返回消息："+resResult);
+			
+		}
+
+}

@@ -1,0 +1,4 @@
+-- 用于CNCP售票业务
+create sequence seq_cncp_sale_seq;
+
+create sequence seq_job;

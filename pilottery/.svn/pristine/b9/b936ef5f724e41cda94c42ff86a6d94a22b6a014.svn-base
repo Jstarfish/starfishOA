@@ -1,0 +1,302 @@
+package cls.pilottery.web.capital.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import cls.pilottery.common.constants.OperateLogType;
+import cls.pilottery.common.constants.SysConstants;
+import cls.pilottery.common.utils.LocaleUtil;
+import cls.pilottery.common.utils.PageUtil;
+import cls.pilottery.oms.monitor.model.OperateLog;
+import cls.pilottery.oms.monitor.service.OperateLogService;
+import cls.pilottery.web.capital.form.OutletAcctForm;
+import cls.pilottery.web.capital.form.OutletBankQueryForm;
+import cls.pilottery.web.capital.model.OutletAccount;
+import cls.pilottery.web.capital.model.OutletAccountExt;
+import cls.pilottery.web.capital.model.OutletAccountModel;
+import cls.pilottery.web.capital.model.OutletBankAccount;
+import cls.pilottery.web.capital.model.OutletBankTranFlow;
+import cls.pilottery.web.capital.service.OutletAcctService;
+import cls.pilottery.web.capital.service.OutletBankService;
+import cls.pilottery.web.report.model.InstitutionModel;
+import cls.pilottery.web.report.service.SaleReportService;
+import cls.pilottery.web.system.model.User;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
+/**
+ * 站点、代理商、市场管理员账户的管理Controller
+ * @author jhx
+ */
+
+@Controller
+@RequestMapping("/outletBank")
+public class OutletBankController {
+	static Logger logger = Logger.getLogger(OutletBankController.class);
+
+	@Autowired
+	private OutletBankService outletBankService;
+	
+	@Autowired
+	private OperateLogService operateLogService;
+
+
+	/**
+	 * 站点账户管理列表和查询
+	 */
+	@RequestMapping(params = "method=listOutletAcc")
+	public String listOutletAcc(HttpServletRequest request,
+			ModelMap model, OutletBankQueryForm outletAcctForm) {
+		
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute(SysConstants.CURR_LOGIN_USER_SESSION);
+		
+		outletAcctForm.setCurrAdmin(currentUser.getId().intValue());
+		outletAcctForm.setCurrOrg(currentUser.getInstitutionCode());
+		
+		Integer count = outletBankService.getOutletListCount(outletAcctForm);
+		int pageIndex = PageUtil.getPageIndex(request);
+		List<OutletBankAccount> list = new ArrayList<OutletBankAccount>();
+		if (count != null && count.intValue() != 0) {
+			outletAcctForm.setBeginNum((pageIndex - 1) * PageUtil.pageSize);
+			outletAcctForm.setEndNum((pageIndex - 1) * PageUtil.pageSize
+					+ PageUtil.pageSize);
+			list = outletBankService.getOutletList(outletAcctForm);
+		}
+		
+		model.addAttribute("outletStatus", LocaleUtil.getUserLocaleEnum("outletStatus", request));
+		model.addAttribute("pageStr", PageUtil.getPageStr(request, count));
+		model.addAttribute("pageDataList", list);
+		model.addAttribute("outletAcctForm", outletAcctForm);
+
+		return LocaleUtil.getUserLocalePath("capital/bankTranManage/listOutletBankAcc", request);
+	}
+
+	/**
+	 * 初始化站点账户修改页面
+	 */
+	
+	@RequestMapping(params = "method=editOutletAccount")
+	public String editOutletAccounts(HttpServletRequest request, ModelMap model) {
+		String agencyCode = request.getParameter("bankAccSeq");
+		OutletBankAccount OutletAcc = outletBankService.getAccInfoById(agencyCode);
+		model.addAttribute("OutletAcc", OutletAcc);	
+		return LocaleUtil.getUserLocalePath("capital/bankTranManage/editOutletBankAcc", request);
+	}
+
+	/**
+	 * 修改站点账户信息
+	 */
+	@RequestMapping(params = "method=saveOutletAcct")
+	public String saveOutletAcct(HttpServletRequest request,
+			ModelMap model, OutletBankAccount outlet) {
+		try {
+			if (outlet == null)
+				throw new Exception("Invalid Paramter.");
+			
+			//新增插入日志
+			HttpSession session = request.getSession();
+			User currentUser = (User) session.getAttribute(SysConstants.CURR_LOGIN_USER_SESSION);
+			String agencyCode = outlet.getAgencyCode();
+
+			outletBankService.updateBankAcc(outlet);
+			
+			String operContents = JSON.toJSONString(outlet);
+			OperateLog operateLog = new OperateLog();
+			operateLog.setOperPrivilege(1407);
+			operateLog.setOperStatus(1);
+			operateLog.setOperAdmin(currentUser.getId().intValue());
+			operateLog.setOperModeId(OperateLogType.OUTLET_BANK_ACCOUNT_EDIT.getTypeCode()); // 操作类型设置为该功能的菜单编号
+			operateLog.setOperContents(operContents);
+			operateLog.setAgencyCode(agencyCode);
+			try
+			{
+				operateLogService.insertOperateLog(operateLog);
+			}catch (Exception e) {
+				logger.error("Update outlet bank account,insert log error:"+e.getMessage());
+			}
+						
+		} catch (Exception e) {
+			request.setAttribute("system_message", e.getMessage());
+			return LocaleUtil.getUserLocalePath("common/errorTip", request);
+		}
+		return LocaleUtil.getUserLocalePath("common/successTip", request);
+	}
+
+	
+	/**
+	 * 初始化站点账户修改页面
+	 */
+	
+	@RequestMapping(params = "method=addInitOutletAccount")
+	public String addInitOutletAccount(HttpServletRequest request, ModelMap model) {
+		return LocaleUtil.getUserLocalePath("capital/bankTranManage/addOutletBankAcc", request);
+	}
+	
+	/**
+	 * 修改站点账户信息
+	 */
+	@RequestMapping(params = "method=addOutletAcct")
+	public String addOutletAcct(HttpServletRequest request,
+			ModelMap model, OutletBankAccount outlet) {
+		try {
+			if (outlet == null)
+				throw new Exception("Invalid Paramter.");
+			
+			//新增插入日志
+			HttpSession session = request.getSession();
+			User currentUser = (User) session.getAttribute(SysConstants.CURR_LOGIN_USER_SESSION);
+			String agencyCode = outlet.getAgencyCode();
+
+			outletBankService.insertBankAcc(outlet);
+			if(outlet.getC_errcode() != 0)
+			{
+				throw new Exception(outlet.getC_errmsg());
+			}
+			
+			String operContents = JSON.toJSONString(outlet);
+			OperateLog operateLog = new OperateLog();
+			operateLog.setOperPrivilege(1407);
+			operateLog.setOperStatus(1);
+			operateLog.setOperAdmin(currentUser.getId().intValue());
+			operateLog.setOperModeId(OperateLogType.OUTLET_BANK_ACCOUNT_EDIT.getTypeCode()); // 操作类型设置为该功能的菜单编号
+			operateLog.setOperContents(operContents);
+			operateLog.setAgencyCode(agencyCode);
+			try
+			{
+				operateLogService.insertOperateLog(operateLog);
+			}catch (Exception e) {
+				logger.error("insert outlet bank account,insert log error:"+e.getMessage());
+			}
+						
+		} catch (Exception e) {
+			request.setAttribute("system_message", e.getMessage());
+			return LocaleUtil.getUserLocalePath("common/errorTip", request);
+		}
+		return LocaleUtil.getUserLocalePath("common/successTip", request);
+	}
+	
+	/*
+	 * 获取账户信息，用于异步请求
+	 */
+	@ResponseBody
+	@RequestMapping(params = "method=getOutletInfo")
+	public String getOutletInfo(HttpServletRequest request) {
+		Map<String, String> map = new HashMap<String, String>();
+		String outletCode = request.getParameter("outletCode");		
+		try {		
+			OutletBankAccount acc = outletBankService.getOutletInfo(outletCode);		
+			map.put("reservedSuccessMsg", "");
+			map.put("agencyName", acc.getAgencyName());
+			map.put("orgName", acc.getOrgName());
+			map.put("adminName", acc.getAdminName());
+			
+		} catch (Exception e) {
+			logger.error("errmsgs" + e.getMessage());
+			map.put("reservedSuccessMsg", "Delete failed");
+		}
+		return JSONArray.toJSONString(map);
+	}
+	
+	/*
+	 * 更新账户状态
+	 */
+	@ResponseBody
+	@RequestMapping(params = "method=updateOutletStatus")
+	public String updateOutletStatus(HttpServletRequest request) {
+		Map<String, String> map = new HashMap<String, String>();
+		String bankAccSeq = request.getParameter("bankAccSeq");
+		Short status =Short.parseShort(request.getParameter("status"));
+		
+		try {
+			
+			OutletBankAccount acc = new OutletBankAccount();
+			acc.setBankAccSeq(bankAccSeq);
+			acc.setStatus(status);
+			outletBankService.updateBankAccStatus(acc);			
+			map.put("reservedSuccessMsg", "");
+			
+		} catch (Exception e) {
+			logger.error("errmsgs" + e.getMessage());
+			map.put("reservedSuccessMsg", "Delete failed");
+		}
+		return JSONArray.toJSONString(map);
+	}
+	
+	
+	/**
+	 * 站点充值记录查询
+	 */
+	@RequestMapping(params = "method=listTopupRecords")
+	public String listTopupRecords(HttpServletRequest request,
+			ModelMap model, OutletBankQueryForm outletAcctForm) {
+		
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute(SysConstants.CURR_LOGIN_USER_SESSION);
+		
+		outletAcctForm.setCurrAdmin(currentUser.getId().intValue());
+		outletAcctForm.setCurrOrg(currentUser.getInstitutionCode());
+		
+		Integer count = outletBankService.getTopupFlowCount(outletAcctForm);
+		int pageIndex = PageUtil.getPageIndex(request);
+		List<OutletBankTranFlow> list = new ArrayList<OutletBankTranFlow>();
+		if (count != null && count.intValue() != 0) {
+			outletAcctForm.setBeginNum((pageIndex - 1) * PageUtil.pageSize);
+			outletAcctForm.setEndNum((pageIndex - 1) * PageUtil.pageSize
+					+ PageUtil.pageSize);
+			list = outletBankService.getTopupFlow(outletAcctForm);
+		}
+		
+		model.addAttribute("pageStr", PageUtil.getPageStr(request, count));
+		model.addAttribute("pageDataList", list);
+		model.addAttribute("tranStatus", LocaleUtil.getUserLocaleEnum("payTransStatus", request));
+		model.addAttribute("outletAcctForm", outletAcctForm);
+
+		return LocaleUtil.getUserLocalePath("capital/bankTranManage/listOutletTopupFlow", request);
+	}
+
+	
+	/**
+	 * 站点提现记录查询
+	 */
+	@RequestMapping(params = "method=listWithdrawRecords")
+	public String listWithdrawRecords(HttpServletRequest request,
+			ModelMap model, OutletBankQueryForm outletAcctForm) {
+		
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute(SysConstants.CURR_LOGIN_USER_SESSION);
+		
+		outletAcctForm.setCurrAdmin(currentUser.getId().intValue());
+		outletAcctForm.setCurrOrg(currentUser.getInstitutionCode());
+		
+		Integer count = outletBankService.getWithdrawFlowCount(outletAcctForm);
+		int pageIndex = PageUtil.getPageIndex(request);
+		List<OutletBankTranFlow> list = new ArrayList<OutletBankTranFlow>();
+		if (count != null && count.intValue() != 0) {
+			outletAcctForm.setBeginNum((pageIndex - 1) * PageUtil.pageSize);
+			outletAcctForm.setEndNum((pageIndex - 1) * PageUtil.pageSize
+					+ PageUtil.pageSize);
+			list = outletBankService.getWithdrawFlow(outletAcctForm);
+		}
+		
+		model.addAttribute("pageStr", PageUtil.getPageStr(request, count));
+		model.addAttribute("pageDataList", list);
+		model.addAttribute("outletAcctForm", outletAcctForm);
+
+		return LocaleUtil.getUserLocalePath("capital/bankTranManage/listOutletWithdrawFlow", request);
+	}
+	
+}

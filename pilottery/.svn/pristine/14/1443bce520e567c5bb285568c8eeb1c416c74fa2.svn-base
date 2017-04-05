@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.monitor.dao.OnlineDao">
+
+	<select id="getOnlineList" resultType="cls.pilottery.oms.monitor.model.TerminalOnline"
+		parameterType="cls.pilottery.oms.monitor.form.TerminalOnlineForm">
+		      WITH base
+			     AS (  SELECT terminal_code,
+			                  record_day,
+			                  ROUND (SUM (online_time) / 60 / 60, 2) online_time
+			             FROM (  SELECT terminal_code,
+			                            record_day,
+			                            MAX (online_time) online_time
+			                       FROM SYS_TERMINAL_ONLINE_TIME
+			                      WHERE RECORD_DAY BETWEEN #{beginDate} AND #{endDate}
+			                   GROUP BY terminal_code, record_day, HOST_BEGIN_TIME_STAMP)
+			         GROUP BY terminal_code, record_day)
+			  SELECT agency_code AS agencyCode,
+			         record_day recordDay,
+			         agency_name agencyName,
+			         org_code AS institutionCode,
+			         org_name AS institutionName,
+			         admin_realname AS adminRealName,
+			         telephone AS phone,
+			         terminal_code terminalCode,
+			         online_time AS onlineTime
+			    FROM saler_terminal
+			         JOIN base USING (terminal_code)
+			         JOIN inf_agencys USING (agency_code)
+			         JOIN inf_orgs USING (org_code)
+			         JOIN adm_info ON (MARKET_MANAGER_ID = ADMIN_ID)
+			   WHERE 1 = 1 	
+		             <if test="cuserOrg != '00' ">
+						 and org_code = #{cuserOrg}
+					</if>
+		             <if test="institutionCode != null and institutionCode != ''">
+		             	 and org_code = #{institutionCode}
+		             </if>
+		             <if test="agencyCode != null and agencyCode != ''">
+	             	 and agency_code = #{agencyCode}
+	           		 </if>
+		             ORDER BY record_day DESC,agency_code,terminal_code
+</select>
+
+	 <select id="getOnlineCount" parameterType="cls.pilottery.oms.monitor.form.TerminalOnlineForm" resultType="int">
+		select count(*)
+		  from (WITH base AS (SELECT terminal_code,
+		                             record_day,
+		                             ROUND(SUM(online_time) / 60 / 60, 2) online_time
+		                        FROM (SELECT terminal_code,
+		                                     record_day,
+		                                     MAX(online_time) online_time
+		                                FROM SYS_TERMINAL_ONLINE_TIME
+		                               WHERE RECORD_DAY BETWEEN #{beginDate} AND
+		                                     #{endDate}
+		                               GROUP BY terminal_code,
+		                                        record_day,
+		                                        HOST_BEGIN_TIME_STAMP)
+		                       GROUP BY terminal_code, record_day)
+		         SELECT agency_code    AS agencyCode,
+		                record_day     recordDay,
+		                agency_name    agencyName,
+		                org_code       AS institutionCode,
+		                org_name       AS institutionName,
+		                admin_realname AS adminRealName,
+		                telephone      AS phone,
+		                terminal_code  terminalCode,
+		                online_time    AS onlineTime
+		           FROM saler_terminal
+		           JOIN base
+		          USING (terminal_code)
+		           JOIN inf_agencys
+		          USING (agency_code)
+		           JOIN inf_orgs
+		          USING (org_code)
+		           JOIN adm_info
+		             ON (MARKET_MANAGER_ID = ADMIN_ID)
+					WHERE 1=1
+	            <if test="cuserOrg != '00' ">
+					 and org_code = #{cuserOrg}
+				</if>
+	            <if test="institutionCode != null and institutionCode != ''">
+	             	 and org_code = #{institutionCode}
+	            </if>
+	            <if test="agencyCode != null and agencyCode != ''">
+	             	 and agency_code = #{agencyCode}
+	            </if>
+		      )
+	</select> 
+
+
+
+
+ <select id="getOfflineList" resultType="cls.pilottery.oms.monitor.model.TerminalOnline"
+		parameterType="cls.pilottery.oms.monitor.form.TerminalOnlineForm">
+		select *
+		  from (select tab.*, rownum rn
+		          from (SELECT terminal_code terminalCode,
+		          			   agency_code    as agencyCode,
+						       agency_name    as agencyName,
+						       org_code       as institutionCode,
+						       org_name       as institutionName,
+						       admin_realname as adminRealName,
+						       telephone      as phone,
+						       0              as onlineTime
+						  FROM saler_terminal
+						  JOIN inf_agencys
+						 USING (agency_code)
+						  JOIN inf_orgs
+						 USING (org_code)
+						  JOIN adm_info
+						    ON (MARKET_MANAGER_ID = ADMIN_ID)
+						 where terminal_code not in
+						       (select terminal_code
+						          from SYS_TERMINAL_ONLINE_TIME
+								  WHERE RECORD_DAY BETWEEN #{beginDate} AND #{endDate})
+		             <if test="cuserOrg != '00' ">
+						and org_code = #{cuserOrg}
+					 </if>
+		             <if test="institutionCode != null and institutionCode != ''">
+		             	and org_code = #{institutionCode}
+		             </if>          
+		 <![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select> 
+	
+	<select id="getOfflineCount" resultType="int"
+		parameterType="cls.pilottery.oms.monitor.form.TerminalOnlineForm">
+		select count(*)
+		  from (SELECT *
+		          FROM saler_terminal
+		          JOIN inf_agencys
+		         USING (agency_code)
+		          JOIN inf_orgs
+		         USING (org_code)
+		          JOIN adm_info
+		            ON (MARKET_MANAGER_ID = ADMIN_ID)
+		         where terminal_code not in
+		               (select terminal_code
+		                  from SYS_TERMINAL_ONLINE_TIME
+		                 WHERE RECORD_DAY BETWEEN #{beginDate} AND #{endDate})
+		              <if test="cuserOrg != '00' ">
+						and org_code = #{cuserOrg}
+					 </if>
+		             <if test="institutionCode != null and institutionCode != ''">
+		             	and org_code = #{institutionCode}
+		             </if>
+		             <![CDATA[    )]]>
+	</select>
+</mapper>

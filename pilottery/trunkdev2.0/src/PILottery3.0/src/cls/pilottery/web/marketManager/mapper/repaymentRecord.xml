@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.marketManager.dao.RepaymentRecordDao">
+	
+	<select id="getRepaymentRecordList" parameterType="cls.pilottery.web.marketManager.form.RepaymentRecordForm" 
+		resultType="cls.pilottery.web.marketManager.model.RepaymentRecordModel">
+		select * from (
+		select tab.*,rownum rn from (
+			select REPAY_AMOUNT amount,
+				AF_ACCOUNT_BALANCE afterBalance,
+				REPAY_TIME repayDate
+			from FUND_MM_CASH_REPAY A
+			LEFT JOIN FLOW_MARKET_MANAGER ON (MCR_NO = REF_NO)
+		   WHERE A.MARKET_ADMIN = #{currentUserId}
+		<if test="queryDate != null and queryDate != ''">
+			AND to_char(REPAY_TIME,'yyyy-mm-dd') = #{queryDate}
+		</if>
+		ORDER BY REPAY_TIME DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<select id="getRepaymentRecordCount" parameterType="cls.pilottery.web.marketManager.form.RepaymentRecordForm" resultType="Integer">
+		select count(1)
+		  from FUND_MM_CASH_REPAY 
+		 WHERE MARKET_ADMIN = #{currentUserId}
+		<if test="queryDate != null and queryDate != ''">
+			AND to_char(REPAY_TIME,'yyyy-mm-dd') = #{queryDate}
+		</if>
+	</select> 
+	
+	<select id="getInventoryList" parameterType="int" resultType="cls.pilottery.web.marketManager.model.InventoryModel">
+		SELECT PLAN_CODE planCode,
+			FULL_NAME planName, 
+			SUM(TICKETS) tickets, 
+			SUM(AMOUNT) amount
+		FROM ACC_MM_TICKETS
+		LEFT JOIN GAME_PLANS USING (PLAN_CODE)
+		WHERE MARKET_ADMIN = #{userId}
+		GROUP BY PLAN_CODE,FULL_NAME
+		ORDER BY PLAN_CODE
+	</select> 
+	
+	<select id="getInventorySum" parameterType="int" resultType="cls.pilottery.web.marketManager.model.InventoryModel">
+		SELECT 	SUM(TICKETS) tickets, SUM(AMOUNT) amount
+		FROM ACC_MM_TICKETS
+		WHERE MARKET_ADMIN = #{userId}
+	</select> 
+</mapper>

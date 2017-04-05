@@ -1,0 +1,186 @@
+@charset "utf-8";
+
+body {
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+
+.pop-body {
+	position: absolute;
+	bottom: 51px;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	overflow-y: auto;
+	overflow-x:no;
+}
+
+.pop-body table {
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+
+.pop-body table tr {
+	height: 35px;
+}
+
+.pop-body table tr td {
+	padding: 5px 5px;
+}
+
+.pop-footer {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: #f9fafc;
+	height: 40px;
+	border-top: 1px solid #eaedf1;
+	padding-top: 15px;
+}
+
+.pop-footer .left {
+	float: left;
+	margin-left: 50px;
+}
+
+.pop-footer .right {
+	float: right;
+	margin-right: 50px;
+}
+
+.datatable {
+	border-collapse: collapse;
+	background: #fff;
+	font-family: "microsoft yahei";
+	font-size: 12px;
+}
+
+.datatable img {
+	line-height: 20px;
+	vertical-align: middle;
+	display: block;
+}
+
+.datatable th {
+	background-color: #2aa1d9;
+	height: 35px;
+	line-height: 35px;
+	color: #fff;
+	text-align: left;
+	padding-left: 10px;
+	font-weight: normal;
+}
+
+.datatable td {
+	border-bottom: 1px solid #e4e5e5;
+	height: 35px;
+	line-height: 35px;
+	text-align: left;
+	padding-left: 10px;
+}
+
+.datatable caption {
+	color: #33517A;
+	padding-top: 3px;
+	padding-bottom: 8px;
+}
+
+.datatable tr:hover,.datatable tr.hilite {
+	background-color: #f3f4f4;
+	color: #000000;
+}
+
+/*详情弹出框样式*/
+#tck {
+	margin: 0 auto;
+	padding: 0;
+	background: #fff;
+	position: relative;
+	font-family: "microsoft yahei"
+}
+
+#tck .top {
+	height: 40px;
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+	line-height: 40px;
+	background: #363a40;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#tck .lf {
+	float: left;
+	color: #fff;
+}
+
+#tck .rg {
+	width: 22px;
+	height: 20px;
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	z-index: 101;
+}
+
+#tck .rg a {
+	display: block;
+	overflow: hidden;
+	width: 22px;
+	height: 20px;
+	background: url(images/tck-close.png) no-repeat top right;
+}
+
+#tck .rg a:hover {
+	background-position: 0px -20px
+}
+
+#tck .mid {
+	padding: 20px;
+	font-size: 14px;
+}
+
+#tck .mid td{
+	padding: 10px 5px;
+	word-break: break-all;
+	word-wrap:break-word;
+	vertical-align:top;
+}
+
+#tck .fot {
+	background: #f9fafc;
+	height: 56px;
+	border-top: 1px solid #eaedf1;
+	-webkit-border-bottom-left-radius: 2px;
+	-webkit-border-bottom-right-radius: 2px;
+	width: 100%;
+	line-height: 56px;
+}
+
+#tck .span {
+	color: #9f9e9d;
+	font-size: 11px;
+	padding-left: 15px;
+}
+
+.btn2 {
+	font-family: "microsoft yahei", "microsoft yahei";
+	line-height: 25px;
+	padding: 1px 12px;
+	transition: all .3s ease-out;
+	text-transform: uppercase;
+	border: 1px solid #90cd00;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background-color: #90cd00;
+	font-size: 14px;
+}
+
+.btn2:hover {
+	background: #9bdb03;
+}
+

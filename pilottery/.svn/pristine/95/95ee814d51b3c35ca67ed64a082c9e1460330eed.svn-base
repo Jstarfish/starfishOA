@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.AgencyAccountMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.AgencyAccount" >
+    <id column="ACC_NO" property="accNo" jdbcType="CHAR" />
+    <result column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+    <result column="ACC_TYPE" property="accType" jdbcType="DECIMAL" />
+    <result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+    <result column="ACC_STATUS" property="accStatus" jdbcType="DECIMAL" />
+    <result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="DECIMAL" />
+    <result column="FROZEN_BALANCE" property="frozenBalance" jdbcType="DECIMAL" />
+    <result column="CHECK_CODE" property="checkCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACC_NO, AGENCY_CODE, ACC_TYPE, ACC_NAME, ACC_STATUS, CREDIT_LIMIT, ACCOUNT_BALANCE, 
+    FROZEN_BALANCE, CHECK_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACC_AGENCY_ACCOUNT
+    where ACC_NO = #{accNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ACC_AGENCY_ACCOUNT
+    where ACC_NO = #{accNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.AgencyAccount" >
+    insert into ACC_AGENCY_ACCOUNT (ACC_NO, AGENCY_CODE, ACC_TYPE, 
+      ACC_NAME, ACC_STATUS, CREDIT_LIMIT, 
+      ACCOUNT_BALANCE, FROZEN_BALANCE, CHECK_CODE
+      )
+    values (#{accNo,jdbcType=CHAR}, #{agencyCode,jdbcType=CHAR}, #{accType,jdbcType=DECIMAL}, 
+      #{accName,jdbcType=VARCHAR}, #{accStatus,jdbcType=DECIMAL}, #{creditLimit,jdbcType=DECIMAL}, 
+      #{accountBalance,jdbcType=DECIMAL}, #{frozenBalance,jdbcType=DECIMAL}, #{checkCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.AgencyAccount" >
+    insert into ACC_AGENCY_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accNo != null" >
+        ACC_NO,
+      </if>
+      <if test="agencyCode != null" >
+        AGENCY_CODE,
+      </if>
+      <if test="accType != null" >
+        ACC_TYPE,
+      </if>
+      <if test="accName != null" >
+        ACC_NAME,
+      </if>
+      <if test="accStatus != null" >
+        ACC_STATUS,
+      </if>
+      <if test="creditLimit != null" >
+        CREDIT_LIMIT,
+      </if>
+      <if test="accountBalance != null" >
+        ACCOUNT_BALANCE,
+      </if>
+      <if test="frozenBalance != null" >
+        FROZEN_BALANCE,
+      </if>
+      <if test="checkCode != null" >
+        CHECK_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accNo != null" >
+        #{accNo,jdbcType=CHAR},
+      </if>
+      <if test="agencyCode != null" >
+        #{agencyCode,jdbcType=CHAR},
+      </if>
+      <if test="accType != null" >
+        #{accType,jdbcType=DECIMAL},
+      </if>
+      <if test="accName != null" >
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accStatus != null" >
+        #{accStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="creditLimit != null" >
+        #{creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="accountBalance != null" >
+        #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenBalance != null" >
+        #{frozenBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="checkCode != null" >
+        #{checkCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.AgencyAccount" >
+    update ACC_AGENCY_ACCOUNT
+    <set >
+      <if test="agencyCode != null" >
+        AGENCY_CODE = #{agencyCode,jdbcType=CHAR},
+      </if>
+      <if test="accType != null" >
+        ACC_TYPE = #{accType,jdbcType=DECIMAL},
+      </if>
+      <if test="accName != null" >
+        ACC_NAME = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accStatus != null" >
+        ACC_STATUS = #{accStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="creditLimit != null" >
+        CREDIT_LIMIT = #{creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="accountBalance != null" >
+        ACCOUNT_BALANCE = #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenBalance != null" >
+        FROZEN_BALANCE = #{frozenBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="checkCode != null" >
+        CHECK_CODE = #{checkCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACC_NO = #{accNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.AgencyAccount" >
+    update ACC_AGENCY_ACCOUNT
+    set AGENCY_CODE = #{agencyCode,jdbcType=CHAR},
+      ACC_TYPE = #{accType,jdbcType=DECIMAL},
+      ACC_NAME = #{accName,jdbcType=VARCHAR},
+      ACC_STATUS = #{accStatus,jdbcType=DECIMAL},
+      CREDIT_LIMIT = #{creditLimit,jdbcType=DECIMAL},
+      ACCOUNT_BALANCE = #{accountBalance,jdbcType=DECIMAL},
+      FROZEN_BALANCE = #{frozenBalance,jdbcType=DECIMAL},
+      CHECK_CODE = #{checkCode,jdbcType=VARCHAR}
+    where ACC_NO = #{accNo,jdbcType=CHAR}
+  </update>
+</mapper>

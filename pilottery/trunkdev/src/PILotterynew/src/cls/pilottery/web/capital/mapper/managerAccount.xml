@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.capital.dao.ManagerAcctDao">
+	<resultMap id="managerAcctMap"
+		type="cls.pilottery.web.capital.model.ManagerAccount">
+		<id column="MARKET_ADMIN" property="marketAdmin" />
+		<result column="ACC_TYPE" property="accType" />
+		<result column="ACC_NAME" property="accName" />
+		<result column="ACC_STATUS" property="accStatus" />
+		<result column="ACC_NO" property="accNo" />
+		<result column="CREDIT_LIMIT" property="creditLimit" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance" />
+		<result column="CHECK_CODE" property="checkCode" />
+		<result column="ADMIN_REALNAME" property="realName" />
+		<result column="IS_COLLECTER" property="isCollecter" />
+		<result column="TRANS_PASS" property="transPass" />
+		<result column="CREDIT_BY_TRAN" property="credit" />
+		<result column="MAX_AMOUNT_TICKETSS" property="maxAmountTickets" />
+		<result column="TICKETS" property="tickets" />
+	</resultMap>
+
+	<!-- 市场管理员账户信息列表 -->
+	<select id="getManagerAcctList" parameterType="cls.pilottery.web.capital.form.ManagerAcctForm"
+		resultMap="managerAcctMap">
+	    select * from (
+	    select tab.*,rownum rn from (SELECT
+	     A.MARKET_ADMIN,
+         A.ACC_TYPE,
+         A.ACC_NAME,
+         A.ACC_STATUS,
+         A.ACC_NO,
+         A.CREDIT_LIMIT,
+         A.ACCOUNT_BALANCE,
+         B.TRANS_PASS,
+         B.CREDIT_BY_TRAN,
+         B.MAX_AMOUNT_TICKETSS,
+         C.ADMIN_REALNAME,
+        nvl((select sum(tickets)
+                          from ACC_MM_TICKETS d
+                         where a.MARKET_ADMIN = d.MARKET_ADMIN),0) tickets
+        FROM ACC_MM_ACCOUNT A
+        LEFT JOIN
+        INF_MARKET_ADMIN B ON (A.MARKET_ADMIN = B.MARKET_ADMIN)
+        LEFT JOIN
+        ADM_INFO C ON (A.MARKET_ADMIN = C.ADMIN_ID)
+        WHERE 1 = 1
+        <if test="marketAdmin != null and marketAdmin != ''">
+			AND A.MARKET_ADMIN = #{marketAdmin}
+		</if>
+		<if test="realName != null and realName != ''"> 
+			and C.ADMIN_REALNAME = #{realName}
+		</if> 
+		<if test="adminOrg != null and adminOrg != ''"> 
+			AND C.ADMIN_ORG =#{adminOrg}
+		</if>
+			and A.ACC_STATUS!=2
+			AND C.IS_COLLECTER = 1
+			ORDER BY A.MARKET_ADMIN DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- 分页记录总数 -->
+	<select id="getManagerAcctCount" parameterType="cls.pilottery.web.capital.form.ManagerAcctForm"
+		resultType="Integer">
+		SELECT count(1)
+		FROM ACC_MM_ACCOUNT a LEFT JOIN
+        ADM_INFO C ON (A.MARKET_ADMIN = C.ADMIN_ID)
+		WHERE 1 = 1
+		<if test="marketAdmin != null and marketAdmin != ''">
+			AND A.MARKET_ADMIN = #{marketAdmin}
+		</if>
+		<if test="realName != null and realName != ''"> 
+			and C.ADMIN_REALNAME = #{realName}
+		</if>
+		<if test="adminOrg != null and adminOrg != ''"> 
+			AND C.ADMIN_ORG =#{adminOrg}
+		</if>
+		and ACC_STATUS=1
+	</select>
+
+<!-- 获取修改信息 -->
+ 	<select id="getManagerAcctInfo" parameterType="String"
+		resultType="cls.pilottery.web.capital.model.ManagerAccountModel">
+		select A.MARKET_ADMIN as marketAdmin,
+       		   A.CREDIT_LIMIT as creditLimit,
+		       A.ACCOUNT_BALANCE as accountBalance,
+		       C.ADMIN_REALNAME as realName,
+		       B.MAX_AMOUNT_TICKETSS as maxAmountTickets,
+		       (select sum(tickets)
+          from ACC_MM_TICKETS d
+         where a.MARKET_ADMIN = d.MARKET_ADMIN) tickets
+		  FROM ACC_MM_ACCOUNT A
+		  LEFT JOIN INF_MARKET_ADMIN B
+		    ON (A.MARKET_ADMIN = B.MARKET_ADMIN)
+		  LEFT JOIN ADM_INFO C
+		    ON (A.MARKET_ADMIN = C.ADMIN_ID)
+		 WHERE 1 = 1
+   		and A.ACC_STATUS = 1
+		and A.MARKET_ADMIN = #{marketAdmin}
+	</select>
+
+ 	<update id="deleteupdeSatus" parameterType="String">
+		UPDATE
+		ACC_MM_ACCOUNT SET ACC_STATUS =2 WHERE MARKET_ADMIN=#{marketAdmin}
+	</update>
+	
+	<!-- 修改管理员账户信息，额度和密码 -->
+		<update id="updateLimit" parameterType="cls.pilottery.web.capital.model.ManagerAccount">
+		UPDATE ACC_MM_ACCOUNT 
+		SET CREDIT_LIMIT = #{creditLimit,jdbcType=DECIMAL}
+		WHERE MARKET_ADMIN = #{marketAdmin,jdbcType=DECIMAL}
+	</update>
+		<update id="updatetransPass" parameterType="cls.pilottery.web.capital.model.ManagerAccount">
+		UPDATE INF_MARKET_ADMIN   
+		SET MAX_AMOUNT_TICKETSS=#{maxAmountTickets,jdbcType=DECIMAL}
+		WHERE MARKET_ADMIN = #{marketAdmin,jdbcType=DECIMAL}
+	</update>
+
+</mapper>

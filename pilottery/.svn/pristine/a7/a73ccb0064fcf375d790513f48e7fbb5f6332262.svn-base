@@ -1,0 +1,339 @@
+create table CNCP_GAME_ISSUES(
+	GAME_CODE NUMBER(3)  not null,
+	ISSUE_NUMBER NUMBER(12)  not null,
+	ISSUE_STATUS NUMBER(2)  not null,
+	START_SALE_TIME DATE  not null,
+	END_SALE_TIME DATE  ,
+	DRAW_CODE VARCHAR2(100) default 1 not null,
+	REWARD_TIME DATE  ,
+	SALE_AMOUNT NUMBER(28)  not null,
+	SALE_COMM NUMBER(28)  not null,
+	WINNING_AMOUNT NUMBER(28)  not null,
+	PAID_AMOUNT NUMBER(28)  not null,
+	constraint PK_CNCP_GAME_ISSUES primary Key (GAME_CODE,ISSUE_NUMBER)
+);
+comment on table CNCP_GAME_ISSUES is 'CNCP游戏期次信息';
+comment on column CNCP_GAME_ISSUES.GAME_CODE is '游戏编码';
+comment on column CNCP_GAME_ISSUES.ISSUE_NUMBER is '游戏期号';
+comment on column CNCP_GAME_ISSUES.ISSUE_STATUS is '无纸化游戏期次状态（5=派奖完成）';
+comment on column CNCP_GAME_ISSUES.START_SALE_TIME is '开始销售时间';
+comment on column CNCP_GAME_ISSUES.END_SALE_TIME is '销售截止时间';
+comment on column CNCP_GAME_ISSUES.DRAW_CODE is '开奖号码';
+comment on column CNCP_GAME_ISSUES.REWARD_TIME is '派奖时间';
+comment on column CNCP_GAME_ISSUES.SALE_AMOUNT is '销售金额';
+comment on column CNCP_GAME_ISSUES.SALE_COMM is '销售佣金';
+comment on column CNCP_GAME_ISSUES.WINNING_AMOUNT is '中奖金额';
+comment on column CNCP_GAME_ISSUES.PAID_AMOUNT is '派奖金额';
+
+create table CNCP_INF_DEALERS(
+	DEALER_CODE CHAR(4)  not null,
+	DEALER_NAME VARCHAR2(4000)  not null,
+	DEALER_CONTACT VARCHAR2(4000)  not null,
+	DEALER_PHONE VARCHAR2(20)  not null,
+	DEALER_MAILBOX VARCHAR2(1000)  ,
+	OPEN_TIME DATE default sysdate not null,
+	DEALER_STATUS NUMBER(1) default 1 not null,
+	MSG_URL VARCHAR2(100)  ,
+	constraint PK_CNCP_INF_DEALERS primary Key (DEALER_CODE)
+);
+comment on table CNCP_INF_DEALERS is '渠道基本信息';
+comment on column CNCP_INF_DEALERS.DEALER_CODE is '渠道编码';
+comment on column CNCP_INF_DEALERS.DEALER_NAME is '渠道名称';
+comment on column CNCP_INF_DEALERS.DEALER_CONTACT is '联系人';
+comment on column CNCP_INF_DEALERS.DEALER_PHONE is '电话';
+comment on column CNCP_INF_DEALERS.DEALER_MAILBOX is '邮箱';
+comment on column CNCP_INF_DEALERS.OPEN_TIME is '开通日期';
+comment on column CNCP_INF_DEALERS.DEALER_STATUS is '渠道状态（1-可用，2-暂停，3-删除）';
+comment on column CNCP_INF_DEALERS.MSG_URL is '渠道URL';
+create index IDX_CNCP_INF_DEALERS_OPENTIME on CNCP_INF_DEALERS(OPEN_TIME);
+
+create table CNCP_ACC_DEALER(
+	DEALER_CODE CHAR(4)  not null,
+	ACC_TYPE NUMBER(1) default 1 not null,
+	ACC_NAME VARCHAR2(4000)  not null,
+	ACC_STATUS NUMBER(1) default 1 not null,
+	ACC_NO CHAR(8)  not null,
+	CREDIT_LIMIT NUMBER(28) default 0 not null,
+	ACCOUNT_BALANCE NUMBER(28) default 0 not null,
+	FROZEN_BALANCE NUMBER(28) default 0 not null,
+	CHECK_CODE VARCHAR2(400)  not null,
+	constraint PK_CNCP_ACC_DEALER primary Key (ACC_NO)
+);
+comment on table CNCP_ACC_DEALER is '渠道账户信息';
+comment on column CNCP_ACC_DEALER.DEALER_CODE is '渠道编码';
+comment on column CNCP_ACC_DEALER.ACC_TYPE is '账户类型（1-主要账户）';
+comment on column CNCP_ACC_DEALER.ACC_NAME is '账户名称';
+comment on column CNCP_ACC_DEALER.ACC_STATUS is '账户状态（1-可用，2-停用，3-异常）';
+comment on column CNCP_ACC_DEALER.ACC_NO is '账户编码（渠道编码+2位顺序）';
+comment on column CNCP_ACC_DEALER.CREDIT_LIMIT is '信用额度';
+comment on column CNCP_ACC_DEALER.ACCOUNT_BALANCE is '可用余额';
+comment on column CNCP_ACC_DEALER.FROZEN_BALANCE is '冻结金额';
+comment on column CNCP_ACC_DEALER.CHECK_CODE is '校验码（全部）';
+create index IDX_CNCP_ACC_DEALER_CODE on CNCP_ACC_DEALER(DEALER_CODE);
+
+create table CNCP_AUTH_DEALER(
+	DEALER_CODE CHAR(4)  not null,
+	GAME_CODE NUMBER(3)  not null,
+	SALE_COMMISSION_RATE NUMBER(8)  not null,
+	IS_SALE NUMBER(1) default 1 not null,
+	MODIFY_ADMIN NUMBER(4)  not null,
+	MODIFY_DATE DATE  not null,
+	constraint PK_CNCP_AUTH_DEALER primary Key (DEALER_CODE,GAME_CODE)
+);
+comment on table CNCP_AUTH_DEALER is '渠道游戏授权信息';
+comment on column CNCP_AUTH_DEALER.DEALER_CODE is '渠道编码';
+comment on column CNCP_AUTH_DEALER.GAME_CODE is '游戏CODE';
+comment on column CNCP_AUTH_DEALER.SALE_COMMISSION_RATE is '销售佣金比例（千分位）';
+comment on column CNCP_AUTH_DEALER.IS_SALE is '是否可销售';
+comment on column CNCP_AUTH_DEALER.MODIFY_ADMIN is '修改人';
+comment on column CNCP_AUTH_DEALER.MODIFY_DATE is '修改日期';
+
+create table CNCP_SECURITY_DEALER(
+	DEALER_CODE CHAR(4)  not null,
+	PUBLIC_KEY VARCHAR2(4000)  not null,
+	constraint PK_CNCP_SECURITY_DEALER primary Key (DEALER_CODE)
+);
+comment on table CNCP_SECURITY_DEALER is '渠道安全信息';
+comment on column CNCP_SECURITY_DEALER.DEALER_CODE is '渠道编码';
+comment on column CNCP_SECURITY_DEALER.PUBLIC_KEY is '公钥';
+
+create table CNCP_FUND_CHARGE(
+	FUND_NO CHAR(10)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	ACC_NO CHAR(8)  not null,
+	OPER_AMOUNT NUMBER(28)  not null,
+	BE_ACCOUNT_BALANCE NUMBER(28)  not null,
+	AF_ACCOUNT_BALANCE NUMBER(28)  not null,
+	OPER_TIME DATE  not null,
+	OPER_ADMIN NUMBER(4)  not null,
+	REMARK VARCHAR2(4000)  ,
+	constraint PK_CNCP_FUND_CHARGE primary Key (FUND_NO)
+);
+comment on table CNCP_FUND_CHARGE is '渠道充值记录';
+comment on column CNCP_FUND_CHARGE.FUND_NO is '充值编号（FC12345678）';
+comment on column CNCP_FUND_CHARGE.DEALER_CODE is '渠道编码';
+comment on column CNCP_FUND_CHARGE.ACC_NO is '账户编码';
+comment on column CNCP_FUND_CHARGE.OPER_AMOUNT is '充值金额';
+comment on column CNCP_FUND_CHARGE.BE_ACCOUNT_BALANCE is '充值前余额';
+comment on column CNCP_FUND_CHARGE.AF_ACCOUNT_BALANCE is '充值后余额';
+comment on column CNCP_FUND_CHARGE.OPER_TIME is '操作时间';
+comment on column CNCP_FUND_CHARGE.OPER_ADMIN is '操作人编码';
+comment on column CNCP_FUND_CHARGE.REMARK is '备注';
+create index IDX_CNCP_FUND_CHARGE_DEALER on CNCP_FUND_CHARGE(DEALER_CODE);
+create index IDX_CNCP_FUND_CHARGE_ACC on CNCP_FUND_CHARGE(ACC_NO);
+create index IDX_CNCP_FUND_CHARGE_TIME on CNCP_FUND_CHARGE(OPER_TIME);
+
+create table CNCP_FUND_WITHDRAW(
+	FUND_NO CHAR(10)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	ACC_NO CHAR(8)  not null,
+	OPER_AMOUNT NUMBER(28)  not null,
+	BE_ACCOUNT_BALANCE NUMBER(28)  not null,
+	AF_ACCOUNT_BALANCE NUMBER(28)  not null,
+	OPER_TIME DATE  not null,
+	OPER_ADMIN NUMBER(4)  not null,
+	REMARK VARCHAR2(4000)  ,
+	constraint PK_CNCP_FUND_WITHDRAW primary Key (FUND_NO)
+);
+comment on table CNCP_FUND_WITHDRAW is '渠道提现记录';
+comment on column CNCP_FUND_WITHDRAW.FUND_NO is '提现编号（FW12345678）';
+comment on column CNCP_FUND_WITHDRAW.DEALER_CODE is '渠道编码';
+comment on column CNCP_FUND_WITHDRAW.ACC_NO is '账户编码';
+comment on column CNCP_FUND_WITHDRAW.OPER_AMOUNT is '提现金额';
+comment on column CNCP_FUND_WITHDRAW.BE_ACCOUNT_BALANCE is '提现前销售站余额';
+comment on column CNCP_FUND_WITHDRAW.AF_ACCOUNT_BALANCE is '提现后销售站余额';
+comment on column CNCP_FUND_WITHDRAW.OPER_TIME is '操作时间';
+comment on column CNCP_FUND_WITHDRAW.OPER_ADMIN is '操作人编码';
+comment on column CNCP_FUND_WITHDRAW.REMARK is '备注';
+create index IDX_CNCP_FUND_WITHDRAW_DEALER on CNCP_FUND_WITHDRAW(DEALER_CODE);
+create index IDX_CNCP_FUND_WITHDRAW_ACC on CNCP_FUND_WITHDRAW(ACC_NO);
+create index IDX_CNCP_FUND_WITHDRAW_TIME on CNCP_FUND_WITHDRAW(OPER_TIME);
+
+create table CNCP_FUND_TUNE(
+	FUND_NO CHAR(10)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	ACC_NO CHAR(8)  not null,
+	OPER_AMOUNT NUMBER(28)  not null,
+	BE_ACCOUNT_BALANCE NUMBER(28)  not null,
+	AF_ACCOUNT_BALANCE NUMBER(28)  not null,
+	OPER_TIME DATE  not null,
+	OPER_ADMIN NUMBER(4)  not null,
+	REMARK VARCHAR2(4000)  ,
+	constraint PK_CNCP_FUND_TUNE primary Key (FUND_NO)
+);
+comment on table CNCP_FUND_TUNE is '渠道调账记录';
+comment on column CNCP_FUND_TUNE.FUND_NO is '调账编号（FT12345678）';
+comment on column CNCP_FUND_TUNE.DEALER_CODE is '渠道编码';
+comment on column CNCP_FUND_TUNE.ACC_NO is '账户编码';
+comment on column CNCP_FUND_TUNE.OPER_AMOUNT is '调账金额';
+comment on column CNCP_FUND_TUNE.BE_ACCOUNT_BALANCE is '调账前销售站余额';
+comment on column CNCP_FUND_TUNE.AF_ACCOUNT_BALANCE is '调账后销售站余额';
+comment on column CNCP_FUND_TUNE.OPER_TIME is '操作时间';
+comment on column CNCP_FUND_TUNE.OPER_ADMIN is '操作人编码';
+comment on column CNCP_FUND_TUNE.REMARK is '备注';
+create index IDX_CNCP_FUND_TUNE_DEALER on CNCP_FUND_TUNE(DEALER_CODE);
+create index IDX_CNCP_FUND_TUNE_ACC on CNCP_FUND_TUNE(ACC_NO);
+create index IDX_CNCP_FUND_TUNE_TIME on CNCP_FUND_TUNE(OPER_TIME);
+
+create table CNCP_FUND_DETAIL(
+	DEALER_FUND_FLOW CHAR(24)  not null,
+	REF_NO VARCHAR2(24)  not null,
+	FLOW_TYPE NUMBER(2)  not null,
+	ACC_NO CHAR(8)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	CHANGE_AMOUNT NUMBER(28)  not null,
+	FROZEN_AMOUNT NUMBER(28) default 0 not null,
+	BE_ACCOUNT_BALANCE NUMBER(28) default 0 not null,
+	BE_FROZEN_BALANCE NUMBER(28) default 0 not null,
+	AF_ACCOUNT_BALANCE NUMBER(28) default 0 not null,
+	AF_FROZEN_BALANCE NUMBER(28) default 0 not null,
+	TRADE_TIME DATE default sysdate not null,
+	constraint PK_CNCP_FUND_DETAIL primary Key (DEALER_FUND_FLOW)
+);
+comment on table CNCP_FUND_DETAIL is '渠道资金明细';
+comment on column CNCP_FUND_DETAIL.DEALER_FUND_FLOW is '流水号（DL123456789012345678901234）';
+comment on column CNCP_FUND_DETAIL.REF_NO is '参考业务编号';
+comment on column CNCP_FUND_DETAIL.FLOW_TYPE is '资金类型（1=充值、2=提现、3=调账、4=销售、5=销售佣金、6=派奖、7=退款）';
+comment on column CNCP_FUND_DETAIL.ACC_NO is '账户编码';
+comment on column CNCP_FUND_DETAIL.DEALER_CODE is '渠道编码';
+comment on column CNCP_FUND_DETAIL.CHANGE_AMOUNT is '变更金额';
+comment on column CNCP_FUND_DETAIL.FROZEN_AMOUNT is '冻结金额';
+comment on column CNCP_FUND_DETAIL.BE_ACCOUNT_BALANCE is '变更前可用余额';
+comment on column CNCP_FUND_DETAIL.BE_FROZEN_BALANCE is '变更前冻结余额';
+comment on column CNCP_FUND_DETAIL.AF_ACCOUNT_BALANCE is '变更后可用余额';
+comment on column CNCP_FUND_DETAIL.AF_FROZEN_BALANCE is '变更后冻结余额';
+comment on column CNCP_FUND_DETAIL.TRADE_TIME is '交易时间';
+create index IDX_CNCP_FUND_DETAIL_DEALER on CNCP_FUND_DETAIL(DEALER_CODE);
+create index IDX_CNCP_FUND_DETAIL_ACC on CNCP_FUND_DETAIL(ACC_NO);
+create index IDX_CNCP_FUND_DETAIL_TIME on CNCP_FUND_DETAIL(TRADE_TIME);
+create index IDX_CNCP_FUND_DETAIL_REFNO on CNCP_FUND_DETAIL(REF_NO);
+
+create table CNCP_TRADE_SALE(
+	SALE_FLOW CHAR(24)  not null,
+	SALE_TSN VARCHAR2(24)  ,
+	GAME_CODE NUMBER(3)  not null,
+	ISSUE_NUMBER NUMBER(12)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	ORDER_STATUS NUMBER(1) default 1 not null,
+	ORDER_AMOUNT NUMBER(28)  not null,
+	ORDER_TIME DATE default sysdate not null,
+	TICKET_TIME DATE  ,
+	SELL_SEQ NUMBER(28)  not null,
+	constraint PK_CNCP_TRADE_SALE primary Key (SALE_FLOW)
+);
+comment on table CNCP_TRADE_SALE is '渠道售票记录';
+comment on column CNCP_TRADE_SALE.SALE_FLOW is '申请流水';
+comment on column CNCP_TRADE_SALE.SALE_TSN is '销售票号';
+comment on column CNCP_TRADE_SALE.GAME_CODE is '游戏编码';
+comment on column CNCP_TRADE_SALE.ISSUE_NUMBER is '游戏期号';
+comment on column CNCP_TRADE_SALE.DEALER_CODE is '渠道编码';
+comment on column CNCP_TRADE_SALE.ORDER_STATUS is '订单状态（1=已受理、2=出票成功、3=出票失败）';
+comment on column CNCP_TRADE_SALE.ORDER_AMOUNT is '订单金额';
+comment on column CNCP_TRADE_SALE.ORDER_TIME is '受理时间（返还给代销商）';
+comment on column CNCP_TRADE_SALE.TICKET_TIME is '出票时间（成功、失败都需要设置）';
+comment on column CNCP_TRADE_SALE.SELL_SEQ is '出票序号';
+create index IDX_CNCP_TRADE_SALE_GI on CNCP_TRADE_SALE(GAME_CODE,ISSUE_NUMBER);
+create index IDX_CNCP_TRADE_SALE_DEALER on CNCP_TRADE_SALE(DEALER_CODE);
+create index IDX_CNCP_TRADE_SALE_O_TIME on CNCP_TRADE_SALE(ORDER_TIME);
+create index IDX_CNCP_TRADE_SALE_T_TIME on CNCP_TRADE_SALE(TICKET_TIME);
+create index IDX_CNCP_TRADE_SALE_TSN on CNCP_TRADE_SALE(SALE_TSN);
+
+create table CNCP_TRADE_SALE_DETAIL(
+	SALE_FLOW CHAR(24)  not null,
+	LINE_NO NUMBER(2)  not null,
+	TICKET_DETAIL VARCHAR2(4000)  not null,
+	constraint PK_CNCP_TRADE_SALE_DETAIL primary Key (SALE_FLOW,LINE_NO)
+);
+comment on table CNCP_TRADE_SALE_DETAIL is '渠道售票记录票面详情';
+comment on column CNCP_TRADE_SALE_DETAIL.SALE_FLOW is '申请流水';
+comment on column CNCP_TRADE_SALE_DETAIL.LINE_NO is '投注行';
+comment on column CNCP_TRADE_SALE_DETAIL.TICKET_DETAIL is '投注行详情字符串';
+
+create table CNCP_TRADE_PAID(
+	SALE_FLOW CHAR(24)  not null,
+	SALE_TSN VARCHAR2(24)  ,
+	PAY_FLOW VARCHAR2(24)  ,
+	GAME_CODE NUMBER(3)  not null,
+	ISSUE_NUMBER NUMBER(12)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	IS_PAID NUMBER(1)  not null,
+	IS_BIG_REWARD NUMBER(1)  not null,
+	ORDER_AMOUNT NUMBER(28)  not null,
+	REWARD_AMOUNT NUMBER(28)  not null,
+	PAID_TIME DATE  ,
+	constraint PK_CNCP_TRADE_PAID primary Key (SALE_FLOW)
+);
+comment on table CNCP_TRADE_PAID is '渠道派奖记录';
+comment on column CNCP_TRADE_PAID.SALE_FLOW is '申请流水';
+comment on column CNCP_TRADE_PAID.SALE_TSN is '销售票号';
+comment on column CNCP_TRADE_PAID.PAY_FLOW is '兑奖票号';
+comment on column CNCP_TRADE_PAID.GAME_CODE is '游戏编码';
+comment on column CNCP_TRADE_PAID.ISSUE_NUMBER is '游戏期号';
+comment on column CNCP_TRADE_PAID.DEALER_CODE is '渠道编码';
+comment on column CNCP_TRADE_PAID.IS_PAID is '是否已派奖';
+comment on column CNCP_TRADE_PAID.IS_BIG_REWARD is '是否大奖';
+comment on column CNCP_TRADE_PAID.ORDER_AMOUNT is '购票金额';
+comment on column CNCP_TRADE_PAID.REWARD_AMOUNT is '中奖金额';
+comment on column CNCP_TRADE_PAID.PAID_TIME is '派奖时间（返还给代销商）';
+
+create table CNCP_RPT_ISSUE(
+	GAME_CODE NUMBER(3)  not null,
+	ISSUE_NUMBER NUMBER(12)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	SALE_AMOUNT NUMBER(28)  not null,
+	SALE_TICKETS NUMBER(28)  not null,
+	SALE_COMM NUMBER(28)  not null,
+	WINNING_AMOUNT NUMBER(28)  not null,
+	WINNING_TICKETS NUMBER(28)  not null,
+	PAID_AMOUNT NUMBER(28)  not null,
+	PAID_TICKETS NUMBER(28)  not null,
+	FAIL_AMOUNT NUMBER(28)  not null,
+	FAIL_TICKETS NUMBER(28)  not null,
+	constraint PK_CNCP_RPT_ISSUE primary Key (GAME_CODE,ISSUE_NUMBER,DEALER_CODE)
+);
+comment on table CNCP_RPT_ISSUE is '渠道期次统计报表';
+comment on column CNCP_RPT_ISSUE.GAME_CODE is '游戏编码';
+comment on column CNCP_RPT_ISSUE.ISSUE_NUMBER is '游戏期号';
+comment on column CNCP_RPT_ISSUE.DEALER_CODE is '渠道编码';
+comment on column CNCP_RPT_ISSUE.SALE_AMOUNT is '销售金额';
+comment on column CNCP_RPT_ISSUE.SALE_TICKETS is '销售票数';
+comment on column CNCP_RPT_ISSUE.SALE_COMM is '销售佣金';
+comment on column CNCP_RPT_ISSUE.WINNING_AMOUNT is '中奖金额';
+comment on column CNCP_RPT_ISSUE.WINNING_TICKETS is '中奖票数';
+comment on column CNCP_RPT_ISSUE.PAID_AMOUNT is '派奖金额';
+comment on column CNCP_RPT_ISSUE.PAID_TICKETS is '派奖票数';
+comment on column CNCP_RPT_ISSUE.FAIL_AMOUNT is '失败金额';
+comment on column CNCP_RPT_ISSUE.FAIL_TICKETS is '失败票数';
+
+create table CNCP_DEALER_DAILY_REPORT(
+	CALC_DATE CHAR(10)  not null,
+	DEALER_CODE CHAR(4)  not null,
+	DEALER_NAME VARCHAR2(4000)  not null,
+	BEGIN_AMOUNT NUMBER(28)  not null,
+	CHARGE_AMOUNT NUMBER(28)  not null,
+	WITHDRAW_AMOUNT NUMBER(28)  not null,
+	SALE_AMOUNT NUMBER(28)  not null,
+	SALE_COMM_AMOUNT NUMBER(28)  not null,
+	REFUND_AMOUNT NUMBER(28)  not null,
+	PAID_AMOUNT NUMBER(28)  not null,
+	OTHER_TICKETS NUMBER(28)  not null,
+	END_AMOUNT NUMBER(28)  not null,
+	CALC_MONTH CHAR(7)  ,
+	CALC_YEAR CHAR(4)  ,
+	constraint PK_CNCP_DEALER_DR primary Key (CALC_DATE,DEALER_CODE)
+);
+comment on table CNCP_DEALER_DAILY_REPORT is '渠道日结报表';
+comment on column CNCP_DEALER_DAILY_REPORT.CALC_DATE is '统计日期';
+comment on column CNCP_DEALER_DAILY_REPORT.DEALER_CODE is '渠道编码';
+comment on column CNCP_DEALER_DAILY_REPORT.DEALER_NAME is '渠道名称';
+comment on column CNCP_DEALER_DAILY_REPORT.BEGIN_AMOUNT is '期初账户余额';
+comment on column CNCP_DEALER_DAILY_REPORT.CHARGE_AMOUNT is '充值';
+comment on column CNCP_DEALER_DAILY_REPORT.WITHDRAW_AMOUNT is '提现';
+comment on column CNCP_DEALER_DAILY_REPORT.SALE_AMOUNT is '销售';
+comment on column CNCP_DEALER_DAILY_REPORT.SALE_COMM_AMOUNT is '销售佣金';
+comment on column CNCP_DEALER_DAILY_REPORT.REFUND_AMOUNT is '退款';
+comment on column CNCP_DEALER_DAILY_REPORT.PAID_AMOUNT is '返奖';
+comment on column CNCP_DEALER_DAILY_REPORT.OTHER_TICKETS is '其他（调账）';
+comment on column CNCP_DEALER_DAILY_REPORT.END_AMOUNT is '期末账户余额';
+comment on column CNCP_DEALER_DAILY_REPORT.CALC_MONTH is '统计月份';
+comment on column CNCP_DEALER_DAILY_REPORT.CALC_YEAR is '统计年份';

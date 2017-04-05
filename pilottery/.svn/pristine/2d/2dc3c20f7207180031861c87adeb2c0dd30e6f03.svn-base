@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.fbs.dao.FbsDrawDao">
+    <resultMap type="cls.pilottery.fbs.model.FbsMatch" id="fbsMatch">
+        <id column="MATCH_CODE" property="matchCode"/>
+        <result column="MATCH_SEQ" property="matchSeq"/>
+        <result column="MATCH_DESC" property="matchDesc"/>
+        <result column="FBS_ISSUE_NUMBER" property="matchIssue"/>
+        <result column="COMPETITION" property="matchComp"/>
+        <result column="COMPETITION_CODE" property="matchCompCode"/>
+        <result column="HOME_TEAM" property="homeTeam"/>
+        <result column="HOME_TEAM_CODE" property="homeTeamCode"/>
+        <result column="WIN_LEVEL_LOS_SCORE" property="score310"/>
+        <result column="WIN_LOS_SCORE" property="score30"/>
+        <result column="GUEST_TEAM" property="guestTeam"/>
+        <result column="GUEST_TEAM_CODE" property="guestTeamCode"/>
+        <result column="MATCH_DATE" property="matchDate"/>
+        <result column="MATCH_START_DATE" property="matchStartTime"/>
+        <result column="MATCH_END_DATE" property="matchEndTime"/>
+        <result column="BEGIN_SALE_TIME" property="beginSaleTime"/>
+        <result column="END_SALE_TIME" property="endSaleTime"/>
+
+        <result column="IS_SALE" property="saleStatus"/>
+        <result column="STATUS" property="matchStatus"/>
+        <result column="DRAW_STATE" property="drawStatus"/>
+        <result column="MATCH_RESULT_TIME" property="matchResultTime"/>
+        <result column="REWARD_TIME" property="matchRewardTime"/>
+
+        <result column="FIRST_DRAW_USER_ID" property="firstDrawUserId"/>
+        <result column="SECOND_DRAW_USER_ID" property="secondDrawUserId"/>
+
+        <result column="FIRST_FH_HOME_SCORE" property="firstfhHomeScore"/>
+        <result column="FIRST_FH_GUEST_SCORE" property="firstfhGuestScore"/>
+        <result column="FIRST_SH_HOME_SCORE" property="firstshHomeScore"/>
+        <result column="FIRST_SH_GUEST_SCORE" property="firstshGuestScore"/>
+    </resultMap>
+
+    <resultMap type="cls.pilottery.fbs.model.FbsResult" id="fbsResult">
+        <id column="MATCH_CODE" property="matchCode"/>
+        <result column="FIRST_SCORE_TEAM" property="firstScoreTeam"/>
+        <result column="FIRST_FH_HOME_SCORE" property="firstfhHomeScore"/>
+        <result column="FIRST_FH_GUEST_SCORE" property="firstfhGuestScore"/>
+        <result column="FIRST_SH_HOME_SCORE" property="firstshHomeScore"/>
+        <result column="FIRST_SH_GUEST_SCORE" property="firstshGuestScore"/>
+        <result column="SECOND_SCORE_TEAM" property="secondScoreTeam"/>
+        <result column="SECOND_FH_HOME_SCORE" property="secondfhHomeScore"/>
+        <result column="SECOND_FH_GUEST_SCORE" property="secondfhGuestScore"/>
+        <result column="SECOND_SH_HOME_SCORE" property="secondshHomeScore"/>
+        <result column="SECOND_SH_GUEST_SCORE" property="secondshGuestScore"/>
+    </resultMap>
+
+    <select id="queryEndedMatchCount" parameterType="cls.pilottery.fbs.form.FbsDrawForm"
+            resultType="Integer">
+        select count(1) from FBS_MATCH d
+        left join FBS_COMPETITION fc on fc.COMPETITION_CODE = d.COMPETITION
+        where 1=1 and d.STATUS in (1,2,3,4,5,6)
+        <if test="issueCode != null and issueCode != ''">
+            and d.FBS_ISSUE_NUMBER like '%${issueCode}%'
+        </if>
+        <if test="startqueryTime != null and startqueryTime!=''">
+            <![CDATA[ and d.MATCH_DATE >= to_date(#{startqueryTime},'yyyy-MM-dd')  ]]>
+        </if>
+        <if test="endqueryTime!=null and endqueryTime!=''">
+            <![CDATA[  and d.MATCH_DATE <= to_date(#{endqueryTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="matchStatus!=null and matchStatus !='' ">
+            and d.STATUS = #{matchStatus}
+        </if>
+    </select>
+
+    <select id="queryEndedMatchList" parameterType="cls.pilottery.fbs.form.FbsDrawForm"
+            resultMap="fbsMatch">
+        select * from (
+        select a.*,rownum rn from (
+        select
+        d.MATCH_CODE,
+        fc.COMPETITION_ABBR COMPETITION,
+        d.FBS_ISSUE_NUMBER,
+        STATUS,
+        IS_SALE,
+        DRAW_STATE,
+        d.HOME_TEAM_CODE,
+        c.SHORT_NAME HOME_TEAM,
+        d.GUEST_TEAM_CODE,
+        c2.SHORT_NAME GUEST_TEAM,
+        WIN_LEVEL_LOS_SCORE,
+        WIN_LOS_SCORE,
+        to_char(MATCH_DATE,'yyyy-MM-dd') MATCH_DATE,
+        to_char(MATCH_START_DATE,'yyyy-MM-dd HH24:MI:SS') MATCH_START_DATE,
+        to_char(MATCH_END_DATE,'yyyy-MM-dd HH24:MI:SS') MATCH_END_DATE,
+        to_char(BEGIN_SALE_TIME,'yyyy-MM-dd HH24:MI:SS') BEGIN_SALE_TIME,
+        to_char(END_SALE_TIME,'yyyy-MM-dd HH24:MI:SS') END_SALE_TIME,
+        mf.FIRST_DRAW_USER_ID,
+        mf.FIRST_FH_HOME_SCORE,
+        mf.FIRST_FH_GUEST_SCORE,
+        mf.FIRST_SH_HOME_SCORE,
+        mf.FIRST_SH_GUEST_SCORE
+        from FBS_MATCH d
+        left join FBS_COMPETITION_TEAM c on c.TEAM_CODE = d.HOME_TEAM_CODE
+        left join FBS_COMPETITION_TEAM c2 on c2.TEAM_CODE = d.GUEST_TEAM_CODE
+        left join FBS_COMPETITION fc on fc.COMPETITION_CODE = d.COMPETITION
+        left join FBS_MATCH_RESULT mf on mf.MATCH_CODE = d.MATCH_CODE
+        where 1=1 and d.STATUS in (1,2,3,4,5,6)
+        <if test="issueCode != null and issueCode != ''">
+            and d.FBS_ISSUE_NUMBER like '%${issueCode}%'
+        </if>
+        <if test="startqueryTime != null and startqueryTime!=''">
+            <![CDATA[ and d.MATCH_DATE >= to_date(#{startqueryTime},'yyyy-MM-dd')  ]]>
+        </if>
+        <if test="endqueryTime!=null and endqueryTime!=''">
+            <![CDATA[  and d.MATCH_DATE <= to_date(#{endqueryTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="matchStatus!=null and matchStatus!=''">
+            and d.STATUS = #{matchStatus}
+        </if>
+        <![CDATA[ order by d.END_SALE_TIME desc) a ) where rn > #{beginNum} and rn <= #{endNum} ]]>
+    </select>
+
+
+    <select id="queryMatchByMatchCode" parameterType="String"
+            resultMap="fbsMatch">
+        select
+                d.MATCH_CODE,
+                fc.COMPETITION_ABBR COMPETITION,
+                COMPETITION COMPETITION_CODE,
+                d.FBS_ISSUE_NUMBER,
+                STATUS,
+                IS_SALE,
+                DRAW_STATE,
+                d.HOME_TEAM_CODE,
+                c.SHORT_NAME HOME_TEAM,
+                d.GUEST_TEAM_CODE,
+                c2.SHORT_NAME GUEST_TEAM,
+                WIN_LEVEL_LOS_SCORE,
+                WIN_LOS_SCORE,
+                to_char(MATCH_DATE,'yyyy-MM-dd') MATCH_DATE,
+                to_char(MATCH_START_DATE,'yyyy-MM-dd HH24:MI:SS') MATCH_START_DATE,
+                to_char(MATCH_END_DATE,'yyyy-MM-dd HH24:MI:SS') MATCH_END_DATE,
+                to_char(BEGIN_SALE_TIME,'yyyy-MM-dd HH24:MI:SS') BEGIN_SALE_TIME,
+                to_char(END_SALE_TIME,'yyyy-MM-dd HH24:MI:SS') END_SALE_TIME,
+                mf.FIRST_DRAW_USER_ID
+            from FBS_MATCH d
+            left join FBS_COMPETITION_TEAM c on c.TEAM_CODE = d.HOME_TEAM_CODE
+            left join FBS_COMPETITION_TEAM c2 on c2.TEAM_CODE = d.GUEST_TEAM_CODE
+            left join FBS_COMPETITION fc on fc.COMPETITION_CODE = d.COMPETITION
+            left join FBS_MATCH_RESULT mf on mf.MATCH_CODE = d.MATCH_CODE
+            where d.MATCH_CODE=#{_parameter}
+    </select>
+
+    <update id="updateMatchResult" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+            UPDATE FBS_MATCH_RESULT set
+                    COMPETITION_CODE=#{matchCompCode,jdbcType=NUMERIC},
+                    FIRST_DRAW_USER_ID=#{firstDrawUserId,jdbcType=NUMERIC},
+                    FIRST_FH_HOME_SCORE=#{firstfhHomeScore,jdbcType=VARCHAR},
+                    FIRST_FH_GUEST_SCORE=#{firstfhGuestScore,jdbcType=VARCHAR},
+                    FIRST_SH_HOME_SCORE=#{firstshHomeScore,jdbcType=VARCHAR},
+                    FIRST_SH_GUEST_SCORE=#{firstshGuestScore,jdbcType=VARCHAR},
+                    FIRST_SCORE_TEAM=#{firstScoreTeam,jdbcType=NUMERIC}
+                    where MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+    </update>
+
+    <update id="updateMatchStatus" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH m set
+        m.MATCH_RESULT_TIME=sysdate,
+        m.DRAW_STATE = 5
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+        and m.DRAW_STATE = 1
+    </update>
+
+    <update id="updatePublishMatch" parameterType="cls.pilottery.fbs.form.FbsMatchForm">
+        update FBS_MATCH m set
+        m.IS_SALE=#{saleStatus,jdbcType=NUMERIC},
+        m.END_SALE_TIME = #{endSaleTime}
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+    </update>
+
+    <select id="queryMatchResultByCode" parameterType="String"
+            resultMap="fbsResult">
+        select
+            mr.MATCH_CODE,
+            mr.FIRST_SCORE_TEAM,
+            mr.FIRST_FH_HOME_SCORE,
+            mr.FIRST_FH_GUEST_SCORE,
+            mr.FIRST_SH_HOME_SCORE,
+            mr.FIRST_SH_GUEST_SCORE,
+            mr.SECOND_SCORE_TEAM,
+            mr.SECOND_FH_HOME_SCORE,
+            mr.SECOND_FH_GUEST_SCORE,
+            mr.SECOND_SH_HOME_SCORE,
+            mr.SECOND_SH_GUEST_SCORE
+        from FBS_MATCH_RESULT mr
+        where mr.MATCH_CODE=#{matchCode,jdbcType=NUMERIC}
+    </select>
+
+    <update id="updateMatch2Result" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH_RESULT mr set
+         mr.SECOND_DRAW_USER_ID =  #{secondDrawUserId,jdbcType=NUMERIC},
+         mr.SECOND_FH_HOME_SCORE =  #{secondfhHomeScore,jdbcType=VARCHAR},
+         mr.SECOND_FH_GUEST_SCORE =  #{secondfhGuestScore,jdbcType=VARCHAR},
+         mr.SECOND_SH_HOME_SCORE =  #{secondshHomeScore,jdbcType=VARCHAR},
+         mr.SECOND_SH_GUEST_SCORE =  #{secondshGuestScore,jdbcType=VARCHAR},
+         mr.SECOND_SCORE_TEAM =  #{secondScoreTeam,jdbcType=NUMERIC},
+         mr.FINAL_SCORE_TEAM = #{finalScoreTeam,jdbcType=NUMERIC},
+         mr.FULL_HOME_SCORE = #{fullHomeScore,jdbcType=NUMERIC},
+         mr.FULL_GUEST_SCORE = #{fullGuestScore,jdbcType=NUMERIC}
+        where mr.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+    </update>
+
+    <update id="updateMatchWinResult" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH_WIN_RESULT mr set
+        <if test="subTypeCode == 1 ">
+            mr.match_result=#{winlevellosResult,jdbcType=VARCHAR}，
+            mr.MATCH_RESULT_ENUM=#{winlevellosResultEnum,jdbcType=NUMERIC}
+            where mr.MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+            and mr.MATCH_SUBTYPE_CODE = 1
+        </if>
+        <if test="subTypeCode == 2 ">
+            mr.match_result=#{winlosResult,jdbcType=VARCHAR},
+            mr.MATCH_RESULT_ENUM=#{winlosResultEnum,jdbcType=NUMERIC}
+            where mr.MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+            and mr.MATCH_SUBTYPE_CODE = 2
+        </if>
+        <if test="subTypeCode == 3 ">
+            mr.match_result=#{fullScore,jdbcType=VARCHAR},
+            mr.MATCH_RESULT_ENUM=#{fullScoreEnum,jdbcType=NUMERIC}
+            where mr.MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+            and mr.MATCH_SUBTYPE_CODE = 3
+        </if>
+        <if test="subTypeCode == 4 ">
+            mr.match_result=#{singleScore,jdbcType=VARCHAR},
+            mr.MATCH_RESULT_ENUM=#{singleScoreEnum,jdbcType=NUMERIC}
+            where mr.MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+            and mr.MATCH_SUBTYPE_CODE = 4
+        </if>
+        <if test="subTypeCode == 5 ">
+            mr.match_result=#{hfwinlevellosResult,jdbcType=VARCHAR},
+            mr.MATCH_RESULT_ENUM=#{hfwinlevellosResultEnum,jdbcType=NUMERIC}
+            where mr.MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+            and mr.MATCH_SUBTYPE_CODE = 5
+        </if>
+        <if test="subTypeCode == 6 ">
+            mr.match_result=#{hfSingleDoubleString,jdbcType=VARCHAR},
+            mr.MATCH_RESULT_ENUM=#{hfSingleDoubleEnum,jdbcType=NUMERIC}
+            where mr.MATCH_CODE = #{matchCode,jdbcType=NUMERIC}
+            and mr.MATCH_SUBTYPE_CODE = 6
+        </if>
+
+    </update>
+
+    <update id="updateDelMatchWinResult" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH_WIN_RESULT mr set
+                mr.match_result=null,
+                mr.MATCH_RESULT_ENUM=0
+                where mr.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+    </update>
+
+    <update id="updateMatch2StatusOver" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH m set
+        m.MATCH_RESULT_TIME=sysdate,
+        m.DRAW_STATE = 6
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+        and m.DRAW_STATE = 5
+    </update>
+
+    <update id="updateMatchResultSent" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH m set
+        m.DRAW_STATE = 9
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+        and (m.DRAW_STATE = 7 or m.DRAW_STATE = 8 or m.DRAW_STATE = 9)
+    </update>
+
+    <update id="updateMatch2Finish" parameterType="Integer">
+        update FBS_MATCH m set
+        m.DRAW_STATE = 16
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+        and  m.DRAW_STATE = 15
+    </update>
+
+    <update id="updateMatch2StatusBegin" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH m set
+        m.STATUS = 3,
+        m.DRAW_STATE = 1
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+    </update>
+
+    <update id="updateMatchResult2Begin" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH_RESULT r set
+        r.FIRST_DRAW_USER_ID = null,
+        r.SECOND_DRAW_USER_ID = null,
+        r.FIRST_FH_HOME_SCORE = null,
+        r.FIRST_FH_GUEST_SCORE = null,
+        r.SECOND_FH_HOME_SCORE = null,
+        r.SECOND_FH_GUEST_SCORE = null,
+        r.FIRST_SH_HOME_SCORE = null,
+        r.FIRST_SH_GUEST_SCORE = null,
+        r.SECOND_SH_HOME_SCORE = null,
+        r.SECOND_SH_GUEST_SCORE = null,
+        r.FULL_HOME_SCORE = null,
+        r.FULL_GUEST_SCORE = null,
+        r.FIRST_SCORE_TEAM=null,
+        r.SECOND_SCORE_TEAM = null,
+        r.FINAL_SCORE_TEAM = null
+        where r.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+    </update>
+
+    <select id="queryMatchResult" parameterType="String"
+            resultType="cls.pilottery.fbs.model.FbsMatchDraw">
+       select
+        MATCH_SUBTYPE_CODE matchSubTypeCode,
+        MATCH_RESULT matchResult,
+        MATCH_RESULT_ENUM matchResultEnum,
+        REF_SP_VALUE refSPValue,
+        WIN_AMOUNT winAmount,
+        BET_AMOUNT betAmount,
+        RESULT_AMOUNT resultAmount
+        from FBS_MATCH_WIN_RESULT
+        where MATCH_CODE =  #{_parameter}
+    </select>
+
+    <select id="queryGamePoolAmount" parameterType="Long"
+            resultType="Long">
+        select
+        POOL_AMOUNT_AFTER
+        from ISS_GAME_POOL
+        where GAME_CODE =  #{_parameter}
+    </select>
+
+    <update id="updateFinishDrawSteps" parameterType="cls.pilottery.fbs.form.FbsDrawForm">
+        update FBS_MATCH m set
+        m.MATCH_RESULT_TIME=sysdate,
+        m.REWARD_TIME=sysdate,
+        m.DRAW_STATE = 15
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+        and m.DRAW_STATE = 9
+    </update>
+
+    <select id="queryMatchMessage" parameterType="String"
+            resultType="String">
+        select
+        MATCH_REAL_TIME_INFO
+        from FBS_MATCH_RESULT
+        where MATCH_CODE =  #{_parameter}
+    </select>
+
+    <update id="updateResultStatus" parameterType="Map">
+        update FBS_MATCH m set
+        m.DRAW_STATE = #{result,jdbcType=NUMERIC}
+        where m.MATCH_CODE =  #{matchCode,jdbcType=NUMERIC}
+        and m.DRAW_STATE = 6
+    </update>
+
+    <select id="checkDrawMatch" parameterType="String" resultType="String">
+        select match_code from FBS_MATCH where DRAW_STATE >1
+        and  16>DRAW_STATE
+        and match_code!=#{_parameter}
+        and rownum=1
+    </select>
+
+</mapper>

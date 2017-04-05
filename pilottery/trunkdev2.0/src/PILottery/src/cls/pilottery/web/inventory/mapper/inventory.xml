@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.inventory.dao.InventoryDao">
+	<select id="getWhListByorgCode" parameterType="String"
+		resultType="cls.pilottery.web.inventory.model.WhInfoVo">
+		select wh.warehouse_code as whcode, wh.warehouse_name as whname
+	      from wh_info wh
+	     where 1 = 1
+	       and wh.status = 1
+	       and wh.org_code = #{orgcode}	
+	</select>
+	<select id="getInventoryCount" parameterType="cls.pilottery.web.inventory.form.InventoryForm"
+		resultType="Integer">
+		select count(1) from (
+			select pa.plan_code as plancode,
+			       pa.batch_no as batchno,
+			       gp.full_name as planname,
+			      sum( de.tickets_every_pack) as tickts,
+			      sum( de.tickets_every_pack * gp.ticket_amount) as amount
+			  from wh_ticket_package pa, game_batch_import_detail de, game_plans gp
+			 where de.plan_code = pa.plan_code
+			   and pa.batch_no = de.batch_no
+			   and gp.plan_code = pa.plan_code
+			   and pa.status =11
+		<if test="orgCode!=null and orgCode!=''">
+		    <if test="orgCode!='00'">
+			and pa.current_warehouse in
+		       (select wh_manager.warehouse_code
+		          from wh_manager
+		         where wh_manager.org_code =#{orgCode})
+		  </if>
+		</if>
+		
+		<if test="whcode!=null and whcode!=''">
+			and pa.current_warehouse=#{whcode}
+		</if>
+		<if test="planCode!=null and planCode!=''">
+			and pa.plan_code=#{planCode}
+		</if>
+		<if test="batchNo!=null and batchNo!=''">
+			and pa.batch_no=#{batchNo}
+		</if>
+		<if test="prizeGroup!=null and prizeGroup!=''">
+			and pa.reward_group=#{prizeGroup}
+		</if>
+
+		 group by pa.plan_code, pa.batch_no, gp.full_name 
+		)
+	</select>
+	<select id="getInventoryList" parameterType="cls.pilottery.web.inventory.form.InventoryForm"
+		resultType="cls.pilottery.web.inventory.model.InventoryVo">
+		select * from (
+		select a.*,rownum rn from ( 
+			select pa.plan_code as plancode,
+			       pa.batch_no as batchno,
+			       gp.full_name as planname,
+			      sum( de.tickets_every_pack) as tickts,
+			      sum( de.tickets_every_pack * gp.ticket_amount) as amount
+			  from wh_ticket_package pa, game_batch_import_detail de, game_plans gp
+			 where de.plan_code = pa.plan_code
+			   and pa.batch_no = de.batch_no
+			   and gp.plan_code = pa.plan_code
+			   and pa.status =11
+		<if test="orgCode!=null and orgCode!=''">
+		 <if test="orgCode!='00'">
+			and pa.current_warehouse in
+		       (select wh_manager.warehouse_code
+		          from wh_manager
+		         where wh_manager.org_code = #{orgCode})
+		   </if>
+		</if>
+		
+		<if test="whcode!=null and whcode!=''">
+			and pa.current_warehouse=#{whcode}
+		</if>
+		<if test="planCode!=null and planCode!=''">
+			and pa.plan_code=#{planCode}
+		</if>
+		<if test="batchNo!=null and batchNo!=''">
+			and pa.batch_no=#{batchNo}
+		</if>
+		<if test="prizeGroup!=null and prizeGroup!=''">
+			and pa.reward_group=#{prizeGroup}
+		</if>
+
+		 group by pa.plan_code, pa.batch_no, gp.full_name
+	
+	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<select id="getSum" parameterType="cls.pilottery.web.inventory.form.InventoryForm"
+		resultType="cls.pilottery.web.inventory.model.InventoryVo">
+		select    sum( de.tickets_every_pack) as tickts,
+			      sum( de.tickets_every_pack * gp.ticket_amount) as amount
+			  from wh_ticket_package pa, game_batch_import_detail de, game_plans gp
+			 where de.plan_code = pa.plan_code
+			   and pa.batch_no = de.batch_no
+			   and gp.plan_code = pa.plan_code
+			   and pa.status =11
+		<if test="orgCode!=null and orgCode!=''">
+		 <if test="orgCode!='00'">
+			and pa.current_warehouse in
+		       (select wh_manager.warehouse_code
+		          from wh_manager
+		         where wh_manager.org_code = #{orgCode})
+		    </if>
+		</if>
+		
+		<if test="whcode!=null and whcode!=''">
+			and pa.current_warehouse=#{whcode}
+		</if>
+		<if test="planCode!=null and planCode!=''">
+			and pa.plan_code=#{planCode}
+		</if>
+		<if test="batchNo!=null and batchNo!=''">
+			and pa.batch_no=#{batchNo}
+		</if>
+		<if test="prizeGroup!=null and prizeGroup!=''">
+			and pa.reward_group=#{prizeGroup}
+		</if>
+
+	</select>
+
+	<select id="getBatchInfo"
+		resultType="cls.pilottery.web.goodsreceipts.model.GameBatchImport">
+		select de.plan_code as planCode, de.batch_no as batchNo
+		from GAME_BATCH_IMPORT_DETAIL de
+		where de.status = 1
+	</select>
+	<select id="getGroupByCode" parameterType="cls.pilottery.web.inventory.model.InventoryVo"
+		resultType="cls.pilottery.web.inventory.model.InventoryVo">
+		select  distinct  tr.reward_group as rewardGroup
+		from WH_TICKET_PACKAGE tr
+		where tr.status = 11
+		<if test="batchNo!=null and batchNo!=''">
+			and tr.batch_no=#{batchNo}
+		</if>
+		<if test="planCode!=null and planCode!=''">
+		and tr.plan_code   =#{planCode}
+		</if>
+		group by tr.reward_group,
+		tr.batch_no
+		order by tr.reward_group
+		
+	</select>
+<select id="getBatchListByPlanCode" parameterType="String"
+		resultType="cls.pilottery.web.goodsreceipts.model.GameBatchImport">
+		select distinct de.batch_no as batchNo
+		from GAME_BATCH_IMPORT_DETAIL de
+		where de.status = 1
+		    and de.plan_code=#{planCode}
+	</select>
+	<select id="getWhListByorgCodeList" parameterType="cls.pilottery.web.inventory.form.InventoryForm"
+		resultType="cls.pilottery.web.inventory.model.WhInfoVo">
+		select wh.warehouse_code as whcode, wh.warehouse_name as whname
+	      from wh_info wh
+	     where 1 = 1
+	       <if test="orgCode!=null and orgCode!='00'">
+	          and wh.org_code = #{orgCode}	
+	       </if>
+	    
+	</select>
+</mapper>

@@ -1,0 +1,917 @@
+2016-06-25 14:35:30.932 | INFO  | main       | StartService        :18    | System Started ......
+2016-06-25 14:35:30.972 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-25 14:35:30.972 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-25 14:35:31.102 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-25 14:35:31.153 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-25 14:35:31.153 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-25 14:35:31.153 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-25 14:35:31.153 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-25 14:35:31.153 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-25 14:35:31.153 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-25 14:35:31.714 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160624009
+2016-06-25 14:35:31.714 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160624009
+2016-06-25 14:35:31.714 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160624010
+2016-06-25 14:35:31.714 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 14:35:31.724 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160624010
+2016-06-25 14:36:52.733 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:36:52.743 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160624010
+2016-06-25 14:38:13.753 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:38:13.753 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160624010
+2016-06-25 14:39:13.814 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160624010
+2016-06-25 14:39:13.815 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160624010
+2016-06-25 14:39:13.815 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625001
+2016-06-25 14:39:13.816 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 14:39:13.823 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625001
+2016-06-25 14:40:34.824 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:40:34.825 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625001
+2016-06-25 14:41:55.841 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:41:55.841 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625001
+2016-06-25 14:43:16.853 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:43:16.853 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625001
+2016-06-25 14:44:16.901 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625001
+2016-06-25 14:44:16.901 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625001
+2016-06-25 14:44:16.901 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625002
+2016-06-25 14:44:16.901 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 14:44:16.911 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625002
+2016-06-25 14:45:37.921 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:45:37.921 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625002
+2016-06-25 14:46:58.941 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:46:58.941 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625002
+2016-06-25 14:48:19.955 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:48:19.955 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625002
+2016-06-25 14:49:40.961 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:26) [classes/:?]
+2016-06-25 14:49:40.961 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625002
+2016-06-25 14:50:40.966 | ERROR | main       | .ncpimpl.IssueThread:146   | post curr issue info error over 3 time.system exit ... curr issue :160625002
+2016-06-25 14:51:40.975 | INFO  | main       | StartService        :31    | main thread alive.
+2016-06-25 14:51:40.975 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-25 14:52:01.974 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 14:52:01.974 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625002
+2016-06-25 14:53:22.981 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 14:53:22.981 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625002
+2016-06-25 14:54:23.043 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625002
+2016-06-25 14:54:23.043 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625002
+2016-06-25 14:54:23.043 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625003
+2016-06-25 14:54:23.043 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 14:54:23.053 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625003
+2016-06-25 14:55:23.111 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625003
+2016-06-25 14:55:23.111 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625003
+2016-06-25 14:55:23.121 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625004
+2016-06-25 14:55:23.121 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 14:55:23.131 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625004
+2016-06-25 14:56:44.157 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 14:56:44.158 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625004
+2016-06-25 14:58:05.169 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 14:58:05.170 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625004
+2016-06-25 14:59:05.284 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625004
+2016-06-25 14:59:05.285 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625004
+2016-06-25 14:59:05.285 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625005
+2016-06-25 14:59:05.285 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 14:59:05.294 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625005
+2016-06-25 15:00:26.294 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:00:26.296 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625005
+2016-06-25 15:01:47.297 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:01:47.297 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625005
+2016-06-25 15:02:47.372 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625005
+2016-06-25 15:02:47.373 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625005
+2016-06-25 15:02:47.373 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625006
+2016-06-25 15:02:47.373 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 15:02:47.377 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625006
+2016-06-25 15:04:08.392 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:04:08.394 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:05:29.401 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:05:29.402 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:06:50.409 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:06:50.410 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:08:11.418 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:08:11.420 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:09:11.421 | ERROR | main       | .ncpimpl.IssueThread:146   | post curr issue info error over 3 time.system exit ... curr issue :160625006
+2016-06-25 15:10:11.424 | INFO  | main       | StartService        :31    | main thread alive.
+2016-06-25 15:10:11.424 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-25 15:10:32.427 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:10:32.429 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:11:53.434 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:11:53.440 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:13:14.448 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:13:14.449 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625006
+2016-06-25 15:14:14.514 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625006
+2016-06-25 15:14:14.514 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625006
+2016-06-25 15:14:14.514 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625007
+2016-06-25 15:14:14.515 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 15:14:14.518 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625007
+2016-06-25 15:15:35.520 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:15:35.521 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625007
+2016-06-25 15:16:56.522 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:16:56.523 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625007
+2016-06-25 15:18:17.524 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:18:17.526 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625007
+2016-06-25 15:19:20.578 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625007
+2016-06-25 15:19:20.579 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625007
+2016-06-25 15:19:20.579 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625008
+2016-06-25 15:19:20.580 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 15:19:20.585 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625008
+2016-06-25 15:20:41.604 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:20:41.604 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625008
+2016-06-25 15:22:02.618 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:22:02.618 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625008
+2016-06-25 15:23:23.633 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:23:23.633 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625008
+2016-06-25 15:24:23.691 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625008
+2016-06-25 15:24:23.691 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625008
+2016-06-25 15:24:23.691 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625009
+2016-06-25 15:24:23.691 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 15:24:23.701 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625009
+2016-06-25 15:25:44.709 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:25:44.709 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625009
+2016-06-25 15:27:05.713 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:27:05.716 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625009
+2016-06-25 15:28:26.724 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:28:26.724 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625009
+2016-06-25 15:29:26.785 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625009
+2016-06-25 15:29:26.785 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625009
+2016-06-25 15:29:26.785 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160625010
+2016-06-25 15:29:26.785 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 15:29:26.785 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160625010
+2016-06-25 15:30:47.785 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:30:47.786 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625010
+2016-06-25 15:32:08.795 | INFO  | main       | tils.HttpClientUtils:120   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:103) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:89) [classes/:?]
+	at StartService.main(StartService.java:36) [classes/:?]
+2016-06-25 15:32:08.796 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160625010
+2016-06-25 15:33:08.853 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160625010
+2016-06-25 15:33:08.853 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160625010
+2016-06-25 15:33:08.853 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160626001
+2016-06-25 15:33:08.853 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-25 15:33:08.863 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160626001
+2016-06-25 15:35:08.880 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:37:08.893 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:39:08.908 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:41:08.923 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:43:08.935 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:45:08.946 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:47:08.950 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:49:08.964 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:51:08.974 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:53:08.981 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:55:08.988 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:57:08.999 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 15:59:09.013 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:01:09.026 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:03:09.037 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:05:09.045 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:07:09.052 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:09:09.062 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:11:09.073 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:13:09.073 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:15:09.080 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:17:09.087 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:19:09.095 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:21:09.101 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:23:09.117 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:25:09.129 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:27:09.143 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:29:09.148 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:31:09.163 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:33:09.186 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:35:09.192 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:37:09.202 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:39:09.210 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:41:09.218 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:43:09.227 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:45:09.241 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:47:09.254 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:49:09.267 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:51:09.270 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:53:09.271 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:55:09.280 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:57:09.289 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 16:59:09.300 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 17:01:09.304 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 17:03:09.312 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 17:05:09.322 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 17:07:09.332 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 17:09:09.339 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001
+2016-06-25 17:11:09.355 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160626001

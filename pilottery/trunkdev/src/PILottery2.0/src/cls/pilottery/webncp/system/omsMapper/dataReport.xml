@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.webncp.system.dao.oms.DataReportDao">
+
+	<select id="getMaxDate" resultType="String" parameterType="cls.pilottery.webncp.system.model.Request3001Model">
+		select max(to_char(t.count_date,'yyyyMMdd')) as MAX_DATE from MIS_REPORT_NCP t 
+		where 1=1
+		<if test="gameCode != null and gameCode !=''">
+			and t.game_code = #{gameCode}
+		</if>
+		<if test="agencyCode != null and agencyCode !=''">
+			and t.agency_code = #{agencyCode}
+		</if>
+		 
+	</select>
+	<select id="get3003MaxDate" resultType="String" parameterType="cls.pilottery.webncp.system.model.Request3003Model">
+		select max(to_char(t.count_date,'yyyyMMdd')) COUNT_DATE 
+        from MIS_REPORT_3115 t where t.agency_code = #{agencyCode}  
+	</select>
+	
+	<select id="getSaleReportByDate" resultType="cls.pilottery.webncp.system.model.Response3001Record" parameterType="cls.pilottery.webncp.system.model.Request3001Model">
+		SELECT GAME_CODE GAMENAME,
+		       AGENCY_CODE AGENCYCODE,
+		       TO_CHAR (T.COUNT_DATE, 'YYYY-MM-DD') COUNTDATE,
+		       SUM (SALE_COUNT) SALECOUNT,
+		       SUM (SALE_SUM) SALEMONEY,
+		       SUM (CANCEL_COUNT) CANCELCOUNT,
+		       SUM (CANCEL_SUM) CANCELMONEY,
+		       SUM (PAY_COUNT) PAYOUTCOUNT,
+		       SUM (PAY_SUM) PAYOUTMONEY,
+		       (SUM (SALE_COUNT) - SUM (CANCEL_COUNT)) BALANCECOUNT,
+		       (SUM (SALE_SUM) - SUM (CANCEL_SUM)) BALANCEMONEY
+		  FROM MIS_REPORT_NCP T
+		 WHERE 1=1
+		<if test="gameCode != null and gameCode !=''">
+			 and t.GAME_CODE = #{gameCode}
+		</if>
+		<if test="agencyCode != null and agencyCode !=''">
+			 and t.AGENCY_CODE = #{agencyCode}
+		</if>
+		<if test="startDate != null and startDate !=''">
+			 and to_char(t.COUNT_DATE,'yyyymmdd') >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate !=''">
+			<![CDATA[  and to_char(t.COUNT_DATE,'yyyymmdd') <= #{endDate} ]]>
+		</if>
+		 GROUP BY TO_CHAR(T.COUNT_DATE,'YYYY-MM-DD'), T.GAME_CODE, T.AGENCY_CODE
+	</select>
+	<select id="getSaleReport" resultType="cls.pilottery.webncp.system.model.Response3002Record" parameterType="cls.pilottery.webncp.system.model.Request3002Model">
+	    select
+		    GAME_CODE gameCode,
+		    ISSUE_NUMBER issueNumber,
+		    sum(SALE_COUNT)  saleCount,
+		    sum(SALE_SUM)  saleMoney,
+		    sum(CANCEL_COUNT)  cancelCount,
+		    sum(CANCEL_SUM)  cancelMoney,
+		    sum(PAY_COUNT)  payoutCount,
+		    sum(PAY_SUM)  payoutMoney,
+		    (sum(SALE_COUNT) - sum(CANCEL_COUNT)) balanceCount,
+		    (sum(SALE_SUM) - sum(CANCEL_SUM)) balanceMoney from MIS_REPORT_NCP t where 1=1 
+		    <if test="gameCode != null and gameCode !=''">
+		        and t.GAME_CODE = #{gameCode} 
+		    </if>
+		    <if test="agencyCode != null and agencyCode !=''">
+		        and t.AGENCY_CODE = #{agencyCode} 
+		    </if>
+		    <if test="startIssue != null and startIssue !=''">
+		        and t.ISSUE_NUMBER between #{startIssue} and #{closeIssue} 
+		    </if>
+           group by t.ISSUE_NUMBER, t.AGENCY_CODE, t.GAME_CODE 
+           order by t.ISSUE_NUMBER desc
+    </select>
+	<select id="get3003Report" resultType="cls.pilottery.webncp.system.model.Response3003Model" parameterType="cls.pilottery.webncp.system.model.Request3003Model">
+	     select 
+		     BEFORE_AMOUNT bPeriodMoney,
+		     SALE_SUM saleMoney, 
+		     PAY_SUM prizeMoney,
+		     PURE_COMM_SUM offerOfSaleMoney, 
+		     CHARGE_SUM payInMoney, 
+		     AFTER_AMOUNT ePeriodMoney 
+	      from MIS_REPORT_3115 t 
+	     where t.AGENCY_CODE = #{agencyCode} 
+	     and to_date(to_char(t.COUNT_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') = to_date(#{accountDay},'yyyy-MM-dd')
+    </select>
+	<select id="get3005Report" resultType="cls.pilottery.webncp.system.model.Response3005Model" parameterType="cls.pilottery.webncp.system.model.Request3005Model">
+	    select to_char(COUNT_YEAR) || trim(to_char(COUNT_MONTH,'00')) as COUNT_MONTH, 
+		     BEFORE_AMOUNT bPeriodMoney, 
+		     SALE_SUM saleMoney, 
+		     PAY_SUM prizeMoney, 
+		     PURE_COMM_SUM offerOfSaleMoney, 
+		     CHARGE_SUM payInMoney, 
+		     AFTER_AMOUNT ePeriodMoney,
+		     CANCEL_OUT cancelOut, 
+		     CANCEL_IN cancelIn, 
+		     CANCEL_OTHER cancelOther
+	     from MIS_REPORT_3115 t 
+	     where t.AGENCY_CODE = #{agencyCode} and to_char(t.COUNT_DATE,'yyyy-MM-dd')='1960-01-01'  
+	     and t.COUNT_YEAR = to_number(#{year}) and t.COUNT_MONTH = to_number(#{month})
+    </select>
+
+	<select id="get3007Report" resultType="cls.pilottery.webncp.system.model.Response3007Model" parameterType="cls.pilottery.webncp.system.model.Request3007Model">
+		with acc_ageency_balance as
+ (select agency_code,
+         nvl(account_balance, 0) as account_balance,
+         nvl(credit_limit, 0) as credit_limit
+    from kws.acc_agency_account
+   where agency_code = #{agencyCode}),
+amount_balance as
+ (select agency_code,
+         sum(be_account_balance) as be_account_balance,
+         sum(af_account_balance) as af_account_balance
+    from kws.HIS_AGENCY_FUND
+   where agency_code = #{agencyCode}
+     and CALC_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+   group by agency_code),
+amount_details as
+ (select *
+    from (select agency_code, flow_type, amount
+            from kws.HIS_AGENCY_FUND
+           where agency_code = #{agencyCode}
+             and CALC_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')) pivot(sum(amount) for flow_type in(1 as
+                                                                                                pil_charge,
+                                                                                                2 as
+                                                                                                pil_withdraw,
+                                                                                                7 as
+                                                                                                pil_sale_amount,
+                                                                                                8 as
+                                                                                                pil_pay_amount,
+                                                                                                11 as
+                                                                                                pil_cancel_amount,
+                                                                                                5 as
+                                                                                                pil_sale_comms,
+                                                                                                6 as
+                                                                                                pil_pay_comms,
+                                                                                                13 as
+                                                                                                pil_cancel_comms))),
+pil_amount as
+ (select amount_balance.agency_code,
+         nvl(be_account_balance, 0) as beginbalance,
+         nvl(af_account_balance, 0) as endbalance,
+         nvl(pil_charge, 0) as topupamount,
+         nvl(pil_withdraw, 0) as cashoutamount,
+         nvl(pil_sale_amount, 0) as pilsales,
+         nvl(pil_pay_amount, 0) as pilpayount,
+         nvl(pil_cancel_amount, 0) as pilrefund,
+         nvl(pil_sale_comms, 0) as pilsalecomm,
+         nvl(pil_pay_comms, 0) as pilpayoutcomm,
+         nvl(pil_cancel_comms, 0) as pilrefundcomm
+    from amount_balance
+    left join amount_details
+      on amount_balance.agency_code = amount_details.agency_code),
+ctg_sale as
+ (select SALE_AGENCY,
+         sum(SALE_AMOUNT) as ctgsales,
+         sum(SALE_COMMISSION) as ctgsalecomm
+    from SUB_SELL
+   where SALE_AGENCY = #{agencyCode}
+     and SALE_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+   group by SALE_AGENCY),
+ctg_pay as
+ (select PAY_AGENCY,
+         sum(PAY_AMOUNT) as ctgpayout,
+         sum(PAY_COMMISSION) as ctgpayoutcomm
+    from SUB_PAY
+   where PAY_AGENCY = #{agencyCode}
+     and PAY_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+   group by PAY_AGENCY),
+ctg_cancel as
+ (select CANCEL_AGENCY,
+         sum(CANCEL_AMOUNT) as ctgrefund,
+         sum(CANCEL_COMMISSION) as ctgrefundcomm
+    from SUB_CANCEL
+   where CANCEL_AGENCY = #{agencyCode}
+     and CANCEL_DATE = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+   group by CANCEL_AGENCY)
+select 
+       nvl(account_balance, 0) as balance,
+       nvl(credit_limit, 0) as credit,
+       nvl(account_balance + credit_limit, 0) as available,
+       nvl(ctgsales, 0) as ctgSales,
+       nvl(pilsales, 0) as pilSales,
+       nvl(ctgpayout, 0) as ctgPayout,
+       nvl(pilpayount, 0) as pilPayout,
+       nvl(ctgrefund, 0) as ctgRefund,
+       nvl(pilrefund, 0) as pilRefund,
+       nvl(ctgsalecomm,0) + nvl(ctgpayoutcomm,0) + nvl(ctgrefundcomm, 0) as ctgComm,
+       nvl(pilsalecomm,0) + nvl(pilpayoutcomm,0) + nvl(pilrefundcomm, 0) as pilComm
+  from pil_amount
+  left join kws.acc_agency_account
+    on pil_amount.agency_code = acc_agency_account.agency_code
+  left join ctg_sale
+    on pil_amount.agency_code = ctg_sale.SALE_AGENCY
+  left join ctg_pay
+    on pil_amount.agency_code = ctg_pay.PAY_AGENCY
+  left join ctg_cancel
+    on pil_amount.agency_code = ctg_cancel.CANCEL_AGENCY
+
+
+    </select>
+
+	<select id="get3008Report" resultType="cls.pilottery.webncp.system.model.Response3008Model"
+		parameterType="cls.pilottery.webncp.system.model.Request3008Model">
+		with amount_balance as
+		 (select agency_code,
+		         sum(be_account_balance) as be_account_balance,
+		         sum(af_account_balance) as af_account_balance
+		    from KWS.HIS_AGENCY_FUND
+		   where agency_code = #{agencyCode}
+		     and CALC_DATE =
+		         to_char(to_date(#{accountDay}, 'yyyy-MM-dd'), 'yyyy-MM-dd')
+		   group by agency_code),
+		amount_details as
+		 (select *
+		    from (select agency_code, flow_type, amount
+		            from KWS.HIS_AGENCY_FUND
+		           where agency_code = #{agencyCode}
+		             and CALC_DATE =
+		                 to_char(to_date(#{accountDay}, 'yyyy-MM-dd'), 'yyyy-MM-dd')) pivot(sum(amount) for flow_type in(1 as
+			                   pil_charge,
+			                   2 as
+			                   pil_withdraw,
+			                   7 as
+			                   pil_sale_amount,
+			                   8 as
+			                   pil_pay_amount,
+			                   11 as
+			                   pil_cancel_amount,
+			                   5 as
+			                   pil_sale_comms,
+			                   6 as
+			                   pil_pay_comms,
+			                   13 as
+			                   pil_cancel_comms))),
+								pil_amount as
+		 (select amount_balance.agency_code,
+		         nvl(be_account_balance, 0) as beginbalance,
+		         nvl(af_account_balance, 0) as endbalance,
+		         nvl(pil_charge, 0) as topupamount,
+		         nvl(pil_withdraw, 0) as cashoutamount,
+		         nvl(pil_sale_amount, 0) as pilsales,
+		         nvl(pil_pay_amount, 0) as pilpayount,
+		         nvl(pil_cancel_amount, 0) as pilrefund,
+		         nvl(pil_sale_comms, 0) as pilsalecomm,
+		         nvl(pil_pay_comms, 0) as pilpayoutcomm,
+		         nvl(pil_cancel_comms, 0) as pilrefundcomm
+		    from amount_balance
+		    left join amount_details
+		      on amount_balance.agency_code = amount_details.agency_code),
+		ctg_sale as
+		 (select SALE_AGENCY,
+		         sum(SALE_AMOUNT) as ctgsales,
+		         sum(SALE_COMMISSION) as ctgsalecomm
+		    from SUB_SELL
+		   where SALE_AGENCY = #{agencyCode}
+		     and SALE_DATE =
+		         to_char(to_date(#{accountDay}, 'yyyy-MM-dd'), 'yyyy-MM-dd')
+		   group by SALE_AGENCY),
+		ctg_pay as
+		 (select PAY_AGENCY,
+		         sum(PAY_AMOUNT) as ctgpayout,
+		         sum(PAY_COMMISSION) as ctgpayoutcomm
+		    from SUB_PAY
+		   where PAY_AGENCY = #{agencyCode}
+		     and PAY_DATE =
+		         to_char(to_date(#{accountDay}, 'yyyy-MM-dd'), 'yyyy-MM-dd')
+		   group by PAY_AGENCY),
+		ctg_cancel as
+		 (select CANCEL_AGENCY,
+		         sum(CANCEL_AMOUNT) as ctgrefund,
+		         sum(CANCEL_COMMISSION) as ctgrefundcomm
+		    from SUB_CANCEL
+		   where CANCEL_AGENCY = #{agencyCode}
+		     and CANCEL_DATE =
+		         to_char(to_date(#{accountDay}, 'yyyy-MM-dd'), 'yyyy-MM-dd')
+		   group by CANCEL_AGENCY)
+		select nvl(beginbalance, 0) as beginBalance,
+		       nvl(endbalance, 0) as endBalance,
+		       nvl(topupamount, 0) as topupAmount,
+		       nvl(cashoutamount, 0) as cashOutAmount,
+		       nvl(ctgsales, 0) as ctgSales,
+		       nvl(pilsales, 0) as pilSales,
+		       nvl(ctgpayout, 0) as ctgPayout,
+		       nvl(pilpayount, 0) as pilPayout,
+		       nvl(ctgrefund, 0) as ctgRefund,
+		       nvl(pilrefund, 0) as pilRefund,
+		       nvl(ctgsalecomm, 0) as ctgSalesComm,
+		       nvl(pilsalecomm, 0) as pilSalesComm,
+		       nvl(ctgpayoutcomm, 0) as ctgPayoutComm,
+		       nvl(pilpayoutcomm, 0) as pilPayoutComm,
+		       nvl(ctgrefundcomm, 0) as ctgRefundComm,
+		       nvl(pilrefundcomm, 0) as pilRefundComm
+		  from pil_amount
+		  left join ctg_sale
+		    on pil_amount.agency_code = ctg_sale.SALE_AGENCY
+		  left join ctg_pay
+		    on pil_amount.agency_code = ctg_pay.PAY_AGENCY
+		  left join ctg_cancel
+		    on pil_amount.agency_code = ctg_cancel.CANCEL_AGENCY	
+    </select>
+
+	<select id="get3009Report" resultType="cls.pilottery.webncp.system.model.Response3009Model"
+		parameterType="cls.pilottery.webncp.system.model.Request3009Model">
+	<![CDATA[	
+		with amount_balance as
+		 (select agency_code,
+		         sum(be_account_balance) as be_account_balance,
+		         sum(af_account_balance) as af_account_balance
+		    from kws.HIS_AGENCY_FUND
+		   where agency_code = #{agencyCode}
+		     and CALC_DATE >
+		         to_char(to_date(#{accountMonth} || '01', 'yyyy-MM-dd'), 'yyyy-MM-dd')
+		     and CALC_DATE <
+		         to_char(add_months(to_date(#{accountMonth}, 'yyyy-mm'), 1), 'yyyy-mm-dd')
+		   group by agency_code),
+		
+		amount_details as
+		 (select *
+		    from (select agency_code, flow_type, amount
+		            from kws.HIS_AGENCY_FUND
+		           where agency_code = #{agencyCode}
+		             and CALC_DATE > to_char(to_date(#{accountMonth} || '01', 'yyyy-MM-dd'),
+		                                     'yyyy-MM-dd')
+		             and CALC_DATE <
+		                 to_char(add_months(to_date(#{accountMonth}, 'yyyy-mm'), 1),
+		                         'yyyy-mm-dd')) pivot(sum(amount) for flow_type in(1 as
+		                                                                           pil_charge,
+		                                                                           2 as
+		                                                                           pil_withdraw,
+		                                                                           7 as
+		                                                                           pil_sale_amount,
+		                                                                           8 as
+		                                                                           pil_pay_amount,
+		                                                                           11 as
+		                                                                           pil_cancel_amount,
+		                                                                           5 as
+		                                                                           pil_sale_comms,
+		                                                                           6 as
+		                                                                           pil_pay_comms,
+		                                                                           13 as
+		                                                                           pil_cancel_comms))),
+		pil_amount as
+		 (select amount_balance.agency_code,
+		         nvl(amount_balance.be_account_balance, 0) as beginbalance,
+		         nvl(amount_balance.af_account_balance, 0) as endbalance,
+		         nvl(pil_charge, 0) as topupamount,
+		         nvl(pil_withdraw, 0) as cashoutamount,
+		         nvl(pil_sale_amount, 0) as pilsales,
+		         nvl(pil_pay_amount, 0) as pilpayount,
+		         nvl(pil_cancel_amount, 0) as pilrefund,
+		         nvl(pil_sale_comms, 0) as pilsalecomm,
+		         nvl(pil_pay_comms, 0) as pilpayoutcomm,
+		         nvl(pil_cancel_comms, 0) as pilrefundcomm
+		    from amount_balance
+		    left join amount_details
+		      on amount_balance.agency_code = amount_details.agency_code),
+		ctg_sale as
+		 (select SALE_AGENCY,
+		         sum(SALE_AMOUNT) as ctgsales,
+		         sum(SALE_COMMISSION) as ctgsalecomm
+		    from SUB_SELL
+		   where SALE_AGENCY = #{agencyCode}
+		     and SALE_MONTH = to_char(to_date(#{accountMonth}, 'yyyy-MM'), 'yyyy-MM')
+		   group by SALE_AGENCY),
+		ctg_pay as
+		 (select PAY_AGENCY,
+		         sum(PAY_AMOUNT) as ctgpayout,
+		         sum(PAY_COMMISSION) as ctgpayoutcomm
+		    from SUB_PAY
+		   where PAY_AGENCY = #{agencyCode}
+		     and PAY_MONTH = to_char(to_date(#{accountMonth}, 'yyyy-MM'), 'yyyy-MM')
+		   group by PAY_AGENCY),
+		ctg_cancel as
+		 (select CANCEL_AGENCY,
+		         sum(CANCEL_AMOUNT) as ctgrefund,
+		         sum(CANCEL_COMMISSION) as ctgrefundcomm
+		    from SUB_CANCEL
+		   where CANCEL_AGENCY = #{agencyCode}
+		     and CANCEL_MONTH = to_char(to_date(#{accountMonth}, 'yyyy-MM'), 'yyyy-MM')
+		   group by CANCEL_AGENCY)
+		select nvl(beginbalance, 0) as beginBalance,
+		       nvl(endbalance, 0) as endBalance,
+		       nvl(topupamount, 0) as topupAmount,
+		       nvl(cashoutamount, 0) as cashOutAmount,
+		       nvl(ctgsales, 0) as ctgSales,
+		       nvl(pilsales, 0) as pilSales,
+		       nvl(ctgpayout, 0) as ctgPayout,
+		       nvl(pilpayount, 0) as pilPayout,
+		       nvl(ctgrefund, 0) as ctgRefund,
+		       nvl(pilrefund, 0) as pilRefund,
+		       nvl(ctgsalecomm, 0) as ctgSalesComm,
+		       nvl(pilsalecomm, 0) as pilSalesComm,
+		       nvl(ctgpayoutcomm, 0) as ctgPayoutComm,
+		       nvl(pilpayoutcomm, 0) as pilPayoutComm,
+		       nvl(ctgrefundcomm, 0) as ctgRefundComm,
+		       nvl(pilrefundcomm, 0) as pilRefundComm
+		  from pil_amount
+		  left join ctg_sale
+		    on pil_amount.agency_code = ctg_sale.SALE_AGENCY
+		  left join ctg_pay
+		    on pil_amount.agency_code = ctg_pay.PAY_AGENCY
+		  left join ctg_cancel
+		    on pil_amount.agency_code = ctg_cancel.CANCEL_AGENCY
+	]]>
+	</select>
+    
+</mapper>

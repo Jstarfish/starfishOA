@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.FlowPayMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.FlowPay" >
+    <id column="PAY_FLOW" property="payFlow" jdbcType="CHAR" />
+    <result column="PAY_AGENCY" property="payAgency" jdbcType="CHAR" />
+    <result column="AREA_CODE" property="areaCode" jdbcType="CHAR" />
+    <result column="PAY_COMM" property="payComm" jdbcType="DECIMAL" />
+    <result column="PAY_COMM_RATE" property="payCommRate" jdbcType="DECIMAL" />
+    <result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="REWARD_GROUP" property="rewardGroup" jdbcType="DECIMAL" />
+    <result column="TRUNK_NO" property="trunkNo" jdbcType="VARCHAR" />
+    <result column="BOX_NO" property="boxNo" jdbcType="DECIMAL" />
+    <result column="PACKAGE_NO" property="packageNo" jdbcType="VARCHAR" />
+    <result column="TICKET_NO" property="ticketNo" jdbcType="DECIMAL" />
+    <result column="SECURITY_CODE" property="securityCode" jdbcType="VARCHAR" />
+    <result column="IDENTITY_CODE" property="identityCode" jdbcType="VARCHAR" />
+    <result column="PAY_AMOUNT" property="payAmount" jdbcType="DECIMAL" />
+    <result column="REWARD_LEVEL" property="rewardLevel" jdbcType="DECIMAL" />
+    <result column="LOTTERY_AMOUNT" property="lotteryAmount" jdbcType="DECIMAL" />
+    <result column="PAY_TIME" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="PAYER_ADMIN" property="payerAdmin" jdbcType="DECIMAL" />
+    <result column="PAYER_NAME" property="payerName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PAY_FLOW, PAY_AGENCY, AREA_CODE, PAY_COMM, PAY_COMM_RATE, PLAN_CODE, BATCH_NO, REWARD_GROUP, 
+    TRUNK_NO, BOX_NO, PACKAGE_NO, TICKET_NO, SECURITY_CODE, IDENTITY_CODE, PAY_AMOUNT, 
+    REWARD_LEVEL, LOTTERY_AMOUNT, PAY_TIME, PAYER_ADMIN, PAYER_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FLOW_PAY
+    where PAY_FLOW = #{payFlow,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FLOW_PAY
+    where PAY_FLOW = #{payFlow,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.FlowPay" >
+    insert into FLOW_PAY (PAY_FLOW, PAY_AGENCY, AREA_CODE, 
+      PAY_COMM, PAY_COMM_RATE, PLAN_CODE, 
+      BATCH_NO, REWARD_GROUP, TRUNK_NO, 
+      BOX_NO, PACKAGE_NO, TICKET_NO, 
+      SECURITY_CODE, IDENTITY_CODE, PAY_AMOUNT, 
+      REWARD_LEVEL, LOTTERY_AMOUNT, PAY_TIME, 
+      PAYER_ADMIN, PAYER_NAME)
+    values (#{payFlow,jdbcType=CHAR}, #{payAgency,jdbcType=CHAR}, #{areaCode,jdbcType=CHAR}, 
+      #{payComm,jdbcType=DECIMAL}, #{payCommRate,jdbcType=DECIMAL}, #{planCode,jdbcType=VARCHAR}, 
+      #{batchNo,jdbcType=VARCHAR}, #{rewardGroup,jdbcType=DECIMAL}, #{trunkNo,jdbcType=VARCHAR}, 
+      #{boxNo,jdbcType=DECIMAL}, #{packageNo,jdbcType=VARCHAR}, #{ticketNo,jdbcType=DECIMAL}, 
+      #{securityCode,jdbcType=VARCHAR}, #{identityCode,jdbcType=VARCHAR}, #{payAmount,jdbcType=DECIMAL}, 
+      #{rewardLevel,jdbcType=DECIMAL}, #{lotteryAmount,jdbcType=DECIMAL}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{payerAdmin,jdbcType=DECIMAL}, #{payerName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.FlowPay" >
+    insert into FLOW_PAY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payFlow != null" >
+        PAY_FLOW,
+      </if>
+      <if test="payAgency != null" >
+        PAY_AGENCY,
+      </if>
+      <if test="areaCode != null" >
+        AREA_CODE,
+      </if>
+      <if test="payComm != null" >
+        PAY_COMM,
+      </if>
+      <if test="payCommRate != null" >
+        PAY_COMM_RATE,
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE,
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO,
+      </if>
+      <if test="rewardGroup != null" >
+        REWARD_GROUP,
+      </if>
+      <if test="trunkNo != null" >
+        TRUNK_NO,
+      </if>
+      <if test="boxNo != null" >
+        BOX_NO,
+      </if>
+      <if test="packageNo != null" >
+        PACKAGE_NO,
+      </if>
+      <if test="ticketNo != null" >
+        TICKET_NO,
+      </if>
+      <if test="securityCode != null" >
+        SECURITY_CODE,
+      </if>
+      <if test="identityCode != null" >
+        IDENTITY_CODE,
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT,
+      </if>
+      <if test="rewardLevel != null" >
+        REWARD_LEVEL,
+      </if>
+      <if test="lotteryAmount != null" >
+        LOTTERY_AMOUNT,
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME,
+      </if>
+      <if test="payerAdmin != null" >
+        PAYER_ADMIN,
+      </if>
+      <if test="payerName != null" >
+        PAYER_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payFlow != null" >
+        #{payFlow,jdbcType=CHAR},
+      </if>
+      <if test="payAgency != null" >
+        #{payAgency,jdbcType=CHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="payComm != null" >
+        #{payComm,jdbcType=DECIMAL},
+      </if>
+      <if test="payCommRate != null" >
+        #{payCommRate,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardGroup != null" >
+        #{rewardGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="trunkNo != null" >
+        #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="boxNo != null" >
+        #{boxNo,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNo != null" >
+        #{packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNo != null" >
+        #{ticketNo,jdbcType=DECIMAL},
+      </if>
+      <if test="securityCode != null" >
+        #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCode != null" >
+        #{identityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rewardLevel != null" >
+        #{rewardLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="lotteryAmount != null" >
+        #{lotteryAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payerAdmin != null" >
+        #{payerAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="payerName != null" >
+        #{payerName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.FlowPay" >
+    update FLOW_PAY
+    <set >
+      <if test="payAgency != null" >
+        PAY_AGENCY = #{payAgency,jdbcType=CHAR},
+      </if>
+      <if test="areaCode != null" >
+        AREA_CODE = #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="payComm != null" >
+        PAY_COMM = #{payComm,jdbcType=DECIMAL},
+      </if>
+      <if test="payCommRate != null" >
+        PAY_COMM_RATE = #{payCommRate,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardGroup != null" >
+        REWARD_GROUP = #{rewardGroup,jdbcType=DECIMAL},
+      </if>
+      <if test="trunkNo != null" >
+        TRUNK_NO = #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="boxNo != null" >
+        BOX_NO = #{boxNo,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNo != null" >
+        PACKAGE_NO = #{packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNo != null" >
+        TICKET_NO = #{ticketNo,jdbcType=DECIMAL},
+      </if>
+      <if test="securityCode != null" >
+        SECURITY_CODE = #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCode != null" >
+        IDENTITY_CODE = #{identityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rewardLevel != null" >
+        REWARD_LEVEL = #{rewardLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="lotteryAmount != null" >
+        LOTTERY_AMOUNT = #{lotteryAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payerAdmin != null" >
+        PAYER_ADMIN = #{payerAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="payerName != null" >
+        PAYER_NAME = #{payerName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAY_FLOW = #{payFlow,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.FlowPay" >
+    update FLOW_PAY
+    set PAY_AGENCY = #{payAgency,jdbcType=CHAR},
+      AREA_CODE = #{areaCode,jdbcType=CHAR},
+      PAY_COMM = #{payComm,jdbcType=DECIMAL},
+      PAY_COMM_RATE = #{payCommRate,jdbcType=DECIMAL},
+      PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+      REWARD_GROUP = #{rewardGroup,jdbcType=DECIMAL},
+      TRUNK_NO = #{trunkNo,jdbcType=VARCHAR},
+      BOX_NO = #{boxNo,jdbcType=DECIMAL},
+      PACKAGE_NO = #{packageNo,jdbcType=VARCHAR},
+      TICKET_NO = #{ticketNo,jdbcType=DECIMAL},
+      SECURITY_CODE = #{securityCode,jdbcType=VARCHAR},
+      IDENTITY_CODE = #{identityCode,jdbcType=VARCHAR},
+      PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      REWARD_LEVEL = #{rewardLevel,jdbcType=DECIMAL},
+      LOTTERY_AMOUNT = #{lotteryAmount,jdbcType=DECIMAL},
+      PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      PAYER_ADMIN = #{payerAdmin,jdbcType=DECIMAL},
+      PAYER_NAME = #{payerName,jdbcType=VARCHAR}
+    where PAY_FLOW = #{payFlow,jdbcType=CHAR}
+  </update>
+</mapper>

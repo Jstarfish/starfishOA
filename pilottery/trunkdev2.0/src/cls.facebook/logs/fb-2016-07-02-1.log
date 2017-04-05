@@ -1,0 +1,615 @@
+2016-07-02 08:52:22.593 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:53:36.838 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:54:36.669 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:55:36.685 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:56:36.693 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:57:36.703 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:58:36.714 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 08:59:36.724 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:00:36.726 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:01:36.740 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:02:36.742 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:03:36.756 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:04:36.760 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:05:36.774 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:06:36.775 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:07:36.789 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:08:36.805 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:09:36.819 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:10:36.833 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:11:36.847 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:12:36.863 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:13:36.877 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:14:36.891 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:15:36.892 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:16:36.906 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:17:36.921 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:18:36.936 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:19:36.944 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:20:36.952 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:21:36.966 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:22:36.980 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:23:36.995 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:24:37.009 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:25:37.023 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:26:37.038 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:27:45.976 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:27:45.976 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:27:45.976 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:27:46.070 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:27:46.101 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBAFxQjU45HZAZAJD4Oj5kJ7IBS2saafXIK2qO70o5fun9eWG2PgSCTjb594yNRVTlRXB6emWOaszk9mnZBHRCTzY46F0ImPZCfeZAw1QZAjmWXOBjomkwV9DX5Pq5qQCyrgIuZAFpZCZAnysJaeYr29uIZD&client_id=554017678113169
+2016-07-02 09:27:46.975 | INFO  | main       | .config.SysParameter:86    | System begin to save key:facebook.accesstoken
+2016-07-02 09:27:46.975 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=EAAH34ErnOZAEBAL5ZBEWEXV2LrLI1RIZAnbxBdC3uu8lCRFsMDqAgusl1UxhaeGgUZBZBcSneTJIqkjTVXQQzWh2dqTKDZCWQPghSVMPdXgFbsbqA1lc890IynHRdv7ifD124IYn867MCD9ZBBrcDwF0LZBZBZC0VVoi4ZD
+2016-07-02 09:27:46.975 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:28:46.990 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:29:47.004 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:30:52.045 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:30:52.060 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:30:52.060 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:30:52.154 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:31:20.967 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBAL5ZBEWEXV2LrLI1RIZAnbxBdC3uu8lCRFsMDqAgusl1UxhaeGgUZBZBcSneTJIqkjTVXQQzWh2dqTKDZCWQPghSVMPdXgFbsbqA1lc890IynHRdv7ifD124IYn867MCD9ZBBrcDwF0LZBZBZC0VVoi4ZD&client_id=554017678113169
+2016-07-02 09:31:36.911 | INFO  | main       | .config.SysParameter:86    | System begin to save key:facebook.accesstoken
+2016-07-02 09:31:36.927 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=EAAH34ErnOZAEBAGtHLYysvpgroGXnJNZCYtcPMilNgHdzjxbrmPHLL3tGufqCn9l3r6ubRaM1s6pVhoE6J5TXF5TZBnNuaWCZAqDvzF6hKs3yqEAIl4z8IsY9b0CySjI1PU76wZBCZBXOmJDqOSat9LJVWy5f1jZA0ZD
+2016-07-02 09:31:36.927 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:32:36.941 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:33:17.300 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:33:17.316 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:33:17.332 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:33:17.425 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:33:17.472 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBAGtHLYysvpgroGXnJNZCYtcPMilNgHdzjxbrmPHLL3tGufqCn9l3r6ubRaM1s6pVhoE6J5TXF5TZBnNuaWCZAqDvzF6hKs3yqEAIl4z8IsY9b0CySjI1PU76wZBCZBXOmJDqOSat9LJVWy5f1jZA0ZD&client_id=554017678113169
+2016-07-02 09:33:18.424 | INFO  | main       | .config.SysParameter:86    | System begin to save key:facebook.accesstoken
+2016-07-02 09:33:18.424 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=EAAH34ErnOZAEBAL4W9mXMyYq9ZBxBeZBX3LnN2p7CA5OQ0Llib5YCyUfYVuH4p0aTebRHEFZB8g6gk1kEDtYkNFLS0f4SZCCawvAmJY8spIYXrVXvVQomrwFbTycfubZA8Cncx08lZAZAOIn0Voqkrzk4aXylKZBq0VYZD
+2016-07-02 09:33:18.424 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:35:45.234 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:35:45.234 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:35:45.250 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:35:45.343 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:35:45.375 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBAL4W9mXMyYq9ZBxBeZBX3LnN2p7CA5OQ0Llib5YCyUfYVuH4p0aTebRHEFZB8g6gk1kEDtYkNFLS0f4SZCCawvAmJY8spIYXrVXvVQomrwFbTycfubZA8Cncx08lZAZAOIn0Voqkrzk4aXylKZBq0VYZD&client_id=554017678113169
+2016-07-02 09:35:46.357 | INFO  | main       | .config.SysParameter:86    | System begin to save key:facebook.accesstoken
+2016-07-02 09:35:46.373 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=EAAH34ErnOZAEBALSnDqTHbHB4YFJm7wP7dqeTTAaeZAFAlqY3Jn7JyRDmU1Oz3toCGv4tadwjNI7dLSuFyk7Si4YFQOwsTjwh8dv4fd7UcHhRG3ll0AvABCNFdum6tZBM50dILeZASslTZCqzdAq2Hv8UfIs7vE4ZD
+2016-07-02 09:35:46.373 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:37:21.635 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:37:21.650 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:37:21.650 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:37:21.744 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:37:21.791 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBALSnDqTHbHB4YFJm7wP7dqeTTAaeZAFAlqY3Jn7JyRDmU1Oz3toCGv4tadwjNI7dLSuFyk7Si4YFQOwsTjwh8dv4fd7UcHhRG3ll0AvABCNFdum6tZBM50dILeZASslTZCqzdAq2Hv8UfIs7vE4ZD&client_id=554017678113169
+2016-07-02 09:37:22.727 | INFO  | main       | .config.SysParameter:86    | System begin to save key:facebook.accesstoken
+2016-07-02 09:37:22.742 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=EAAH34ErnOZAEBAMZA3fSZBM7C1ncqZBhlz68ZA3FgyhFJtJt29h7eHZByPmJMh1ZBHbbbxZANjTpJnMeddo9x0sgxZB2tFkFQweHbPKR3ZAqB06I91UMzXcaoTRT3GGrdAw0QOIzZCZBqYVkwPYn7mRzFd7JihNP4lquc7sZD
+2016-07-02 09:37:22.742 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:38:01.402 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:38:14.303 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:38:14.303 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:38:14.507 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:38:14.601 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBAMZA3fSZBM7C1ncqZBhlz68ZA3FgyhFJtJt29h7eHZByPmJMh1ZBHbbbxZANjTpJnMeddo9x0sgxZB2tFkFQweHbPKR3ZAqB06I91UMzXcaoTRT3GGrdAw0QOIzZCZBqYVkwPYn7mRzFd7JihNP4lquc7sZD&client_id=554017678113169
+2016-07-02 09:38:17.182 | INFO  | main       | .config.SysParameter:86    | System begin to save key:facebook.accesstoken
+2016-07-02 09:38:17.216 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=EAAH34ErnOZAEBAJdYCc67MCEsMehmdChPNyCJMTifvXKl2we7VsWzCG50mnjzb5FA11jH0CqJm5AWrLGWoJ53GKrZAo15nYGSKcccjM9AaEy6zBwVOHo4kwMxId6Aipwe9W0riID9ZAEHXmtKZAumzqF2TgAhCYZD
+2016-07-02 09:38:17.216 | INFO  | main       | mpl.FreshTokenThread:38    | fresh token alive ...
+2016-07-02 09:39:06.014 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 09:39:18.588 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 09:39:18.729 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 09:39:18.729 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 09:39:29.308 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160701009
+2016-07-02 09:39:29.308 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 09:39:33.379 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614607475516584) ,message is: Lucky 5, issue no. 160701009 ,winning number is:9,7,5,8,4,url = http://kpwlottery.com/index.php/km?issue=160701009&wincode=9,7,5,8,4
+2016-07-02 09:39:33.379 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160701009
+2016-07-02 09:39:43.286 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160701010
+2016-07-02 09:39:43.286 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 09:39:43.302 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160701010
+2016-07-02 09:40:43.356 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160701010
+2016-07-02 09:40:43.356 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 09:40:46.349 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614607695516562) ,message is: Lucky 5, issue no. 160701010 ,winning number is:6,10,7,9,11,url = http://kpwlottery.com/index.php/km?issue=160701010&wincode=6,10,7,9,11
+2016-07-02 09:40:46.349 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160701010
+2016-07-02 09:40:46.349 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160701011
+2016-07-02 09:40:46.349 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 09:40:46.349 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160701011
+2016-07-02 09:41:46.429 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160701011
+2016-07-02 09:41:46.429 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 09:41:49.133 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614607848849880) ,message is: Lucky 5, issue no. 160701011 ,winning number is:3,9,5,1,11,url = http://kpwlottery.com/index.php/km?issue=160701011&wincode=3,9,5,1,11
+2016-07-02 09:41:49.133 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160701011
+2016-07-02 09:41:49.133 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160701012
+2016-07-02 09:41:49.133 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 09:41:49.149 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160701012
+2016-07-02 09:42:49.233 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160701012
+2016-07-02 09:42:49.233 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 09:42:51.531 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614613732182625) ,message is: Lucky 5, issue no. 160701012 ,winning number is:1,7,3,9,2,url = http://kpwlottery.com/index.php/km?issue=160701012&wincode=1,7,3,9,2
+2016-07-02 09:42:51.531 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160701012
+2016-07-02 09:42:51.546 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160702001
+2016-07-02 09:42:51.546 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 09:42:51.546 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702001
+2016-07-02 09:43:51.607 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702001
+2016-07-02 09:43:51.607 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 09:43:54.028 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614626002181398) ,message is: Lucky 5, issue no. 160702001 ,winning number is:3,11,8,2,7,url = http://kpwlottery.com/index.php/km?issue=160702001&wincode=3,11,8,2,7
+2016-07-02 09:43:54.028 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160702001
+2016-07-02 09:43:54.028 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160702002
+2016-07-02 09:43:54.028 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 09:43:54.044 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702002
+2016-07-02 09:44:54.111 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702002
+2016-07-02 09:44:54.111 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 09:44:56.424 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614629265514405) ,message is: Lucky 5, issue no. 160702002 ,winning number is:10,11,6,1,5,url = http://kpwlottery.com/index.php/km?issue=160702002&wincode=10,11,6,1,5
+2016-07-02 09:44:56.424 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160702002
+2016-07-02 09:44:56.424 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160702003
+2016-07-02 09:44:56.424 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 09:44:56.439 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702003
+2016-07-02 09:45:56.500 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702003
+2016-07-02 09:46:56.545 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702003
+2016-07-02 09:47:56.616 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702003
+2016-07-02 09:48:56.665 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702003
+2016-07-02 09:49:56.674 | ERROR | main       | .ncpimpl.IssueThread:146   | post curr issue info error over 3 time.system exit ... curr issue :160702003
+2016-07-02 10:28:46.324 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 10:28:46.324 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 10:28:46.418 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 10:28:46.418 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 10:28:46.886 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702003
+2016-07-02 10:28:46.886 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 10:28:49.433 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614640415513290) ,message is: Lucky 5, issue no. 160702003 ,winning number is:5,10,1,11,6,url = http://kpwlottery.com/index.php/km?issue=160702003&wincode=5,10,1,11,6
+2016-07-02 10:28:49.433 | INFO  | main       | .ncpimpl.IssueThread:107   | post curr issue info success ... curr issue :160702003
+2016-07-02 10:28:49.433 | INFO  | main       | .ncpimpl.IssueThread:122   | System change curr issue to :160702004
+2016-07-02 10:28:49.433 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 10:28:49.448 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702004
+2016-07-02 10:29:49.488 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702004
+2016-07-02 10:30:49.527 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702004
+2016-07-02 10:31:49.575 | ERROR | main       | .ncpimpl.IssueThread:133   | get ncp currissue error160702004
+2016-07-02 10:36:15.740 | INFO  | main       | StartService        :18    | System Started ......
+2016-07-02 10:36:15.740 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-07-02 10:36:15.833 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-07-02 10:36:15.833 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-07-02 10:37:16.291 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:39:16.338 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:41:16.385 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:43:16.432 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:45:16.476 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:47:16.530 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:49:16.573 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:51:16.620 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:53:16.665 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:55:16.715 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:57:16.759 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 10:59:16.816 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702004
+2016-07-02 11:00:16.908 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702004
+2016-07-02 11:00:16.908 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 11:00:19.624 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614646925512639) ,message is: Lucky 5, issue no. 160702004 ,winning number is:7,4,1,10,8,url = http://kpwlottery.com/index.php/km?issue=160702004&wincode=7,4,1,10,8
+2016-07-02 11:00:19.624 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702004
+2016-07-02 11:00:19.624 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702005
+2016-07-02 11:00:19.624 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 11:00:19.640 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702005
+2016-07-02 11:02:19.686 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:04:19.723 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:06:19.776 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:08:19.827 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:10:19.885 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:12:19.927 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:14:19.966 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:16:20.010 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:18:20.046 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:20:20.089 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:22:20.129 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:24:20.171 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:26:20.214 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:28:20.251 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:30:20.302 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:32:20.450 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:34:20.523 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:36:20.561 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:38:20.600 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:40:20.638 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:42:20.678 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:44:20.715 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:46:20.754 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:48:20.791 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:50:20.837 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:52:20.882 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:54:20.924 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:56:20.973 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 11:58:21.021 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 12:00:21.146 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702005
+2016-07-02 12:01:24.213 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702005
+2016-07-02 12:01:24.213 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 12:01:26.821 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614660285511303) ,message is: Lucky 5, issue no. 160702005 ,winning number is:4,9,1,8,7,url = http://kpwlottery.com/index.php/km?issue=160702005&wincode=4,9,1,8,7
+2016-07-02 12:01:26.821 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702005
+2016-07-02 12:01:26.821 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702006
+2016-07-02 12:01:26.821 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 12:01:26.837 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702006
+2016-07-02 12:03:26.881 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:05:26.930 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:07:26.985 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:09:27.036 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:11:27.085 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:13:27.130 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:15:27.168 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:17:27.208 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:19:27.263 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:21:27.313 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:23:27.368 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:25:27.419 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:27:27.465 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:29:27.536 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:31:27.592 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:33:27.643 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:35:30.702 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:37:30.748 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:39:30.784 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:41:30.847 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:43:30.898 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:45:30.937 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:47:30.987 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:49:31.038 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:51:31.093 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:53:31.143 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:55:31.189 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:57:31.233 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 12:59:31.293 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702006
+2016-07-02 13:00:31.348 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702006
+2016-07-02 13:00:31.348 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 13:00:34.032 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614679962176002) ,message is: Lucky 5, issue no. 160702006 ,winning number is:8,11,4,7,5,url = http://kpwlottery.com/index.php/km?issue=160702006&wincode=8,11,4,7,5
+2016-07-02 13:00:34.032 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702006
+2016-07-02 13:00:34.032 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702007
+2016-07-02 13:00:34.032 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 13:00:34.032 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702007
+2016-07-02 13:02:34.099 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:04:34.150 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:06:34.207 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:08:34.264 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:10:34.315 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:12:34.354 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:14:34.402 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:16:34.445 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:18:34.485 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:20:34.534 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:22:34.578 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:24:34.626 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:26:34.661 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:28:34.707 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:30:34.741 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:32:34.781 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:34:34.839 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:36:34.878 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:38:34.918 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:40:34.967 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:42:35.003 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:44:35.049 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:46:35.097 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:48:35.140 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:50:35.183 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:52:35.224 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:54:35.256 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:56:35.291 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 13:58:35.329 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 14:00:35.363 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702007
+2016-07-02 14:01:35.414 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702007
+2016-07-02 14:01:35.414 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 14:01:37.755 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614722388838426) ,message is: Lucky 5, issue no. 160702007 ,winning number is:11,2,10,9,3,url = http://kpwlottery.com/index.php/km?issue=160702007&wincode=11,2,10,9,3
+2016-07-02 14:01:37.755 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702007
+2016-07-02 14:01:37.755 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702008
+2016-07-02 14:01:37.755 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 14:01:37.765 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702008
+2016-07-02 14:03:37.806 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:05:37.850 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:07:37.885 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:09:37.927 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:11:37.963 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:13:38.003 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:15:38.043 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:17:38.086 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:19:38.132 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:21:38.173 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:23:38.225 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:25:38.268 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:27:38.308 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:29:38.345 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:31:38.389 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:33:38.447 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:35:38.489 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:37:38.529 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:39:38.575 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:41:38.614 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:43:38.657 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:45:38.696 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:47:38.741 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:49:38.799 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:51:38.831 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:53:38.881 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:55:38.921 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:57:38.961 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 14:59:38.993 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702008
+2016-07-02 15:00:39.043 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702008
+2016-07-02 15:00:39.043 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 15:00:41.514 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614756905501641) ,message is: Lucky 5, issue no. 160702008 ,winning number is:8,9,7,10,5,url = http://kpwlottery.com/index.php/km?issue=160702008&wincode=8,9,7,10,5
+2016-07-02 15:00:41.514 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702008
+2016-07-02 15:00:41.514 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702009
+2016-07-02 15:00:41.514 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 15:00:41.524 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702009
+2016-07-02 15:02:41.570 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:04:41.624 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:06:41.663 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:08:41.720 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:10:41.773 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:12:41.818 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:14:41.864 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:16:41.906 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:18:41.951 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:20:41.997 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:22:42.030 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:24:42.069 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:26:42.108 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:28:42.165 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:30:42.211 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:32:42.247 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:34:42.289 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:36:42.335 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:38:42.384 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:40:42.422 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:42:42.465 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:44:42.499 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:46:42.546 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:48:42.600 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:50:42.649 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:52:42.697 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:54:42.753 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:56:42.796 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 15:58:42.834 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 16:00:42.888 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702009
+2016-07-02 16:01:42.949 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702009
+2016-07-02 16:01:42.949 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 16:01:45.306 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614787392165259) ,message is: Lucky 5, issue no. 160702009 ,winning number is:11,1,5,2,8,url = http://kpwlottery.com/index.php/km?issue=160702009&wincode=11,1,5,2,8
+2016-07-02 16:01:45.306 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702009
+2016-07-02 16:01:45.306 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702010
+2016-07-02 16:01:45.306 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 16:01:45.306 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702010
+2016-07-02 16:03:45.354 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:05:45.400 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:07:45.456 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:09:45.501 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:11:45.544 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:13:45.597 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:15:45.645 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:17:45.703 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:19:45.746 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:21:45.792 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:23:45.836 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:25:45.884 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:27:45.931 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:29:45.980 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:31:46.028 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:33:46.074 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:35:46.129 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:37:46.171 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:39:46.234 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:41:46.282 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:43:46.337 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:45:46.388 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:47:46.437 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:49:46.493 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:51:46.547 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:53:46.592 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:55:46.640 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:57:46.688 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 16:59:46.739 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702010
+2016-07-02 17:00:46.785 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702010
+2016-07-02 17:00:46.785 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 17:00:49.084 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614807252163273) ,message is: Lucky 5, issue no. 160702010 ,winning number is:1,8,6,3,9,url = http://kpwlottery.com/index.php/km?issue=160702010&wincode=1,8,6,3,9
+2016-07-02 17:00:49.084 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702010
+2016-07-02 17:00:49.085 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702011
+2016-07-02 17:00:49.085 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 17:00:49.089 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702011
+2016-07-02 17:02:49.119 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:04:49.156 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:06:49.191 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:08:49.234 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:10:49.273 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:12:49.311 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:14:49.353 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:16:49.390 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:18:49.431 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:20:49.486 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:22:49.520 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:24:49.556 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:26:49.594 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:28:49.630 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:30:49.636 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:32:49.693 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:34:49.735 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:36:49.795 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:38:49.834 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:40:49.872 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:42:49.919 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:44:49.956 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:46:50.010 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:48:50.051 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:50:50.099 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:52:50.133 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:54:50.170 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:56:50.208 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 17:58:50.246 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 18:00:50.282 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702011
+2016-07-02 18:01:50.327 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702011
+2016-07-02 18:01:50.327 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 18:01:53.040 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614818848828780) ,message is: Lucky 5, issue no. 160702011 ,winning number is:6,11,5,4,9,url = http://kpwlottery.com/index.php/km?issue=160702011&wincode=6,11,5,4,9
+2016-07-02 18:01:53.040 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702011
+2016-07-02 18:01:53.040 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160702012
+2016-07-02 18:01:53.040 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 18:01:53.043 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160702012
+2016-07-02 18:03:53.081 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:05:53.114 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:07:53.152 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:09:53.188 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:11:53.224 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:13:53.261 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:15:53.296 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:17:53.337 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:19:53.376 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:21:53.415 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:23:53.450 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:25:53.494 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:27:53.538 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:29:53.576 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:31:53.614 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:33:53.660 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:35:53.694 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:37:53.734 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:39:53.775 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:41:53.819 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:43:53.864 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:45:53.903 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:47:53.941 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:49:53.976 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:51:54.012 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:53:54.047 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:55:54.086 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:57:54.120 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 18:59:54.158 | INFO  | main       | .ncpimpl.IssueThread:102   | not get the issue info ......waiting for next time .160702012
+2016-07-02 19:00:54.206 | INFO  | main       | .ncpimpl.IssueThread:96    | get ncp curr issue info success... curr issue :160702012
+2016-07-02 19:00:54.207 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-07-02 19:00:56.678 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1614832208827444) ,message is: Lucky 5, issue no. 160702012 ,winning number is:7,5,6,1,10,url = http://kpwlottery.com/index.php/km?issue=160702012&wincode=7,5,6,1,10
+2016-07-02 19:00:56.679 | INFO  | main       | .ncpimpl.IssueThread:111   | post curr issue info success ... curr issue :160702012
+2016-07-02 19:00:56.679 | INFO  | main       | .ncpimpl.IssueThread:126   | System change curr issue to :160703001
+2016-07-02 19:00:56.679 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-07-02 19:00:56.683 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160703001
+2016-07-02 19:02:56.685 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:04:56.687 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:06:56.693 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:08:56.696 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:10:56.697 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:12:56.700 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:14:56.702 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:16:56.704 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:18:56.705 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:20:56.707 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:22:56.709 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:24:56.711 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:26:56.714 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:28:56.717 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:30:56.720 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:32:56.722 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:34:56.723 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:36:56.727 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:38:56.729 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:40:56.733 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:42:56.737 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:44:56.739 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:46:56.742 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:48:56.743 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:50:56.747 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:52:56.750 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:54:56.751 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:56:56.754 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 19:58:56.758 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:00:56.762 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:02:56.763 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:04:56.765 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:06:56.768 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:08:56.772 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:10:56.775 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:12:56.778 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:14:56.782 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:16:56.785 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:18:56.788 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:20:56.790 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:22:56.793 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:24:56.796 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:26:56.801 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:28:56.803 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:30:56.804 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:32:56.804 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:34:56.805 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:36:56.809 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:38:56.810 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:40:56.811 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:42:56.813 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:44:56.814 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:46:56.814 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:48:56.961 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:50:57.006 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:52:57.007 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:54:57.042 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:56:57.043 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 20:58:57.081 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:00:57.116 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:02:57.117 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:04:57.118 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:06:57.119 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:08:57.120 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:10:57.121 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:12:57.122 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:14:57.123 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:16:57.123 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:18:57.124 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:20:57.125 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:22:57.126 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:24:57.169 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:26:57.206 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:28:57.268 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:30:57.306 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:32:57.354 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:34:57.400 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:36:57.450 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:38:57.473 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:40:57.492 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:42:57.507 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:44:57.523 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:46:57.528 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:48:57.540 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:50:57.581 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:52:57.591 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:54:57.601 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:56:57.612 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 21:58:57.618 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:00:57.627 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:02:57.643 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:04:57.650 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:06:57.660 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:08:57.660 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:10:57.672 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:12:57.685 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:14:57.694 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:16:57.701 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:18:57.708 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:20:57.719 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:22:57.723 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:24:57.728 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:26:57.733 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:28:57.737 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:30:57.751 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:32:57.766 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:34:57.772 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:36:57.827 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:38:57.831 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:40:57.840 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:42:57.858 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:44:57.867 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:46:57.875 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:48:57.888 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:50:57.904 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:52:57.917 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:54:57.924 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:56:57.938 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 22:58:57.951 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:00:57.715 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:02:57.725 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:04:57.735 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:06:57.745 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:08:57.754 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:10:57.771 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:12:57.782 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:14:57.784 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:16:57.797 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:18:57.807 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:20:57.819 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:22:57.821 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:24:57.823 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:26:57.828 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:28:57.828 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:30:57.831 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:32:57.841 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:34:57.847 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:36:57.858 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:38:57.868 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:40:57.877 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:42:57.924 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:44:57.977 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:46:57.993 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:48:57.995 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:50:58.004 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:52:58.018 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:54:58.030 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:56:58.045 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001
+2016-07-02 23:58:58.063 | INFO  | main       | .ncpimpl.IssueThread:73    | todays issue has finished ....next issue ..160703001

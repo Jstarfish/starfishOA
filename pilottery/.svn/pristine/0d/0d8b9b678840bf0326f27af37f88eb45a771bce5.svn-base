@@ -1,0 +1,136 @@
+package cls.taishan.system.model;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+import cls.taishan.common.entity.BaseForm;
+
+public class User extends BaseForm  {
+
+	private static final long serialVersionUID = 4886146712942662664L;
+	private Long id;
+	private String realName; // 真实姓名
+	private String loginId; // 账户
+	private String password; // 密码
+	private Integer gender; // 性别
+	private String email; // email
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthday; // 生日
+	private String phone;// 移动电话
+	private String address; // 地址
+	private Integer status; // (1-可用，2-删除，3-由于密码原因停用)
+	@JSONField (format="yyyy-MM-dd HH:mm:ss") 
+	private Date createTime;
+	private Long createAdminId; // 创建人ID
+	private String remark; // 备注信息
+	private UserLanguage userLang = UserLanguage.EN;// 用户登陆选择语言默认英文
+	private String orgCode;// 所属部门编码
+	private String orgName;// 所属部门名称
+	private List<Role> roles;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getRealName() {
+		return realName;
+	}
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Integer getGender() {
+		return gender;
+	}
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Date getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Long getCreateAdminId() {
+		return createAdminId;
+	}
+	public void setCreateAdminId(Long createAdminId) {
+		this.createAdminId = createAdminId;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public UserLanguage getUserLang() {
+		return userLang;
+	}
+	public void setUserLang(UserLanguage userLang) {
+		this.userLang = userLang;
+	}
+	public String getOrgCode() {
+		return orgCode;
+	}
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+	public String getOrgName() {
+		return orgName;
+	}
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+}

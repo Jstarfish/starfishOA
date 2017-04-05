@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.logistics.dao.LogisticsDao">
+    <select id="getWarehousename" parameterType="string" resultType="string">
+        SELECT A.WAREHOUSE_NAME FROM WH_INFO A WHERE A.WAREHOUSE_CODE
+        =#{warehouseCode}
+    </select>
+    <select id="getUserName" parameterType="string" resultType="string">
+        SELECT
+        A.ADMIN_REALNAME FROM ADM_INFO A WHERE A.ADMIN_ID =#{userCode}
+    </select>
+    <select id="getPayout" resultType="cls.pilottery.web.logistics.model.PayoutModel" parameterType="cls.pilottery.web.logistics.form.LogisticsForm" >
+        SELECT b.AGENCY_NAME outlet, a.PAY_TIME payoutDate
+		  FROM FLOW_PAY a LEFT JOIN INF_AGENCYS b ON a.PAY_AGENCY = b.AGENCY_CODE
+		 WHERE 1 = 1 
+		   AND PLAN_CODE = #{planCode}
+		   AND BATCH_NO = #{batchCode}
+		   AND PACKAGE_NO = #{tagCode}
+		   AND TICKET_NO = #{ticketNo}
+    </select>
+</mapper>

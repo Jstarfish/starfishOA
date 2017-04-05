@@ -1,0 +1,327 @@
+@charset "utf-8";
+
+/* CSS Document */
+body {
+	margin: 0px;
+	padding: 0px;
+	font: 14px/ 20px "微软雅黑", Arial, Helvetica, sans-serif;
+	background-color: #f2f1f1;
+}
+
+a,input,button,select {
+	outline: none;
+}
+
+.issStyle {
+	border: #00adee 1px solid;
+	height: 24px;
+	width: 100px;
+}
+
+textarea {
+	resize: none
+}
+
+div,p,ul,h1,h2,h4,form,label {
+	padding: 0px;
+	margin: 0px;
+}
+
+img {
+	border: none;
+}
+
+ul,li {
+	list-style-type: none;
+}
+
+::-moz-focus-inner {
+	border: 0px;
+}
+
+/*表单样式*/
+.text-normal {
+	border: 1px solid #40a7da;
+	background-color: #FFF;
+	width: 130px;
+	height: 24px;
+	line-height: 24px;
+}
+
+.text-normal-noedit {
+	border: 1px solid #CCC;
+	background-color: #FFF;
+	width: 130px;
+	height: 24px;
+	line-height: 24px;
+}
+
+.text-big {
+	border: 1px solid #40a7da;
+	background-color: #FFF;
+	width: 200px;
+	height: 28px;
+	line-height: 28px;
+	color: #000;
+	font-size: 14px;
+}
+
+.text-big-noedit {
+	border: 1px solid #CCC;
+	background-color: #FFF;
+	width: 200px;
+	height: 28px;
+	line-height: 28px;
+	color: #000;
+	font-size: 14px;
+}
+
+.button-normal {
+	font-family: "microsoft yahei", "微软雅黑";
+	position: relative;
+	display: inline-block;
+	line-height: 25px;
+	padding: 1px 12px;
+	transition: all .3s ease-out;
+	/*text-transform:uppercase;*/
+	border: 1px solid #90cd00;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	background-color: #90cd00;
+	font-size: 14px;
+	min-width: 54px;
+}
+
+.button-normal:hover {
+	background-color: #9bdb03;
+}
+
+.button-wait {
+	background-image: url(../img/button-wait.gif);
+	background-position: center;
+	background-repeat: no-repeat;
+	min-width: 54px;
+}
+
+.select-normal {
+	cursor: pointer;
+	line-height: 20px;
+	height: 24px;
+	border-style: solid;
+	-webkit-appearance: none;
+	border-width: 1px 29px 1px 1px;
+	width: 130px;
+	border-image: url("../img/select.gif") 1 29 1 1 round round;
+	color: #000;
+	font-family: "microsoft yahei", "微软雅黑";
+	font-size: 14px;
+}
+
+.select-big {
+	cursor: pointer;
+	line-height: 26px;
+	height: 28px;
+	border-style: solid;
+	-webkit-appearance: none;
+	border-width: 1px 38px 1px 1px;
+	width: 200px;
+	border-image: url("../img/select.gif") 1 40 1 1;
+	color: #000;
+	font-family: "microsoft yahei", "微软雅黑";
+	font-size: 14px;
+}
+
+/***---------------------***/
+#title {
+	height: 38px;
+	line-height: 38px;
+	background: #fafafa;
+	font-size: 24px;
+	color: #2aa1d9;
+	border-bottom: 1px solid #e3e3e3;
+	padding-left: 15px;
+}
+
+/** 查询条件样式 **/
+.queryDiv {
+	line-height: 50px;
+	height: 50px;
+	padding-left: 15px;
+	padding-right: 20px;
+	background: #fff;
+}
+
+.queryDiv .left {
+	float: left;
+}
+
+.queryDiv .right {
+	float: right;
+}
+
+.queryDiv span {
+	margin-right: 10px;
+}
+
+#headDiv {
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+}
+
+#bodyDiv {
+	position: absolute;
+	width: 100%;
+	top: 126px;
+	overflow-y: scroll;
+	bottom: 0px;
+	overflow-x: hidden;
+}
+
+/** 列表样式 **/
+.datatable {
+	border-collapse: collapse;
+	width: 100%;
+	background: #fff;
+	font-family: "khmer ui";
+	font-size: 12px;
+	/**文本自动截取**/
+	table-layout: fixed;
+}
+
+.datatable .headRow span {
+	float: right;
+}
+
+.datatable img {
+	line-height: 20px;
+	vertical-align: middle
+}
+
+.datatable .dataRow {
+	border-bottom: 1px solid #e4e5e5;
+	height: 35px;
+	line-height: 35px;
+	text-align: left;
+}
+
+.datatable .headRow {
+	background-color: #2aa1d9;
+	height: 35px;
+	line-height: 35px;
+	color: #fff;
+	text-align: left;
+	font-weight: normal;
+}
+
+.datatable th {
+	background-color: #2aa1d9;
+	height: 35px;
+	line-height: 35px;
+	color: #fff;
+	text-align: left;
+}
+
+.datatable td {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.datatable div {
+	overflow: hidden;
+	margin-left: 16px;
+}
+
+.datatable caption {
+	color: #33517A;
+	padding-top: 3px;
+	padding-bottom: 8px;
+}
+
+.datatable .dataRow:hover {
+	background-color: #e4e5e5;
+	color: #000000;
+}
+
+.datatable a {
+	color: #40a7da;
+	text-decoration: none;
+}
+
+.datatable a:hover {
+	color: #f79222;
+	text-decoration: underline;
+}
+
+.datatable span {
+	color: #878787;
+}
+
+/*此为登录页登录按钮样式*/
+.login-button {
+	font-family: "microsoft yahei", "微软雅黑";
+	position: relative;
+	display: inline-block;
+	line-height: 25px;
+	padding: 8px 15px;
+	margin-top: 10px;
+	transition: all .3s ease-out;
+	text-transform: uppercase;
+	border: 1px solid #90cd00;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background-color: #90cd00;
+	font-size: 18px;
+}
+
+.login-button:hover {
+	background: #9bdb03;
+}
+
+.login-button:active:after {
+	content: "";
+	display: block;
+	width: 2px;
+	height: 2px;
+	position: absolute;
+	border-radius: 2px;
+	top: 50%;
+	left: 50%;
+	margin: -1px 0 0 -1px;
+	z-index: 2;
+}
+
+/*退出系统*/
+.exit {
+	color: #000;
+}
+
+.exit a {
+	color: #000;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+.exit a:hover {
+	color: #40a7da;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+/*导出链接样式*/
+.icon-lz {
+	color: #1e9ad6;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.icon-lz:hover {
+	color: #1e9ad6;
+	font-size: 14px;
+	text-decoration: underline;
+}

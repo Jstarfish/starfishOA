@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.WhGoodsReceiptMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.WhGoodsReceipt" >
+    <id column="SGR_NO" property="sgrNo" jdbcType="CHAR" />
+    <result column="CREATE_ADMIN" property="createAdmin" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="RECEIPT_AMOUNT" property="receiptAmount" jdbcType="DECIMAL" />
+    <result column="RECEIPT_TICKETS" property="receiptTickets" jdbcType="DECIMAL" />
+    <result column="ACT_RECEIPT_AMOUNT" property="actReceiptAmount" jdbcType="DECIMAL" />
+    <result column="ACT_RECEIPT_TICKETS" property="actReceiptTickets" jdbcType="DECIMAL" />
+    <result column="PLAN_CODE" property="planCode" jdbcType="DECIMAL" />
+    <result column="REF_NO" property="refNo" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CARRIER" property="carrier" jdbcType="VARCHAR" />
+    <result column="CARRY_DATE" property="carryDate" jdbcType="TIMESTAMP" />
+    <result column="CARRIER_CONTACT" property="carrierContact" jdbcType="VARCHAR" />
+    <result column="SEND_ORG" property="sendOrg" jdbcType="CHAR" />
+    <result column="SEND_WH" property="sendWh" jdbcType="CHAR" />
+    <result column="SEND_MANAGER" property="sendManager" jdbcType="DECIMAL" />
+    <result column="SEND_DATE" property="sendDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SGR_NO, CREATE_ADMIN, CREATE_DATE, RECEIPT_AMOUNT, RECEIPT_TICKETS, ACT_RECEIPT_AMOUNT, 
+    ACT_RECEIPT_TICKETS, PLAN_CODE, REF_NO, STATUS, CARRIER, CARRY_DATE, CARRIER_CONTACT, 
+    SEND_ORG, SEND_WH, SEND_MANAGER, SEND_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WH_GOODS_RECEIPT
+    where SGR_NO = #{sgrNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WH_GOODS_RECEIPT
+    where SGR_NO = #{sgrNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.WhGoodsReceipt" >
+    insert into WH_GOODS_RECEIPT (SGR_NO, CREATE_ADMIN, CREATE_DATE, 
+      RECEIPT_AMOUNT, RECEIPT_TICKETS, ACT_RECEIPT_AMOUNT, 
+      ACT_RECEIPT_TICKETS, PLAN_CODE, REF_NO, 
+      STATUS, CARRIER, CARRY_DATE, 
+      CARRIER_CONTACT, SEND_ORG, SEND_WH, 
+      SEND_MANAGER, SEND_DATE)
+    values (#{sgrNo,jdbcType=CHAR}, #{createAdmin,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{receiptAmount,jdbcType=DECIMAL}, #{receiptTickets,jdbcType=DECIMAL}, #{actReceiptAmount,jdbcType=DECIMAL}, 
+      #{actReceiptTickets,jdbcType=DECIMAL}, #{planCode,jdbcType=DECIMAL}, #{refNo,jdbcType=CHAR}, 
+      #{status,jdbcType=DECIMAL}, #{carrier,jdbcType=VARCHAR}, #{carryDate,jdbcType=TIMESTAMP}, 
+      #{carrierContact,jdbcType=VARCHAR}, #{sendOrg,jdbcType=CHAR}, #{sendWh,jdbcType=CHAR}, 
+      #{sendManager,jdbcType=DECIMAL}, #{sendDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.WhGoodsReceipt" >
+    insert into WH_GOODS_RECEIPT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sgrNo != null" >
+        SGR_NO,
+      </if>
+      <if test="createAdmin != null" >
+        CREATE_ADMIN,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="receiptAmount != null" >
+        RECEIPT_AMOUNT,
+      </if>
+      <if test="receiptTickets != null" >
+        RECEIPT_TICKETS,
+      </if>
+      <if test="actReceiptAmount != null" >
+        ACT_RECEIPT_AMOUNT,
+      </if>
+      <if test="actReceiptTickets != null" >
+        ACT_RECEIPT_TICKETS,
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE,
+      </if>
+      <if test="refNo != null" >
+        REF_NO,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="carrier != null" >
+        CARRIER,
+      </if>
+      <if test="carryDate != null" >
+        CARRY_DATE,
+      </if>
+      <if test="carrierContact != null" >
+        CARRIER_CONTACT,
+      </if>
+      <if test="sendOrg != null" >
+        SEND_ORG,
+      </if>
+      <if test="sendWh != null" >
+        SEND_WH,
+      </if>
+      <if test="sendManager != null" >
+        SEND_MANAGER,
+      </if>
+      <if test="sendDate != null" >
+        SEND_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sgrNo != null" >
+        #{sgrNo,jdbcType=CHAR},
+      </if>
+      <if test="createAdmin != null" >
+        #{createAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiptAmount != null" >
+        #{receiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptTickets != null" >
+        #{receiptTickets,jdbcType=DECIMAL},
+      </if>
+      <if test="actReceiptAmount != null" >
+        #{actReceiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="actReceiptTickets != null" >
+        #{actReceiptTickets,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=DECIMAL},
+      </if>
+      <if test="refNo != null" >
+        #{refNo,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="carrier != null" >
+        #{carrier,jdbcType=VARCHAR},
+      </if>
+      <if test="carryDate != null" >
+        #{carryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carrierContact != null" >
+        #{carrierContact,jdbcType=VARCHAR},
+      </if>
+      <if test="sendOrg != null" >
+        #{sendOrg,jdbcType=CHAR},
+      </if>
+      <if test="sendWh != null" >
+        #{sendWh,jdbcType=CHAR},
+      </if>
+      <if test="sendManager != null" >
+        #{sendManager,jdbcType=DECIMAL},
+      </if>
+      <if test="sendDate != null" >
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.WhGoodsReceipt" >
+    update WH_GOODS_RECEIPT
+    <set >
+      <if test="createAdmin != null" >
+        CREATE_ADMIN = #{createAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiptAmount != null" >
+        RECEIPT_AMOUNT = #{receiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptTickets != null" >
+        RECEIPT_TICKETS = #{receiptTickets,jdbcType=DECIMAL},
+      </if>
+      <if test="actReceiptAmount != null" >
+        ACT_RECEIPT_AMOUNT = #{actReceiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="actReceiptTickets != null" >
+        ACT_RECEIPT_TICKETS = #{actReceiptTickets,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE = #{planCode,jdbcType=DECIMAL},
+      </if>
+      <if test="refNo != null" >
+        REF_NO = #{refNo,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="carrier != null" >
+        CARRIER = #{carrier,jdbcType=VARCHAR},
+      </if>
+      <if test="carryDate != null" >
+        CARRY_DATE = #{carryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carrierContact != null" >
+        CARRIER_CONTACT = #{carrierContact,jdbcType=VARCHAR},
+      </if>
+      <if test="sendOrg != null" >
+        SEND_ORG = #{sendOrg,jdbcType=CHAR},
+      </if>
+      <if test="sendWh != null" >
+        SEND_WH = #{sendWh,jdbcType=CHAR},
+      </if>
+      <if test="sendManager != null" >
+        SEND_MANAGER = #{sendManager,jdbcType=DECIMAL},
+      </if>
+      <if test="sendDate != null" >
+        SEND_DATE = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SGR_NO = #{sgrNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.WhGoodsReceipt" >
+    update WH_GOODS_RECEIPT
+    set CREATE_ADMIN = #{createAdmin,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      RECEIPT_AMOUNT = #{receiptAmount,jdbcType=DECIMAL},
+      RECEIPT_TICKETS = #{receiptTickets,jdbcType=DECIMAL},
+      ACT_RECEIPT_AMOUNT = #{actReceiptAmount,jdbcType=DECIMAL},
+      ACT_RECEIPT_TICKETS = #{actReceiptTickets,jdbcType=DECIMAL},
+      PLAN_CODE = #{planCode,jdbcType=DECIMAL},
+      REF_NO = #{refNo,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      CARRIER = #{carrier,jdbcType=VARCHAR},
+      CARRY_DATE = #{carryDate,jdbcType=TIMESTAMP},
+      CARRIER_CONTACT = #{carrierContact,jdbcType=VARCHAR},
+      SEND_ORG = #{sendOrg,jdbcType=CHAR},
+      SEND_WH = #{sendWh,jdbcType=CHAR},
+      SEND_MANAGER = #{sendManager,jdbcType=DECIMAL},
+      SEND_DATE = #{sendDate,jdbcType=TIMESTAMP}
+    where SGR_NO = #{sgrNo,jdbcType=CHAR}
+  </update>
+</mapper>

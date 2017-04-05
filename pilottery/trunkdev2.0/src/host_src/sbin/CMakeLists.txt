@@ -1,0 +1,4 @@
+
+INSTALL(FILES ts_servctl.sh clear_snapshot.sh log_dump.sh
+        DESTINATION sbin
+        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE)

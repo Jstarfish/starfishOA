@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/** 校验提示样式 **/
+.tip_init{
+    color:#cac9c9;
+    font-size:14px;
+    padding-left:15px;
+    
+}
+.tip_error{
+    color:red;
+    font-size:14px;
+}

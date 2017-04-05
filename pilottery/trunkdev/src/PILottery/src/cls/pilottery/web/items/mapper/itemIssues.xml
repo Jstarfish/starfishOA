@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cls.pilottery.web.items.dao.ItemIssueDao">
+
+    <resultMap type="cls.pilottery.web.institutions.model.InfOrgs" id="institutionMap">
+        <id column="ORG_CODE" property="orgCode"/>
+        <result column="ORG_NAME" property="orgName"/>
+    </resultMap>
+
+	<resultMap type="cls.pilottery.web.items.model.ItemIssue" id="itemIssueMap">
+		<id column="II_NO" property="iiNo"/>
+		<result column="OPER_ADMIN" property="operAdmin"/>
+		<result column="ADMIN_REALNAME" property="operAdminName"/><!-- Foreign Table -->
+		<result column="ISSUE_DATE" property="issueDate"/>
+		<result column="RECEIVE_ORG" property="receiveOrg"/>
+		<result column="RECEIVE_ORG_NAME" property="receiveOrgName"/><!-- Foreign Table -->
+		<result column="SEND_ORG" property="sendOrg"/>
+		<result column="SEND_ORG_NAME" property="sendOrgName"/><!-- Foreign Table -->
+		<result column="SEND_WH" property="sendWh"/>
+		<result column="WAREHOUSE_NAME" property="sendWhName"/><!-- Foreign Table -->
+	</resultMap>
+	
+	<resultMap type="cls.pilottery.web.items.model.ItemIssueDetail" id="itemIssueDetailMap">
+    	<id column="II_NO" property="iiNo"/>
+    	<result column="ITEM_CODE" property="itemCode"/>
+    	<result column="ITEM_NAME" property="itemName"/><!-- Foreign Table -->
+    	<result column="BASE_UNIT_NAME" property="baseUnit"/><!-- Foreign Table -->
+    	<result column="QUANTITY" property="quantity"/>
+    </resultMap>
+
+	<!-- 获得物品出库记录总数 -->
+	<select id="getItemIssueCount" parameterType="cls.pilottery.web.items.form.ItemIssueQueryForm" resultType="Integer">
+		SELECT COUNT(1)
+		  FROM ITEM_ISSUE
+		 WHERE 1 = 1
+		 <if test="issueCode != null and issueCode != ''">
+		   AND II_NO = #{issueCode}
+		 </if>
+		 <if test="issueDate != null and issueDate != ''">
+		   AND TO_CHAR(ISSUE_DATE, 'yyyy-mm-dd') = #{issueDate}
+		 </if>
+		 <if test="warehouseCode != null and warehouseCode != ''">
+		   AND SEND_WH = #{warehouseCode}
+		 </if>
+		 <if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+        	AND SEND_ORG = #{sessionOrgCode}
+         </if>
+	</select>
+	
+	<!-- 获得物品出库记录列表 -->
+	<select id="getItemIssueList" parameterType="cls.pilottery.web.items.form.ItemIssueQueryForm" resultMap="itemIssueMap">
+		SELECT * FROM (
+			SELECT R.*, ROWNUM AS RN FROM (
+				SELECT I.II_NO,
+				       I.OPER_ADMIN,
+				       U.ADMIN_REALNAME,
+				       TO_CHAR(I.ISSUE_DATE, 'yyyy-mm-dd hh24:mm:ss') AS ISSUE_DATE,
+				       I.RECEIVE_ORG,
+				       O1.ORG_NAME AS RECEIVE_ORG_NAME,
+				       I.SEND_ORG,
+				       O2.ORG_NAME AS SEND_ORG_NAME,
+				       I.SEND_WH,
+				       W.WAREHOUSE_NAME
+				  FROM ITEM_ISSUE I
+				  	LEFT JOIN ADM_INFO U ON U.ADMIN_ID = I.OPER_ADMIN
+				  	LEFT JOIN INF_ORGS O1 ON O1.ORG_CODE = I.RECEIVE_ORG
+				  	LEFT JOIN INF_ORGS O2 ON O2.ORG_CODE = I.SEND_ORG
+					LEFT JOIN WH_INFO W ON W.WAREHOUSE_CODE = I.SEND_WH
+				 WHERE 1 = 1
+				 <if test="issueCode != null and issueCode != ''">
+				   AND II_NO = #{issueCode}
+				 </if>
+				 <if test="issueDate != null and issueDate != ''">
+				   AND TO_CHAR(ISSUE_DATE, 'yyyy-mm-dd') = #{issueDate}
+				 </if>
+				 <if test="warehouseCode != null and warehouseCode != ''">
+				   AND I.SEND_WH = #{warehouseCode}
+				 </if>
+				 <if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+        		   AND I.SEND_ORG = #{sessionOrgCode}
+         		 </if>
+				 ORDER BY I.II_NO DESC,I.ISSUE_DATE DESC
+   <![CDATA[) R
+   		) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+	</select>
+	
+	<!-- 获得给定出库单下的所有物品记录 -->
+	<select id="getItemIssueDetails" parameterType="String" resultMap="itemIssueDetailMap">
+		SELECT D.II_NO,
+    	       D.ITEM_CODE,
+    	       I.ITEM_NAME,
+    	       I.BASE_UNIT_NAME,
+    	       D.QUANTITY
+    	FROM ITEM_ISSUE_DETAIL D
+    	  LEFT JOIN ITEM_ITEMS I
+    	   ON D.ITEM_CODE = I.ITEM_CODE
+    	WHERE II_NO = #{iiNo}
+    	ORDER BY D.II_NO
+	</select>
+	
+	<!-- 获得收货机构用于下拉框选择 -->
+	<select id="getReceivingUnitForSelect" resultMap="institutionMap">
+		SELECT ORG_CODE,ORG_NAME
+		  FROM INF_ORGS
+	  ORDER BY ORG_CODE, ORG_NAME
+	</select>
+
+</mapper>

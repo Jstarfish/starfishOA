@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.capital.dao.ReturnRecoderDao">
+	<resultMap id="returnRecoderMap"
+		type="cls.pilottery.web.capital.model.returnmodel.ReturnRecoder">
+		<id column="RETURN_NO" property="returnNo" />
+		<result column="RECEIVE_MANAGER" property="receiveManager" />
+		<result column="MARKET_MANAGER_ADMIN" property="marketAdmin" />
+		<result column="APPLY_DATE" property="applyDate" />
+		<result column="APPLY_TICKETS" property="applyTickets" />
+		<result column="APPLY_AMOUNT" property="amount" />
+		<result column="STATUS" property="status" />
+		<result column="IS_DIRECT_AUDITED" property="isDirectAudited" />
+		<result column="FINANCE_ADMIN" property="financeAdmin" />
+		<result column="APPROVE_DATE" property="approveDate" />
+		<result column="ADMIN_REALNAME" property="realName" />
+		<result column="ADMIN_ID" property="id" />
+		<result column="ADMIN_ORG" property="adminOrg" />
+	</resultMap>
+
+	<!-- 市场管理员账户信息列表 -->
+	<select id="getReturnList" parameterType="cls.pilottery.web.capital.model.returnmodel.ReturnRecoder"
+		resultMap="returnRecoderMap">
+	      select * from (
+	      select tab.*,rownum rn from (SELECT
+	      A.RETURN_NO,
+	      A.RECEIVE_MANAGER,
+	      A.MARKET_MANAGER_ADMIN,
+	      A.APPLY_DATE,
+	      A.APPLY_TICKETS,
+	      A.APPLY_AMOUNT,
+	      A.STATUS,
+	      B.ADMIN_REALNAME
+	      FROM SALE_RETURN_RECODER A
+	      LEFT JOIN
+	      ADM_INFO B ON (A.MARKET_MANAGER_ADMIN = B.ADMIN_ID)
+	      WHERE 1 = 1
+	      AND A.STATUS != 2
+	      AND B.ADMIN_ORG = #{adminOrg}
+		<if test="returnNo != null and returnNo != ''">
+			AND A.RETURN_NO = #{returnNo}
+		</if>
+		<if test="applyDate != null and applyDate != ''"> 
+			AND to_char(A.APPLY_DATE,'yyyy-mm-dd') = #{applyDate}
+		</if> 
+			ORDER BY RETURN_NO DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- 分页记录总数 -->
+	<select id="getReturnCount" parameterType="cls.pilottery.web.capital.model.returnmodel.ReturnRecoder"
+		resultType="Integer">
+		SELECT count(1)
+		FROM SALE_RETURN_RECODER A
+	    LEFT JOIN
+	    ADM_INFO B ON (A.MARKET_MANAGER_ADMIN = B.ADMIN_ID)
+	    WHERE 1 = 1
+	    AND A.STATUS != 2
+	    AND B.ADMIN_ORG = #{adminOrg}
+		<if test="returnNo != null and returnNo != ''">
+			AND A.RETURN_NO = #{returnNo}
+		</if>
+		<if test="applyDate != null and applyDate != ''"> 
+			AND to_char(A.APPLY_DATE,'yyyy-mm-dd') = #{applyDate}
+		</if>
+	</select>
+	
+	<!-- 还货审批初始化信息查询 -->
+	<select id="getReturnInfoById" parameterType="String"  resultMap="returnRecoderMap" >
+	   SELECT
+	      A.RETURN_NO,
+	      A.MARKET_MANAGER_ADMIN,
+	      A.APPLY_DATE,
+	      A.APPLY_TICKETS,
+	      A.APPLY_AMOUNT,
+	      A.STATUS,
+	      A.IS_DIRECT_AUDITED
+	      FROM SALE_RETURN_RECODER A
+		WHERE 1 = 1
+		and trim(a.RETURN_NO)=trim(#{returnNo})
+	</select>
+
+	<!--审批  ：修改还货状态    -->
+	<update id="updateReturnApproval" parameterType="cls.pilottery.web.capital.model.returnmodel.ReturnRecoder">
+		update SALE_RETURN_RECODER
+   		set status    = #{status,jdbcType=DECIMAL},
+        FINANCE_ADMIN = #{financeAdmin,jdbcType=DECIMAL},
+        APPROVE_DATE  = sysdate
+ 		where RETURN_NO = #{returnNo,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

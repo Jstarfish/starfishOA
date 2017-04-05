@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.WhCheckPointDetailMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.WhCheckPointDetail" >
+    <id column="CP_NO" property="cpNo" jdbcType="CHAR" />
+    <id column="SEQUENCE_NO" property="sequenceNo" jdbcType="DECIMAL" />
+    <result column="VALID_NUMBER" property="validNumber" jdbcType="DECIMAL" />
+    <result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="TRUNK_NO" property="trunkNo" jdbcType="VARCHAR" />
+    <result column="BOX_NO" property="boxNo" jdbcType="DECIMAL" />
+    <result column="PACKAGE_NO" property="packageNo" jdbcType="VARCHAR" />
+    <result column="PACKAGES" property="packages" jdbcType="DECIMAL" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CP_NO, SEQUENCE_NO, VALID_NUMBER, PLAN_CODE, BATCH_NO, TRUNK_NO, BOX_NO, PACKAGE_NO, 
+    PACKAGES, AMOUNT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cls.pilottery.model.WhCheckPointDetailKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from WH_CHECK_POINT_DETAIL
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cls.pilottery.model.WhCheckPointDetailKey" >
+    delete from WH_CHECK_POINT_DETAIL
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.WhCheckPointDetail" >
+    insert into WH_CHECK_POINT_DETAIL (CP_NO, SEQUENCE_NO, VALID_NUMBER, 
+      PLAN_CODE, BATCH_NO, TRUNK_NO, 
+      BOX_NO, PACKAGE_NO, PACKAGES, 
+      AMOUNT)
+    values (#{cpNo,jdbcType=CHAR}, #{sequenceNo,jdbcType=DECIMAL}, #{validNumber,jdbcType=DECIMAL}, 
+      #{planCode,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, #{trunkNo,jdbcType=VARCHAR}, 
+      #{boxNo,jdbcType=DECIMAL}, #{packageNo,jdbcType=VARCHAR}, #{packages,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.WhCheckPointDetail" >
+    insert into WH_CHECK_POINT_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cpNo != null" >
+        CP_NO,
+      </if>
+      <if test="sequenceNo != null" >
+        SEQUENCE_NO,
+      </if>
+      <if test="validNumber != null" >
+        VALID_NUMBER,
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE,
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO,
+      </if>
+      <if test="trunkNo != null" >
+        TRUNK_NO,
+      </if>
+      <if test="boxNo != null" >
+        BOX_NO,
+      </if>
+      <if test="packageNo != null" >
+        PACKAGE_NO,
+      </if>
+      <if test="packages != null" >
+        PACKAGES,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cpNo != null" >
+        #{cpNo,jdbcType=CHAR},
+      </if>
+      <if test="sequenceNo != null" >
+        #{sequenceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="validNumber != null" >
+        #{validNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="trunkNo != null" >
+        #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="boxNo != null" >
+        #{boxNo,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNo != null" >
+        #{packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="packages != null" >
+        #{packages,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.WhCheckPointDetail" >
+    update WH_CHECK_POINT_DETAIL
+    <set >
+      <if test="validNumber != null" >
+        VALID_NUMBER = #{validNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="planCode != null" >
+        PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="trunkNo != null" >
+        TRUNK_NO = #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="boxNo != null" >
+        BOX_NO = #{boxNo,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNo != null" >
+        PACKAGE_NO = #{packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="packages != null" >
+        PACKAGES = #{packages,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.WhCheckPointDetail" >
+    update WH_CHECK_POINT_DETAIL
+    set VALID_NUMBER = #{validNumber,jdbcType=DECIMAL},
+      PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+      BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+      TRUNK_NO = #{trunkNo,jdbcType=VARCHAR},
+      BOX_NO = #{boxNo,jdbcType=DECIMAL},
+      PACKAGE_NO = #{packageNo,jdbcType=VARCHAR},
+      PACKAGES = #{packages,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL}
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+      and SEQUENCE_NO = #{sequenceNo,jdbcType=DECIMAL}
+  </update>
+</mapper>

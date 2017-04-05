@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PIStore</string>
+    <string name="order_time">时间</string>
+    <string name="title_activity_main_menu">主菜单</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="menu_modify_login_password">修改登录密码</string>
+    <string name="menu_modify_trade_password">修改交易密码</string>
+    <string name="menu_action_exit">签退</string>
+    <string name="confirm_exit">确认签退</string>
+    <string name="string_comfirm">确认</string>
+    <string name="title_activity_withdraw">提现</string>
+    <string name="title_activity_order">订单</string>
+    <string name="title_activity_order_apply">订单申请</string>
+    <string name="withdraw_apply">提现申请</string>
+    <string name="withdraw_date">日期</string>
+    <string name="withdraw_amount">金额</string>
+    <string name="withdraw_state">状态</string>
+    <string name="withdraw_operation">操作</string>
+    <string name="title_activity_withdraw_confirm">提现确认</string>
+    <string name="withdraw_station_code">站点编号：</string>
+    <string name="withdraw_cash_total">账户余额:</string>
+    <string name="withdraw_cash_amount">提现金额:</string>
+    <string name="order_apply_lottery">新增方案</string>
+    <string name="order_lotery_name">方案名称</string>
+    <string name="order_lotery_code">方案编号</string>
+    <string name="order_lotery_count">张数</string>
+    <string name="order_select_lotery_name">请选择方案名称</string>
+    <string name="modify_password_length_to_short">密码长度不够！</string>
+    <string name="withdraw_num_error">请输入正确金额</string>
+    <string name="modify_password_twice_diff">重复密码不一致！</string>
+    <string name="modify_password_error">密码修改失败！</string>
+    <string name="withdraw_apply_success">提现申请成功！</string>
+    <string name="withdraw_apply_failed">提现申请错误！</string>
+    <string name="order_total_amount">总金额:</string>
+    <string name="order_apply_1">已提交</string>
+    <string name="order_apply_2">已取消</string>
+    <string name="order_apply_3">已受理</string>
+    <string name="order_apply_6">已审批</string>
+    <string name="order_apply_7">已拒绝</string>
+    <string name="alert_title_net_error">网络错误</string>
+    <string name="alert_title_server_response">服务器提示</string>
+    <string name="alert_title_net_timeout">网络超时</string>
+    <string name="alert_session_timeout">会话超时，请重新登录!</string>
+    <string name="alert_title_net_unknow">未知错误</string>
+    <string name="alert_title_net_can_not_connect">无法连接</string>
+    <string name="withdraw_confirm_success">提现确认成功！</string>
+    <string name="withdraw_confirm_failed">提现确认错误！</string>
+    <string name="order_apply_success">订单申请成功！</string>
+    <string name="order_apply_failed">订单申请失败！</string>
+    <string name="sys_save_ip_port_success">保存地址信息成功</string>
+    <string name="sys_save_ip_port_failed">请输入正确的地址信息</string>
+    <string name="sys_test_network">通讯测试</string>
+	<string name="login_set_password">输入设置密码</string>
+	<string name="login_set_password_error">密码错误</string>
+	<string name="title_expiry">兑奖</string>
+	<string name="rc_input_money">输入充值金额：</string>
+    <string name="rc_input_money1">输入金额</string>
+    <string name="rc_input_keywords">输入交易密码：</string>
+    <string name="rc_input_keywords1">输入交易密码</string>
+    <string name="title_activity_site">站点服务</string>
+    <string name="title_activity_query_business">交易流水</string>
+    <string name="title_activity_day_business">资金日结</string>
+    <string name="title_activity_recharge">站点充值</string>
+    <string name="site_input_siteNum">输入站点编号</string>
+    <string name="site_pInput_siteNum">请输入站点编号</string>
+    <string name="site_siteName">站点名称：</string>
+    <string name="site_responMan">负责人：</string>
+    <string name="site_phone">联系方式：</string>
+    <string name="site_putIn_storage">入库</string>
+    <string name="site_recharge">充值</string>
+    <string name="site_returnOf_goods">还货</string>
+    <string name="site_remainder">账户余额</string>
+    <string name="site_credit">信用额度</string>
+    <string name="site_no_money">站点余额不足！</string>
+    <string name="del_ok">删除成功!</string>
+    <string name="com_okdel">确认删除</string>
+    <string name="com_ma">吗?</string>
+    <string name="com_tishi">提示</string>
+    <string name="com_cancel">取消</string>
+    <string name="com_unit">&#160;R</string>
+    <string name="com_save">保存设置</string>
+    <string name="db_type">交易类型</string>
+	<string name="dfg_apply">出货单申请</string>
+	<string name="dfg_num">订单编号</string>
+	<string name="dfg_quantity1">总张数</string>
+	<string name="title_activity_form_list">出货单列表</string>
+    <string name="title_activity_form_new">新增出货单</string>
+    <string name="title_activity_form_detail">出货单详情</string>
+    <string name="title_activity_ensureDfg">确认出货</string>
+    <string name="title_activity_login">登录</string>
+	<string name="action_confirm_modify">确认修改</string>
+	<string name="label_text_old_password">旧密码</string>
+	<string name="label_text_new_password">新密码</string>
+	<string name="label_text_confirm_password">重复密码</string>
+	<string name="prompt_user">请输入用户名</string>
+	<string name="prompt_password">请输入密码</string>
+	<string name="prompt_old_password">请输入当前登录密码</string>
+	<string name="prompt_new_password">请输入新的登录密码</string>
+	<string name="prompt_comfirm_password">请输入重复新的密码</string>
+	<string name="prompt_old_password1">请输入当前交易密码</string>
+	<string name="prompt_new_password1">请输入新的交易密码</string>
+	<string name="radio_1">市场管理员</string>
+	<string name="radio_2">站点账户</string>
+	<string name="lang_english">English</string>
+	<string name="lang_chinese">中文</string>
+	<string name="lang_canbodia">ខ្មែរ</string>
+	<string name="title_activity_money">资金管理</string>
+    <string name="money_type">类型</string>
+    <string name="money_no_money">&#160;R</string>
+    <string name="sminit">扫描设备正在初始化，请稍等</string>	
+    <string name="pis_title">入库收货</string>
+	<string name="saomiaoruku">扫描入库</string>	
+	<string name="fangandaima">方案代码</string>
+	<string name="shengchanpici">生产批次</string>
+	<string name="yingfuzongjine">应付总金额：</string>
+	<string name="rukuwancheng">入库完成</string>
+	<string name="ruku_ok">入库成功！</string>
+	<string name="ruku_error">入库失败！</string>
+	<string name="jiaoyi_password">交易密码不能为空！</string>
+	<string name="nodata">还没有扫描到数据！</string>
+	<string name="pis_input_keywords1">输入密码确认收货</string>
+	<string name="pis_input_keywords2">输入密码</string>
+	<string name="saomiaoduijiang">扫描兑奖</string>	
+	<string name="piaohao">票号</string>	
+	<string name="duijiangcount">兑奖张数：</string>	
+	<string name="duijiangjine">兑奖金额（瑞尔）:</string>	
+	<string name="jiangjinruier">奖金（瑞尔）</string>	
+	<string name="duijiang_ok">兑奖成功！</string>	
+	<string name="duijiang_fail">兑奖失败！</string>
+	<string name="saomiaotuihuo">扫描还货</string>	
+	<string name="tuihuozongjine">还货总金额:</string>	
+	<string name="tuihuowancheng">还货完成</string>	
+	<string name="tuihuo_ok">还货成功！</string>	
+	<string name="saomiaorutestbtn">扫描测试</string>	
+	<string name="saomiaorutestbtn_cancel">停止扫描</string>	
+	<string name="saomiaorucount">已经扫描到的数据:</string>	
+	<string name="title_activity_store">库存查询</string>
+    <string name="user_name_label">用户：</string>
+    <string name="title_activity_sys">系统参数</string>
+    <string name="title_activity_device">设备信息</string>
+    <string name="sys_prmtr_ip_1">IP地址1：</string>
+    <string name="sys_prmtr_ip_2">IP地址2：</string>
+    <string name="sys_prmtr_port_1">端口1：</string>
+    <string name="sys_prmtr_port_2">端口2：</string>
+    <string name="device_info_ip">IP地址：</string>
+    <string name="device_info_verInfo">版本信息：</string>
+    <string name="device_info_imei">IMEI：</string>
+    <string name="device_info_wlanMac">WLAN MAC：</string>
+    <string name="device_info_net">网络：</string>
+    <string name="device_info_phoneNum">本机号码：</string>
+    
+    <string-array name="menu_market_name">
+        <item>入库记录</item>
+        <item>批次入库</item>
+        <item>调拨单入库</item>
+        <item>还货单入库</item>
+        <item>出库记录</item>
+        <item>调拨单出库</item>
+        <item>出货单出库</item>
+        <item>盘点记录</item>
+        <item>库存盘点</item>
+        <item>物流查询</item>
+        <item>系统设置</item>
+    </string-array>
+    
+    <string-array name="setting_market_name">
+        <item>设备信息</item>
+        <item>扫描测试</item>
+    </string-array>
+    
+    <!-- 以下是要新增的翻译内容 -->
+    <string name="order_input_lotery_count">请输入申请张数</string>
+    <string name="alert_title_net_param_error">网络参数错误，请重新设置！</string>
+    <string name="order_must_has_content">申请内容位空，请选择申请方案和张数！</string>
+	<string name="version">1.0</string>
+	<string name="alert_title_server_connected">服务器连接成功！</string>
+	<string name="gui_ge_bian_hao">规格编号</string>
+	<string name="modify_password_is_same">新密码不能与原密码相同！</string>
+    <string name="withdraw_input_password">交易密码</string>
+    
+    <string name="wrong_money">金额输入错误</string>
+    <string name="please_enter_right_money">请输入小于十位的金额</string>
+    <string name="please_enter_right_recharge">请输入正确的充值金额</string>
+    <string name="recharge_success">充值成功</string>
+    <string name="order_refer_success">出货单提交完成！</string>
+    <string name="change_lottery_num">更改彩票数量</string>
+    <string name="at_least_oneOrder">请选择至少一个订单</string>
+    <string name="no_order_choose">没有被选订单</string>
+    <string name="key_cant_empty">保存参数key不能为空</string>
+    <string name="payout">兑奖金额</string>
+    <string name="payout_commission">兑奖佣金</string>
+    <string name="withdrawn">提现金额</string>
+    <string name="returned">还货金额</string>
+    <string name="sale">销售金额</string>
+    <string name="sale_commission">销售佣金</string>
+    <string name="topup">充值金额</string>
+    <string name="return_commission">还货佣金</string>
+    <string name="common_next">下一步</string>
+    <string name="common_back_scan">继续扫描</string>
+    <string name="string_site_password">请输入站点密码</string>
+    <string name="string_site_password1">站点密码</string>
+    <string name="string_site_code">请输入站点编号</string>
+    <string name="string_site_password_empty">站点密码不能为空！</string>
+    <string name="wrong_input">输入错误</string>
+    <string name="empty_num">数量不能为空！</string>
+    
+    <string name="string_device_type">设备类型</string>
+    <string name="string_device_desc">A:9600,B:19200,C:38400,D:57600,E:115200</string>
+    <string name="title_activity_site_list">站点列表</string>
+    <string name="need_update">软件需要更新!</string>
+    
+    <string name="total_sum">总金额:</string>
+    <string name="total_num">总张数:</string>
+    <string name="return_apply">还货单申请</string>
+    <string name="stock_empty">库存为空</string>
+    <string name="return_error">还货申请错误</string>
+    <string name="ensure_return">确认还货</string>
+    <string name="return_tips">还货提示</string>
+    <string name="return_success">还货申请成功!</string>
+    <string name="ensure_return1">确认还货？</string>
+    <string name="downloading_soft">正在下载新版本</string>
+    <string name="site_available">可用金额</string>
+    <string name="string_duplicate">重复!</string>
+    
+    
+    <string name="transaction">交易记录</string>
+    <string name="logistics">物流查询</string>
+    <string name="inventory">库存</string>
+    <string name="receipt">进货</string>
+    <string name="sales">销售</string>
+    <string name="return2">退货</string>
+    <string name="total">合计</string>
+    <string name="settle">结算</string>
+    <string name="topup1">充值</string>
+    <string name="withdraw">提现</string>
+    <string name="repay">退货</string>
+    <string name="capital">资金</string>
+    <string name="acct_balance">账户余额</string>
+    <string name="outlet">站点</string>
+    <string name="detail">销售详情</string>
+    <string name="payout1">兑奖</string>
+    <string name="payout_tickets">中奖张数</string>
+    <string name="compay">兑奖佣金</string>
+    <string name="prizes">奖级</string>
+    <string name="prize">奖票</string>
+    <string name="detail1">退票详情</string>
+    <string name="return1">退票金额</string>
+    <string name="plan1">方案编码</string>
+    <string name="specification">规格编码</string>
+    <string name="detail2">兑奖详情</string>
+    <string name="payout2">中奖金额</string>
+    <string name="detail3">退票详情</string>
+    <string name="com_return">退还佣金</string>
+    <string name="logistics1">物流信息查询</string>
+    <string name="specifications">规格：</string>
+    <string name="code">编号：</string>
+    <string name="check_invy">库存盘点</string>
+    <string name="amount1">库存金额</string>
+    <string name="quantity1">库存数量：</string>
+    <string name="scan_tickets">盘点数量：</string>
+    <string name="difference">差异数量：</string>
+    
+    
+    
+    <string name="title_activity_store_daily">库存日结</string>
+    <string name="specifications_default">箱/盒/本/票</string>
+    <string name="specifications_trunck">箱</string>
+    <string name="specifications_box">盒</string>
+    <string name="specifications_packet">本</string>
+    <string name="specifications_ticket">票</string>
+    <string name="store_name">仓库名称</string>
+    <string name="store_operator">操作员</string>
+	<string name="store_check">查询</string>
+	<string name="store_check_packet_only">盘点只能扫描单本</string>
+	<string name="scan_count">扫描张数：</string>
+	
+	<string name="string_in_store_list">入库记录</string>
+	<string name="string_out_store_list">出库记录</string>
+	<string name="string_check_store_list">盘点记录</string>
+	<string name="string_check_store_no">盘点单名称：</string>
+	<string name="string_check_store_lottery">盘点方案：</string>
+	<string name="string_check_store_batch">批次：</string>
+	<string name="string_check_store_user">盘点人：</string>
+	
+	
+	<string name="string_batch_in_store">批次入库</string>
+	<string name="string_move_in_store">调拨单入库</string>
+	<string name="string_return_in_store">还货单入库</string>
+	<string name="string_move_out_store">调拨单出库</string>
+	<string name="string_out_store">出货单出库</string>
+	
+    <string name="specifications_">规格</string>
+    <string name="code_">编号</string>
+</resources>

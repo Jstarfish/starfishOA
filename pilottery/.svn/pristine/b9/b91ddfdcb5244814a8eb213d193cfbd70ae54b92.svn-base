@@ -1,0 +1,4 @@
+jdbc.db.url=jdbc:oracle:thin:@192.168.26.110:1521/taishan
+jdbc.db.driver=oracle.jdbc.driver.OracleDriver
+jdbc.db.username=kws_all
+jdbc.db.password=oracle

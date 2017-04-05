@@ -1,0 +1,268 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ include file="/views/common/taglibs.jsp" %>
+<html>
+<head>
+    <title>足彩比赛开奖</title>
+    <%@ include file="/views/common/meta.jsp" %>
+    <link rel="stylesheet" type="text/css" href="${basePath}/css/city-list.css"/>
+    <link rel="stylesheet" type="text/css" href="${basePath}/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="${basePath}/views/oms/game-draw/css/myStyle.css"/>
+
+    <link rel="stylesheet" href="${basePath}/component/messageBox/myJsBox.css" type="text/css"/>
+    <script type="text/javascript" src="${basePath}/component/messageBox/myJsBox_zh.js"></script>
+    <script type="text/javascript" src="${basePath}/js/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="${basePath}/component/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="${basePath}/js/oms/myJs.js"></script>
+    <script type="text/javascript" src="${basePath}/js/oms/city-list.js"></script>
+
+    <script type="text/javascript" charset="UTF-8">
+
+        function checkIssueCode() {
+            if ($("#fbsIssueCode").val() == '') {
+                return false;
+            }
+            return true;
+        }
+        function checkEndQueryTime() {
+            if ($("#endqueryTime").val() == '') {
+                return false;
+            }
+            return true;
+        }
+        function checkStartQueryTime() {
+            if ($("#startqueryTime").val() == '') {
+                return false;
+            }
+            return true;
+        }
+        function promptDelete(url, issueCode) {
+            var msg = "您确认删除第" + issueCode + " 期吗?";
+            showDialog("submitAjaxAction('" + url + "')", "删除期次", msg);
+        }
+        function promptPublish(url, issueCode) {
+            var msg = "您确认发布第" + issueCode + " 期吗?";
+            showDialog("submitAjaxAction('" + url + "')", "发布期次", msg);
+        }
+        function submitAjaxAction(url) {
+            button_off("ok_button");
+            $.ajax({
+                url: url,
+                dataType: "json",
+                method: "post",
+                async: false,
+                success: function (r) {
+                    if (r.msg != '' && r.msg != null) {
+                        closeDialog();
+                        showError(decodeURI(r.msg));
+                    } else {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+        function submitForm() {
+            $("#fbsDrawForm").submit();
+        }
+        function clearForm() {
+            $("#issueCode").val('');
+            $("#startqueryTime").val('');
+            $("#endqueryTime").val('');
+            $("#matchStatus").val('');
+        }
+    </script>
+
+</head>
+<body>
+<div id="title">足彩比赛开奖</div>
+
+<div class="queryDiv">
+
+    <form:form modelAttribute="fbsDrawForm" action="fbsDraw.do?method=initFbsDraw">
+        <div class="left">
+                     <span>所属期次：<form:input path="issueCode" id="issueCode" maxlength="20" class="text-normal"/>
+                     </span>
+                      <span>
+                     比赛日期：<input id="startqueryTime" name="startqueryTime" value="${fbsDrawForm.startqueryTime}"
+                                 class="Wdate"
+                                 type="text"
+                                 onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+                     </span>
+                      <span>
+                    - <input id="endqueryTime" name="endqueryTime" value="${fbsDrawForm.endqueryTime}" class="Wdate"
+                             type="text"
+                             onFocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startqueryTime\')}'})"/>
+                     </span>
+                  <span>比赛状态:
+                        <select name="matchStatus" id="matchStatus" class="select-normal">
+                            <option value="">--全部--</option>
+                            <option value="1" <c:if test="${fbsDrawForm.matchStatus==1}">selected</c:if>>预排</option>
+                            <option value="2" <c:if test="${fbsDrawForm.matchStatus==2}">selected</c:if>>销售中</option>
+                            <option value="3" <c:if test="${fbsDrawForm.matchStatus==3}">selected</c:if>>销售截止</option>
+                            <option value="4" <c:if test="${fbsDrawForm.matchStatus==4}">selected</c:if>>开奖中</option>
+                            <%--<option value="5" <c:if test="${fbsDrawForm.matchStatus==5}">selected</c:if>>算奖完成</option>--%>
+                            <option value="6" <c:if test="${fbsDrawForm.matchStatus==6}">selected</c:if>>开奖完成</option>
+                        </select>
+                    </span>
+            </span>
+            <input type="button" value="查询" onclick="submitForm();" class="button-normal"/>
+            <input type="button" class="button-normal" value="清除" onclick="clearForm()">
+        </div>
+    </form:form>
+</div>
+<div id="headDiv">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table class="datatable" id="exportPdf">
+                    <tr class="headRow">
+                        <td style="width: 10px;">&nbsp;</td>
+                        <td style="width:3%">比赛编号</td>
+                        <td width="1%">|</td>
+                        <td style="width:2%">所属期次</td>
+                        <td width="1%">|</td>
+                        <td style="width:2%">主队</td>
+                        <td width="1%">|</td>
+                        <td style="width:2%">客队</td>
+                        <td width="1%">|</td>
+                        <td style="width:3%">比赛状态</td>
+                        <td width="1%">|</td>
+                        <td style="width:3%">场次状态</td>
+                        <td width="1%">|</td>
+                        <td style="width:3%">比赛日期</td>
+                        <td width="1%">|</td>
+                        <td style="width:3%">上半场赛果</td>
+                        <td width="1%">|</td>
+                        <td style="width:3%">下半场赛果</td>
+                        <td width="1%">|</td>
+                        <td style="width:6%">销售截止时间</td>
+                        <td width="1%">|</td>
+                        <td style="width:14%" class="no-print">操作</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:17px;background:#2aa1d9"></td>
+        </tr>
+    </table>
+</div>
+
+<div id="bodyDiv">
+    <table class="datatable" id="exportPdfData">
+        <c:forEach var="data" items="${pageDataList}" varStatus="status">
+            <tr class="dataRow">
+                <td style="width: 10px;">&nbsp;</td>
+                <td style="width:3%">${data.matchCode}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:2%">${data.matchIssue}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:2%">${data.homeTeam}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:2%">${data.guestTeam}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:3%">
+                    <c:if test="${data.matchStatus==1}">预排</c:if>
+                    <c:if test="${data.matchStatus==2}">销售中</c:if>
+                    <c:if test="${data.matchStatus==3}">销售截止</c:if>
+                    <c:if test="${data.matchStatus==4}">输入开奖结果</c:if>
+                    <c:if test="${data.matchStatus==6}">开奖完成</c:if>
+                </td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:3%">
+                    <c:if test="${data.saleStatus==0}">禁用</c:if>
+                    <c:if test="${data.saleStatus==1}">可用</c:if>
+                </td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:3%">${data.matchDate}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:3%">${data.firstfhHomeScore}-${data.firstfhGuestScore}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:3%">${data.firstshHomeScore}-${data.firstshGuestScore}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:6%">${data.endSaleTime}</td>
+                <td width="1%">&nbsp;</td>
+                <td style="width:14%" class="no-print">
+                        <span>
+                            <span><a href="#"
+                                     onclick="showBox('fbsGame.do?method=getMatchDetail&matchCode=${data.matchCode}','比赛详情',400,800)">详情</a></span>&nbsp;|
+                            <c:if test="${data.drawStatus<=1 && data.matchStatus<=1}">
+                                <span><a href="#"
+                                         onclick="showBox('fbsDraw.do?method=updatePublishMatch&matchCode=${data.matchCode}','比赛编辑',300,600)">
+                                    比赛编辑</a></span>|
+                                <span>比赛开奖</span>|
+                                <span>开奖公告</span>|
+                            </c:if>
+                             <c:if test="${data.drawStatus<=1 && data.matchStatus==2}">
+                                 <span>比赛编辑</span>|
+                                 <span>比赛开奖</span>|
+                                 <span>开奖公告</span>|
+                             </c:if>
+                            <c:if test="${data.drawStatus<=1 &&
+                                    data.matchStatus>=3 &&
+                                    data.matchEndTime>nowDate}">
+                                <span>比赛编辑</span>|
+                                <span>
+                                    比赛开奖</span>|
+                                <span>开奖公告</span>|
+                            </c:if>
+                             <c:if test="${data.drawStatus<=1 &&
+                                    data.matchStatus>=3 &&
+                                    data.matchEndTime<nowDate}">
+                                 <span>比赛编辑</span>|
+                                <span><a
+                                        href="fbsDraw.do?method=firstFbsDraw&matchCode=${data.matchCode}">
+                                    比赛开奖</a></span>|
+                                 <span>开奖公告</span>|
+                             </c:if>
+
+                             <c:if test="${data.drawStatus == 5 && data.firstDrawUserId != userId}">
+                                 <span>比赛编辑</span>|
+                                     <span>
+                                         <a
+                                                 href="fbsDraw.do?method=secondFbsDraw&matchCode=${data.matchCode}">比赛开奖</a></span>|
+                                 <span>开奖公告</span>|
+                             </c:if>
+                             <c:if test="${data.drawStatus == 5 && data.firstDrawUserId == userId}">
+                                 <span>比赛编辑</span>|
+                                     <span>
+                                         <a
+                                                 href="fbsDraw.do?method=firstFbsDraw&matchCode=${data.matchCode}">比赛开奖</a></span>|
+                                 <span>开奖公告</span>|
+                             </c:if>
+                            <c:if test="${ data.drawStatus >= 6 && data.drawStatus<16}">
+                                <c:if test="${data.firstDrawUserId==userId}">
+                                    <span>比赛编辑</span>|
+                                     <span><a
+                                             href="fbsDraw.do?method=firstFbsDraw&matchCode=${data.matchCode}">比赛开奖</a></span>|
+                                    <span>开奖公告</span>|
+                                </c:if>
+                                <c:if test="${data.firstDrawUserId != userId}">
+                                    <span>比赛编辑</span>|
+                                    <c:if test="${data.matchStatus==3}">
+                                     <span>
+                                           比赛开奖
+                                     </span>|
+                                    </c:if>
+                                    <c:if test="${data.matchStatus!=3}">
+                                        <span>比赛开奖</span>|
+                                    </c:if>
+                                    <span>开奖公告</span>|
+                                </c:if>
+                            </c:if>
+                              <c:if test="${data.drawStatus == 16 }">
+                                  <span>比赛编辑</span>|
+                                  <span>比赛开奖</span>|
+                                  <span><a href="#"
+                                           onclick="showPage('fbsDraw.do?method=fbsDrawNotice&matchCode=${data.matchCode}&issueCode=${data.matchIssue}','开奖公告')">
+                                      开奖公告</a></span>|
+                              </c:if>
+                             <span><a href="#"
+                                      onclick="showPage('fbsDraw.do?method=queryMatchMessage&matchCode=${data.matchCode}','实时数据')">实时数据</a></span>
+                        </span>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+    ${pageStr}
+</div>
+
+</body>
+</html>

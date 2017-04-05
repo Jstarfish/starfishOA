@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.plans.dao.PlanDao">
+    <resultMap type="cls.pilottery.web.plans.model.PlanPublisher" id="planPublisherMap">
+        <id column="PLAN_CODE" property="planCode" />
+        <result column="FULL_NAME" property="fullName" />
+        <result column="SHORT_NAME" property="shortName" />
+        <result column="TICKET_AMOUNT" property="faceValue" />
+        <result column="PUBLISHER_CODE" property="publisherCode" />
+        <result column="PUBLISHER_NAME" property="publisherName" />
+    </resultMap>
+    <resultMap type="cls.pilottery.web.plans.model.Plan" id="planMap">
+        <id column="PLAN_CODE" property="planCode" />
+        <result column="FULL_NAME" property="fullName" />
+        <result column="SHORT_NAME" property="shortName" />
+        <result column="TICKET_AMOUNT" property="faceValue" />
+        <result column="PUBLISHER_CODE" property="publisherCode" />
+    </resultMap>
+    <resultMap type="cls.pilottery.web.plans.model.Publisher" id="publisherMap">
+        <id column="PUBLISHER_CODE" property="publisherCode" />
+        <result column="PUBLISHER_NAME" property="publisherName" />
+        <result column="IS_VALID" property="isValid" />
+        <result column="PLAN_FLOW" property="workFlow" />
+    </resultMap>
+    <select id="getPlanCount" parameterType="cls.pilottery.web.plans.form.PlanForm"
+        resultType="Integer"
+    >
+        SELECT COUNT(1) FROM GAME_PLANS A LEFT JOIN INF_PUBLISHERS B ON
+        A.PUBLISHER_CODE =
+        B.PUBLISHER_CODE WHERE 1 = 1
+        <if test="planCodeQuery != null and planCodeQuery != ''"> AND UPPER(A.PLAN_CODE) LIKE
+            UPPER('%'||#{planCodeQuery}||'%')
+        </if>
+        <if test="planNameQuery != null and planNameQuery != ''"> AND UPPER(A.FULL_NAME) LIKE
+            UPPER('%'||#{planNameQuery}||'%')
+        </if>
+        <if test="publisherNameQuery != null and publisherNameQuery != ''"> AND UPPER(B.PUBLISHER_NAME) LIKE
+            UPPER('%'||#{publisherNameQuery}||'%')
+        </if>
+    </select>
+    <select id="getBatchCount" parameterType="cls.pilottery.web.plans.form.PlanForm"
+        resultType="Integer"
+    >
+        SELECT COUNT(1)
+        FROM GAME_BATCH_IMPORT_DETAIL A
+        <if test="insCode != '00'"> LEFT JOIN
+        GAME_ORG_COMM_RATE B
+        USING (PLAN_CODE) WHERE 1=1 AND B.ORG_CODE = #{insCode}
+        </if>
+
+    </select>
+    <select id="getBatchList" parameterType="cls.pilottery.web.plans.form.PlanForm"
+        resultType="cls.pilottery.web.plans.model.BatchPublisher"
+    >
+        SELECT * FROM ( SELECT C.*, ROWNUM RN FROM ( SELECT A.PLAN_CODE
+        PLANCODE, c.full_name PLANNAME, A.BATCH_NO BATCHNO, A.STATUS STATUS
+        FROM
+        GAME_BATCH_IMPORT_DETAIL A
+        <if test="insCode != '00'"> LEFT JOIN GAME_ORG_COMM_RATE B
+            ON A.PLAN_CODE =
+            B.PLAN_CODE
+        </if>
+        LEFT JOIN game_plans C
+        ON A.PLAN_CODE = C.PLAN_CODE
+        WHERE 1 = 1
+        <if test="insCode != '00'"> AND B.ORG_CODE = #{insCode}
+        </if>ORDER
+        BY PLANCODE <![CDATA[ ) C
+        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+
+    </select>
+
+    <select id="getPlanList" parameterType="cls.pilottery.web.plans.form.PlanForm"
+        resultMap="planPublisherMap"
+    >
+        SELECT * FROM ( SELECT C.*, ROWNUM RN FROM ( SELECT PLAN_CODE,
+        FULL_NAME,SHORT_NAME,
+        TICKET_AMOUNT,A.PUBLISHER_CODE ,PUBLISHER_NAME
+        FROM
+        GAME_PLANS A LEFT JOIN
+        INF_PUBLISHERS B ON
+        A.PUBLISHER_CODE =
+        B.PUBLISHER_CODE
+        WHERE 1 = 1
+        <if test="planCodeQuery != null and planCodeQuery != ''"> AND UPPER(A.PLAN_CODE) LIKE
+            UPPER('%'||#{planCodeQuery}||'%')
+        </if>
+        <if test="planNameQuery != null and planNameQuery != ''"> AND UPPER(A.FULL_NAME) LIKE
+            UPPER('%'||#{planNameQuery}||'%')
+        </if>
+        <if test="publisherNameQuery != null and publisherNameQuery != ''"> AND UPPER(B.PUBLISHER_NAME) LIKE
+            UPPER('%'||#{publisherNameQuery}||'%')
+        </if>
+        ORDER BY PLAN_CODE <![CDATA[ ) C
+        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+    </select>
+    <select id="getPublisherList" resultMap="publisherMap"> SELECT
+        PUBLISHER_CODE,
+        PUBLISHER_NAME,
+        IS_VALID,
+        PLAN_FLOW FROM
+        INF_PUBLISHERS
+        WHERE
+        IS_VALID =
+        1
+        ORDER
+        BY PUBLISHER_CODE
+    </select>
+    <!-- 新增方案 -->
+    <insert id="addPlan" parameterType="cls.pilottery.web.plans.model.Plan">
+        INSERT INTO GAME_PLANS (PLAN_CODE, FULL_NAME, SHORT_NAME,
+        <if test="faceValue != null and faceValue != ''"> TICKET_AMOUNT,
+        </if>
+        PUBLISHER_CODE) VALUES (#{planCode},#{fullName},#{shortName},
+        <if test="faceValue != null and faceValue != ''"> #{faceValue},</if>
+        #{publisherCode})
+    </insert>
+    <!-- 修改方案 -->
+    <update id="modifyPlan" parameterType="cls.pilottery.web.plans.model.Plan">
+        UPDATE game_plans SET full_name
+        = #{fullName},
+        short_name =
+        #{shortName},
+        publisher_code = #{publisherCode}
+        WHERE plan_code = #{planCode}
+    </update>
+    <delete id="deletePlan" parameterType="cls.pilottery.web.plans.model.Plan">
+        DELETE from
+        game_plans WHERE
+        plan_code =
+        #{planCode}
+    </delete>
+    <delete id="deleteBackup" parameterType="cls.pilottery.web.plans.model.Plan">
+        DELETE from
+        game_batch_import
+        WHERE
+        plan_code =
+        #{planCode}
+    </delete>
+    <!-- 查询批次 -->
+    <select id="getBatchDetails" parameterType="String"
+        resultType="cls.pilottery.web.plans.model.BatchPublisher"
+    >
+        SELECT A.PLAN_CODE
+        PLANCODE, B.FULL_NAME
+        PLANNAME, A.BATCH_NO BATCHNO,
+       CEIL(A.TICKETS_EVERY_BATCH/(A.TICKETS_EVERY_GROUP)) TICKETSNUM,
+        A.TICKETS_EVERY_GROUP
+        TICKETSACCOUNT,
+        (A.TICKETS_EVERY_BATCH /
+        A.TICKETS_EVERY_PACK /
+        A.PACKS_EVERY_TRUNK)
+        TOTALTRUNK,
+        A.TICKETS_EVERY_BATCH
+        TOTALPAPER, A.STATUS FROM
+        GAME_BATCH_IMPORT_DETAIL
+        A
+        LEFT JOIN GAME_PLANS
+        B ON
+        A.PLAN_CODE =
+        B.PLAN_CODE WHERE
+        A.PLAN_CODE
+        =
+        #{planCode}
+    </select>
+    <select id="getBatch" parameterType="String" resultType="String">
+        SELECT
+        A.BATCH_NO FROM GAME_BATCH_IMPORT_DETAIL A WHERE 1=1
+        <if test="_parameter != null and _parameter != ''">
+            and A.PLAN_CODE = #{_parameter}
+        </if>
+    </select>
+    <select id="getBatchOnWork" parameterType="String" resultType="String">
+        SELECT
+        A.BATCH_NO FROM GAME_BATCH_IMPORT_DETAIL A WHERE 1=1
+        <if test="_parameter != null">
+            and A.PLAN_CODE = #{_parameter}
+        </if>
+        AND A.STATUS=1
+    </select>
+    <!-- 导入批次 -->
+    <update id="importBatch" parameterType="cls.pilottery.web.plans.model.BatchPublisher"
+        statementType="CALLABLE"
+    >
+        {call p_import_batch_file (
+        #{planCode,mode=IN,jdbcType=VARCHAR},#{batchNo,mode=IN,jdbcType=VARCHAR},
+        #{userId,mode=IN,jdbcType=NUMERIC},
+        #{errorCode,mode=OUT,jdbcType=NUMERIC},#{errorMessage,mode=OUT,jdbcType=VARCHAR}
+        )
+        }
+
+    </update>
+
+
+    <select id="importBatchDetails" parameterType="String"
+        resultType="cls.pilottery.web.plans.model.ImportBatchResult"
+    >
+        SELECT A.PLAN_CODE PLANCODE,
+        A.BATCH_NO BATCHNO,
+        A.LOTTERY_TYPE LOTTERYTYPE,
+        A.LOTTERY_NAME LOTTERYNAME,
+        A.BOXES_EVERY_TRUNK BOXEVERYTRUNK,
+        A.TRUNKS_EVERY_GROUP TRUNKEVERYGROUP,
+        A.PACKS_EVERY_TRUNK
+        PACKSEVERYTRUNK,
+        A.TICKETS_EVERY_PACK TICKETEVERYPACK,
+        A.TICKETS_EVERY_GROUP TICKETEVERYGROUP,
+        A.FIRST_REWARD_GROUP_NO
+        FIRSTREWARDGROUPNO,
+        SUM(B.COUNTS) COUNTS,
+        F.PUBLISHER_NAME PUBLISHERNAME
+        FROM GAME_BATCH_IMPORT C
+        LEFT JOIN GAME_BATCH_IMPORT_DETAIL A ON
+        C.IMPORT_NO = A.IMPORT_NO
+        LEFT JOIN GAME_BATCH_IMPORT_REWARD B ON
+        C.IMPORT_NO = B.IMPORT_NO
+        LEFT JOIN
+        (SELECT D.PLAN_CODE, E.PUBLISHER_NAME
+        FROM INF_PUBLISHERS E
+        LEFT JOIN GAME_PLANS D ON E.PUBLISHER_CODE =
+        D.PUBLISHER_CODE) F
+        ON F.PLAN_CODE = B.PLAN_CODE
+        WHERE C.BATCH_NO =
+        #{batchNo}
+        AND c.plan_code=#{planCode}
+        group by A.PLAN_CODE ,
+        A.BATCH_NO ,
+        A.LOTTERY_TYPE ,
+        A.LOTTERY_NAME ,
+        A.BOXES_EVERY_TRUNK ,
+        A.TRUNKS_EVERY_GROUP ,
+        A.PACKS_EVERY_TRUNK ,
+        A.TICKETS_EVERY_PACK ,
+        A.TICKETS_EVERY_GROUP ,
+        A.FIRST_REWARD_GROUP_NO ,
+        F.PUBLISHER_NAME
+
+    </select>
+    <select id="infoBatchTermination" resultType="cls.pilottery.web.plans.model.BatchTermination"
+        parameterType="cls.pilottery.web.plans.model.BatchPublisher"
+    >WITH TOTAL AS
+ (SELECT tickets_every_batch TICKETS FROM game_batch_import_detail
+   WHERE PLAN_CODE = #{planCode}
+     AND BATCH_NO = #{batchNo}),
+SALES AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 31
+     AND PLAN_CODE = #{planCode}
+     AND BATCH_NO = #{batchNo}),
+DAMAGES AS
+ (SELECT SUM(PACKAGES)  TICKETS
+    FROM WH_BROKEN_RECODER_DETAIL 
+where 1=1  AND PLAN_CODE = #{planCode}
+     AND BATCH_NO = #{batchNo}),
+MANAGER AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 21
+     AND PLAN_CODE = #{planCode}
+     AND BATCH_NO = #{batchNo}),
+STOCK AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 11
+     AND PLAN_CODE = #{planCode}
+     AND BATCH_NO = #{batchNo}),
+BEN AS
+ (SELECT (A.TICKET_NO_END - A.TICKET_NO_START + 1) B
+    FROM WH_TICKET_PACKAGE A
+   WHERE A.PLAN_CODE = #{planCode}
+     AND A.BATCH_NO = #{batchNo}
+     AND ROWNUM = 1),
+PAYOUTNUM AS
+ (SELECT COUNT(1) PNUM
+    FROM FLOW_PAY
+   WHERE PLAN_CODE = #{planCode}
+     AND BATCH_NO = #{batchNo}),
+BATCHEND AS
+ (SELECT *
+    FROM WH_BATCH_END A
+    LEFT JOIN GAME_PLANS B
+      ON A.PLAN_CODE = B.PLAN_CODE
+   WHERE A.PLAN_CODE = #{planCode}
+     AND A.BATCH_NO = #{batchNo})
+SELECT TOTAL.TICKETS AS BATCHCOUNTS,
+       SALES.TICKETS * BEN.B AS SALECOUNTS,
+       MANAGER.TICKETS * BEN.B AS MARKETCOUNTS,
+       STOCK.TICKETS * BEN.B AS WAREHOUSECOUNTS,
+       PAYOUTNUM.PNUM AS PAYOUTNUM,
+       NVL(BATCHEND.PAY_AMOUNT, 0) COUNTS,
+       NVL(BATCHEND.TICKET_AMOUNT * BATCHEND.SALE_AMOUNT, 0) SALEMONEY
+
+  FROM TOTAL, SALES, DAMAGES, MANAGER, STOCK, BEN, PAYOUTNUM, BATCHEND
+
+
+    </select>
+    <update id="detailsBatchTermination" statementType="CALLABLE"
+        parameterType="cls.pilottery.web.plans.model.BatchPublisher"
+    >
+        {call p_batch_end (
+        #{planCode,mode=IN,jdbcType=VARCHAR},#{batchNo,mode=IN,jdbcType=VARCHAR},
+        #{userId,mode=IN,jdbcType=NUMERIC},
+        #{errorCode,mode=OUT,jdbcType=NUMERIC},#{errorMessage,mode=OUT,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+    <select id="getPlanListForPOS" resultType="cls.pilottery.web.plans.model.Plan">
+        select gp.plan_code     plancode,
+             gp.SHORT_NAME     fullname,
+             gp.ticket_amount facevalue,
+             pl.plan_flow     as printercode
+        from game_plans gp
+        left join inf_publishers pl
+          on gp.publisher_code = pl.publisher_code
+       where gp.plan_code in
+             (select plan_code from game_batch_import_detail
+             where game_batch_import_detail.status= 1) 
+    </select>
+    <select id="haveBatch" parameterType="string" resultType="Integer">
+        SELECT
+        COUNT(*) FROM GAME_BATCH_IMPORT_DETAIL WHERE 1=1 AND PLAN_CODE =
+        #{planCode}
+    </select>
+    <select id="getPlanList1" resultType="cls.pilottery.web.plans.model.Plan">
+        SELECT PLAN_CODE planCode,
+        FULL_NAME fullName from GAME_PLANS A where 1=1
+    </select>
+    <select id="getTicket" parameterType="cls.pilottery.web.plans.form.PlanForm"
+        resultType="cls.pilottery.web.plans.form.TicketsNum"
+    >
+       WITH TOTAL AS
+ (SELECT tickets_every_batch TICKETS FROM game_batch_import_detail
+   WHERE PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}),
+SALES AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 31
+     AND PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}),
+DAMAGES AS
+ (SELECT SUM(PACKAGES)  TICKETS
+    FROM WH_BROKEN_RECODER_DETAIL 
+where 1=1  AND PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}),
+ONROAD AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 20
+     AND PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}),
+MANAGER AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 21
+     AND PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}),
+STOCK AS
+ (SELECT NVL(COUNT(1), 0) TICKETS
+    FROM WH_TICKET_PACKAGE
+   WHERE STATUS = 11
+     AND PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}),
+BEN AS
+ (SELECT NVL(SUM((A.TICKET_NO_END - A.TICKET_NO_START + 1)),0) B
+    FROM WH_TICKET_PACKAGE A
+   WHERE PLAN_CODE = #{planCodeQuery}
+     AND BATCH_NO = #{batchNoQuery}
+     AND ROWNUM = 1)
+SELECT TOTAL.TICKETS AS TOTAL,
+       SALES.TICKETS * BEN.B AS SALES,
+       DAMAGES.TICKETS * BEN.B AS DAMAGES,
+       MANAGER.TICKETS * BEN.B AS MANAGER,
+       STOCK.TICKETS * BEN.B AS STOCK,
+       ONROAD.TICKETS*BEN.B as road
+
+  FROM TOTAL, SALES, DAMAGES, MANAGER, STOCK, BEN ,ONROAD
+
+    </select>
+    <select id="isWorking" parameterType="cls.pilottery.web.plans.model.BatchPublisher"
+        resultType="int"
+    >
+        SELECT MAX(A.COUNTS)
+        FROM (SELECT COUNT(*) COUNTS
+        FROM DUAL
+        WHERE EXISTS
+        (SELECT 1
+        FROM WH_TICKET_TRUNK
+        WHERE PLAN_CODE = #{planCode}
+        AND BATCH_NO =
+        #{batchNo}
+        AND IS_FULL = 1
+        AND STATUS NOT IN (20, 21))
+
+        UNION
+
+        SELECT COUNT(*)
+        FROM DUAL
+        WHERE EXISTS (SELECT 1
+        FROM WH_TICKET_BOX
+        WHERE PLAN_CODE =
+        #{planCode}
+        AND BATCH_NO = #{batchNo}
+        AND IS_FULL = 1
+        AND STATUS NOT IN
+        (20, 21))
+
+        UNION
+        SELECT COUNT(*)
+        FROM DUAL
+        WHERE EXISTS (SELECT 1
+        FROM
+        WH_TICKET_PACKAGE
+        WHERE PLAN_CODE = #{planCode}
+        AND BATCH_NO = #{batchNo}
+        AND STATUS NOT IN (20, 21))) A
+
+    </select>
+
+    <!-- add: jhx -->
+    <select id="getInfPlanList" resultType="cls.pilottery.web.plans.model.Plan">
+        select p.PLAN_CODE as
+        planCode,p.FULL_NAME as fullName from GAME_PLANS p
+    </select>
+    
+    <update id="setPlanComm" parameterType="cls.pilottery.web.plans.model.BatchPlanComm" statementType="CALLABLE">
+        {
+	        call p_plan_batch_auth (
+		        #{planCode,mode=IN,jdbcType=VARCHAR},
+		        #{referPlan,mode=IN,jdbcType=VARCHAR},
+		        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+		        #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+	        )
+        }
+    </update>
+    
+    <select id="getRefPlanList" resultType="cls.pilottery.web.plans.model.Plan">
+        select p.PLAN_CODE as planCode,p.FULL_NAME as fullName from GAME_PLANS p
+        where plan_Code in (select distinct plan_code from game_agency_comm_rate)
+    </select>
+   
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.goodsreceipts.dao.GoodsReturnDao">
+<select id="getReturnInfoList" parameterType="cls.pilottery.web.goodsreceipts.form.GoodsReceiptsForm" resultType="cls.pilottery.web.goodsreceipts.model.ReturnRecoder" >
+select re.return_no as returnNo
+  from SALE_RETURN_RECODER re
+  left join wh_manager m
+    on m.warehouse_code = re.receive_wh
+  left join adm_info a
+    on re.market_manager_admin = a.admin_id
+ where 1 = 1
+   and re.STATUS = 7
+ <if test="houseCode!=null and houseCode!=''">
+    <!--  and re.RECEIVE_WH=#{houseCode} -->
+     and a.admin_org = #{houseCode}
+  
+ </if>
+
+</select>
+<select id="getReturnPlanInfoBycode" parameterType="String" resultType="cls.pilottery.web.goodsreceipts.model.GamePlanVo">
+select g.plan_code            as planCode,
+       g.full_name            as planName,
+       gb.batch_no            as batchNo,
+       g.ticket_amount        as amount,
+       de.TICKETS_EVERY_GROUP as ticketsEveryGroup from (select *
+  from game_plans p
+ where p.plan_code in (select d.plan_code
+                         from SALE_RETURN_APPLY_DETAIL d
+                        where d.return_no =#{returnNo})) g,GAME_BATCH_IMPORT gb, GAME_BATCH_IMPORT_DETAIL de
+                        where 1 = 1
+   and g.plan_code = gb.plan_code
+   and g.plan_code = de.plan_code
+      
+   and de.status = 1
+</select>
+<select id="getReturnSaleReturner" parameterType="String" resultType="cls.pilottery.web.goodsreceipts.model.RetrurnVo">
+
+select ad.admin_realname as marketManager, s.act_tickets as tickets
+  from SALE_RETURN_RECODER s
+  left join adm_info ad
+    on s.market_manager_admin = ad.admin_id
+    where s.return_no=#{returnNo}
+</select>
+<select id="getReturnSaleReturnerList"  parameterType="String" resultType="cls.pilottery.web.goodsreceipts.model.RetrurnVo">
+  select de.plan_code as planCode,
+         g.full_name  as planName,
+         de.tickets   as tickets,
+         de.amount    as amount
+          from SALE_RETURN_APPLY_DETAIL de
+          left join game_plans g
+            on de.plan_code = g.plan_code
+where de.return_no =#{returnNo}
+</select>
+<select id="getReturnListInfoByCode" parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssueDetailVo">
+select d.return_no,
+       d.plan_code as planCode,
+       p.full_name as planName,
+       d.tickets as actTickts,
+       nvl(r.trunk, 0) as  trunk,
+       nvl(r.box, 0) as box,
+       nvl(r.pkg, 0) as pkg,
+       nvl(r.tickets, 0) as  tickets
+  from sale_return_apply_detail d
+  left join game_plans p
+    on d.plan_code = p.plan_code
+  left join (select ref_no,
+                    plan_code,
+                    sum(case valid_number when 1 then 1 else 0 end) as trunk,
+                    sum(case valid_number when 2 then 1 else 0 end) as box,
+                    sum(case valid_number when 3 then 1 else 0 end) as pkg,
+                    sum(tickets) as tickets
+               from wh_goods_receipt_detail where ref_no=#{returnNo}
+              group by ref_no, plan_code) r
+    on (d.return_no = r.ref_no and d.plan_code = r.plan_code)
+
+ where d.return_no =#{returnNo}
+
+
+</select>
+<select id="getReturnListInfoDiffByCode" parameterType="String" resultType="cls.pilottery.web.goodsIssues.model.GoodsIssueDetailVo">
+select d.return_no,
+       d.plan_code as planCode,
+       p.full_name as planName,
+       d.tickets  as receivableTickets,
+       nvl(r.tickets, 0) as receivabedTickets,
+       d.tickets-nvl(r.tickets, 0) as diff
+  from sale_return_apply_detail d
+  left join game_plans p
+    on d.plan_code = p.plan_code
+  left join (select ref_no,
+                    plan_code,
+                    sum(tickets) as tickets
+               from wh_goods_receipt_detail
+           
+              group by ref_no, plan_code) r
+    on (d.return_no = r.ref_no and d.plan_code = r.plan_code)
+
+ where d.return_no = #{returnNo}
+
+</select>
+</mapper>

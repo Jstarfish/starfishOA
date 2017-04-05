@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.outlet.dao.OutletGoodsDao" >
+<select id="getOutletGoodsCount" parameterType="cls.pilottery.web.outlet.form.OutletGoodsForm" resultType="Integer">
+	select count(1)  from SALE_AGENCY_RECEIPT sa, inf_agencys ag
+	
+  	 where 1 = 1
+   and ag.agency_code = sa.AR_AGENCY
+   and ag.org_code=#{orgCode}
+    <if test="arAgency!=null and arAgency!=''">
+    and sa.AR_AGENCY=#{arAgency}
+    </if>
+     <if test="arDate!=null and arDate!=''">
+     and to_char(sa.ar_date,'yyyy-MM-dd')=#{arDate}
+    </if>
+     order by sa.ar_date desc
+</select>
+<!-- 站点退货分页 -->
+    <select id="getOutletGoodsCountList" parameterType="cls.pilottery.web.outlet.form.OutletGoodsForm" 
+    resultType="cls.pilottery.web.outlet.model.SaleAgencyReceiptVo">
+    select * from (
+		select a.*,rownum rn from (
+		 select sa.ar_no      as arNo,
+       sa.AR_AGENCY   as arAgency,
+       ag.agency_name as agencyName,
+       sa.ar_date    as arDate,
+       sa.tickets    as tickets,
+       sa.amount     as amount
+
+  from SALE_AGENCY_RECEIPT sa, inf_agencys ag
+ where 1 = 1
+   and ag.agency_code = sa.AR_AGENCY
+   and ag.org_code=#{orgCode}
+    <if test="arAgency!=null and arAgency!=''">
+    and sa.AR_AGENCY=#{arAgency}
+    </if>
+     <if test="arDate!=null and arDate!=''">
+     and to_char(sa.ar_date,'yyyy-MM-dd')=#{arDate}
+    </if>
+     order by sa.ar_date desc
+	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+    </select>
+
+</mapper>

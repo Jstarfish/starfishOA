@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.checkTickets.dao.InquiryDao">
+    <select id="getScanCount" parameterType="cls.pilottery.web.checkTickets.form.CheckInquiryForm"
+        resultType="int"
+    >
+        SELECT COUNT(1) FROM SWITCH_SCAN a WHERE 1=1
+        <if test="paidDate != null and paidDate!=''">
+			AND to_char(a.PAID_TIME,'yyyy-MM-dd')=#{paidDate}
+        </if>
+        <if test="orgCode != '00'">
+            AND a.PAID_ORG=#{orgCode}
+        </if>
+    </select>
+    <select id="getScanList" parameterType="cls.pilottery.web.checkTickets.form.CheckInquiryForm"
+        resultType="cls.pilottery.web.checkTickets.model.InquiryMain"
+    >
+        SELECT *
+        FROM (SELECT A.*, ROWNUM RN
+        FROM (SELECT A.OLD_PAY_FLOW PAYFLOW,
+        A.PAID_TIME PAIDTIME,
+        A.APPLY_TICKETS APPLY_TICKETS,
+        A.SUCC_TICKETS,
+        b.ADMIN_REALNAME paidAdminName
+        FROM SWITCH_SCAN A
+        join adm_info b on (PAID_ADMIN=ADMIN_ID)
+        WHERE 1 = 1
+        <if test="paidDate != null and paidDate!=''">
+            AND to_char(a.PAID_TIME,'yyyy-MM-dd')=#{paidDate}
+        </if>
+        <if test="orgCode != '00'">
+            AND A.PAID_ORG = #{orgCode}
+        </if>
+        ORDER BY PAIDTIME desc) A)
+        <![CDATA[ where rn > #{beginNum} and rn <= #{endNum}]]>
+
+    </select>
+    <select id="getScanDetail" parameterType="string"  resultType="cls.pilottery.web.checkTickets.model.InquirySecondary" >
+        with total as
+		 (select sum(decode(paid_status,1,REWARD_AMOUNT,0)) wimAmount,
+		         f_get_old_plan_name(a.plan_code,a.batch_no) planCode,
+		         count(1) scanTicket
+		    from switch_scan_detail a
+		WHERE TRIM (a.old_pay_flow) = #{_parameter}
+		   group by f_get_old_plan_name(a.plan_code,a.batch_no)),
+		winCount as
+		 (select f_get_old_plan_name(a.plan_code,a.batch_no) planCode, count(plan_code) winNum
+		    from switch_scan_detail a
+		   where a.paid_status = 1
+		and TRIM (a.old_pay_flow) = #{_parameter}
+		   group by f_get_old_plan_name(a.plan_code,a.batch_no))
+		select planCode,
+		       a.wimamount,
+		       a.scanticket,
+		       nvl(b.winnum, 0) wiNnum
+		  from total a
+		  left join winCount b using(planCode)
+    </select>
+    <select id="getInquiryByFlow" parameterType="string"  resultType="cls.pilottery.web.checkTickets.model.InquirySecondary">
+        SELECT A.PLAN_CODE ||'-'|| A.BATCH_NO ||'-'||  A.PACKAGE_NO ||'-'|| A.TICKET_NO  TICKETSNO,
+		        A.REWARD_AMOUNT wimAmount,
+		        a.PAID_STATUS   paidStatus,
+		        a.IS_NEW_TICKET isNew
+        FROM SWITCH_SCAN_DETAIL A
+        WHERE  trim(A.OLD_PAY_FLOW) = #{_PARAMETER}
+        order by OLD_PAY_SEQ
+    </select>
+    
+    <select id="getStatisticInfo" parameterType="string"  resultType="cls.pilottery.web.checkTickets.model.CheckStatisticsInfo">
+        select f_get_old_plan_name(d.plan_code,d.batch_no) planName,
+        	   reward_amount levelAmount,
+			   count(d.old_pay_seq) winTickets, 
+			   sum(d.reward_amount) winAmount 
+			from switch_scan_detail d 
+			where d.paid_status = 1
+			and d.old_pay_flow=#{_parameter}
+			group by d.old_pay_flow,f_get_old_plan_name(d.plan_code,d.batch_no),d.reward_amount
+			order by f_get_old_plan_name(d.plan_code,d.batch_no),levelAmount desc
+    </select>
+</mapper>

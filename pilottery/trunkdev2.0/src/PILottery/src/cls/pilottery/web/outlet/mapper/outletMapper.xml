@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.outlet.dao.OutletDao">
+    <resultMap id="BaseResultMap" type="cls.pilottery.web.outlet.model.Agencys">
+        <id column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+        <result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+        <result column="BANK_ID" property="bankId" jdbcType="DECIMAL" />
+        <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+        <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+        <result column="CONTACT_PERSON" property="contactPerson"
+            jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="CHAR" />
+        <result column="AREA_CODE" property="areaCode" jdbcType="CHAR" />
+        <result column="MARKET_MANAGER_ID" property="marketManagerId"
+            jdbcType="DECIMAL" />
+    </resultMap>
+    <resultMap type="cls.pilottery.web.outlet.model.AgencyExt" id="AgencyExt">
+        <id column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+        <result column="PERSONAL_ID" property="personalId" jdbcType="VARCHAR" />
+        <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!-- 用于返回站点资金流水 add by dzg -->
+    <resultMap id="agencyflow" type="cls.pilottery.web.outlet.model.FlowAgency">
+        <id column="AGENCY_FUND_FLOW" property="agencyFundFlow" jdbcType="CHAR" />
+        <result column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+        <result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+        <result column="REF_NO" property="refNo" jdbcType="VARCHAR" />
+        <result column="FLOW_TYPE" property="flowType" jdbcType="DECIMAL" />
+        <result column="ACC_NO" property="accNo" jdbcType="CHAR" />
+        <result column="maxflow" property="maxFlow" />
+        <result column="TRADE_TIME" property="transTime" />
+        <result column="ACCOUNT_BALANCE" property="balance" jdbcType="DECIMAL" />
+        <result column="CREDIT_LIMIT" property="credit" jdbcType="DECIMAL" />
+        <result column="CHANGE_AMOUNT" property="changeAmount" jdbcType="DECIMAL" />
+        <result column="FROZEN_AMOUNT" property="frozenAmount" jdbcType="DECIMAL" />
+        <result column="BE_ACCOUNT_BALANCE" property="beAccountBalance"
+            jdbcType="DECIMAL" />
+        <result column="BE_FROZEN_BALANCE" property="beFrozenBalance"
+            jdbcType="DECIMAL" />
+        <result column="AF_ACCOUNT_BALANCE" property="afAccountBalance"
+            jdbcType="DECIMAL" />
+        <result column="AF_FROZEN_BALANCE" property="afFrozenBalance"
+            jdbcType="DECIMAL" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        AGENCY_CODE, AGENCY_NAME, BANK_ID, BANK_ACCOUNT,
+     TELEPHONE,
+        CONTACT_PERSON, ADDRESS, ORG_CODE, AREA_CODE,
+        MARKET_MANAGER_ID
+    </sql>
+
+    <!-- 用于返回站点资金流水 add by dzg -->
+    <select id="selectAgencyFlowForPOS" resultMap="agencyflow"
+        parameterType="cls.pilottery.web.outlet.model.FlowAgency" >
+        
+		WITH compress_reward
+		     AS (  SELECT flow_type,
+		                  acc_no,
+		                  agency_code,
+		                  TRADE_TIME,
+		                  MAX (agency_fund_flow) agency_fund_flow,
+		                  SUM (change_amount) change_amount
+		             FROM FLOW_AGENCY
+		            WHERE flow_type IN (8, 6) 
+		            <if test="agencyCode != null and agencyCode != ''">
+			            and agency_code = #{agencyCode}
+			        </if>
+			        <if test="agencyFundFlow != null and agencyFundFlow != ''">
+			            and agency_fund_flow > #{agencyFundFlow}
+			        </if>
+		         GROUP BY flow_type,
+		                  acc_no,
+		                  agency_code,
+		                  TRADE_TIME),
+		     all_flow_agency
+		     AS (SELECT flow_type,
+		                acc_no,
+		                agency_code,
+		                TRADE_TIME,
+		                agency_fund_flow,
+		                change_amount
+		           FROM FLOW_AGENCY
+		          WHERE flow_type NOT IN (8, 6) 
+					<if test="agencyCode != null and agencyCode != ''">
+			            and agency_code = #{agencyCode}
+			        </if>
+			        <if test="agencyFundFlow != null and agencyFundFlow != ''">
+			            and agency_fund_flow > #{agencyFundFlow}
+			        </if>
+		         UNION ALL
+		         SELECT flow_type,
+		                acc_no,
+		                agency_code,
+		                TRADE_TIME,
+		                agency_fund_flow,
+		                change_amount
+		           FROM compress_reward),
+		     base
+		     AS (  SELECT a.agency_name,
+		                  c.account_balance,
+		                  c.credit_limit,
+		                  f.change_amount,
+		                  f.flow_type,
+		                  f.trade_time,
+		                  f.agency_code,
+		                  f.agency_fund_flow
+		             FROM all_flow_agency f
+		                  JOIN acc_agency_account c
+		                     ON f.acc_no = c.acc_no
+		                  JOIN inf_agencys a
+		                     ON f.agency_code = a.agency_code
+		            WHERE 1=1 
+		            <if test="agencyCode != null and agencyCode != ''">
+			            and f.agency_code = #{agencyCode}
+			        </if>
+			        <if test="agencyFundFlow != null and agencyFundFlow != ''">
+			            and f.agency_fund_flow > #{agencyFundFlow}
+			        </if>
+		         ORDER BY agency_fund_flow DESC),
+		     limit_500
+		     AS (SELECT ROWNUM rnum, base.*
+		           FROM base
+		        <![CDATA[  WHERE ROWNUM <= #{beginNum}) ]]>
+		SELECT agency_name,account_balance,credit_limit,change_amount,flow_type,trade_time,agency_code,agency_fund_flow, MAX(agency_fund_flow) OVER () AS maxflow
+		  FROM limit_500
+    </select>
+
+    <select id="selectAgencyAccForPOS" parameterType="java.lang.String"
+        resultMap="agencyflow"
+    >
+        select * from inf_agencys a left join acc_agency_account c
+        on a.agency_code=
+        c.agency_code
+        where a.agency_code = #{code}
+    </select>
+
+    <select id="getInstitution" resultType="cls.pilottery.web.outlet.model.Orgs"
+        parameterType="java.lang.String"
+    >
+        SELECT ORG_CODE AS orgCode, ORG_NAME AS orgName FROM INF_ORGS O WHERE
+        1=1 and
+        O.ORG_STATUS<![CDATA[ <>2]]>
+        <if test="_parameter != '00'">
+            AND o.ORG_CODE=#{_parameter} OR o.super_org=#{_parameter}
+        </if>
+    </select>
+    <select id="getAreaByCode" resultType="cls.pilottery.web.outlet.model.Area">
+        SELECT AREA_CODE AS
+        areaCode ,
+        AREA_NAME AS areaName FROM INF_AREAS where
+        AREA_CODE =
+        #{code,jdbcType=VARCHAR}
+    </select>
+    <select id="getStore" resultType="cls.pilottery.web.outlet.model.StoreType">
+        SELECT storetype_id as storeId,
+        storetype_name as storeName from
+        inf_storetypes where is_valid=1
+    </select>
+    <select id="getBank" resultType="cls.pilottery.web.outlet.model.Bank">
+        SELECT bank_id as bankId,
+        bank_name as
+        bankName FROM inf_banks where 1=1
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+        parameterType="java.lang.String"
+    >
+        select
+        <include refid="Base_Column_List" />
+        from INF_AGENCYS
+        where AGENCY_CODE = #{agencyCode,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from
+        INF_AGENCYS
+        where AGENCY_CODE = #{agencyCode,jdbcType=CHAR}
+    </delete>
+    <insert id="insert" parameterType="cls.pilottery.web.outlet.model.Agencys">
+        insert into INF_AGENCYS
+        (AGENCY_CODE, AGENCY_NAME,
+        AGENCY_TYPE, BANK_ID,
+        BANK_ACCOUNT,
+        TELEPHONE,
+        CONTACT_PERSON,
+        ADDRESS, AGENCY_ADD_TIME, QUIT_TIME,
+        ORG_CODE, AREA_CODE,
+        LOGIN_PASS,
+        TRADE_PASS, MARKET_MANAGER_ID)
+        values
+        (#{agencyCode,jdbcType=CHAR}, #{agencyName,jdbcType=VARCHAR},
+        #{storetypeId,jdbcType=DECIMAL},
+        #{jdbcType=DECIMAL},
+        #{agencyType,jdbcType=DECIMAL}, #{bankId,jdbcType=DECIMAL},
+        #{bankAccount,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
+        #{contactPerson,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},
+        #{agencyAddTime,jdbcType=TIMESTAMP}, #{quitTime,jdbcType=TIMESTAMP},
+        #{orgCode,jdbcType=CHAR}, #{areaCode,jdbcType=CHAR},
+        #{loginPass,jdbcType=VARCHAR},
+        #{tradePass,jdbcType=VARCHAR},
+        #{marketManagerId,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="cls.pilottery.web.outlet.model.Agencys">
+        insert into INF_AGENCYS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="agencyCode != null">
+                AGENCY_CODE,
+            </if>
+            <if test="agencyName != null">
+                AGENCY_NAME,
+            </if>
+            <if test="agencyType != null">
+                AGENCY_TYPE,
+            </if>
+            <if test="bankId != null">
+                BANK_ID,
+            </if>
+            <if test="bankAccount != null">
+                BANK_ACCOUNT,
+            </if>
+            <if test="telephone != null">
+                TELEPHONE,
+            </if>
+            <if test="contactPerson != null">
+                CONTACT_PERSON,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="orgCode != null">
+                ORG_CODE,
+            </if>
+            <if test="areaCode != null">
+                AREA_CODE,
+            </if>
+
+            <if test="marketManagerId != null">
+                MARKET_MANAGER_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="agencyCode != null">
+                #{agencyCode,jdbcType=CHAR},
+            </if>
+            <if test="agencyName != null">
+                #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="storetypeId != null">
+                #{storetypeId,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{jdbcType=DECIMAL},
+            </if>
+            <if test="agencyType != null">
+                #{agencyType,jdbcType=DECIMAL},
+            </if>
+            <if test="bankId != null">
+                #{bankId,jdbcType=DECIMAL},
+            </if>
+            <if test="bankAccount != null">
+                #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPerson != null">
+                #{contactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyAddTime != null">
+                #{agencyAddTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="quitTime != null">
+                #{quitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=CHAR},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode,jdbcType=CHAR},
+            </if>
+            <if test="loginPass != null">
+                #{loginPass,jdbcType=VARCHAR},
+            </if>
+            <if test="tradePass != null">
+                #{tradePass,jdbcType=VARCHAR},
+            </if>
+            <if test="marketManagerId != null">
+                #{marketManagerId,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.web.outlet.model.Agencys">
+        update INF_AGENCYS
+        <set>
+            <if test="agencyName != null">
+                AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyType != null">
+                AGENCY_TYPE = #{agencyType,jdbcType=DECIMAL},
+            </if>
+            <if test="bankId != null">
+                BANK_ID = #{bankId,jdbcType=DECIMAL},
+            </if>
+            <if test="bankAccount != null">
+                BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                TELEPHONE = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPerson != null">
+                CONTACT_PERSON = #{contactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                ORG_CODE = #{orgCode,jdbcType=CHAR},
+            </if>
+            <if test="areaCode != null">
+                AREA_CODE = #{areaCode,jdbcType=CHAR},
+            </if>
+            <if test="marketManagerId != null">
+                MARKET_MANAGER_ID = #{marketManagerId,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where AGENCY_CODE = #{agencyCode,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cls.pilottery.web.outlet.model.Agencys">
+        update INF_AGENCYS
+        set
+        AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+        AGENCY_TYPE =
+        #{agencyType,jdbcType=DECIMAL},
+        BANK_ID = #{bankId,jdbcType=DECIMAL},
+        BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+        TELEPHONE =
+        #{telephone,jdbcType=VARCHAR},
+        CONTACT_PERSON =
+        #{contactPerson,jdbcType=VARCHAR},
+        ADDRESS =
+        #{address,jdbcType=VARCHAR},
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+        AREA_CODE =
+        #{areaCode,jdbcType=CHAR},
+        MARKET_MANAGER_ID =
+        #{marketManagerId,jdbcType=DECIMAL}
+        where AGENCY_CODE =
+        #{agencyCode,jdbcType=CHAR}
+    </update>
+
+    <insert id="addOutlet" parameterType="cls.pilottery.web.outlet.form.AddOutlet"
+        statementType="CALLABLE"
+    >
+        {call p_outlet_create (
+        #{agencyName,mode=IN,jdbcType=VARCHAR},
+        #{contactPerson,mode=IN ,jdbcType=VARCHAR},
+        #{telephone,mode=IN  ,jdbcType=VARCHAR},
+        #{bankId,mode=IN ,jdbcType=NUMERIC},
+        #{bankAccount,mode=IN ,jdbcType=VARCHAR},
+        #{personalId,mode=IN ,jdbcType=VARCHAR},
+        #{contractNo,mode=IN ,jdbcType=VARCHAR},
+        #{areaCode,mode=IN ,jdbcType=VARCHAR},
+        #{orgCode,mode=IN ,jdbcType=VARCHAR},
+        #{address,mode=IN ,jdbcType=VARCHAR},
+        #{storetypeId,mode=IN ,jdbcType=NUMERIC},
+        #{agencyType,mode=IN,jdbcType=NUMERIC},
+        #{marketManagerId,mode=IN,jdbcType=NUMERIC},
+        #{glatlng_n,mode=IN ,jdbcType=VARCHAR},
+        #{glatlng_e,mode=IN,jdbcType=VARCHAR},
+        #{pass,mode=IN ,jdbcType=VARCHAR},
+        #{c_outlet_code,mode=OUT ,jdbcType=VARCHAR},
+        #{c_errorcode,mode=OUT
+        ,jdbcType=NUMERIC},
+        #{c_errormesg,mode=OUT
+        ,jdbcType=VARCHAR}
+        )
+        }
+    </insert>
+    <update id="modifyOutlet" parameterType="cls.pilottery.web.outlet.form.AddOutlet"
+        statementType="CALLABLE"
+    >
+        {call p_outlet_modify (
+        #{c_outlet_code,mode=IN
+        ,jdbcType=VARCHAR},
+        #{c_outlet_code,mode=IN ,jdbcType=VARCHAR},
+        #{agencyName,mode=IN
+        ,jdbcType=VARCHAR},
+        #{contactPerson,mode=IN
+        ,jdbcType=VARCHAR},
+        #{telephone,mode=IN ,jdbcType=VARCHAR},
+        #{bankId,mode=IN
+        ,jdbcType=NUMERIC},
+        #{bankAccount,mode=IN
+        ,jdbcType=VARCHAR},
+        #{personalId,mode=IN ,jdbcType=VARCHAR},
+        #{contractNo,mode=IN
+        ,jdbcType=VARCHAR},
+        #{areaCode,mode=IN
+        ,jdbcType=VARCHAR},
+        #{orgCode,mode=IN ,jdbcType=VARCHAR},
+        #{address,mode=IN
+        ,jdbcType=VARCHAR},
+        #{storetypeId,mode=IN
+        ,jdbcType=NUMERIC},
+        #{agencyType,mode=IN ,jdbcType=NUMERIC},
+        #{marketManagerId,mode=IN
+        ,jdbcType=NUMERIC},
+        #{glatlng_n,mode=IN
+        ,jdbcType=VARCHAR},
+        #{glatlng_e,mode=IN ,jdbcType=VARCHAR},
+        #{c_outlet_code,mode=OUT
+        ,jdbcType=VARCHAR},
+        #{c_errorcode,mode=OUT
+        ,jdbcType=NUMERIC},
+        #{c_errormesg,mode=OUT ,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+
+
+    <select id="getOutletCount" parameterType="cls.pilottery.web.outlet.form.ListOutletForm"
+        resultType="Integer"
+    >
+        SELECT count(1)
+        FROM INF_AGENCYS A left join INF_AREAS B on A.AREA_CODE =
+        B.AREA_CODE left join INF_ORGS C on A.ORG_CODE = C.ORG_CODE
+        WHERE 1=1
+        <if test="outletCode != null and outletCode!=''">
+            AND A.AGENCY_CODE = #{outletCode}
+        </if>
+        <if test="institutionCode != null and institutionCode != ''">
+            AND C.ORG_CODE like #{institutionCode}
+        </if>
+        <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="insCode != '00'">
+		  			AND C.ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{cuserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info WHERE admin_id = #{cuserId}
+		  			)
+		  		</if>
+		  </if>
+           <if test="status != 0">
+            AND a.status=#{status}
+        </if>
+    </select>
+
+    <select id="selectByCodeInsti" resultType="cls.pilottery.web.outlet.form.ListOutletForm"
+        parameterType="cls.pilottery.web.outlet.form.ListOutletForm"
+    >
+    select * from (
+	select tab.*,rownum rn from (
+        SELECT A.AGENCY_CODE outletCode,
+        A.AGENCY_NAME outletName,
+        C.ORG_NAME
+        institutionName,
+        B.AREA_NAME area,
+        A.CONTACT_PERSON contractPerson,
+        A.STATUS STATUS,
+        A.TELEPHONE contractPhone
+        FROM INF_AGENCYS A left join
+        INF_AREAS B on A.AREA_CODE = B.AREA_CODE left join INF_ORGS C on
+        A.ORG_CODE = C.ORG_CODE
+        where 1=1
+        <if test="outletCode != null and outletCode!=''">
+            AND A.AGENCY_CODE = #{outletCode}
+        </if>
+        <if test="institutionCode != null and institutionCode != ''">
+            AND C.ORG_CODE like #{institutionCode}
+        </if>
+        <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="insCode != '00'">
+		  			AND C.ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{cuserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info WHERE admin_id = #{cuserId}
+		  			)
+		  		</if>
+		  </if>
+		  <if test="status != 0">
+              AND a.status=#{status}
+          </if>
+	 	order by outletCode
+        <![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} 
+		]]>
+    </select>
+
+    <select id="getByCode" resultType="cls.pilottery.web.outlet.form.DetailsForm"
+        parameterType="String"
+    >
+        SELECT A.AGENCY_CODE C_OUTLET_CODE,
+        A.AREA_CODE AREACODE,
+        A.BANK_ID BANKID,
+        A.AGENCY_NAME AGENCYNAME,
+        F.STORETYPE_NAME STORETYPE,
+        A.STATUS STATUS,
+        A.STORETYPE_ID STORETYPEID,
+        A.AGENCY_TYPE AGENCYTYPE,
+        E.BANK_NAME
+        BANKNAME,
+        A.BANK_ACCOUNT BANKACCOUNT,
+        A.TELEPHONE TELEPHONE,
+        A.CONTACT_PERSON CONTACTPERSON,
+        A.ADDRESS ADDRESS,
+        A.AGENCY_ADD_TIME
+        AGENCYADDTIME,
+        A.QUIT_TIME AGENCYQUITTIME,
+        A.ORG_CODE ORGCODE,
+        B.ORG_NAME
+        ORGNAME,
+        C.AREA_NAME AREANAME,
+        A.LOGIN_PASS PASS,
+        A.MARKET_MANAGER_ID
+        MARKETMANAGERID,
+        D.PERSONAL_ID PERSONALID,
+        D.CONTRACT_NO CONTRACTNO,
+        D.GLATLNG_N GLATLNG_N,
+        D.GLATLNG_E GLATLNG_E,
+        G.ADMIN_REALNAME MARKETNAME
+        FROM INF_AGENCYS A
+        LEFT JOIN INF_ORGS B
+        ON (A.ORG_CODE = B.ORG_CODE)
+        LEFT
+        JOIN INF_AREAS C
+        ON A.AREA_CODE = C.AREA_CODE
+        LEFT JOIN INF_AGENCY_EXT D
+        ON (A.AGENCY_CODE = D.AGENCY_CODE)
+        LEFT JOIN INF_BANKS E
+        ON A.BANK_ID =
+        E.BANK_ID
+        LEFT JOIN INF_STORETYPES F
+        ON A.STORETYPE_ID = F.STORETYPE_ID
+        LEFT JOIN ADM_INFO G
+        ON A.MARKET_MANAGER_ID = G.ADMIN_ID
+        WHERE
+        A.AGENCY_CODE
+        =#{code,jdbcType=VARCHAR}
+    </select>
+
+    <!-- add by dzg 用于手持终端，根据编号，市场管理人员，获取有效站点（未删除） -->
+    <select id="getByCodeAndMM" resultType="cls.pilottery.web.outlet.form.DetailsForm">
+        select a.agency_code
+        c_outlet_code,
+        a.area_code areacode,
+        a.bank_id bankid,
+        a.agency_name
+        agencyname,
+        f.storetype_name storetype,
+        a.status status,
+        a.storetype_id
+        storetypeid,
+        a.agency_type agencytype,
+        e.bank_name bankname,
+        a.bank_account bankaccount,
+        a.telephone telephone,
+        a.contact_person
+        contactperson,
+        a.address address,
+        a.agency_add_time agencyaddtime,
+        a.quit_time agencyquittime,
+        a.org_code orgcode,
+        b.org_name orgname,
+        c.area_name areaname,
+        a.login_pass pass,
+        a.market_manager_id
+        marketmanagerid,
+        d.personal_id personalid,
+        d.contract_no contractno,
+        d.glatlng_n glatlng_n,
+        d.glatlng_e glatlng_e,
+        g.admin_realname marketname,
+        ac.account_balance balance
+        from inf_agencys a
+        left join inf_orgs b
+        on
+        (a.org_code = b.org_code)
+        left join inf_areas c
+        on a.area_code =
+        c.area_code
+        left join inf_agency_ext d
+        on (a.agency_code = d.agency_code)
+        left join inf_banks e
+        on a.bank_id = e.bank_id
+        left join inf_storetypes f
+        on a.storetype_id = f.storetype_id
+        left join adm_info g
+        on
+        a.market_manager_id = g.admin_id
+        left join acc_agency_account ac
+        on
+        a.agency_code = ac.agency_code
+        where a.status = 1
+        and a.agency_code =
+        #{code}
+        and a.market_manager_id = #{userid}
+    </select>
+
+    <update id="deleteupdeSatus" parameterType="String">
+        UPDATE INF_AGENCYS
+        SET
+        STATUS =3 WHERE AGENCY_CODE=#{outletCode}
+    </update>
+    <update id="resetPass" parameterType="cls.pilottery.web.outlet.form.ResetPassowrd">
+        UPDATE INF_AGENCYS
+        SET
+        LOGIN_PASS=#{password},TRADE_PASS=#{password} WHERE
+        AGENCY_CODE=#{outletCode}
+    </update>
+
+    <!-- 站点充值 -->
+    <update id="forOutletPopup" parameterType="cls.pilottery.web.outlet.model.FlowAgency"
+        statementType="CALLABLE"
+    >
+        {call p_outlet_topup (
+        #{agencyCode,mode=IN,jdbcType=VARCHAR},
+        #{amount,mode=IN ,jdbcType=NUMERIC},
+        #{adminId,mode=IN
+        ,jdbcType=NUMERIC},
+        #{password,mode=IN ,jdbcType=VARCHAR},
+        #{agencyFundFlow,mode=OUT ,jdbcType=VARCHAR},
+        #{beforeAmount,mode=OUT,jdbcType=NUMERIC},
+        #{afterAmount,mode=OUT,jdbcType=NUMERIC},
+        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+        #{c_errmsg,mode=OUT
+        ,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+    <!-- 站点提现申请 -->
+    <update id="forOutletWithdrawApp" parameterType="cls.pilottery.web.outlet.model.FlowAgency"
+        statementType="CALLABLE"
+    >
+        {call p_outlet_withdraw_app (
+        #{agencyCode,mode=IN,jdbcType=VARCHAR},
+        #{password,mode=IN,jdbcType=VARCHAR},
+        #{amount,mode=IN
+        ,jdbcType=NUMERIC},
+        #{adminId,mode=IN,jdbcType=NUMERIC},
+        #{agencyFundFlow,mode=OUT ,jdbcType=VARCHAR},
+        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+        #{c_errmsg,mode=OUT
+        ,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+
+    <!-- 站点提现确认 -->
+    <update id="forOutletWithdrawCon" parameterType="cls.pilottery.web.outlet.model.FlowAgency"
+        statementType="CALLABLE"
+    >
+        {call p_outlet_withdraw_con (
+        #{agencyCode,mode=IN,jdbcType=VARCHAR},
+        #{password,mode=IN ,jdbcType=VARCHAR},
+        #{agencyFundFlow,mode=IN,jdbcType=VARCHAR},
+        #{adminId,mode=IN
+        ,jdbcType=NUMERIC},
+        #{c_errcode,mode=OUT,jdbcType=NUMERIC},
+        #{c_errmsg,mode=OUT ,jdbcType=VARCHAR}
+        )
+        }
+    </update>
+    <select id="getMaketAdminByInscode" parameterType="String"
+        resultType="cls.pilottery.web.outlet.model.MarketAdmin"
+    >
+        SELECT A.ADMIN_ID market, A.ADMIN_REALNAME realName
+        FROM ADM_INFO A
+        WHERE 1=1
+        AND A.IS_COLLECTER=1
+        AND A.ADMIN_STATUS=1
+        AND A.ADMIN_ORG =#{insCode}
+
+    </select>
+
+    <select id="getAgencyCount" parameterType="cls.pilottery.web.outlet.form.AgencyDealRecordForm"
+        resultType="Integer"
+    >
+        select count(1) from
+        (select 1 from FLOW_AGENCY a left join ACC_AGENCY_ACCOUNT b on
+	        a.ACC_NO = b.ACC_NO LEFT JOIN inf_agencys c ON a.agency_code=c.agency_code
+	        where 1=1 
+	        <if test="insCode != '00'"> 
+	        	and c.org_code=#{insCode}
+	        </if>
+	        <if test="outletCode!=null and outletCode!=''">
+	            and b.AGENCY_CODE=#{outletCode,jdbcType=VARCHAR}
+	        </if>
+	        <if test="beginTime!=null and beginTime!=''">
+		 		<![CDATA[ and to_date(to_char(a.TRADE_TIME,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(#{beginTime}, 'yyyy-MM-dd')
+		 			and to_date(to_char(a.TRADE_TIME,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(#{beginTime}, 'yyyy-MM-dd')
+		 		]]>
+	        </if>
+	        <if test="dealType!=null and dealType!=''">
+	            and a.FLOW_TYPE=#{dealType,jdbcType=NUMERIC}
+	        </if>
+	        group by a.TRADE_TIME,a.FLOW_TYPE,a.AGENCY_CODE
+        )
+    </select>
+
+
+    <select id="getAgencyDealList" parameterType="cls.pilottery.web.outlet.form.AgencyDealRecordForm"
+        resultType="cls.pilottery.web.outlet.form.AgencyDealRecordForm" >
+        with compress_reward as
+		 (select flow_type,
+		         acc_no,
+		         agency_code,
+		         TRADE_TIME,
+		         max(agency_fund_flow) agency_fund_flow,
+		         sum(change_amount) change_amount
+		    from FLOW_AGENCY
+		   where flow_type in (8, 6)
+		    <if test="outletCode!=null and outletCode!=''">
+	            and AGENCY_CODE=#{outletCode}
+	        </if>
+		   group by flow_type, acc_no, agency_code, TRADE_TIME),
+		all_flow_agency as
+		 (select flow_type,
+		         acc_no,
+		         agency_code,
+		         TRADE_TIME,
+		         agency_fund_flow,
+		         change_amount
+		    from FLOW_AGENCY
+		   where flow_type not in (8, 6)
+		    <if test="outletCode!=null and outletCode!=''">
+	            and AGENCY_CODE=#{outletCode}
+	        </if>
+		  union all
+		  select flow_type,
+		         acc_no,
+		         agency_code,
+		         TRADE_TIME,
+		         agency_fund_flow,
+		         change_amount
+		    from compress_reward)
+		select realTime,dealType,amount,agencyCode 
+		from (
+	        select tab.*, rownum rn from (
+				select a.TRADE_TIME as realTime,
+				       a.FLOW_TYPE as dealType,
+				       a.CHANGE_AMOUNT as amount,
+				       a.AGENCY_CODE as agencyCode
+				  from all_flow_agency a 
+				  join ACC_AGENCY_ACCOUNT b using(ACC_NO) 
+				  JOIN inf_agencys c on (a.agency_code = c.agency_code)
+				 where
+			        1=1 
+			        <if test="insCode != '00'"> 
+			        	and c.org_code=#{insCode}
+			        </if> 
+			        <if test="outletCode!=null and outletCode!='' and outletCode!=0">
+			            and b.AGENCY_CODE=#{outletCode,jdbcType=VARCHAR}
+			        </if>
+			        <if test="beginTime!=null and beginTime!=''">
+			            <![CDATA[ and a.TRADE_TIME >= to_date(#{beginTime}, 'yyyy-MM-dd') 
+			            	 and a.TRADE_TIME < to_date(#{beginTime}, 'yyyy-MM-dd') + 1
+			            ]]>
+			        </if>
+			        <if test="dealType!=null and dealType!=''">
+			            and a.FLOW_TYPE=#{dealType}
+			        </if> 
+			        order by AGENCY_FUND_FLOW desc
+        ) tab)
+        <![CDATA[ where rn <= #{endNum} and rn > #{beginNum} ]]>
+        
+    </select>
+
+    <select id="getFundDailyCount" resultType="Integer"
+        parameterType="cls.pilottery.web.outlet.form.AgencyDealRecordForm"
+    >
+        SELECT COUNT(1) FROM (
+        SELECT SUM(a.CHANGE_AMOUNT)
+        account,a.agency_code
+        outletCode,to_char(a.TRADE_TIME,'yyyy-MM-dd') dateTime,
+        CASE
+        WHEN a.FLOW_TYPE
+        = 1
+        THEN 'Top Up'
+        WHEN a.FLOW_TYPE = 2 THEN 'Withdraw'
+        WHEN
+        a.FLOW_TYPE = 5 THEN
+        'Sales Commission'
+        WHEN a.FLOW_TYPE = 6 THEN 'Payout
+        Commission'
+        WHEN
+        a.FLOW_TYPE = 7 THEN 'Sales'
+        WHEN a.FLOW_TYPE = 8 THEN
+        'Payout'
+        ELSE NULL END
+        fundType 
+         FROM FLOW_AGENCY a LEFT JOIN inf_agencys c ON a.agency_code=c.agency_code WHERE  1=1 <if test="insCode != '00'"> and c.org_code=#{insCode}</if>
+        <if test="beginTime!=null and beginTime!=''">
+	 		<![CDATA[ and to_date(to_char(a.TRADE_TIME,'yyyy-MM-dd'),'yyyy-MM-dd') = to_date(#{beginTime}, 'yyyy-MM-dd')]]>
+        </if>
+        <if test="outletCode!=null and outletCode!=''">
+            AND a.agency_code=#{outletCode}
+        </if>
+
+        GROUP BY
+        FLOW_TYPE,to_char(TRADE_TIME,'yyyy-MM-dd'),a.agency_code ORDER BY
+        dateTime)
+    </select>
+    <select id="getFundDailyList" parameterType="cls.pilottery.web.outlet.form.AgencyDealRecordForm"
+        resultType="cls.pilottery.web.outlet.model.FundDailyRecord"
+    >
+        select * from (
+        select a.*, rownum rn from ( SELECT SUM(a.CHANGE_AMOUNT)
+        account,a.agency_code outletCode,to_char(a.TRADE_TIME,'yyyy-MM-dd')
+        dateTime,
+        a.FLOW_TYPE fundType
+
+        FROM FLOW_AGENCY a LEFT JOIN inf_agencys c ON a.agency_code=c.agency_code  WHERE 1=1 <if test="insCode != '00'"> and c.org_code=#{insCode}</if>
+        <if test="beginTime!=null and beginTime!=''">
+            <![CDATA[ and to_date(to_char(a.TRADE_TIME,'yyyy-MM-dd'),'yyyy-MM-dd') = to_date(#{beginTime}, 'yyyy-MM-dd')]]>
+        </if>
+        <if test="outletCode!=null and outletCode!=''">
+            AND a.agency_code=#{outletCode}
+        </if>
+
+        GROUP BY
+        a.FLOW_TYPE,to_char(a.TRADE_TIME,'yyyy-MM-dd'),a.agency_code ORDER BY
+        dateTime) a)
+        <![CDATA[ where rn > #{beginNum} and rn <= #{endNum}]]>
+    </select>
+    <select id="getInsOrg" parameterType="string"
+        resultType="cls.pilottery.web.outlet.model.Area"
+    >
+        SELECT A.AREA_CODE areaCode, B.AREA_NAME areaName
+        FROM INF_ORG_AREA A
+        LEFT
+        JOIN INF_AREAS B
+        ON A.AREA_CODE = B.AREA_CODE
+        WHERE A.ORG_CODE =#{code}
+    </select>
+    <select id="selectBalance" parameterType="string" resultType="long">
+        SELECT
+        NVL(SUM(ACCOUNT_BALANCE), 0)
+        FROM ACC_AGENCY_ACCOUNT
+        WHERE AGENCY_CODE =
+        #{_parameter}
+    </select>
+    <update id="enable" parameterType="string">
+        UPDATE INF_AGENCYS
+        SET STATUS = 1
+        WHERE AGENCY_CODE =#{_parameter}
+    </update>
+    <update id="disable" parameterType="string">
+        UPDATE INF_AGENCYS
+        SET STATUS = 2
+        WHERE AGENCY_CODE =#{_parameter}
+    </update>
+     <select id="getAgencysCodeByname" parameterType="cls.pilottery.web.outlet.form.AddOutlet" resultType="String">
+     	select  A.AGENCY_CODE outletCode from  INF_AGENCYS A where  A.AGENCY_NAME=#{agencyName} and A.AREA_CODE=#{areaCode}
+     </select>
+	<select id="getFlowTypeList" resultType="Integer">
+		select distinct flow_type from flow_agency 
+	</select>
+	
+	<select id="getOutletFlowCount" resultType="Integer" parameterType="String">
+		 select count(1) from flow_agency where agency_code = #{_parameter}
+	</select>
+</mapper>

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.web.report.dao.MonthlyReportDao">
+	
+	<select id="getInstitutionFundList" parameterType="cls.pilottery.web.report.form.MonthlyReportForm" resultType="cls.pilottery.web.report.model.MonthlyReportVo">
+		with base as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         org_code,
+			         sum(charge) as charge,
+			         sum(withdraw) as withdraw,
+			         sum(sale) as sale,
+			         sum(paid) as paid,
+			         sum(center_pay) as center_pay,
+			         sum(rtv) as rtv,
+			         sum(lot_sale) as lot_sale,
+			         sum(lot_paid) as lot_paid,
+			         sum(lot_center_pay) as lot_center_pay,
+			         sum(lot_rtv) as lot_rtv,
+			         sum(lot_center_rtv) as lot_center_rtv
+			    from his_org_fund_report
+			   WHERE SUBSTR(CALC_DATE, 0, 7) BETWEEN #{beginDate} AND #{endDate}
+			   group by substr(calc_date, 0, 7), org_code),
+			pil_fund as
+			 (select calc_month,
+			         org_code,
+			         org_name,
+			         1 as type,
+			         charge charge,
+			         withdraw,
+			         sale as sale_amount,
+			         (paid + center_pay) as paid_amount,
+			         rtv as rtv_amount,
+			         (sale - rtv) as incoming
+			    from base
+			    join inf_orgs
+			   using (org_code)),
+			lot_fund as
+			 (select calc_month,
+			         org_code,
+			         org_name,
+			         2 as type,
+			         charge,
+			         withdraw,
+			         lot_sale as sale_amount,
+			         (lot_paid + lot_center_pay) as paid_amount,
+			         (lot_rtv + lot_center_rtv) as rtv_amount,
+			         (lot_sale - lot_rtv - lot_center_rtv) as incoming
+			    from base
+			    join inf_orgs
+			   using (org_code)),
+			total_fund as
+			 (select calc_month,
+			         org_code,
+			         org_name,
+			         0 as type,
+			         charge,
+			         withdraw,
+			         (sale + lot_sale) as sale_amount,
+			         (paid + center_pay + lot_paid + lot_center_pay) as paid_amount,
+			         (rtv + lot_rtv + lot_center_rtv) as rtv_amount,
+			         (sale + lot_sale - rtv - lot_rtv - lot_center_rtv) as incoming
+			    from base
+			    join inf_orgs
+			   using (org_code)),
+			funds as
+			 (select calc_month,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from pil_fund
+			  union all
+			  select calc_month,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from lot_fund
+			  union all
+			  select calc_month,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from total_fund)
+			select calc_month  as showDate,
+			       org_code    as institutionCode,
+			       org_name    as institutionName,
+			       charge      as topup,
+			       withdraw    as withdraw,
+			       sale_amount as saleAmount,
+			       paid_amount as payout,
+			       rtv_amount  as returnAmount,
+			       incoming    as netSales
+			  from funds
+			 where 1=1
+		 <if test="institutionCode != null and institutionCode != ''">
+			AND ORG_CODE = #{institutionCode}
+	  	 </if>
+	  	 <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="cuserOrg != '00'">
+		  			AND ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{currentUserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info  WHERE admin_id = #{currentUserId}
+		  			)
+		  		</if>
+		  </if>
+		    AND TYPE = #{tjType}
+		    order by showDate desc,institutionCode
+	</select>
+	
+	<select id="getInstitutionFundSum" parameterType="cls.pilottery.web.report.form.MonthlyReportForm" resultType="cls.pilottery.web.report.model.MonthlyReportVo">
+		with base as
+		 (select substr(calc_date, 0, 7) as calc_month,
+		         org_code,
+		         sum(charge) as charge,
+		         sum(withdraw) as withdraw,
+		         sum(sale) as sale,
+		         sum(paid) as paid,
+		         sum(center_pay) as center_pay,
+		         sum(rtv) as rtv,
+		         sum(lot_sale) as lot_sale,
+		         sum(lot_paid) as lot_paid,
+		         sum(lot_center_pay) as lot_center_pay,
+		         sum(lot_rtv) as lot_rtv,
+		         sum(lot_center_rtv) as lot_center_rtv
+		    from his_org_fund_report
+		   WHERE SUBSTR(CALC_DATE, 0, 7) BETWEEN #{beginDate} AND #{endDate}
+		   group by substr(calc_date, 0, 7), org_code),
+		pil_fund as
+		 (select calc_month,
+		         org_code,
+		         org_name,
+		         1 as type,
+		         charge charge,
+		         withdraw,
+		         sale as sale_amount,
+		         (paid + center_pay) as paid_amount,
+		         rtv as rtv_amount,
+		         (sale - rtv) as incoming
+		    from base
+		    join inf_orgs
+		   using (org_code)),
+		lot_fund as
+		 (select calc_month,
+		         org_code,
+		         org_name,
+		         2 as type,
+		         charge,
+		         withdraw,
+		         lot_sale as sale_amount,
+		         (lot_paid + lot_center_pay) as paid_amount,
+		         (lot_rtv + lot_center_rtv) as rtv_amount,
+		         (lot_sale - lot_rtv - lot_center_rtv) as incoming
+		    from base
+		    join inf_orgs
+		   using (org_code)),
+		total_fund as
+		 (select calc_month,
+		         org_code,
+		         org_name,
+		         0 as type,
+		         charge,
+		         withdraw,
+		         (sale + lot_sale) as sale_amount,
+		         (paid + center_pay + lot_paid + lot_center_pay) as paid_amount,
+		         (rtv + lot_rtv + lot_center_rtv) as rtv_amount,
+		         (sale + lot_sale - rtv - lot_rtv - lot_center_rtv) as incoming
+		    from base
+		    join inf_orgs
+		   using (org_code)),
+		funds as
+		 (select calc_month,
+		         org_code,
+		         org_name,
+		         type,
+		         charge,
+		         withdraw,
+		         sale_amount,
+		         paid_amount,
+		         rtv_amount,
+		         incoming
+		    from pil_fund
+		  union all
+		  select calc_month,
+		         org_code,
+		         org_name,
+		         type,
+		         charge,
+		         withdraw,
+		         sale_amount,
+		         paid_amount,
+		         rtv_amount,
+		         incoming
+		    from lot_fund
+		  union all
+		  select calc_month,
+		         org_code,
+		         org_name,
+		         type,
+		         charge,
+		         withdraw,
+		         sale_amount,
+		         paid_amount,
+		         rtv_amount,
+		         incoming
+		    from total_fund)
+		select sum(charge) as topup,
+		       sum(withdraw) as withdraw,
+		       sum(sale_amount) as saleAmount,
+		       sum(paid_amount) as payout,
+		       sum(rtv_amount) as returnAmount,
+		       sum(incoming) as netSales
+		  from funds
+		 WHERE 1=1
+		 <if test="institutionCode != null and institutionCode != ''">
+			AND ORG_CODE = #{institutionCode}
+	  	 </if>
+	  	 <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="cuserOrg != '00'">
+		  			AND ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{currentUserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info  WHERE admin_id = #{currentUserId}
+		  			)
+		  		</if>
+		  </if>
+		    AND TYPE = #{tjType}
+	</select>
+	
+	<select id="getAgencyFundList" parameterType="cls.pilottery.web.report.form.MonthlyReportForm" resultType="cls.pilottery.web.report.model.MonthlyReportVo">
+		with base as
+		 (select *
+		    from his_agency_fund
+		   WHERE SUBSTR(CALC_DATE, 0, 7) BETWEEN #{beginDate} AND #{endDate}),
+		agency as
+		 (select agency_code, org_code, org_name
+		    from inf_agencys
+		    join inf_orgs
+		   using (org_code)),
+		fund as
+		 (select *
+		    from base pivot(sum(amount) for FLOW_TYPE in(1 as charge,
+		                                                 2 as withdraw,
+		                                                 7 as sale,
+		                                                 8 as paid,
+		                                                 11 as rtv,
+		                                                 45 as lot_sale,
+		                                                 41 as lot_paid,
+		                                                 42 as lot_rtv))),
+		
+		pil_fund as
+		 (select substr(calc_date, 0, 7) as calc_month,
+		         agency_code,
+		         org_code,
+		         org_name,
+		         1 as type,
+		         sum(nvl(charge, 0)) as charge,
+		         sum(nvl(withdraw, 0)) as withdraw,
+		         sum(nvl(sale, 0)) as sale_amount,
+		         sum(nvl(paid, 0)) as paid_amount,
+		         sum(nvl(rtv, 0)) as rtv_amount,
+		         (sum(nvl(sale, 0)) - sum(nvl(rtv, 0))) as incoming
+		    from fund
+		    join agency
+		   using (agency_code)
+		   group by substr(calc_date, 0, 7), agency_code, org_code, org_name), 
+		lot_fund as
+		 (select substr(calc_date, 0, 7) as calc_month,
+		         agency_code,
+		         org_code,
+		         org_name,
+		         2 as type,
+		         sum(nvl(charge, 0)) as charge,
+		         sum(nvl(withdraw, 0)) as withdraw,
+		         sum(nvl(lot_sale, 0)) as sale_amount,
+		         sum(nvl(lot_paid, 0)) as paid_amount,
+		         sum(nvl(lot_rtv, 0)) as rtv_amount,
+		         (sum(nvl(lot_sale, 0)) - sum(nvl(lot_rtv, 0))) as incoming
+		    from fund
+		    join agency
+		   using (agency_code)
+		   group by substr(calc_date, 0, 7), agency_code, org_code, org_name),
+		total_fund as
+		 (select substr(calc_date, 0, 7) as calc_month,
+		         agency_code,
+		         org_code,
+		         org_name,
+		         0 as type,
+		         sum(nvl(charge, 0)) as charge,
+		         sum(nvl(withdraw, 0)) as withdraw,
+		         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0))) as sale_amount,
+		         (sum(nvl(paid, 0)) + sum(nvl(lot_paid, 0))) as paid_amount,
+		         (sum(nvl(rtv, 0)) + sum(nvl(lot_rtv, 0))) as rtv_amount,
+		         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0)) - sum(nvl(rtv, 0)) -
+		         sum(nvl(lot_rtv, 0))) as incoming
+		    from fund
+		    join agency
+		   using (agency_code)
+		   group by substr(calc_date, 0, 7), agency_code, org_code, org_name),
+		funds as
+		 (select calc_month,
+		         agency_code,
+		         org_code,
+		         org_name,
+		         type,
+		         charge,
+		         withdraw,
+		         sale_amount,
+		         paid_amount,
+		         rtv_amount,
+		         incoming
+		    from pil_fund
+		  union all
+		  select calc_month,
+		         agency_code,
+		         org_code,
+		         org_name,
+		         type,
+		         charge,
+		         withdraw,
+		         sale_amount,
+		         paid_amount,
+		         rtv_amount,
+		         incoming
+		    from lot_fund
+		  union all
+		  select calc_month,
+		         agency_code,
+		         org_code,
+		         org_name,
+		         type,
+		         charge,
+		         withdraw,
+		         sale_amount,
+		         paid_amount,
+		         rtv_amount,
+		         incoming
+		    from total_fund)
+		select calc_month as showDate,
+		       agency_code as agencyCode,
+		       org_code as institutionCode,
+		       org_name as institutionName,
+		       type as tjType,
+		       charge as topup,
+		       withdraw as withdraw,
+		       sale_amount as saleAmount,
+		       paid_amount as payout,
+		       rtv_amount as returnAmount,
+		       incoming as netSales
+		  from funds
+		  WHERE 1=1
+		 <if test="agencyCode != null and agencyCode != ''">
+			AND agency_code = #{agencyCode}
+	  	 </if>
+		 <if test="institutionCode != null and institutionCode != ''">
+			AND ORG_CODE = #{institutionCode}
+	  	 </if>
+	  	 <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="cuserOrg != '00'">
+		  			AND ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{currentUserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info  WHERE admin_id = #{currentUserId}
+		  			)
+		  		</if>
+		  </if>
+		    AND TYPE = #{tjType}
+		    order by showDate desc,agencyCode
+	</select>
+	
+	<select id="getAgencyFundSum" parameterType="cls.pilottery.web.report.form.MonthlyReportForm" resultType="cls.pilottery.web.report.model.MonthlyReportVo">
+		with base as
+			 (select *
+			    from his_agency_fund
+			   WHERE SUBSTR(CALC_DATE, 0, 7) BETWEEN #{beginDate} AND #{endDate}),
+			agency as
+			 (select agency_code, org_code, org_name
+			    from inf_agencys
+			    join inf_orgs
+			   using (org_code)),
+			fund as
+			 (select *
+			    from base pivot(sum(amount) for FLOW_TYPE in(1 as charge,
+			                                                 2 as withdraw,
+			                                                 7 as sale,
+			                                                 8 as paid,
+			                                                 11 as rtv,
+			                                                 45 as lot_sale,
+			                                                 41 as lot_paid,
+			                                                 42 as lot_rtv))),
+			
+			pil_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         agency_code,
+			         org_code,
+			         org_name,
+			         1 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         sum(nvl(sale, 0)) as sale_amount,
+			         sum(nvl(paid, 0)) as paid_amount,
+			         sum(nvl(rtv, 0)) as rtv_amount,
+			         (sum(nvl(sale, 0)) - sum(nvl(rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), agency_code, org_code, org_name),
+			lot_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         agency_code,
+			         org_code,
+			         org_name,
+			         2 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         sum(nvl(lot_sale, 0)) as sale_amount,
+			         sum(nvl(lot_paid, 0)) as paid_amount,
+			         sum(nvl(lot_rtv, 0)) as rtv_amount,
+			         (sum(nvl(lot_sale, 0)) - sum(nvl(lot_rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), agency_code, org_code, org_name),
+			total_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         agency_code,
+			         org_code,
+			         org_name,
+			         0 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0))) as sale_amount,
+			         (sum(nvl(paid, 0)) + sum(nvl(lot_paid, 0))) as paid_amount,
+			         (sum(nvl(rtv, 0)) + sum(nvl(lot_rtv, 0))) as rtv_amount,
+			         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0)) - sum(nvl(rtv, 0)) -
+			         sum(nvl(lot_rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), agency_code, org_code, org_name),
+			funds as
+			 (select calc_month,
+			         agency_code,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from pil_fund
+			  union all
+			  select calc_month,
+			         agency_code,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from lot_fund
+			  union all
+			  select calc_month,
+			         agency_code,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from total_fund)
+			select sum(charge) as topup,
+			       sum(withdraw) as withdraw,
+			       sum(sale_amount) as saleAmount,
+			       sum(paid_amount) as payout,
+			       sum(rtv_amount) as returnAmount,
+			       sum(incoming) as netSales
+			  from funds
+			 WHERE 1=1
+		 <if test="agencyCode != null and agencyCode != ''">
+			AND agency_code = #{agencyCode}
+	  	 </if>
+		 <if test="institutionCode != null and institutionCode != ''">
+			AND ORG_CODE = #{institutionCode}
+	  	 </if>
+	  	 <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="cuserOrg != '00'">
+		  			AND ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{currentUserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info  WHERE admin_id = #{currentUserId}
+		  			)
+		  		</if>
+		  </if>
+		    AND TYPE = #{tjType}
+	</select>
+	
+	<select id="getMarketManagerFundList" parameterType="cls.pilottery.web.report.form.MonthlyReportForm" resultType="cls.pilottery.web.report.model.MonthlyReportVo">
+		with base as
+			 (select *
+			    from his_agency_fund
+			    WHERE SUBSTR(CALC_DATE, 0, 7) BETWEEN #{beginDate} AND #{endDate}),
+			agency as
+			 (select agency_code, org_code, org_name, admin_realname
+			    from inf_agencys
+			    join inf_orgs
+			   using (org_code)
+			    join adm_info
+			      on market_manager_id = admin_id),
+			fund as
+			 (select *
+			    from base pivot(sum(amount) for FLOW_TYPE in(1 as charge,
+			                                                 2 as withdraw,
+			                                                 7 as sale,
+			                                                 8 as paid,
+			                                                 11 as rtv,
+			                                                 45 as lot_sale,
+			                                                 41 as lot_paid,
+			                                                 42 as lot_rtv))),
+			pil_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         1 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         sum(nvl(sale, 0)) as sale_amount,
+			         sum(nvl(paid, 0)) as paid_amount,
+			         sum(nvl(rtv, 0)) as rtv_amount,
+			         (sum(nvl(sale, 0)) - sum(nvl(rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), admin_realname, org_code, org_name),
+			lot_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         2 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         sum(nvl(lot_sale, 0)) as sale_amount,
+			         sum(nvl(lot_paid, 0)) as paid_amount,
+			         sum(nvl(lot_rtv, 0)) as rtv_amount,
+			         (sum(nvl(lot_sale, 0)) - sum(nvl(lot_rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), admin_realname, org_code, org_name),
+			total_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         0 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0))) as sale_amount,
+			         (sum(nvl(paid, 0)) + sum(nvl(lot_paid, 0))) as paid_amount,
+			         (sum(nvl(rtv, 0)) + sum(nvl(lot_rtv, 0))) as rtv_amount,
+			         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0)) - sum(nvl(rtv, 0)) -
+			         sum(nvl(lot_rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), admin_realname, org_code, org_name),
+			funds as
+			 (select calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from pil_fund
+			  union all
+			  select calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from lot_fund
+			  union all
+			  select calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from total_fund)
+			select calc_month as showDate,
+			       admin_realname as realName,
+			       org_code as institutionCode,
+			       org_name as institutionName,
+			       type as tjType,
+			       charge as topup,
+			       withdraw as withdraw,
+			       sale_amount as saleAmount,
+			       paid_amount as payout,
+			       rtv_amount as returnAmount,
+			       incoming as netSales 
+			  from funds
+			  where 1=1 
+			  <if test="realName != null and realName != ''">
+				AND admin_realname = #{realName}
+		  	 </if>
+			 <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+		  	 </if>
+		  	 <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="cuserOrg != '00'">
+		  			AND ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{currentUserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info  WHERE admin_id = #{currentUserId}
+		  			)
+		  		</if>
+		  </if>
+			    AND TYPE = #{tjType}
+			     order by showDate desc,institutionCode
+	</select>
+	
+	<select id="getMarketManagerFundSum" parameterType="cls.pilottery.web.report.form.MonthlyReportForm" resultType="cls.pilottery.web.report.model.MonthlyReportVo">
+		with base as
+			 (select *
+			    from his_agency_fund
+			    WHERE SUBSTR(CALC_DATE, 0, 7) BETWEEN #{beginDate} AND #{endDate}),
+			agency as
+			 (select agency_code, org_code, org_name, admin_realname
+			    from inf_agencys
+			    join inf_orgs
+			   using (org_code)
+			    join adm_info
+			      on market_manager_id = admin_id),
+			fund as
+			 (select *
+			    from base pivot(sum(amount) for FLOW_TYPE in(1 as charge,
+			                                                 2 as withdraw,
+			                                                 7 as sale,
+			                                                 8 as paid,
+			                                                 11 as rtv,
+			                                                 45 as lot_sale,
+			                                                 41 as lot_paid,
+			                                                 42 as lot_rtv))),
+			pil_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         1 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         sum(nvl(sale, 0)) as sale_amount,
+			         sum(nvl(paid, 0)) as paid_amount,
+			         sum(nvl(rtv, 0)) as rtv_amount,
+			         (sum(nvl(sale, 0)) - sum(nvl(rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), admin_realname, org_code, org_name),
+			lot_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         2 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         sum(nvl(lot_sale, 0)) as sale_amount,
+			         sum(nvl(lot_paid, 0)) as paid_amount,
+			         sum(nvl(lot_rtv, 0)) as rtv_amount,
+			         (sum(nvl(lot_sale, 0)) - sum(nvl(lot_rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), admin_realname, org_code, org_name),
+			total_fund as
+			 (select substr(calc_date, 0, 7) as calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         0 as type,
+			         sum(nvl(charge, 0)) as charge,
+			         sum(nvl(withdraw, 0)) as withdraw,
+			         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0))) as sale_amount,
+			         (sum(nvl(paid, 0)) + sum(nvl(lot_paid, 0))) as paid_amount,
+			         (sum(nvl(rtv, 0)) + sum(nvl(lot_rtv, 0))) as rtv_amount,
+			         (sum(nvl(sale, 0)) + sum(nvl(lot_sale, 0)) - sum(nvl(rtv, 0)) -
+			         sum(nvl(lot_rtv, 0))) as incoming
+			    from fund
+			    join agency
+			   using (agency_code)
+			   group by substr(calc_date, 0, 7), admin_realname, org_code, org_name),
+			funds as
+			 (select calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from pil_fund
+			  union all
+			  select calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from lot_fund
+			  union all
+			  select calc_month,
+			         admin_realname,
+			         org_code,
+			         org_name,
+			         type,
+			         charge,
+			         withdraw,
+			         sale_amount,
+			         paid_amount,
+			         rtv_amount,
+			         incoming
+			    from total_fund)
+			select sum(charge) as topup,
+			       sum(withdraw) as withdraw,
+			       sum(sale_amount) as saleAmount,
+			       sum(paid_amount) as payout,
+			       sum(rtv_amount) as returnAmount,
+			       sum(incoming) as netSales 
+			  from funds
+			  where 1=1 
+			  <if test="realName != null and realName != ''">
+				AND admin_realname = #{realName}
+		  	 </if>
+			 <if test="institutionCode != null and institutionCode != ''">
+				AND ORG_CODE = #{institutionCode}
+		  	 </if>
+		  	 <if test="institutionCode == null or institutionCode == ''">
+		  		<if test="cuserOrg != '00'">
+		  			AND ORG_CODE IN (
+		  				SELECT org_code FROM ADM_ORG_RELATE WHERE admin_id = #{currentUserId}
+		  				UNION 
+		  				SELECT admin_org FROM adm_info  WHERE admin_id = #{currentUserId}
+		  			)
+		  		</if>
+		  </if>
+			    AND TYPE = #{tjType}
+	</select>
+</mapper>

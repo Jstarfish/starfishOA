@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.outlet.dao.OutletCashWithdrawnDao">
+	<resultMap id="outletCashWithdrawnMap" type="cls.pilottery.web.outlet.model.OutletCashWithdrawn">
+		<id column="FUND_NO" property="fundNo" jdbcType="CHAR" />
+		<result column="ACCOUNT_TYPE" property="accountType" jdbcType="DECIMAL" />
+		<result column="AO_CODE" property="aoCode" jdbcType="VARCHAR" />
+		<result column="AO_NAME" property="aoName" jdbcType="VARCHAR" />
+		<result column="ACC_NO" property="accNo" jdbcType="CHAR" />
+		<result column="APPLY_AMOUNT" property="applyAmount" jdbcType="DECIMAL" />
+		<result column="APPLY_ADMIN" property="applyAdmin" jdbcType="DECIMAL" />
+		<result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+		<result column="APPLY_STATUS" property="applyStatus" jdbcType="DECIMAL" />
+		<result column="APPLY_MEMO" property="applyMemo" jdbcType="VARCHAR" />
+		<result column="IS_TERMINAL_APPLY" property="isTerminalApply" jdbcType="DECIMAL" />
+		<result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 站点提现列表 -->
+	<select id="getCashWithdrawnList" parameterType="cls.pilottery.web.outlet.form.OutletCashWithdrawnForm"
+		resultMap="outletCashWithdrawnMap">
+		select *
+		  from (select tab.*, rownum rn
+		          from (select a.fund_no,
+		                       a.account_type,
+		                       a.ao_code,
+		                       a.ao_name,
+		                       a.apply_amount,
+		                       nvl(b.af_account_balance, 0) as accountBalance,
+		                       a.apply_date,
+		                       a.apply_status
+		                  from Fund_Withdraw a
+		                  left join FLOW_AGENCY b
+		                    on (a.fund_no = b.ref_no)
+		                 WHERE 1 = 1
+		 <if test="aoCode != null and aoCode != ''">
+			and a.ao_code = #{aoCode}
+		</if> 
+		 <if test="aoName != null and aoName != ''">
+			and a.ao_name = #{aoName}
+		</if>
+		and a.APPLY_ADMIN = #{currentUserId}
+		and a.account_type=2
+		ORDER BY APPLY_DATE DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- 分页记录总数 -->
+	<select id="getCashWithdrawnCount" parameterType="cls.pilottery.web.outlet.form.OutletCashWithdrawnForm"
+		resultType="Integer">
+		SELECT count(1)
+		FROM Fund_Withdraw
+		WHERE 1 = 1
+		and ACCOUNT_TYPE = 2
+		<if test="aoCode != null and aoCode != ''">
+			and ao_code = #{aoCode}
+		</if> 
+		 <if test="aoName != null and aoName != ''">
+			and ao_name = #{aoName}
+		</if>
+		and APPLY_ADMIN = #{currentUserId}
+	</select>
+
+</mapper>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<enumconfig>
+
+	<!-- 用户状态 -->
+	<userStatus>
+		<item key="1" value="可用" />
+		<!-- <item key="2" value="已删除" /> -->
+		<item key="3" value="已停用" />
+	</userStatus>
+     <!-- 站点状态 -->
+    <outletStatus>
+         <item key="1" value="可用" />
+         <item key="2" value="不可用" />
+         <item key="3" value="已删除" />
+    </outletStatus>
+    <!-- 站点类型 -->
+    <agencyType>
+        <item key="1" value="传统终端(预付费)" />
+        <item key="2" value="受信终端(后付费)" />
+        <item key="3" value="无纸化" />
+        <item key="4" value="中心销售站"/>
+    </agencyType>
+	<!-- 区域状态 -->
+	<areaStatus>
+		<item key="1" value="有效" />
+		<item key="2" value="无效" />
+	</areaStatus>
+     <!-- 批次状态 -->
+    <batchStatus>
+        <item key="1" value="正在销售" />
+        <item key="2" value="暂停销售" />
+        <item key="3" value="取消销售" />
+    </batchStatus>
+	<!-- 区域类型 -->
+	<areaType>
+		<item key="0" value="全国" />
+		<item key="1" value="省" />
+		<item key="2" value="市" />
+	</areaType>
+     <!--性别 -->
+    <sex>
+        <item key="1" value="男" />
+        <item key="2" value="女" />
+    </sex>
+     <oldTicket>
+        <item key="1" value="成功" />
+        <item key="3" value="已兑奖" />
+        <item key="5" value="未中奖" />
+        <item key="7" value="新票" />
+        <item key="8" value="已终止" />
+    </oldTicket>
+     <!--出入库状态 -->
+    <outOrInputStatus>
+        <item key="1" value="调拨出库" />
+        <item key="2" value="出货单出库" />
+        <item key="3" value="-损毁出库" />
+        <item key="4" value="站点退货" />
+        <item key="11" value="批次入库" />
+        <item key="12" value="调拨单入库" />
+        <item key="13" value="退货入库" />
+        <item key="14" value="站点入库" />
+    </outOrInputStatus>
+     <!-- 规格号码 -->
+    <pecification>
+        <item key="1" value="箱" />
+        <item key="2" value="盒" />
+        <item key="3" value="本" />
+    </pecification>
+	<orgType>
+		<item key="1" value="公司" />
+		<item key="2" value="代理" />
+	</orgType>
+
+	<!-- 订单状态 -->
+	<purchaseOrderStatus>
+		<item key="1" value="已提交" />
+		<item key="2" value="已撤销" />
+		<item key="3" value="已受理" />
+	</purchaseOrderStatus>
+	<!-- 出货单状态 -->
+	<deliveryOrderStatus>
+		<item key="1" value="已提交" />
+		<item key="2" value="已撤销" />
+		<item key="3" value="已受理" />
+		<item key="4" value="已发货" />
+		<item key="5" value="已收货" />
+	</deliveryOrderStatus>
+	<!-- 调拨单状态 -->
+	<stockTransferStatus>
+		<item key="1" value="已提交" />
+		<item key="2" value="已撤销" />
+		<item key="3" value="已受理" />
+		<item key="4" value="已发货" />
+		<item key="5" value="收货中" />
+		<item key="6" value="已收货" />
+		<item key="7" value="已审批" />
+		<item key="8" value="已拒绝" />
+	</stockTransferStatus>
+	<!-- 入库单状态 -->
+	<goodsReceiptStatus>
+		<item key="1" value="未完成" />
+		<item key="2" value="已完成" />
+	</goodsReceiptStatus>
+	<!-- 入库单类型 -->
+	<goodsReceiptType>
+		<item key="1" value="批次入库" />
+		<item key="2" value="调拨单入库" />
+		<item key="3" value="退货入库" />
+	</goodsReceiptType>
+	<!-- 出库类型 -->
+	<goodsIssuesType>
+		<item key="1" value="调拨出库" />
+		<item key="2" value="出货单出库" />
+		<item key="3" value="终结出库" />
+	</goodsIssuesType>
+	<checkPointStatus>
+		<item key="1" value="盘点中" />
+		<item key="2" value="盘点结束" />
+	</checkPointStatus>
+	<checkResult>
+		<item key="1" value="一致" />
+		<item key="2" value="盘亏" />
+		<item key="3" value="盘盈" />
+	</checkResult>
+	<!--
+		（1-充值，2-提现，3-彩票调拨，4-机构佣金，5-销售佣金，6-兑奖佣金，7-销售，8-兑奖，9-为站点充值，10-现金上缴，11-站点退货，12-机构退货）
+	-->
+	<transFlowType>
+		<item key="1" value="充值" />
+		<item key="2" value="提现" />
+		<item key="3" value="彩票调拨" />
+		<item key="4" value="机构佣金" />
+		<item key="5" value="销售佣金" />
+		<item key="6" value="兑奖佣金" />
+		<item key="7" value="销售" />
+		<item key="8" value="兑奖" />
+		<item key="9" value="为站点充值" />
+		<item key="10" value="现金上缴" />
+		<item key="11" value="站点退货" />
+		<item key="12" value="机构退货" />
+		<item key="13" value="退货佣金" />
+		<item key="14" value="站点提现" />
+		<item key="21" value="站点兑奖佣金" />
+		<item key="22" value="站点兑奖" />
+		<item key="23" value="中心兑奖佣金" />
+		<item key="24" value="中心兑奖" />
+		<item key="25" value="调拨出佣金" />
+		
+		<item key="41" value="电脑票兑奖" />
+		<item key="42" value="电脑票退票" />
+		<item key="43" value="电脑票销售佣金" />
+		<item key="44" value="电脑票兑奖佣金" />
+		<item key="45" value="电脑票销售" />
+		<item key="47" value="电脑票退票佣金" />
+		<item key="51" value="电脑票兑奖" />
+		<item key="52" value="电脑票退票" />
+		<item key="53" value="电脑票销售佣金" />
+		<item key="54" value="电脑票兑奖佣金" />
+		<item key="55" value="电脑票销售" />
+		<item key="57" value="电脑票退票佣金" />
+	</transFlowType>
+	<!-- 提现记录状态 
+	<fundWithdrawStatus>
+		<item key="1" value="已提交" />
+		<item key="2" value="已撤销" />
+		<item key="3" value="已审核" />
+		<item key="4" value="已拒绝" />
+		<item key="6" value="已提现" />
+		<item key="7" value="缴款成功" />
+	</fundWithdrawStatus>
+	-->
+	<!-- 还货单状态 -->
+	<returnDeliveryStatus>
+		<item key="1" value="已提交" />
+		<item key="2" value="已撤销" />
+		<item key="3" value="已受理" />
+		<item key="4" value="已发货" />
+		<item key="5" value="收货中" />
+		<item key="6" value="已收货" />
+		<item key="7" value="已审批" />
+		<item key="8" value="已拒绝" />
+	</returnDeliveryStatus>
+
+	<!-- 部门提现申请状态 -->
+	<cashWithdrawnStatus>
+		<item key="1" value="已提交" />
+		<item key="2" value="已取消" />
+		<item key="3" value="已审批" />
+		<item key="4" value="已拒绝" />
+		<item key="5" value="已提现" />
+		<item key="6" value="已提现" />
+	</cashWithdrawnStatus>
+
+	<!--票的中奖状态 0中奖 1大奖 2 未中奖 3 已兑奖 -->
+    <ticketPayoutStatus>
+        <item key="0" value="中奖" />
+        <item key="1" value="中大奖" />
+        <item key="2" value="未中奖" />
+        <item key="3" value="已兑奖" />
+        <item key="4" value="无效票" />
+        <item key="8" value="批次终结" />
+    </ticketPayoutStatus>
+    <approveAccountType>
+        <item key="1" value="机构" />
+        <item key="2" value="站点" />
+    </approveAccountType>
+    <brokenReason>
+        <item key="41" value="被盗" />
+        <item key="42" value="损坏" />
+        <item key="43" value="丢失" />
+    </brokenReason>
+    
+    <mmInventoryDaliyType>
+        <item key="1" value="进货" />
+        <item key="2" value="销售" />
+        <item key="3" value="退货" />
+        <item key="4" value="还货" />
+        <item key="5" value="损毁" />
+        <item key="9" value="库存结算" />
+    </mmInventoryDaliyType>
+    
+    <mmCapitalDaliyType>
+        <item key="1" value="充值" />
+        <item key="2" value="提现" />
+        <item key="3" value="还款" />
+        <item key="4" value="账户余额" />
+    </mmCapitalDaliyType>
+    <mmInventoryCheckStatus>
+        <item key="1" value="不存在" />
+        <item key="2" value="未盘点" />
+    </mmInventoryCheckStatus>
+    
+    <mmTransRecordType>
+        <item key="1" value="销售" />
+        <item key="2" value="兑奖" />
+        <item key="3" value="退货" />
+    </mmTransRecordType>
+    
+    <mmPayoutRecordStatus>
+        <item key="1" value="中奖" />
+        <item key="2" value="非法票" />
+        <item key="3" value="已兑奖" />
+        <item key="4" value="中大奖" />
+        <item key="5" value="未中奖" />
+        <item key="6" value="未销售" />
+        <item key="8" value="批次终结" />
+    </mmPayoutRecordStatus>
+    
+    <!-- OMS相关 -->
+    
+    <!-- 销售站状态 -->
+    <agencyStatusItems>
+        <item key="1" value="可用"/>
+        <item key="2" value="已禁用"/>
+        <item key="3" value="已清退"/>
+    </agencyStatusItems>
+    <agencyTypes>
+        <item key="1" value="预缴款销售站"/>
+        <item key="2" value="后缴款销售站"/>
+        <item key="3" value="无纸化销售站"/>
+        <item key="4" value="中心直属站"/>
+    </agencyTypes>
+    <!-- 调节基金变更类型 -->
+    <fundChangeTypeItems>
+        <item key="1" value="期次开奖滚入"/>
+        <item key="2" value="弃奖滚入"/>
+        <item key="3" value="期次开奖自动拨出"/>
+        <item key="4" value="手工拨出到奖池"/>
+        <item key="5" value="发行费手工拨入调节基金"/>
+        <item key="6" value="其他金额手工拨入调节基金"/>
+        <item key="7" value="期次开奖抹零滚入"/>
+        <item key="8" value="初始化设置"/>
+    </fundChangeTypeItems>
+    <!-- 期次状态 -->
+    <issueStatusItems>
+        <item key="0" value="预排"/>
+        <item key="1" value="预售"/>
+        <item key="2" value="游戏期开始"/>
+        <item key="3" value="期即将关闭"/>
+        <item key="4" value="游戏期关闭"/>
+        <item key="5" value="数据封存完毕"/>
+        <item key="6" value="开奖号码已录入"/>
+        <item key="7" value="销售已经匹配"/>
+        <item key="8" value="已录入"/>
+        <item key="9" value="本地算奖完成"/>
+        <item key="10" value="奖级已确认"/>
+        <item key="11" value="开奖确认"/>
+        <item key="12" value="中奖数据已录入数据库"/>
+        <item key="13" value="期结全部完成"/>
+    </issueStatusItems>
+    <!-- 期次状态 (该方法主要用于查询条件中的下拉框等类似应用场景)-->
+    <issueStatusRefItems>
+        <item key="1" value="预排"/>
+        <item key="2" value="预售"/>
+        <item key="3" value="开启"/>
+        <item key="4" value="关闭"/>
+        <item key="5" value="封存"/>
+        <item key="6" value="开奖中"/>
+        <item key="7" value="期结"/>
+    </issueStatusRefItems>
+    <!-- 期次状态(该方面主要用于页面状态展示) -->
+    <issueStatusShowItems>
+        <item key="0" value="预排"/>
+        <item key="1" value="预售"/>
+        <item key="2" value="开启"/>
+        <item key="3" value="开启"/>
+        <item key="4" value="关闭"/>
+        <item key="5" value="封存"/>
+        <item key="6" value="开奖中"/>
+        <item key="7" value="开奖中"/>
+        <item key="8" value="开奖中"/>
+        <item key="9" value="开奖中"/>
+        <item key="10" value="开奖中"/>
+        <item key="11" value="开奖中"/>
+        <item key="12" value="开奖中"/>
+        <item key="13" value="期结"/>
+    </issueStatusShowItems>
+    <!-- 奖池变更类型 -->
+    <poolChangeTypeItems>
+        <item key="1" value="期次开奖滚入"/>
+        <item key="2" value="弃奖滚入"/>
+        <item key="3" value="调节基金自动拨入"/>
+        <item key="4" value="调节基金手动拨入"/>
+        <item key="5" value="发行费手动拨入"/>
+        <item key="6" value="其他来源手动拨入"/>
+        <item key="7" value="奖池初始化设置"/>
+    </poolChangeTypeItems>
+    <!-- 设备状态常 -->
+    <gameDrawDeviceItems>
+        <item key="0" value="未连接"/>
+        <item key="1" value="已连接"/>
+        <item key="2" value="正常使用"/>
+    </gameDrawDeviceItems>
+    <!-- 终端页面查询类型 -->
+    <terminalQueryTypes>
+        <item key="1" value="销售站编码"/>
+        <item key="2" value="销售站名称"/>
+        <item key="3" value="终端编码"/>
+        <item key="4" value="终端标识码"/>
+        <item key="5" value="终端MAC"/>
+    </terminalQueryTypes>
+    <!-- 终端机状态 -->
+    <terminalStatus>
+        <item key="0" value="全部"/>
+        <item key="1" value="可用"/>
+        <item key="2" value="禁用"/>
+        <item key="3" value="退机"/>
+    </terminalStatus>
+    <!-- 销售员页面查询类型 -->
+    <tellerQueryTypes>
+        <item key="1" value="销售站编码"/>
+        <item key="2" value="销售站名称"/>
+        <item key="3" value="销售员编码"/>
+        <item key="4" value="销售员名称"/>
+    </tellerQueryTypes>
+    <!-- 销售员类型 -->
+    <tellerTypes>
+        <item key="1" value="普通销售员"/>
+        <item key="2" value="销售站经理"/>
+        <item key="3" value="培训员"/>
+    </tellerTypes>
+    <!-- 销售员状态 -->
+    <tellerStatus>
+        <item key="0" value="全部"/>
+        <item key="1" value="可用"/>
+        <item key="2" value="已禁用"/>
+        <item key="3" value="已删除"/>
+    </tellerStatus>
+    <!-- 计划状态 -->
+    <planStatus>
+        <item key="1" value="计划中"/>
+        <item key="2" value="已执行"/>
+        <item key="3" value="已取消"/>
+    </planStatus>
+    <!-- 即时消息发送位置 -->
+    <sendPosition>
+        <item key="0" value="主屏"/>
+        <item key="1" value="TDS"/>
+    </sendPosition>
+    <!-- 终端机状态 -->
+    <terminalStatusForm>
+        <item key="1" value="可用"/>
+        <item key="2" value="禁用"/>
+    </terminalStatusForm>
+    <!-- 培训模式 -->
+    <trainingmode>
+        <item key="0" value="否"/>
+        <item key="1" value="是"/>
+    </trainingmode>
+    <!-- 区域类型 -->
+    <areaTypes>
+        <item key="0" value="中心"/>
+        <item key="1" value="一级区域"/>
+        <item key="2" value="二级区域"/>
+    </areaTypes>
+    <awardingState>
+      <item key="0" value="成功"/>
+      <item key="1" value="失败"/>
+      <item key="2" value="查无此票"/>
+      <item key="3" value=" TSN错误"/>
+      <item key="4" value="正在处理OMS消息中"/>
+      <item key="5" value="游戏不可用"/>
+      <item key="6" value=" 当前不是彩票交易时段"/>
+      <item key="7" value="销售站类型错误"/>
+      <item key="8" value="游戏不可兑奖"/>
+      <item key="9" value="彩票正在兑奖中"/>
+      <item key="10" value="彩票期还没有开奖"/>
+      <item key="11" value="彩票期等待开奖完成"/>
+      <item key="12" value="兑奖日期已结止"/>
+      <item key="13" value="销售员兑培训票"/>
+      <item key="14" value="彩票未中奖"/>
+      <item key="15" value="多期票未完结"/>
+      <item key="16" value="彩票已兑奖"/>
+      <item key="17" value="兑奖超出限额"/>
+      <item key="18" value="游戏不可取消"/>
+      <item key="19" value="彩票已退票"/>
+      <item key="20" value="彩票退票中"/>
+      <item key="21" value="退票期次类错误"/>
+      <item key="22" value="销售员退培训票"/>
+      <item key="23" value="超过退票时间"/>
+      <item key="24" value="退票超出限额"/>
+       <item key="25" value="不符合兑奖范围"/>
+       <item key="41" value="彩票没有当前期 "/>
+    </awardingState>
+    
+     <reqestTypes>
+        <item key="1" value="term-server 日志"/>
+        <item key="2" value="term-gui 日志"/>
+        <item key="3" value="指定目录文件"/>
+        <item key="4" value="指定目录"/>
+    </reqestTypes>
+</enumconfig>

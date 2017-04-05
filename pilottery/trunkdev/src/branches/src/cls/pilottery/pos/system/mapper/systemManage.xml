@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.pos.system.dao.SystemManageDao">
+
+	<select id="getOutletInfoByLogin" resultType="cls.pilottery.pos.system.model.OutletLoginModel" parameterType="string">
+		SELECT AGENCY_CODE agencyCode,
+		       AGENCY_NAME agencyName,
+		       STATUS status,
+		       ORG_CODE orgCode,
+		       AREA_CODE areaCode,
+		       LOGIN_PASS loginPwd,
+		       TRADE_PASS transPwd,
+		       MARKET_MANAGER_ID marketManageId
+		  FROM INF_AGENCYS
+		 WHERE AGENCY_CODE = #{loginId}
+	</select>
+	
+	<update id="updateLoginPwd" parameterType="cls.pilottery.pos.system.model.OutletLoginModel">
+		update INF_AGENCYS set LOGIN_PASS = #{loginPwd} where AGENCY_CODE = #{agencyCode}
+	</update>
+	
+	<select id="getParamValueById" resultType="string" parameterType="long">
+		select SYS_DEFAULT_VALUE from SYS_PARAMETER where sys_default_seq = #{_parameter}
+	</select>
+
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.oms.business.dao.TerminalDao">
+ <resultMap type="cls.pilottery.web.area.model.AreaParent" id="parentResult">
+		<constructor>
+	  		<idArg javaType="Long" column="AGENCY_CODE"/>
+	  		<arg javaType="String" column="AGENCY_NAME"/>
+	  </constructor>	  
+	</resultMap>
+ 	<resultMap type="cls.pilottery.oms.business.model.Terminal" id="terminalResult">
+		<id column="TERMINAL_CODE" property="terminalCode" />	
+		<result column="TERMINAL_CODE_TOCHAR" property="terminalCodeToChar" />	
+		<result column="AGENCY_CODE_TOCHAR" property="agencyCodeToChar"/>
+		<result column="AGENCY_NAME" property="agencyName"/>
+		<result column="UNIQUE_CODE" property="uniqueCode" />
+		<result column="TERM_TYPE_ID" property="terminalType" />
+		<result column="MAC_ADDRESS" property="macAddress" />	
+		<result column="AGENCY_CODE" property="agencyCode"/>
+		<!-- 复杂类型 -->
+		<result column="STATUS" property="terminalStatus" javaType="cls.pilottery.oms.business.model.TerminalStatus" jdbcType="NUMERIC" typeHandler="cls.pilottery.oms.business.model.TerminalStatusTypeHandler" />
+		<result column="TERMINAL_FOR_PAYMENT" property="forPayment" javaType="cls.pilottery.oms.business.model.TerminalYesNoType" jdbcType="NUMERIC" typeHandler="cls.pilottery.oms.business.model.TerminalYesNoTypeTypeHandler"/>
+		<result column="ENABLE_TELLER_LOGON" property="enableTellerLogon" javaType="cls.pilottery.oms.business.model.TerminalYesNoType" jdbcType="NUMERIC" typeHandler="cls.pilottery.oms.business.model.TerminalYesNoTypeTypeHandler"/>
+	</resultMap>
+	<resultMap type="cls.pilottery.oms.business.model.TerminalType" id="terminalTypeResult">
+		<id column="TERM_TYPE_ID" property="typeCode" />
+		<result column="TERM_TYPE_DESC" property="typeName" />
+	</resultMap>
+	
+	<!-- 	推荐码 -->
+	<select id="recomandNum" parameterType="String" resultType="java.lang.String">
+		SELECT #{agencyCode} || lpad(MIN(serial_no), 2, '0')
+	     FROM (SELECT level serial_no
+	             FROM dual
+	     <![CDATA[ CONNECT BY level < 100
+	           MINUS
+	           SELECT to_number(substr(terminal_code, 9, 2)) serial_no
+	             FROM saler_terminal
+	            WHERE agency_code = #{agencyCode}) ]]>
+	</select>
+	
+	<update id="insertTerminal" statementType="CALLABLE" parameterType="cls.pilottery.oms.business.model.Terminal">
+		 {call P_OM_TERMINAL_CREATE(
+		 	#{terminalCode,mode=IN,jdbcType=NUMERIC},
+		 	#{agencyParent.code,mode=IN,jdbcType=NUMERIC},
+		 	#{terminalStatus,mode=IN,javaType=cls.pilottery.oms.business.model.TerminalStatus,jdbcType=NUMERIC,typeHandler=cls.pilottery.oms.business.model.TerminalStatusTypeHandler},
+		 	#{macAddress,mode=IN,jdbcType=VARCHAR},
+		 	#{uniqueCode,mode=IN,jdbcType=VARCHAR},
+		 	#{terminalType,mode=IN,jdbcType=NUMERIC},
+		 	#{softNo,mode=IN,jdbcType=VARCHAR},
+		 	#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    	    #{c_errmsg,mode=OUT,jdbcType=VARCHAR},
+    	    #{terminalCode,mode=OUT,jdbcType=NUMERIC}
+		  )	
+		 }	
+	</update>
+	
+	<select id="selectSameMacCount" parameterType="java.lang.String" resultType="Integer" >
+		SELECT count(1)
+		FROM SALER_TERMINAL
+	    WHERE upper(MAC_ADDRESS) = upper('${macAddress}')		
+	    and STATUS != 3
+		  	
+	</select>	
+		<select id="countTerminalList" parameterType="cls.pilottery.oms.business.form.TerminalForm" resultType="Integer" >
+		SELECT count(1)
+		FROM SALER_TERMINAL 
+		left join inf_agencys on saler_terminal.agency_code = inf_agencys.agency_code
+      	left join inf_orgs on inf_agencys.org_Code = inf_orgs.org_code
+      	where 1=1 
+		  <if test="areaCode != null and areaCode != ''">
+			 AND inf_orgs.org_code = #{areaCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			 AND inf_orgs.org_code = #{cuserOrg}
+		  </if>
+          <if test="agencyCode != null">
+ 			 and inf_agencys.agency_code = ${agencyCode}
+		  </if>
+		  <if test="agencyName != null and agencyName != ''">
+		     and inf_agencys.agency_name like '%'||#{agencyName}||'%'
+		  </if>
+		  <if test="agencyStatus != null and agencyStatus.value != 0">
+		     and  inf_agencys.STATUS = ${agencyStatus.value}
+		  </if>
+          <if test="terminalCode != null">
+		 	and TERMINAL_CODE = ${terminalCode}
+		  </if>
+		  <if test="terminalUniqueCode != null and terminalUniqueCode != ''">
+		    and UNIQUE_CODE = #{terminalUniqueCode}
+		  </if>
+		  <if test="terminalMAC != null and terminalMAC != ''">
+		    and upper(MAC_ADDRESS) = upper('${terminalMAC}')
+		  </if>
+		  <if test="terminalStatus != null and terminalStatus.value != 0">
+		 	and SALER_TERMINAL.STATUS = ${terminalStatus.value}
+		  </if>	
+		  and (saler_terminal.status = 1 or saler_terminal.status = 2)
+	</select>
+	<select id="queryTerminalList" parameterType="cls.pilottery.oms.business.form.TerminalForm" resultMap="terminalResult">
+		select * from (
+		select a.*,rownum rn from (
+		SELECT  
+			   SALER_TERMINAL.terminal_code,
+               SALER_TERMINAL.terminal_code TERMINAL_CODE_TOCHAR, 
+               SALER_TERMINAL.agency_code AGENCY_CODE_TOCHAR, 
+               SALER_TERMINAL.unique_code, 
+               SALER_TERMINAL.term_type_id, 
+               SALER_TERMINAL.mac_address, 
+               SALER_TERMINAL.security_id, 
+               SALER_TERMINAL.status, 
+               SALER_TERMINAL.terminal_for_payment, 
+               SALER_TERMINAL.is_logging, 
+               SALER_TERMINAL.latest_login_teller_code, 
+               SALER_TERMINAL.trans_seq, 
+               inf_agencys.AGENCY_NAME
+		FROM
+      	SALER_TERMINAL left join inf_agencys on saler_terminal.agency_code = inf_agencys.agency_code
+      	left join inf_orgs on inf_agencys.org_Code = inf_orgs.org_code
+      	where 1=1 
+		  <if test="areaCode != null and areaCode != ''">
+		  		AND inf_orgs.org_code = #{areaCode}
+		  </if>
+		  <if test="cuserOrg != '00'">
+			 AND inf_orgs.org_code = #{cuserOrg}
+		  </if>
+          <if test="agencyCode != null">
+ 				and inf_agencys.agency_code = ${agencyCode}
+		  </if>
+		  <if test="agencyName != null and agencyName != ''">
+		   		and inf_agencys.agency_name like '%${agencyName}%'
+		  </if>
+		  <if test="agencyStatus != null and agencyStatus.value != 0">
+		   		and  inf_agencys.STATUS = ${agencyStatus.value}
+		  </if>
+          <if test="terminalCode != null">
+		 		and TERMINAL_CODE = ${terminalCode}
+		  </if>
+		  <if test="terminalUniqueCode != null and terminalUniqueCode != ''">
+		    	and UNIQUE_CODE = #{terminalUniqueCode}
+		  </if>
+		  <if test="terminalMAC != null and terminalMAC != ''">
+		    	and upper(MAC_ADDRESS) = upper('${terminalMAC}')
+		  </if>
+		  <if test="terminalStatus != null and terminalStatus.value != 0">
+		 		and SALER_TERMINAL.STATUS = ${terminalStatus.value}
+		  </if>
+		  		and (saler_terminal.status = 1 or saler_terminal.status = 2)
+		  <![CDATA[ order by TERMINAL_CODE) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+		<!-- 启用、禁用、清退用这个函数 -->
+	<update id="updateStatus" statementType="CALLABLE" parameterType="cls.pilottery.oms.business.model.Terminal" >
+		{call p_om_terminal_status_ctrl(
+			#{terminalCode,mode=IN,jdbcType=NUMERIC},
+			#{terminalStatus.value,mode=IN,jdbcType=NUMERIC},
+			#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    	    #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</update>
+		<select id="selectTerminalByCode" parameterType="long" resultMap="terminalResult">
+		SELECT SALER_TERMINAL.*, inf_agencys.AGENCY_NAME, SALER_TERMINAL.terminal_code TERMINAL_CODE_TOCHAR
+		FROM
+			SALER_TERMINAL, inf_agencys
+		WHERE SALER_TERMINAL.TERMINAL_CODE=#{code} AND SALER_TERMINAL.AGENCY_CODE = inf_agencys.AGENCY_CODE
+	</select>
+	
+	<select id="selectTerminalTypes" resultMap="terminalTypeResult">
+		SELECT TERM_TYPE_ID, TERM_TYPE_DESC
+		FROM INF_TERMINAL_TYPES
+	</select>	
+	
+	<update id="updateTerminal" statementType="CALLABLE" parameterType="cls.pilottery.oms.business.model.Terminal" >
+		{call p_om_terminal_modify(
+			#{terminalCode,mode=IN,jdbcType=NUMERIC},
+			#{macAddress,mode=IN,jdbcType=VARCHAR},
+			#{uniqueCode,mode=IN,jdbcType=VARCHAR},
+			#{terminalType,mode=IN,jdbcType=NUMERIC},
+			#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    	    #{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</update>
+	
+</mapper>

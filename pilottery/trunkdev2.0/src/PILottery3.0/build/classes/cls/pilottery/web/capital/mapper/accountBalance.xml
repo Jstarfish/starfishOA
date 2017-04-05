@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.capital.dao.BalanceDao">
+	<resultMap id="BalanceMap"
+		type="cls.pilottery.web.capital.model.balancemodel.Balance">
+		<id column="ORG_CODE" property="orgCode" jdbcType="CHAR" />
+		<result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="DECIMAL" />
+		<result column="OPER_AMOUNT" property="applyAmount" jdbcType="DECIMAL" />
+		<result column="OPER_TIME" property="applyDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="getAccountBalanceInfo" parameterType="String" resultMap="BalanceMap">
+		WITH topup AS
+		 (SELECT AO_CODE, oper_amount, oper_time
+		    FROM FUND_CHARGE_CENTER
+		   WHERE OPER_TIME =
+		         (SELECT MAX(OPER_TIME) FROM FUND_CHARGE_CENTER WHERE AO_CODE = #{orgCode}))
+		SELECT a.credit_limit, a.account_balance, b.oper_amount, b.oper_time
+		  FROM acc_org_account a
+		  LEFT JOIN topup b
+		    ON (a.ORG_CODE = b.AO_CODE)
+		 WHERE a.ACC_STATUS = 1
+		   AND a.ORG_CODE = #{orgCode}
+	</select>
+
+</mapper>

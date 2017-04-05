@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+	android:paddingTop="8dp"
+	android:paddingBottom="8dp">
+<!--新增出货单，上方大列表每个条目中的小列表（以checkbox为准的是一个大列表条目）  -->    
+	<TextView	 
+	    android:id="@+id/tv1"           
+        android:layout_width="0dp"
+		android:layout_height="wrap_content" 
+  		android:textSize="@dimen/MarkFont"
+  		android:layout_marginLeft="10dp"
+  		android:layout_weight="7"
+		android:gravity="left"
+   		android:textColor="@drawable/black"
+  		android:text="@string/dfg_num" 
+        />
+     <TextView
+        android:id="@+id/tv2" 	            
+        android:layout_width="0dp"
+		android:layout_height="wrap_content" 
+ 		android:textSize="@dimen/MarkFont"
+		android:layout_weight="3"
+		android:gravity="center"
+   		android:textColor="@drawable/black"
+ 		android:text="@string/order_lotery_name" 
+         />
+</LinearLayout>

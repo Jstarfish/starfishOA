@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.outlet.dao.ReturnedGoodsDao" >
+<select id="geetSaleReturnCount" parameterType="cls.pilottery.web.outlet.form.ReturnedGoodsForm" resultType="Integer">
+	select count(1)  from SALE_AGENCY_RETURN sa, inf_agencys ag
+	 where 1 = 1
+  	 and ag.agency_code = sa.AI_AGENCY
+  	and ag.org_code=#{orgCode}
+    <if test="arAgency!=null and arAgency!=''">
+    and sa.AI_AGENCY=#{arAgency}
+    </if>
+</select>
+<!-- 站点退货分页 -->
+    <select id="geetSaleReturnList" parameterType="cls.pilottery.web.outlet.form.ReturnedGoodsForm" 
+    resultType="cls.pilottery.web.outlet.model.SaleAgencyReturnVo">
+    select * from (
+		select a.*,rownum rn from (
+		 select sa.ai_no       as aiNo,
+       sa.AI_AGENCY   as arAgency,
+       ag.agency_name as agencyName,
+       sa.AI_DATE    as arDate,
+       sa.tickets    as tickets,
+       sa.amount     as amount
+
+  from SALE_AGENCY_RETURN sa, inf_agencys ag
+ where 1 = 1
+   and ag.agency_code = sa.AI_AGENCY
+   and ag.org_code=#{orgCode}
+    <if test="arAgency!=null and arAgency!=''">
+    and sa.AI_AGENCY=#{arAgency}
+    </if>
+     order by sa.AI_DATE desc
+	<![CDATA[ ) a ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+    </select>
+
+</mapper>

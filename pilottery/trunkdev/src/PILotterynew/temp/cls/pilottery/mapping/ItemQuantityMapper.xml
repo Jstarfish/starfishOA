@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.ItemQuantityMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.ItemQuantity" >
+    <id column="ITEM_CODE" property="itemCode" jdbcType="CHAR" />
+    <id column="WAREHOUSE_CODE" property="warehouseCode" jdbcType="CHAR" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEMS" property="items" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ITEM_CODE, WAREHOUSE_CODE, ITEM_NAME, ITEMS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cls.pilottery.model.ItemQuantityKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ITEM_QUANTITY
+    where ITEM_CODE = #{itemCode,jdbcType=CHAR}
+      and WAREHOUSE_CODE = #{warehouseCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cls.pilottery.model.ItemQuantityKey" >
+    delete from ITEM_QUANTITY
+    where ITEM_CODE = #{itemCode,jdbcType=CHAR}
+      and WAREHOUSE_CODE = #{warehouseCode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.ItemQuantity" >
+    insert into ITEM_QUANTITY (ITEM_CODE, WAREHOUSE_CODE, ITEM_NAME, 
+      ITEMS)
+    values (#{itemCode,jdbcType=CHAR}, #{warehouseCode,jdbcType=CHAR}, #{itemName,jdbcType=VARCHAR}, 
+      #{items,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.ItemQuantity" >
+    insert into ITEM_QUANTITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemCode != null" >
+        ITEM_CODE,
+      </if>
+      <if test="warehouseCode != null" >
+        WAREHOUSE_CODE,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="items != null" >
+        ITEMS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemCode != null" >
+        #{itemCode,jdbcType=CHAR},
+      </if>
+      <if test="warehouseCode != null" >
+        #{warehouseCode,jdbcType=CHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="items != null" >
+        #{items,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.ItemQuantity" >
+    update ITEM_QUANTITY
+    <set >
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="items != null" >
+        ITEMS = #{items,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ITEM_CODE = #{itemCode,jdbcType=CHAR}
+      and WAREHOUSE_CODE = #{warehouseCode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.ItemQuantity" >
+    update ITEM_QUANTITY
+    set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEMS = #{items,jdbcType=DECIMAL}
+    where ITEM_CODE = #{itemCode,jdbcType=CHAR}
+      and WAREHOUSE_CODE = #{warehouseCode,jdbcType=CHAR}
+  </update>
+</mapper>

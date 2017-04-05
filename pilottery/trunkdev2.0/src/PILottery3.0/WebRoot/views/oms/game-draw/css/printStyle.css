@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+.body {
+    font-family: "宋体";
+}
+.body1 {
+    font-family:"microsoft yahei";
+}
+h1, h3 {
+    margin: 0;
+    padding: 0;
+    
+}
+h1 {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 30px;
+}
+h3 {
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 30px;
+}
+h4 {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 18px;
+    height:8px;
+}
+
+.print{
+    background:url(../img/_print1.png) no-repeat left;
+    background-position-x: -5px;
+    padding: 5px 5px 5px 5px;
+    cursor: hand;
+    border-width:1px;
+    border-style:solid;
+    border-color: transparent;
+    float:right;
+}
+
+.print:hover{
+    border-style:solid;
+    background-color:#e7f8f2;
+    border-color:#aad8ef;
+    border-width:1px;
+}
+.print a{
+    margin-left:27px;
+    text-decoration:none;
+    color:#27a0d7;
+    font-size:14px;
+}
+

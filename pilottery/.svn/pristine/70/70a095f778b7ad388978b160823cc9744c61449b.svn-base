@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.taishan.web.report.dao.ReportDao">
+    <resultMap type="cls.taishan.web.report.model.DayReport" id="dayReport">
+        <result column="reportDate" property="reportDate"/>
+        <result column="admin_login" property="channelName"/>
+        <result column="admin_password" property="openBalance"/>
+        <result column="admin_gender" property="recharge"/>
+        <result column="admin_email" property="withdraw"/>
+        <result column="admin_birthday" property="sale"/>
+        <result column="ADMIN_MOBILE" property="saleFee"/>
+        <result column="ADMIN_TEL" property="refund"/>
+        <result column="ADMIN_MOBILE" property="returnAward"/>
+        <result column="admin_address" property="adjustBalance"/>
+        <result column="admin_org" property="closeBalance"/>
+    </resultMap>
+
+    <select id="queryDealerList"
+            resultType="cls.taishan.web.report.model.Dealer">
+		SELECT DEALER_CODE dealerCode，
+		DEALER_NAME dealerName
+		FROM CNCP_INF_DEALERS WHERE DEALER_STATUS IN (1,2)
+	</select>
+
+    <select id="getChannelDayCount" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="Integer">
+        select count(*)
+        FROM CNCP_DEALER_DAILY_REPORT CR
+        LEFT JOIN CNCP_INF_DEALERS CD ON CR.DEALER_CODE = CD.DEALER_CODE
+        WHERE 1=1
+        <if test="dealerCode!=null and dealerCode != ''">
+            and CR.DEALER_CODE = #{dealerCode}
+        </if>
+        <if test="startDate != null and startDate!=''">
+            <![CDATA[ and  to_date(CR.CALC_DATE,'yyyy-MM-dd')  >= to_date(#{startDate},'yyyy-MM-dd')  ]]>
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            <![CDATA[  and  to_date(CR.CALC_DATE,'yyyy-MM-dd') <= to_date(#{endDate},'yyyy-MM-dd') ]]>
+        </if>
+    </select>
+
+    <select id="getChannelDayReport" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="cls.taishan.web.report.model.DayReport">
+        select reportDate,
+        dealerCode,
+        dealerName,
+        beginAmount,
+        chargeAmount,
+        withdrawAmount,
+        saleAmount,
+        saleCommAmount,
+        refundAmount,
+        paidAmount,
+        otherTickets,
+        endAmount
+        from (
+        select tab.*,rownum rn from (
+        select CR.CALC_DATE reportDate,
+        CR.DEALER_CODE dealerCode,
+        CD.DEALER_NAME dealerName,
+        CR.BEGIN_AMOUNT beginAmount,
+        CR.CHARGE_AMOUNT chargeAmount,
+        CR.WITHDRAW_AMOUNT withdrawAmount,
+        CR.SALE_AMOUNT saleAmount,
+        CR.SALE_COMM_AMOUNT saleCommAmount,
+        CR.REFUND_AMOUNT refundAmount,
+        CR.PAID_AMOUNT paidAmount,
+        CR.OTHER_TICKETS otherTickets,
+        CR.END_AMOUNT endAmount
+        FROM CNCP_DEALER_DAILY_REPORT CR
+        LEFT JOIN CNCP_INF_DEALERS CD ON CR.DEALER_CODE = CD.DEALER_CODE
+        WHERE 1=1
+        <if test="dealerCode!=null and dealerCode != ''">
+            and CR.DEALER_CODE = #{dealerCode}
+        </if>
+        <if test="startDate != null and startDate!=''">
+            <![CDATA[ and  to_date(CR.CALC_DATE,'yyyy-MM-dd')  >= to_date(#{startDate},'yyyy-MM-dd')  ]]>
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            <![CDATA[  and  to_date(CR.CALC_DATE,'yyyy-MM-dd') <= to_date(#{endDate},'yyyy-MM-dd') ]]>
+        </if>
+        <![CDATA[     ) tab where rownum <= #{endNum}  ]]>
+        ) where rn > #{beginNum}
+        <if test="sortName != null and sortName!=''">
+                order by ${sortName} ${sortOrder}
+        </if>
+        <if test="sortName == null or sortName==''">
+            order by reportDate desc
+        </if>
+    </select>
+
+    <select id="getChannelMonthCount" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="Integer">
+        select count(*)
+        FROM V_CNCP_MONTHY_REPORT CR
+        LEFT JOIN CNCP_INF_DEALERS CD ON CR.DEALER_CODE = CD.DEALER_CODE
+        WHERE 1=1
+        <if test="dealerCode!=null and dealerCode != ''">
+            and CR.DEALER_CODE = #{dealerCode}
+        </if>
+        <if test="startDate != null and startDate!=''">
+            <![CDATA[ and  to_date(CR.CALC_MONTH,'yyyy-MM')  >= to_date(#{startMonth},'yyyy-MM')  ]]>
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            <![CDATA[  and  to_date(CR.CALC_MONTH,'yyyy-MM') <= to_date(#{endMonth},'yyyy-MM') ]]>
+        </if>
+    </select>
+
+    <select id="getChannelMonthReport" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="cls.taishan.web.report.model.MonthReport">
+        select reportMonth,
+        dealerCode,
+        dealerName,
+        beginAmount,
+        chargeAmount,
+        withdrawAmount,
+        saleAmount,
+        saleCommAmount,
+        refundAmount,
+        paidAmount,
+        otherTickets,
+        endAmount
+        from (
+        select tab.*,rownum rn from (
+        select CR.CALC_MONTH reportMonth,
+        CR.DEALER_CODE dealerCode,
+        CR.DEALER_NAME dealerName,
+        CR.BEGIN_AMOUNT beginAmount,
+        CR.CHARGE_AMOUNT chargeAmount,
+        CR.WITHDRAW_AMOUNT withdrawAmount,
+        CR.SALE_AMOUNT saleAmount,
+        CR.SALE_COMM_AMOUNT saleCommAmount,
+        CR.REFUND_AMOUNT refundAmount,
+        CR.PAID_AMOUNT paidAmount,
+        CR.OTHER_TICKETS otherTickets,
+        CR.END_AMOUNT endAmount
+        FROM V_CNCP_MONTHY_REPORT CR
+        WHERE 1=1
+        <if test="dealerCode!=null and dealerCode != ''">
+            and CR.DEALER_CODE = #{dealerCode}
+        </if>
+        <if test="startMonth != null and startMonth!=''">
+            <![CDATA[ and  to_date(CR.CALC_MONTH,'yyyy-MM')  >= to_date(#{startMonth},'yyyy-MM')  ]]>
+        </if>
+        <if test="endMonth!=null and endMonth!=''">
+            <![CDATA[  and  to_date(CR.CALC_MONTH,'yyyy-MM') <= to_date(#{endMonth},'yyyy-MM') ]]>
+        </if>
+        <![CDATA[     ) tab where rownum <= #{endNum}  ]]>
+        ) where rn > #{beginNum}
+        <if test="sortName != null and sortName!=''">
+            order by ${sortName} ${sortOrder}
+        </if>
+        <if test="sortName == null or sortName==''">
+            order by reportMonth desc
+        </if>
+    </select>
+
+
+    <select id="getIssueChlCount" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="Integer">
+        select count(*)
+        from CNCP_RPT_ISSUE CR
+        LEFT JOIN CNCP_INF_DEALERS CD ON CR.DEALER_CODE = CD.DEALER_CODE
+        WHERE 1=1
+        <if test="dealerCode!=null and dealerCode != ''">
+            and CR.DEALER_CODE = #{dealerCode}
+        </if>
+        <if test="reportIssue != null and reportIssue!=''">
+            and CR.issue_number = #{reportIssue}
+        </if>
+    </select>
+
+    <select id="getIssueChlReport" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="cls.taishan.web.report.model.IssueChlReport">
+        select issueCode,
+        dealerName,
+        orderCount,
+        saleAmount,
+        bingoCount,
+        bingoAmount,
+        rwardCount,
+        rwardAmount
+        from (
+        select tab.*,rownum rn from (
+        select CR.ISSUE_NUMBER issueCode,
+        CD.DEALER_NAME dealerName,
+        CR.SALE_TICKETS orderCount,
+        CR.SALE_AMOUNT saleAmount,
+        CR.WINNING_TICKETS bingoCount,
+        CR.WINNING_AMOUNT bingoAmount,
+        CR.PAID_TICKETS rwardCount,
+        CR.PAID_AMOUNT rwardAmount
+        from CNCP_RPT_ISSUE CR
+        LEFT JOIN CNCP_INF_DEALERS CD ON CR.DEALER_CODE = CD.DEALER_CODE
+        WHERE 1=1
+        <if test="dealerCode!=null and dealerCode != ''">
+            and CR.DEALER_CODE = #{dealerCode}
+        </if>
+        <if test="reportIssue != null and reportIssue!=''">
+            and CR.issue_number = #{reportIssue}
+        </if>
+        <![CDATA[     ) tab where rownum <= #{endNum}  ]]>
+        ) where rn > #{beginNum}
+        <if test="sortName != null and sortName!=''">
+            order by ${sortName} ${sortOrder}
+        </if>
+        <if test="sortName == null or sortName ==''">
+            order by issueCode desc
+        </if>
+    </select>
+
+
+    <select id="getIssueSysCount" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="Integer">
+        select count(*)
+        from v_cncp_issue where issue_status = 5
+        <if test="reportIssue != null and reportIssue!=''">
+            and issue_number = #{reportIssue}
+        </if>
+    </select>
+
+
+    <select id="getIssueSysReport" parameterType="cls.taishan.web.report.form.ReportForm"
+            resultType="cls.taishan.web.report.model.IssueSysReport">
+        select issueCode,
+        issueSaleBegin,
+        issueSaleEnd,
+        issueStatus,
+        awardNumber,
+        rewardTime,
+        saleAmount,
+        bingoAmount,
+        rwardAmount from (
+        select tab.*,rownum rn from (
+        select issue_number issueCode,
+        start_sale_time issueSaleBegin,
+        end_sale_time issueSaleEnd,
+        issue_status issueStatus,
+        draw_code awardNumber,
+        reward_time rewardTime,
+        sale_amount saleAmount,
+        winning_amount bingoAmount,
+        paid_amount rwardAmount
+        from v_cncp_issue where issue_status = 5
+        <if test="reportIssue != null and reportIssue!=''">
+            and issue_number = #{reportIssue}
+        </if>
+        <![CDATA[     ) tab where rownum <= #{endNum}  ]]>
+        ) where rn > #{beginNum}
+        <if test="sortName != null and sortName!=''">
+            order by ${sortName} ${sortOrder}
+        </if>
+        <if test="sortName == null or sortName==''">
+            order by issueCode desc
+        </if>
+    </select>
+
+</mapper>

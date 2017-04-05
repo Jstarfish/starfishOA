@@ -1,0 +1,16 @@
+CREATE OR REPLACE PACKAGE ecncp_flow_type IS
+   /****** CNCP资金流水类型 ******/
+   /****** 资金类型（1=充值、2=提现、3=调账、4=销售、5=销售佣金、6=派奖、7=退款） ******/
+
+   charge                       /* 1-充值                               */     CONSTANT NUMBER := 1;
+   withdraw                     /* 2-提现                               */     CONSTANT NUMBER := 2;
+   tuned                        /* 3-调账                               */     CONSTANT NUMBER := 3;
+   sale                         /* 4-销售                               */     CONSTANT NUMBER := 4;
+   sale_comm                    /* 5-销售佣金                           */     CONSTANT NUMBER := 5;
+   paid                         /* 6-派奖                               */     CONSTANT NUMBER := 6;
+   refund                       /* 7-退款                               */     CONSTANT NUMBER := 7;
+
+
+   /***********************************************************************************************************/
+
+END;

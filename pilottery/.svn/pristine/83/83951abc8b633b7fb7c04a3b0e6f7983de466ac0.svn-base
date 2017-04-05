@@ -1,0 +1,1010 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>站点退货</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/站点退货/styles.css" type="text/css" rel="stylesheet"/>
+    <script src="resources/scripts/jquery-1.7.1.min.js"></script>
+    <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="resources/scripts/axure/axQuery.js"></script>
+    <script src="resources/scripts/axure/globals.js"></script>
+    <script src="resources/scripts/axutils.js"></script>
+    <script src="resources/scripts/axure/annotation.js"></script>
+    <script src="resources/scripts/axure/axQuery.std.js"></script>
+    <script src="resources/scripts/axure/doc.js"></script>
+    <script src="data/document.js"></script>
+    <script src="resources/scripts/messagecenter.js"></script>
+    <script src="resources/scripts/axure/events.js"></script>
+    <script src="resources/scripts/axure/action.js"></script>
+    <script src="resources/scripts/axure/expr.js"></script>
+    <script src="resources/scripts/axure/geometry.js"></script>
+    <script src="resources/scripts/axure/flyout.js"></script>
+    <script src="resources/scripts/axure/ie.js"></script>
+    <script src="resources/scripts/axure/model.js"></script>
+    <script src="resources/scripts/axure/repeater.js"></script>
+    <script src="resources/scripts/axure/sto.js"></script>
+    <script src="resources/scripts/axure/utils.temp.js"></script>
+    <script src="resources/scripts/axure/variables.js"></script>
+    <script src="resources/scripts/axure/drag.js"></script>
+    <script src="resources/scripts/axure/move.js"></script>
+    <script src="resources/scripts/axure/visibility.js"></script>
+    <script src="resources/scripts/axure/style.js"></script>
+    <script src="resources/scripts/axure/adaptive.js"></script>
+    <script src="resources/scripts/axure/tree.js"></script>
+    <script src="resources/scripts/axure/init.temp.js"></script>
+    <script src="files/站点退货/data.js"></script>
+    <script src="resources/scripts/axure/legacy.js"></script>
+    <script src="resources/scripts/axure/viewer.js"></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
+      $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
+      $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (形状) -->
+      <div id="u0" class="ax_形状">
+        <img id="u0_img" class="img " src="images/站点退货/u0.png"/>
+        <!-- Unnamed () -->
+        <div id="u1" class="text"></div>
+      </div>
+
+      <!-- 方案列表 (动态面板) -->
+      <div id="u2" class="ax_动态面板" data-label="方案列表">
+        <div id="u2_state0" class="panel_state" data-label="State1">
+          <div id="u2_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (形状) -->
+            <div id="u3" class="ax_形状">
+              <img id="u3_img" class="img " src="images/订单管理/u66.png"/>
+              <!-- Unnamed () -->
+              <div id="u4" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u5" class="ax_文本">
+              <img id="u5_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u6" class="text">
+                <p><span>天下足球</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u7" class="ax_文本">
+              <img id="u7_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u8" class="text">
+                <p><span>109033</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u9" class="ax_文本">
+              <img id="u9_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u10" class="text">
+                <p><span>1000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u11" class="ax_文本">
+              <img id="u11_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u12" class="text">
+                <p><span>爱心刮刮乐</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u13" class="ax_文本">
+              <img id="u13_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u14" class="text">
+                <p><span>爱心刮刮乐</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u15" class="ax_文本">
+              <img id="u15_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u16" class="text">
+                <p><span>109033</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u17" class="ax_文本">
+              <img id="u17_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u18" class="text">
+                <p><span>1000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u19" class="ax_文本">
+              <img id="u19_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u20" class="text">
+                <p><span>109033</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u21" class="ax_文本">
+              <img id="u21_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u22" class="text">
+                <p><span>1000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (复选框) -->
+            <div id="u23" class="ax_复选框">
+              <label for="u23_input">
+                <!-- Unnamed () -->
+                <div id="u24" class="text"></div>
+              </label>
+              <input id="u23_input" type="checkbox" value="checkbox"/>
+            </div>
+
+            <!-- Unnamed (复选框) -->
+            <div id="u25" class="ax_复选框">
+              <label for="u25_input">
+                <!-- Unnamed () -->
+                <div id="u26" class="text"></div>
+              </label>
+              <input id="u25_input" type="checkbox" value="checkbox"/>
+            </div>
+
+            <!-- Unnamed (复选框) -->
+            <div id="u27" class="ax_复选框">
+              <label for="u27_input">
+                <!-- Unnamed () -->
+                <div id="u28" class="text"></div>
+              </label>
+              <input id="u27_input" type="checkbox" value="checkbox"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u29" class="ax_图片">
+        <img id="u29_img" class="img " src="images/菜单列表/u0.png"/>
+        <!-- Unnamed () -->
+        <div id="u30" class="text"></div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u31" class="ax_形状">
+        <img id="u31_img" class="img " src="images/菜单列表/u2.png"/>
+        <!-- Unnamed () -->
+        <div id="u32" class="text"></div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u33" class="ax_图片">
+        <img id="u33_img" class="img " src="images/菜单列表/u4.png"/>
+        <!-- Unnamed () -->
+        <div id="u34" class="text"></div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u35" class="ax_图片">
+        <img id="u35_img" class="img " src="images/菜单列表/u6.png"/>
+        <!-- Unnamed () -->
+        <div id="u36" class="text"></div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u37" class="ax_图片">
+        <img id="u37_img" class="img " src="images/菜单列表/u8.png"/>
+        <!-- Unnamed () -->
+        <div id="u38" class="text"></div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u39" class="ax_文本">
+        <img id="u39_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u40" class="text">
+          <p><span>85%</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u41" class="ax_形状">
+        <img id="u41_img" class="img " src="images/菜单列表/u12.png"/>
+        <!-- Unnamed () -->
+        <div id="u42" class="text">
+          <p><span>pilottery mobile</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u43" class="ax_图片">
+        <img id="u43_img" class="img " src="images/菜单列表/u30.png"/>
+        <!-- Unnamed () -->
+        <div id="u44" class="text"></div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u45" class="ax_图片">
+        <img id="u45_img" class="img " src="images/修改登录密码/u27.png"/>
+        <!-- Unnamed () -->
+        <div id="u46" class="text"></div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u47" class="ax_文本">
+        <img id="u47_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u48" class="text">
+          <p><span>退货</span><span>总</span><span>金额：</span><span>100，</span><span>0</span><span>00</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u49" class="ax_形状">
+        <img id="u49_img" class="img " src="images/站点退货/u49.png"/>
+        <!-- Unnamed () -->
+        <div id="u50" class="text">
+          <p><span>退货</span><span>完成</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u51" class="ax_文本">
+        <img id="u51_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u52" class="text">
+          <p><span>天下足球</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u53" class="ax_文本">
+        <img id="u53_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u54" class="text">
+          <p><span>10</span><span>，</span><span>0</span><span>00</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u55" class="ax_文本">
+        <img id="u55_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u56" class="text">
+          <p><span>500，</span><span>0</span><span>00</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u57" class="ax_文本">
+        <img id="u57_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u58" class="text">
+          <p><span>爱心刮刮乐</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u59" class="ax_文本">
+        <img id="u59_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u60" class="text">
+          <p><span>10</span><span>，</span><span>000</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u61" class="ax_文本">
+        <img id="u61_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u62" class="text">
+          <p><span>500，0</span><span>0</span><span>0</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u63" class="ax_文本">
+        <img id="u63_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u64" class="text">
+          <p><span>节日庆典</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u65" class="ax_文本">
+        <img id="u65_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u66" class="text">
+          <p><span>10</span><span>，</span><span>0</span><span>00</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u67" class="ax_文本">
+        <img id="u67_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u68" class="text">
+          <p><span>500，0</span><span>0</span><span>0</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (水平线) -->
+      <div id="u69" class="ax_水平线">
+        <img id="u69_start" class="img " src="resources/images/transparent.gif" alt="u69_start"/>
+        <img id="u69_end" class="img " src="resources/images/transparent.gif" alt="u69_end"/>
+        <img id="u69_line" class="img " src="images/出货单管理/u158_line.png" alt="u69_line"/>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u70" class="ax_文本">
+        <img id="u70_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u71" class="text">
+          <p><span>方案</span><span>简称</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u72" class="ax_文本">
+        <img id="u72_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u73" class="text">
+          <p><span>张数</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u74" class="ax_文本">
+        <img id="u74_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u75" class="text">
+          <p><span>金额</span></p>
+        </div>
+      </div>
+
+      <!-- 退货确认密码 (动态面板) -->
+      <div id="u76" class="ax_动态面板" data-label="退货确认密码">
+        <div id="u76_state0" class="panel_state" data-label="State1">
+          <div id="u76_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (形状) -->
+            <div id="u77" class="ax_形状">
+              <img id="u77_img" class="img " src="images/站点退货/u77.png"/>
+              <!-- Unnamed () -->
+              <div id="u78" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u79" class="ax_文本">
+              <img id="u79_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u80" class="text">
+                <p><span>输入密码确认退货：</span></p>
+              </div>
+            </div>
+
+            <!-- 搜索框 (文本框(单行)) -->
+            <div id="u81" class="ax_文本框_单行_">
+              <input id="u81_input" type="text" value="输入密码" data-label="搜索框"/>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u82" class="ax_形状">
+              <img id="u82_img" class="img " src="images/提现申请/u87.png"/>
+              <!-- Unnamed () -->
+              <div id="u83" class="text">
+                <p><span>确认</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u84" class="ax_形状">
+              <img id="u84_img" class="img " src="images/提现申请/u87.png"/>
+              <!-- Unnamed () -->
+              <div id="u85" class="text">
+                <p><span>取消</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u86" class="ax_文本">
+        <img id="u86_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u87" class="text"></div>
+      </div>
+
+      <!-- Unnamed (水平线) -->
+      <div id="u88" class="ax_水平线">
+        <img id="u88_start" class="img " src="resources/images/transparent.gif" alt="u88_start"/>
+        <img id="u88_end" class="img " src="resources/images/transparent.gif" alt="u88_end"/>
+        <img id="u88_line" class="img " src="images/站点入库/u20_line.png" alt="u88_line"/>
+      </div>
+
+      <!-- Unnamed (水平线) -->
+      <div id="u89" class="ax_水平线">
+        <img id="u89_start" class="img " src="resources/images/transparent.gif" alt="u89_start"/>
+        <img id="u89_end" class="img " src="resources/images/transparent.gif" alt="u89_end"/>
+        <img id="u89_line" class="img " src="images/站点入库/u20_line.png" alt="u89_line"/>
+      </div>
+
+      <!-- Unnamed (水平线) -->
+      <div id="u90" class="ax_水平线">
+        <img id="u90_start" class="img " src="resources/images/transparent.gif" alt="u90_start"/>
+        <img id="u90_end" class="img " src="resources/images/transparent.gif" alt="u90_end"/>
+        <img id="u90_line" class="img " src="images/站点入库/u20_line.png" alt="u90_line"/>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u91" class="ax_文本">
+        <img id="u91_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u92" class="text">
+          <p><span>201512</span><span>&nbsp; &nbsp;&nbsp; </span><span>01221</span><span>12</span><span>&nbsp; &nbsp; </span><span>1</span><span>0,000</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u93" class="ax_图片">
+        <img id="u93_img" class="img " src="images/站点入库/u81.png"/>
+        <!-- Unnamed () -->
+        <div id="u94" class="text"></div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u95" class="ax_图片">
+        <img id="u95_img" class="img " src="images/站点入库/u81.png"/>
+        <!-- Unnamed () -->
+        <div id="u96" class="text"></div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u97" class="ax_文本">
+        <img id="u97_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u98" class="text">
+          <p><span>方案代码</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u99" class="ax_文本">
+        <img id="u99_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u100" class="text">
+          <p><span>生产批次</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u101" class="ax_文本">
+        <img id="u101_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u102" class="text">
+          <p><span>张数</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u103" class="ax_文本">
+        <img id="u103_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u104" class="text">
+          <p><span>201512</span><span>&nbsp; &nbsp;&nbsp; </span><span>01221</span><span>12</span><span>&nbsp; &nbsp; </span><span>1</span><span>0,000</span></p>
+        </div>
+      </div>
+
+      <!-- 退货列表 (动态面板) -->
+      <div id="u105" class="ax_动态面板" data-label="退货列表">
+        <div id="u105_state0" class="panel_state" data-label="State1">
+          <div id="u105_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (图片) -->
+            <div id="u106" class="ax_图片">
+              <img id="u106_img" class="img " src="images/菜单列表/u0.png"/>
+              <!-- Unnamed () -->
+              <div id="u107" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u108" class="ax_形状">
+              <img id="u108_img" class="img " src="images/订单管理/u45.png"/>
+              <!-- Unnamed () -->
+              <div id="u109" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u110" class="ax_形状">
+              <img id="u110_img" class="img " src="images/站点退货/u110.png"/>
+              <!-- Unnamed () -->
+              <div id="u111" class="text">
+                <p><span>pilottery mobile</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u112" class="ax_图片">
+              <img id="u112_img" class="img " src="images/菜单列表/u30.png"/>
+              <!-- Unnamed () -->
+              <div id="u113" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u114" class="ax_图片">
+              <img id="u114_img" class="img " src="images/修改登录密码/u27.png"/>
+              <!-- Unnamed () -->
+              <div id="u115" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u116" class="ax_形状">
+              <img id="u116_img" class="img " src="images/订单管理/u53.png"/>
+              <!-- Unnamed () -->
+              <div id="u117" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u118" class="ax_图片">
+              <img id="u118_img" class="img " src="images/菜单列表/u4.png"/>
+              <!-- Unnamed () -->
+              <div id="u119" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u120" class="ax_图片">
+              <img id="u120_img" class="img " src="images/菜单列表/u6.png"/>
+              <!-- Unnamed () -->
+              <div id="u121" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u122" class="ax_文本">
+              <img id="u122_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u123" class="text">
+                <p><span>85%</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u124" class="ax_图片">
+              <img id="u124_img" class="img " src="images/菜单列表/u8.png"/>
+              <!-- Unnamed () -->
+              <div id="u125" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u126" class="ax_形状">
+              <img id="u126_img" class="img " src="images/提现申请/u87.png"/>
+              <!-- Unnamed () -->
+              <div id="u127" class="text">
+                <p><span>退货单</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u128" class="ax_图片">
+              <img id="u128_img" class="img " src="images/菜单列表/u0.png"/>
+              <!-- Unnamed () -->
+              <div id="u129" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u130" class="ax_形状">
+              <img id="u130_img" class="img " src="images/菜单列表/u2.png"/>
+              <!-- Unnamed () -->
+              <div id="u131" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u132" class="ax_图片">
+              <img id="u132_img" class="img " src="images/菜单列表/u4.png"/>
+              <!-- Unnamed () -->
+              <div id="u133" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u134" class="ax_图片">
+              <img id="u134_img" class="img " src="images/菜单列表/u6.png"/>
+              <!-- Unnamed () -->
+              <div id="u135" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u136" class="ax_图片">
+              <img id="u136_img" class="img " src="images/菜单列表/u8.png"/>
+              <!-- Unnamed () -->
+              <div id="u137" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u138" class="ax_文本">
+              <img id="u138_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u139" class="text">
+                <p><span>85%</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u140" class="ax_形状">
+              <img id="u140_img" class="img " src="images/菜单列表/u75.png"/>
+              <!-- Unnamed () -->
+              <div id="u141" class="text">
+                <p><span>pilottery mobile</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u142" class="ax_图片">
+              <img id="u142_img" class="img " src="images/菜单列表/u30.png"/>
+              <!-- Unnamed () -->
+              <div id="u143" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u144" class="ax_文本">
+              <img id="u144_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u145" class="text">
+                <p><span>站点编号</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u146" class="ax_文本">
+              <img id="u146_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u147" class="text">
+                <p><span>退货清单</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (表格) -->
+            <div id="u148" class="ax_表格">
+
+              <!-- Unnamed (表格单元) -->
+              <div id="u149" class="ax_表格单元">
+                <img id="u149_img" class="img " src="images/站点退货/u149.png"/>
+                <!-- Unnamed () -->
+                <div id="u150" class="text">
+                  <p><span>方案名称</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (表格单元) -->
+              <div id="u151" class="ax_表格单元">
+                <img id="u151_img" class="img " src="images/站点退货/u151.png"/>
+                <!-- Unnamed () -->
+                <div id="u152" class="text">
+                  <p><span>数量(本)</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (表格单元) -->
+              <div id="u153" class="ax_表格单元">
+                <img id="u153_img" class="img " src="images/站点退货/u153.png"/>
+                <!-- Unnamed () -->
+                <div id="u154" class="text">
+                  <p><span>金额</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (表格单元) -->
+              <div id="u155" class="ax_表格单元">
+                <img id="u155_img" class="img " src="images/站点退货/u155.png"/>
+                <!-- Unnamed () -->
+                <div id="u156" class="text"></div>
+              </div>
+
+              <!-- Unnamed (表格单元) -->
+              <div id="u157" class="ax_表格单元">
+                <img id="u157_img" class="img " src="images/站点退货/u157.png"/>
+                <!-- Unnamed () -->
+                <div id="u158" class="text"></div>
+              </div>
+
+              <!-- Unnamed (表格单元) -->
+              <div id="u159" class="ax_表格单元">
+                <img id="u159_img" class="img " src="images/站点退货/u159.png"/>
+                <!-- Unnamed () -->
+                <div id="u160" class="text"></div>
+              </div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u161" class="ax_图片">
+              <img id="u161_img" class="img " src="images/修改登录密码/u27.png"/>
+              <!-- Unnamed () -->
+              <div id="u162" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u163" class="ax_形状">
+              <img id="u163_img" class="img " src="images/提现申请/u87.png"/>
+              <!-- Unnamed () -->
+              <div id="u164" class="text">
+                <p><span>确认</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u165" class="ax_形状">
+              <img id="u165_img" class="img " src="images/提现申请/u87.png"/>
+              <!-- Unnamed () -->
+              <div id="u166" class="text">
+                <p><span>取消</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u167" class="ax_文本">
+              <img id="u167_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u168" class="text">
+                <p><span>合计金额：</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u169" class="ax_文本">
+              <img id="u169_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u170" class="text">
+                <p><span>备注：</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u171" class="ax_形状">
+              <img id="u171_img" class="img " src="images/站点退货/u171.png"/>
+              <!-- Unnamed () -->
+              <div id="u172" class="text"></div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u173" class="ax_图片">
+              <img id="u173_img" class="img " src="images/订单管理/u107.png"/>
+              <!-- Unnamed () -->
+              <div id="u174" class="text"></div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u175" class="ax_文本">
+              <img id="u175_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u176" class="text">
+                <p><span>日期</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u177" class="ax_文本">
+              <img id="u177_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u178" class="text">
+                <p><span>总数量</span><span>（张）</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u179" class="ax_文本">
+              <img id="u179_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u180" class="text">
+                <p><span>总金额</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u181" class="ax_水平线">
+              <img id="u181_start" class="img " src="resources/images/transparent.gif" alt="u181_start"/>
+              <img id="u181_end" class="img " src="resources/images/transparent.gif" alt="u181_end"/>
+              <img id="u181_line" class="img " src="images/站点退货/u181_line.png" alt="u181_line"/>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u182" class="ax_文本">
+              <img id="u182_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u183" class="text">
+                <p><span>08-25</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u184" class="ax_文本">
+              <img id="u184_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u185" class="text">
+                <p><span>10</span><span>，</span><span>000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u186" class="ax_文本">
+              <img id="u186_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u187" class="text">
+                <p><span>10</span><span>0,000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u188" class="ax_水平线">
+              <img id="u188_start" class="img " src="resources/images/transparent.gif" alt="u188_start"/>
+              <img id="u188_end" class="img " src="resources/images/transparent.gif" alt="u188_end"/>
+              <img id="u188_line" class="img " src="images/站点退货/u188_line.png" alt="u188_line"/>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u189" class="ax_文本">
+              <img id="u189_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u190" class="text">
+                <p><span>09-14</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u191" class="ax_文本">
+              <img id="u191_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u192" class="text">
+                <p><span>10</span><span>，</span><span>000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u193" class="ax_文本">
+              <img id="u193_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u194" class="text">
+                <p><span>100,0</span><span>0</span><span>0</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u195" class="ax_水平线">
+              <img id="u195_start" class="img " src="resources/images/transparent.gif" alt="u195_start"/>
+              <img id="u195_end" class="img " src="resources/images/transparent.gif" alt="u195_end"/>
+              <img id="u195_line" class="img " src="images/站点退货/u195_line.png" alt="u195_line"/>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u196" class="ax_文本">
+              <img id="u196_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u197" class="text">
+                <p><span>09-12</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u198" class="ax_文本">
+              <img id="u198_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u199" class="text">
+                <p><span>10</span><span>，</span><span>000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u200" class="ax_文本">
+              <img id="u200_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u201" class="text">
+                <p><span>100,000</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u202" class="ax_文本">
+              <img id="u202_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u203" class="text">
+                <p><span>退货</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u204" class="ax_文本">
+              <img id="u204_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u205" class="text">
+                <p><span>退货</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u206" class="ax_文本">
+              <img id="u206_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u207" class="text">
+                <p><span>退货</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u208" class="ax_文本">
+              <img id="u208_img" class="img " src="resources/images/transparent.gif"/>
+              <!-- Unnamed () -->
+              <div id="u209" class="text">
+                <p><span>12233223224</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u210" class="ax_文本">
+        <img id="u210_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u211" class="text">
+          <p><span>站点编号： 1202312323</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u212" class="ax_形状">
+        <img id="u212_img" class="img " src="images/站点退货/u212.png"/>
+        <!-- Unnamed () -->
+        <div id="u213" class="text">
+          <p><span>扫描退货</span></p>
+        </div>
+      </div>
+
+      <!-- 扫描中 (动态面板) -->
+      <div id="u214" class="ax_动态面板" data-label="扫描中">
+        <div id="u214_state0" class="panel_state" data-label="State1">
+          <div id="u214_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (形状) -->
+            <div id="u215" class="ax_形状">
+              <img id="u215_img" class="img " src="images/站点退货/u215.png"/>
+              <!-- Unnamed () -->
+              <div id="u216" class="text">
+                <p><span style="color:#333333;">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span style="color:#FF0000;">扫描中......</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (图片) -->
+            <div id="u217" class="ax_图片">
+              <img id="u217_img" class="img " src="images/站点入库/u100.gif"/>
+              <!-- Unnamed () -->
+              <div id="u218" class="text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u219" class="ax_文本">
+        <img id="u219_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u220" class="text">
+          <p><span>点击【退货完成】提示处理成功！返回站点服务页面</span></p><p><span>提示：处理失败！重试和退出；</span></p><p><span>重试返会操作页面；</span></p><p><span>退出返回上一菜单页面；</span></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

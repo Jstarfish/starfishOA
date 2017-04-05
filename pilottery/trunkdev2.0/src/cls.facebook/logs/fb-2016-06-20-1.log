@@ -1,0 +1,870 @@
+2016-06-20 20:06:02.380 | INFO  | main       | StartService        :17    | System Started ......
+2016-06-20 20:06:02.421 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:06:02.421 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-20 20:06:02.571 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-20 20:06:02.611 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBAGclh6e3q9vbU0vX8nrba2w2dhoOlWTHbe9ZCrZCmRKDFypjYdXyvoxhYA0DIULTGXCPiUOX2ZAjbSzeaL78tb69XanTirOxx3Xs0ZCYeHZCTmbZCDKAcUlKNGhqEgFjsdrVUxPyRp5ZB4ZCmSgPEtZBwJPep4IGz4wZDZD&client_id=554017678113169
+2016-06-20 20:08:18.324 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:08:18.334 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-20 20:08:18.424 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-20 20:08:18.424 | INFO  | main       | pl.FaceBookImplement:79    | facebook test begin ... 
+2016-06-20 20:08:19.304 | INFO  | main       | pl.FaceBookImplement:88    | facebook test end,we get the account of KPW Lottery
+2016-06-20 20:08:19.304 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:08:19.304 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:08:19.304 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-06-20 20:08:21.583 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1610155875961744) ,message is: Test ... Lucky 5, the 160612001 issue ,winner code is:05,02,07,11,10,url = http://kpwlottery.com/index.php/km?issue=160612001&wincode=05,02,07,11,10
+2016-06-20 20:08:21.585 | INFO  | main       | pl.FaceBookImplement:190   | facebook post page feed begin ... 
+2016-06-20 20:08:21.861 | ERROR | main       | pl.FaceBookImplement:212   | facebook post feed failure, for message - (#100) The privacy param cannot be applied when a target is specified.
+code - 100
+Relevant information for error recovery can be found on the Facebook Developers Document:
+	https://developers.facebook.com/docs/graph-api/using-graph-api/#errors
+
+2016-06-20 20:08:22.939 | ERROR | main       | pl.FaceBookImplement:147   | facebook post page url failure, for message - (#1) An unknown error occurred
+code - 1
+Relevant information for error recovery can be found on the Facebook Developers Document:
+	https://developers.facebook.com/docs/graph-api/using-graph-api/#errors
+
+2016-06-20 20:09:37.602 | INFO  | main       | StartService        :17    | System Started ......
+2016-06-20 20:09:37.602 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:09:37.612 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-20 20:09:37.702 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-20 20:09:37.742 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:09:37.742 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:09:37.742 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:09:37.742 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:09:37.742 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:09:37.742 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:09:39.284 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 20:09:39.355 | ERROR | main       | .ncpimpl.IssueThread:120   | get ncp currissue error160616001
+2016-06-20 20:10:40.397 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 20:10:40.397 | ERROR | main       | .ncpimpl.IssueThread:120   | get ncp currissue error160616001
+2016-06-20 20:11:41.430 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 20:11:41.430 | ERROR | main       | .ncpimpl.IssueThread:120   | get ncp currissue error160616001
+2016-06-20 20:12:47.945 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 20:12:47.945 | ERROR | main       | .ncpimpl.IssueThread:120   | get ncp currissue error160616001
+2016-06-20 20:13:47.949 | ERROR | main       | .ncpimpl.IssueThread:133   | post curr issue info error over 3 time.system exit ... curr issue :160616001
+2016-06-20 20:14:47.950 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:14:47.950 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:14:47.950 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:14:47.960 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:14:47.960 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:14:47.960 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:14:47.960 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:15:47.961 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:15:47.961 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:15:47.961 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:15:47.961 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:15:47.961 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:15:47.971 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:15:47.971 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:16:47.977 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:16:47.977 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:16:47.977 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:16:47.987 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:16:47.987 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:16:47.987 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:16:47.987 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:17:47.988 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:17:47.988 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:17:47.988 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:17:47.988 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:17:47.990 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:17:47.990 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:17:47.993 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:18:47.994 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:18:47.994 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:18:47.994 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:18:47.994 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:18:48.004 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:18:48.004 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:18:48.004 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:19:48.005 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:19:48.005 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:19:48.005 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:19:48.008 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:19:48.008 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:19:48.008 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:19:48.008 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:20:48.017 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:20:48.017 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:20:48.017 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:20:48.017 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:20:48.027 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:20:48.027 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:20:48.027 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:21:48.036 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:21:48.036 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:21:48.036 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:21:48.036 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:21:48.036 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:21:48.046 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:21:48.046 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:22:48.047 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:22:48.047 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:22:48.047 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:22:48.057 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:22:48.057 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:22:48.057 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:22:48.057 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:23:48.064 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:23:48.064 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:23:48.064 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:23:48.064 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:23:48.074 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:23:48.074 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:23:48.074 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:24:48.081 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:24:48.081 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:24:48.081 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:24:48.081 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:24:48.081 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:24:48.091 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:24:48.091 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:25:48.094 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:25:48.094 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:25:48.094 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:25:48.094 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:25:48.094 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:25:48.094 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:25:48.104 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:26:48.105 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:26:48.105 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:26:48.105 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:26:48.115 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:26:48.115 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:26:48.115 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:26:48.115 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:27:48.117 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:27:48.117 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:27:48.117 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:27:48.127 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:27:48.127 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:27:48.127 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:27:48.127 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:28:48.127 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:28:48.127 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:28:48.127 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:28:48.128 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:28:48.128 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:28:48.129 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:28:48.129 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:29:48.130 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:29:48.130 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:29:48.130 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:29:48.131 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:29:48.131 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:29:48.132 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:29:48.132 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:30:48.137 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:30:48.137 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:30:48.137 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:30:48.137 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:30:48.137 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:30:48.137 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:30:48.137 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:31:48.138 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:31:48.138 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:31:48.138 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:31:48.139 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:31:48.139 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:31:48.139 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:31:48.140 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:32:48.141 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:32:48.141 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:32:48.142 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:32:48.142 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:32:48.143 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:32:48.143 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:32:48.143 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:33:48.143 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:33:48.143 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:33:48.143 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:33:48.144 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:33:48.145 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:33:48.145 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:33:48.145 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:34:48.146 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:34:48.146 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:34:48.146 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:34:48.147 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:34:48.147 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:34:48.147 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:34:48.147 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:35:48.149 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:35:48.149 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:35:48.149 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:35:48.159 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:35:48.159 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:35:48.159 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:35:48.159 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:36:48.163 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:36:48.163 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:36:48.163 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:36:48.163 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:36:48.163 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:36:48.173 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:36:48.173 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:37:48.182 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:37:48.182 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:37:48.182 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:37:48.182 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:37:48.182 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:37:48.182 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:37:48.182 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:38:48.190 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:38:48.190 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:38:48.190 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:38:48.190 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:38:48.190 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:38:48.200 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:38:48.200 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:39:48.203 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:39:48.203 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:39:48.203 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:39:48.204 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:39:48.204 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:39:48.204 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:39:48.204 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:40:48.205 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:40:48.205 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:40:48.205 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:40:48.206 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:40:48.206 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:40:48.206 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:40:48.207 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:41:48.210 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:41:48.210 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:41:48.210 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:41:48.210 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:41:48.210 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:41:48.210 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:41:48.210 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:42:48.219 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:42:48.219 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:42:48.219 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:42:48.219 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:42:48.219 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:42:48.219 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:42:48.219 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:43:48.220 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:43:48.220 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:43:48.220 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:43:48.230 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:43:48.230 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:43:48.230 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:43:48.230 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:44:48.235 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:44:48.235 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:44:48.235 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:44:48.245 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:44:48.245 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:44:48.245 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:44:48.245 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:45:48.246 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:45:48.246 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:45:48.246 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:45:48.256 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:45:48.256 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:45:48.256 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:45:48.256 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:46:48.275 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:46:48.275 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:46:48.275 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:46:48.275 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:46:48.275 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:46:48.275 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:46:48.275 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:47:48.277 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:47:48.277 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:47:48.277 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:47:48.277 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:47:48.277 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:47:48.287 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:47:48.287 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:48:48.288 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:48:48.288 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:48:48.288 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:48:48.293 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:48:48.294 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:48:48.295 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:48:48.295 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:49:48.316 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:49:48.316 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:49:48.316 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:49:48.318 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:49:48.318 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:49:48.318 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:49:48.318 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:50:48.330 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:50:48.330 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:50:48.330 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:50:48.340 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:50:48.340 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:50:48.340 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:50:48.340 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:51:48.342 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:51:48.342 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:51:48.342 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:51:48.342 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:51:48.344 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:51:48.344 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:51:48.344 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:52:48.353 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:52:48.353 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:52:48.353 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:52:48.363 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:52:48.363 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:52:48.363 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:52:48.363 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:53:48.376 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:53:48.378 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:53:48.380 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:53:48.382 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:53:48.382 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:53:48.383 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:53:48.385 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:54:48.385 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:54:48.385 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:54:48.386 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:54:48.386 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:54:48.386 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:54:48.386 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:54:48.387 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:55:48.387 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:55:48.387 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:55:48.387 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:55:48.388 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:55:48.388 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:55:48.388 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:55:48.389 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:56:48.390 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:56:48.390 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:56:48.390 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:56:48.391 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:56:48.391 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:56:48.391 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:56:48.392 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:57:48.392 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:57:48.392 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:57:48.392 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:57:48.393 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:57:48.393 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:57:48.393 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:57:48.394 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:58:48.395 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:58:48.395 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:58:48.395 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:58:48.396 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:58:48.396 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:58:48.397 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:58:48.398 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 20:59:48.398 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 20:59:48.398 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 20:59:48.398 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:59:48.399 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:59:48.399 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 20:59:48.400 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 20:59:48.400 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:00:48.401 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:00:48.401 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:00:48.401 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:00:48.402 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:00:48.402 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:00:48.402 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:00:48.403 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:01:48.403 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:01:48.403 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:01:48.403 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:01:48.404 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:01:48.404 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:01:48.404 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:01:48.404 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:02:48.405 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:02:48.405 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:02:48.405 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:02:48.406 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:02:48.406 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:02:48.407 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:02:48.407 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:03:48.408 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:03:48.408 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:03:48.408 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:03:48.409 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:03:48.409 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:03:48.409 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:03:48.410 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:04:48.410 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:04:48.410 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:04:48.410 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:04:48.411 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:04:48.411 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:04:48.411 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:04:48.412 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:05:48.413 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:05:48.414 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:05:48.414 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:05:48.415 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:05:48.416 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:05:48.416 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:05:48.417 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:06:48.417 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:06:48.418 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:06:48.418 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:06:48.418 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:06:48.419 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:06:48.419 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:06:48.419 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:07:48.420 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:07:48.420 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:07:48.420 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:07:48.421 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:07:48.421 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:07:48.421 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:07:48.421 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:08:48.422 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:08:48.423 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:08:48.423 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:08:48.424 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:08:48.425 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:08:48.425 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:08:48.426 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:09:48.427 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:09:48.427 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:09:48.428 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:09:48.428 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:09:48.428 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:09:48.428 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:09:48.429 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:10:48.430 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:10:48.430 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:10:48.430 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:10:48.431 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:10:48.431 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:10:48.431 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:10:48.432 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:11:48.433 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:11:48.433 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:11:48.433 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:11:48.443 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:11:48.443 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:11:48.443 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:11:48.443 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:12:48.443 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:12:48.443 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:12:48.443 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:12:48.443 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:12:48.443 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:12:48.443 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:12:48.443 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:13:48.443 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:13:48.443 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:13:48.443 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:13:48.453 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:13:48.453 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:13:48.453 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:13:48.453 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:14:48.462 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:14:48.462 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:14:48.462 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:14:48.472 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:14:48.472 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:14:48.472 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:14:48.472 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:15:48.474 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:15:48.474 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:15:48.474 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:15:48.474 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:15:48.474 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:15:48.484 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:15:48.484 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:16:48.485 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:16:48.485 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:16:48.485 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:16:48.486 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:16:48.486 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:16:48.486 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:16:48.487 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:17:48.494 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:17:48.494 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:17:48.494 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:17:48.504 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:17:48.504 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:17:48.504 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:17:48.504 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:18:48.507 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:18:48.507 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:18:48.507 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:18:48.507 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:18:48.507 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:18:48.507 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:18:48.507 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:19:48.508 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:19:48.509 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:19:48.509 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:19:48.510 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:19:48.510 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:19:48.511 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:19:48.511 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:20:48.516 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:20:48.516 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:20:48.516 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:20:48.527 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:20:48.527 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:20:48.528 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:20:48.528 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:21:48.529 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:21:48.530 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:21:48.531 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:21:48.533 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:21:48.533 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:21:48.534 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:21:48.535 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:22:48.535 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:22:48.535 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:22:48.536 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:22:48.536 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:22:48.537 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:22:48.537 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:22:48.538 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:23:48.545 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:23:48.545 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:23:48.545 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:23:48.545 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:23:48.545 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:23:48.545 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:23:48.545 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:24:48.545 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:24:48.545 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:24:48.545 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:24:48.547 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:24:48.547 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:24:48.547 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:24:48.547 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:25:48.553 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:25:48.553 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:25:48.553 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:25:48.563 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:25:48.563 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:25:48.563 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:25:48.563 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:26:48.569 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:26:48.569 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:26:48.569 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:26:48.579 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:26:48.579 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:26:48.579 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:26:48.579 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:27:48.588 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:27:48.588 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:27:48.588 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:27:48.598 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:27:48.598 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:27:48.598 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:27:48.598 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:28:48.606 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:28:48.606 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:28:48.606 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:28:48.606 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:28:48.606 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:28:48.616 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:28:48.616 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 21:29:48.616 | INFO  | main       | StartService        :30    | main thread alive.
+2016-06-20 21:29:48.617 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 21:29:48.617 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:29:48.618 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:29:48.618 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 21:29:48.618 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 21:29:48.619 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 23:43:45.164 | INFO  | main       | StartService        :17    | System Started ......
+2016-06-20 23:43:45.168 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 23:43:45.171 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-20 23:43:45.262 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-20 23:43:45.305 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 23:43:45.306 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 23:43:45.306 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 23:43:45.306 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 23:43:45.307 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 23:43:45.307 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 23:44:06.843 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 23:44:06.896 | ERROR | main       | .ncpimpl.IssueThread:120   | get ncp currissue error160620001
+2016-06-20 23:45:07.117 | INFO  | main       | .ncpimpl.IssueThread:87    | get ncp curr issue info success... curr issue :160620001
+2016-06-20 23:45:07.117 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-06-20 23:45:12.524 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1610221372621861) ,message is: Test ... Lucky 5, the 160620001 issue ,winner code is:2,9,1,5,4,url = http://kpwlottery.com/index.php/km?issue=160620001&wincode=2,9,1,5,4
+2016-06-20 23:45:12.524 | INFO  | main       | .ncpimpl.IssueThread:97    | post curr issue info success ... curr issue :160620001
+2016-06-20 23:45:12.525 | INFO  | main       | .ncpimpl.IssueThread:110   | System change curr issue to :160620001
+2016-06-20 23:45:12.525 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-20 23:45:12.544 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160620001
+2016-06-20 23:49:32.910 | INFO  | main       | StartService        :17    | System Started ......
+2016-06-20 23:49:32.931 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 23:49:32.934 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-20 23:49:33.037 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-20 23:49:33.082 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 23:49:33.097 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 23:49:33.098 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 23:49:33.098 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 23:49:33.099 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 23:49:33.099 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 23:49:33.610 | INFO  | main       | .ncpimpl.IssueThread:87    | get ncp curr issue info success... curr issue :160620001
+2016-06-20 23:49:33.610 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-06-20 23:49:53.469 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1610222259288439) ,message is: Test ... Lucky 5, the 160620001 issue ,winner code is:2,9,1,5,4,url = http://kpwlottery.com/index.php/km?issue=160620001&wincode=2,9,1,5,4
+2016-06-20 23:49:53.470 | INFO  | main       | .ncpimpl.IssueThread:97    | post curr issue info success ... curr issue :160620001
+2016-06-20 23:50:38.167 | INFO  | main       | StartService        :17    | System Started ......
+2016-06-20 23:50:38.185 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 23:50:38.189 | INFO  | main       | .config.SysParameter:48    | System begin to init the parameters.
+2016-06-20 23:50:38.293 | INFO  | main       | .config.SysParameter:72    | System parameters loaded.
+2016-06-20 23:50:38.340 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 23:50:38.341 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 23:50:38.341 | INFO  | main       | pl.FaceBookImplement:232   | facebook fresh token post url : https://graph.facebook.com/oauth/access_token?client_secret=b1bb931e34063397d7ea833c2b60e26b&grant_type=fb_exchange_token&fb_exchange_token=EAAH34ErnOZAEBADPdCplmugJ2ZBMATDN1HOkinEfJfoJInZCAUG78HJ9ZCxInRZBBZCpOdVnkoA3NROz4Efpu3hgI9Ykrbf0G9nZBqAKW7ZA0TgQ3v5HS8vd1BphFNRJi7MqeZCbTp838QoABZCeLSeLRX2YB84KZAf1joZD&client_id=554017678113169
+2016-06-20 23:50:38.342 | ERROR | main       | pl.FaceBookImplement:266   | facebook fresh token  failure, for Get token is null....
+2016-06-20 23:50:38.343 | ERROR | main       | mpl.FreshTokenThread:59    | fresh token exit for:Can't fresh token, please check the status.
+2016-06-20 23:50:38.343 | INFO  | main       | pl.FaceBookImplement:44    | facebook init ...
+2016-06-20 23:50:59.750 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 23:50:59.767 | ERROR | main       | .ncpimpl.IssueThread:122   | get ncp currissue error160620001
+2016-06-20 23:52:20.783 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 23:52:20.783 | ERROR | main       | .ncpimpl.IssueThread:122   | get ncp currissue error160620001
+2016-06-20 23:53:20.933 | INFO  | main       | .ncpimpl.IssueThread:87    | get ncp curr issue info success... curr issue :160620001
+2016-06-20 23:53:20.933 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-06-20 23:53:22.663 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1610223022621696) ,message is: Test ... Lucky 5, the 160620001 issue ,winner code is:2,9,1,5,4,url = http://kpwlottery.com/index.php/km?issue=160620001&wincode=2,9,1,5,4
+2016-06-20 23:53:22.663 | INFO  | main       | .ncpimpl.IssueThread:97    | post curr issue info success ... curr issue :160620001
+2016-06-20 23:53:31.837 | INFO  | main       | .ncpimpl.IssueThread:112   | System change curr issue to :160620002
+2016-06-20 23:53:42.017 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-20 23:53:42.043 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160620002
+2016-06-20 23:55:03.046 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 23:55:03.046 | ERROR | main       | .ncpimpl.IssueThread:122   | get ncp currissue error160620002
+2016-06-20 23:56:06.124 | INFO  | main       | .ncpimpl.IssueThread:87    | get ncp curr issue info success... curr issue :160620002
+2016-06-20 23:56:06.134 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-06-20 23:56:08.715 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1610225182621480) ,message is: Test ... Lucky 5, the 160620002 issue ,winner code is:6,10,7,1,2,url = http://kpwlottery.com/index.php/km?issue=160620002&wincode=6,10,7,1,2
+2016-06-20 23:56:08.725 | INFO  | main       | .ncpimpl.IssueThread:97    | post curr issue info success ... curr issue :160620002
+2016-06-20 23:56:13.647 | INFO  | main       | .ncpimpl.IssueThread:112   | System change curr issue to :160620003
+2016-06-20 23:56:13.647 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-20 23:56:13.647 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160620003
+2016-06-20 23:57:34.657 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 23:57:34.657 | ERROR | main       | .ncpimpl.IssueThread:122   | get ncp currissue error160620003
+2016-06-20 23:58:55.664 | INFO  | main       | tils.HttpClientUtils:119   | post
+java.net.ConnectException: Connection timed out: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195) ~[?:1.6.0_14]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182) ~[?:1.6.0_14]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:519) ~[?:1.6.0_14]
+	at java.net.Socket.connect(Socket.java:469) ~[?:1.6.0_14]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:394) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:529) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:233) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:306) ~[?:1.6.0_14]
+	at sun.net.www.http.HttpClient.New(HttpClient.java:323) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:852) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:793) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:718) ~[?:1.6.0_14]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1041) ~[?:1.6.0_14]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:373) ~[?:1.6.0_14]
+	at cls.pilottery.common.utils.HttpClientUtils.get(HttpClientUtils.java:102) [classes/:?]
+	at cls.facebook.ncpimpl.IssueThread.run(IssueThread.java:80) [classes/:?]
+	at StartService.main(StartService.java:25) [classes/:?]
+2016-06-20 23:58:55.664 | ERROR | main       | .ncpimpl.IssueThread:122   | get ncp currissue error160620003
+2016-06-20 23:59:55.739 | INFO  | main       | .ncpimpl.IssueThread:87    | get ncp curr issue info success... curr issue :160620003
+2016-06-20 23:59:55.739 | INFO  | main       | pl.FaceBookImplement:157   | facebook post feed begin ... 
+2016-06-20 23:59:58.119 | INFO  | main       | pl.FaceBookImplement:173   | facebook post feed id (1603887806588551_1610228655954466) ,message is: Test ... Lucky 5, the 160620003 issue ,winner code is:10,7,2,4,1,url = http://kpwlottery.com/index.php/km?issue=160620003&wincode=10,7,2,4,1
+2016-06-20 23:59:58.119 | INFO  | main       | .ncpimpl.IssueThread:97    | post curr issue info success ... curr issue :160620003
+2016-06-20 23:59:58.119 | INFO  | main       | .ncpimpl.IssueThread:112   | System change curr issue to :160620004
+2016-06-20 23:59:58.119 | INFO  | main       | .config.SysParameter:86    | System begin to save key:ncp.startissue
+2016-06-20 23:59:58.129 | INFO  | main       | .config.SysParameter:100   | Save Issue Successful. value=160620004

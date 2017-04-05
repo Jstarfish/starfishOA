@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.User" >
+    <id column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="ADMIN_REALNAME" property="adminRealname" jdbcType="VARCHAR" />
+    <result column="ADMIN_LOGIN" property="adminLogin" jdbcType="VARCHAR" />
+    <result column="ADMIN_PASSWORD" property="adminPassword" jdbcType="CHAR" />
+    <result column="ADMIN_GENDER" property="adminGender" jdbcType="DECIMAL" />
+    <result column="ADMIN_EMAIL" property="adminEmail" jdbcType="VARCHAR" />
+    <result column="ADMIN_BIRTHDAY" property="adminBirthday" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_TEL" property="adminTel" jdbcType="VARCHAR" />
+    <result column="ADMIN_MOBILE" property="adminMobile" jdbcType="VARCHAR" />
+    <result column="ADMIN_PHONE" property="adminPhone" jdbcType="VARCHAR" />
+    <result column="ADMIN_ORG" property="adminOrg" jdbcType="CHAR" />
+    <result column="ADMIN_ADDRESS" property="adminAddress" jdbcType="VARCHAR" />
+    <result column="ADMIN_REMARK" property="adminRemark" jdbcType="VARCHAR" />
+    <result column="ADMIN_STATUS" property="adminStatus" jdbcType="DECIMAL" />
+    <result column="ADMIN_CREATE_TIME" property="adminCreateTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_UPDATE_TIME" property="adminUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_LOGIN_TIME" property="adminLoginTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_LOGIN_COUNT" property="adminLoginCount" jdbcType="DECIMAL" />
+    <result column="ADMIN_AGREEDAY" property="adminAgreeday" jdbcType="VARCHAR" />
+    <result column="ADMIN_LOGIN_BEGIN" property="adminLoginBegin" jdbcType="VARCHAR" />
+    <result column="ADMIN_LOGIN_END" property="adminLoginEnd" jdbcType="VARCHAR" />
+    <result column="CREATE_ADMIN_ID" property="createAdminId" jdbcType="DECIMAL" />
+    <result column="ADMIN_IP_LIMIT" property="adminIpLimit" jdbcType="VARCHAR" />
+    <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL" />
+    <result column="IS_COLLECTER" property="isCollecter" jdbcType="DECIMAL" />
+    <result column="IS_WAREHOUSE_M" property="isWarehouseM" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADMIN_ID, ADMIN_REALNAME, ADMIN_LOGIN, ADMIN_PASSWORD, ADMIN_GENDER, ADMIN_EMAIL, 
+    ADMIN_BIRTHDAY, ADMIN_TEL, ADMIN_MOBILE, ADMIN_PHONE, ADMIN_ORG, ADMIN_ADDRESS, ADMIN_REMARK, 
+    ADMIN_STATUS, ADMIN_CREATE_TIME, ADMIN_UPDATE_TIME, ADMIN_LOGIN_TIME, ADMIN_LOGIN_COUNT, 
+    ADMIN_AGREEDAY, ADMIN_LOGIN_BEGIN, ADMIN_LOGIN_END, CREATE_ADMIN_ID, ADMIN_IP_LIMIT, 
+    LOGIN_STATUS, IS_COLLECTER, IS_WAREHOUSE_M
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from ADM_INFO
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from ADM_INFO
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.User" >
+    insert into ADM_INFO (ADMIN_ID, ADMIN_REALNAME, ADMIN_LOGIN, 
+      ADMIN_PASSWORD, ADMIN_GENDER, ADMIN_EMAIL, 
+      ADMIN_BIRTHDAY, ADMIN_TEL, ADMIN_MOBILE, 
+      ADMIN_PHONE, ADMIN_ORG, ADMIN_ADDRESS, 
+      ADMIN_REMARK, ADMIN_STATUS, ADMIN_CREATE_TIME, 
+      ADMIN_UPDATE_TIME, ADMIN_LOGIN_TIME, ADMIN_LOGIN_COUNT, 
+      ADMIN_AGREEDAY, ADMIN_LOGIN_BEGIN, ADMIN_LOGIN_END, 
+      CREATE_ADMIN_ID, ADMIN_IP_LIMIT, LOGIN_STATUS, 
+      IS_COLLECTER, IS_WAREHOUSE_M)
+    values (#{adminId,jdbcType=DECIMAL}, #{adminRealname,jdbcType=VARCHAR}, #{adminLogin,jdbcType=VARCHAR}, 
+      #{adminPassword,jdbcType=CHAR}, #{adminGender,jdbcType=DECIMAL}, #{adminEmail,jdbcType=VARCHAR}, 
+      #{adminBirthday,jdbcType=TIMESTAMP}, #{adminTel,jdbcType=VARCHAR}, #{adminMobile,jdbcType=VARCHAR}, 
+      #{adminPhone,jdbcType=VARCHAR}, #{adminOrg,jdbcType=CHAR}, #{adminAddress,jdbcType=VARCHAR}, 
+      #{adminRemark,jdbcType=VARCHAR}, #{adminStatus,jdbcType=DECIMAL}, #{adminCreateTime,jdbcType=TIMESTAMP}, 
+      #{adminUpdateTime,jdbcType=TIMESTAMP}, #{adminLoginTime,jdbcType=TIMESTAMP}, #{adminLoginCount,jdbcType=DECIMAL}, 
+      #{adminAgreeday,jdbcType=VARCHAR}, #{adminLoginBegin,jdbcType=VARCHAR}, #{adminLoginEnd,jdbcType=VARCHAR}, 
+      #{createAdminId,jdbcType=DECIMAL}, #{adminIpLimit,jdbcType=VARCHAR}, #{loginStatus,jdbcType=DECIMAL}, 
+      #{isCollecter,jdbcType=DECIMAL}, #{isWarehouseM,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.User" >
+    insert into ADM_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="adminRealname != null" >
+        ADMIN_REALNAME,
+      </if>
+      <if test="adminLogin != null" >
+        ADMIN_LOGIN,
+      </if>
+      <if test="adminPassword != null" >
+        ADMIN_PASSWORD,
+      </if>
+      <if test="adminGender != null" >
+        ADMIN_GENDER,
+      </if>
+      <if test="adminEmail != null" >
+        ADMIN_EMAIL,
+      </if>
+      <if test="adminBirthday != null" >
+        ADMIN_BIRTHDAY,
+      </if>
+      <if test="adminTel != null" >
+        ADMIN_TEL,
+      </if>
+      <if test="adminMobile != null" >
+        ADMIN_MOBILE,
+      </if>
+      <if test="adminPhone != null" >
+        ADMIN_PHONE,
+      </if>
+      <if test="adminOrg != null" >
+        ADMIN_ORG,
+      </if>
+      <if test="adminAddress != null" >
+        ADMIN_ADDRESS,
+      </if>
+      <if test="adminRemark != null" >
+        ADMIN_REMARK,
+      </if>
+      <if test="adminStatus != null" >
+        ADMIN_STATUS,
+      </if>
+      <if test="adminCreateTime != null" >
+        ADMIN_CREATE_TIME,
+      </if>
+      <if test="adminUpdateTime != null" >
+        ADMIN_UPDATE_TIME,
+      </if>
+      <if test="adminLoginTime != null" >
+        ADMIN_LOGIN_TIME,
+      </if>
+      <if test="adminLoginCount != null" >
+        ADMIN_LOGIN_COUNT,
+      </if>
+      <if test="adminAgreeday != null" >
+        ADMIN_AGREEDAY,
+      </if>
+      <if test="adminLoginBegin != null" >
+        ADMIN_LOGIN_BEGIN,
+      </if>
+      <if test="adminLoginEnd != null" >
+        ADMIN_LOGIN_END,
+      </if>
+      <if test="createAdminId != null" >
+        CREATE_ADMIN_ID,
+      </if>
+      <if test="adminIpLimit != null" >
+        ADMIN_IP_LIMIT,
+      </if>
+      <if test="loginStatus != null" >
+        LOGIN_STATUS,
+      </if>
+      <if test="isCollecter != null" >
+        IS_COLLECTER,
+      </if>
+      <if test="isWarehouseM != null" >
+        IS_WAREHOUSE_M,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminRealname != null" >
+        #{adminRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLogin != null" >
+        #{adminLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        #{adminPassword,jdbcType=CHAR},
+      </if>
+      <if test="adminGender != null" >
+        #{adminGender,jdbcType=DECIMAL},
+      </if>
+      <if test="adminEmail != null" >
+        #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminBirthday != null" >
+        #{adminBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminTel != null" >
+        #{adminTel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMobile != null" >
+        #{adminMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhone != null" >
+        #{adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminOrg != null" >
+        #{adminOrg,jdbcType=CHAR},
+      </if>
+      <if test="adminAddress != null" >
+        #{adminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminRemark != null" >
+        #{adminRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null" >
+        #{adminStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="adminCreateTime != null" >
+        #{adminCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminUpdateTime != null" >
+        #{adminUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminLoginTime != null" >
+        #{adminLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminLoginCount != null" >
+        #{adminLoginCount,jdbcType=DECIMAL},
+      </if>
+      <if test="adminAgreeday != null" >
+        #{adminAgreeday,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLoginBegin != null" >
+        #{adminLoginBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLoginEnd != null" >
+        #{adminLoginEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createAdminId != null" >
+        #{createAdminId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminIpLimit != null" >
+        #{adminIpLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="loginStatus != null" >
+        #{loginStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="isCollecter != null" >
+        #{isCollecter,jdbcType=DECIMAL},
+      </if>
+      <if test="isWarehouseM != null" >
+        #{isWarehouseM,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.User" >
+    update ADM_INFO
+    <set >
+      <if test="adminRealname != null" >
+        ADMIN_REALNAME = #{adminRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLogin != null" >
+        ADMIN_LOGIN = #{adminLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        ADMIN_PASSWORD = #{adminPassword,jdbcType=CHAR},
+      </if>
+      <if test="adminGender != null" >
+        ADMIN_GENDER = #{adminGender,jdbcType=DECIMAL},
+      </if>
+      <if test="adminEmail != null" >
+        ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminBirthday != null" >
+        ADMIN_BIRTHDAY = #{adminBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminTel != null" >
+        ADMIN_TEL = #{adminTel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMobile != null" >
+        ADMIN_MOBILE = #{adminMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhone != null" >
+        ADMIN_PHONE = #{adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminOrg != null" >
+        ADMIN_ORG = #{adminOrg,jdbcType=CHAR},
+      </if>
+      <if test="adminAddress != null" >
+        ADMIN_ADDRESS = #{adminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminRemark != null" >
+        ADMIN_REMARK = #{adminRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null" >
+        ADMIN_STATUS = #{adminStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="adminCreateTime != null" >
+        ADMIN_CREATE_TIME = #{adminCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminUpdateTime != null" >
+        ADMIN_UPDATE_TIME = #{adminUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminLoginTime != null" >
+        ADMIN_LOGIN_TIME = #{adminLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminLoginCount != null" >
+        ADMIN_LOGIN_COUNT = #{adminLoginCount,jdbcType=DECIMAL},
+      </if>
+      <if test="adminAgreeday != null" >
+        ADMIN_AGREEDAY = #{adminAgreeday,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLoginBegin != null" >
+        ADMIN_LOGIN_BEGIN = #{adminLoginBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLoginEnd != null" >
+        ADMIN_LOGIN_END = #{adminLoginEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createAdminId != null" >
+        CREATE_ADMIN_ID = #{createAdminId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminIpLimit != null" >
+        ADMIN_IP_LIMIT = #{adminIpLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="loginStatus != null" >
+        LOGIN_STATUS = #{loginStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="isCollecter != null" >
+        IS_COLLECTER = #{isCollecter,jdbcType=DECIMAL},
+      </if>
+      <if test="isWarehouseM != null" >
+        IS_WAREHOUSE_M = #{isWarehouseM,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.User" >
+    update ADM_INFO
+    set ADMIN_REALNAME = #{adminRealname,jdbcType=VARCHAR},
+      ADMIN_LOGIN = #{adminLogin,jdbcType=VARCHAR},
+      ADMIN_PASSWORD = #{adminPassword,jdbcType=CHAR},
+      ADMIN_GENDER = #{adminGender,jdbcType=DECIMAL},
+      ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
+      ADMIN_BIRTHDAY = #{adminBirthday,jdbcType=TIMESTAMP},
+      ADMIN_TEL = #{adminTel,jdbcType=VARCHAR},
+      ADMIN_MOBILE = #{adminMobile,jdbcType=VARCHAR},
+      ADMIN_PHONE = #{adminPhone,jdbcType=VARCHAR},
+      ADMIN_ORG = #{adminOrg,jdbcType=CHAR},
+      ADMIN_ADDRESS = #{adminAddress,jdbcType=VARCHAR},
+      ADMIN_REMARK = #{adminRemark,jdbcType=VARCHAR},
+      ADMIN_STATUS = #{adminStatus,jdbcType=DECIMAL},
+      ADMIN_CREATE_TIME = #{adminCreateTime,jdbcType=TIMESTAMP},
+      ADMIN_UPDATE_TIME = #{adminUpdateTime,jdbcType=TIMESTAMP},
+      ADMIN_LOGIN_TIME = #{adminLoginTime,jdbcType=TIMESTAMP},
+      ADMIN_LOGIN_COUNT = #{adminLoginCount,jdbcType=DECIMAL},
+      ADMIN_AGREEDAY = #{adminAgreeday,jdbcType=VARCHAR},
+      ADMIN_LOGIN_BEGIN = #{adminLoginBegin,jdbcType=VARCHAR},
+      ADMIN_LOGIN_END = #{adminLoginEnd,jdbcType=VARCHAR},
+      CREATE_ADMIN_ID = #{createAdminId,jdbcType=DECIMAL},
+      ADMIN_IP_LIMIT = #{adminIpLimit,jdbcType=VARCHAR},
+      LOGIN_STATUS = #{loginStatus,jdbcType=DECIMAL},
+      IS_COLLECTER = #{isCollecter,jdbcType=DECIMAL},
+      IS_WAREHOUSE_M = #{isWarehouseM,jdbcType=DECIMAL}
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </update>
+</mapper>

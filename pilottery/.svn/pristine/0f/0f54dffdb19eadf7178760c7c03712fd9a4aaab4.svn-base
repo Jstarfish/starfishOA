@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.webncp.system.dao.FbsProcessDao">
+
+	<select id="getCompetitionList" resultType="cls.pilottery.webncp.system.model.Response6001Record">
+		select 
+			COMPETITION_CODE competitionCode,
+		 	COMPETITION_ABBR shortName, 
+		 	COMPETITION_NAME fullName
+		 from FBS_COMPETITION
+	</select>
+	
+	<select id="getTeamList" resultType="cls.pilottery.webncp.system.model.Response6002Record" parameterType="int">
+		SELECT 
+			TEAM_CODE teamCode, 
+			FULL_NAME fullName, 
+			SHORT_NAME shortName 
+		FROM FBS_COMPETITION_TEAM
+	</select>
+
+</mapper>

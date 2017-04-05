@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.marketManager.dao.AccountBalanceDao">
+	<resultMap id="BalanceMap" type="cls.pilottery.web.marketManager.entity.AccountBalance">
+		<id column="MARKET_ADMIN" property="marketAdmin" jdbcType="CHAR" />
+		<result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="DECIMAL" />
+		<result column="REPAY_AMOUNT" property="repayAmount" jdbcType="DECIMAL" />
+		<result column="REPAY_TIME" property="repayTime" jdbcType="TIMESTAMP" />
+		<result column="MAX_AMOUNT_TICKETSS" property="maxAmountTickets" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<select id="getMarketAccountInfo" parameterType="Long" resultMap="BalanceMap">
+	   <!--  select a.credit_limit, a.account_balance, b.REPAY_AMOUNT, b.REPAY_TIME,c.MAX_AMOUNT_TICKETSS
+	      from acc_mm_account a
+	      left join FUND_MM_CASH_REPAY b 
+	        on (a.MARKET_ADMIN = b.MARKET_ADMIN)
+	      left join INF_MARKET_ADMIN c
+	     	 on (a.MARKET_ADMIN = c.MARKET_ADMIN)
+	     where 1 = 1
+	       and a.ACC_STATUS = 1
+	       and REPAY_TIME = (select max(REPAY_TIME) from FUND_MM_CASH_REPAY where market_admin = #{marketAdmin})
+	       and a.market_admin = #{marketAdmin} -->
+		WITH topup AS
+     (SELECT MARKET_ADMIN,REPAY_AMOUNT, REPAY_TIME
+        FROM FUND_MM_CASH_REPAY
+       WHERE REPAY_TIME = (select max(REPAY_TIME)
+                             from FUND_MM_CASH_REPAY
+                            where market_admin =  #{marketAdmin}))
+    select a.credit_limit,
+           a.account_balance,
+           b.REPAY_AMOUNT,
+           b.REPAY_TIME,
+           c.MAX_AMOUNT_TICKETSS
+      from acc_mm_account a
+      left join topup b
+        on (a.MARKET_ADMIN = b.MARKET_ADMIN)
+      left join INF_MARKET_ADMIN c
+        on (a.MARKET_ADMIN = c.MARKET_ADMIN)
+     where 1 = 1
+       and a.ACC_STATUS = 1
+       and a.market_admin =  #{marketAdmin}
+	</select>
+	
+
+</mapper>

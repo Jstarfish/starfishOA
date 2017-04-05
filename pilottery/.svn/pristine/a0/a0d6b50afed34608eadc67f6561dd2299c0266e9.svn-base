@@ -1,0 +1,14 @@
+
+FILE(GLOB src_files "*.cpp")
+
+ADD_LIBRARY(gl_TEMA SHARED ${src_files} )
+TARGET_LINK_LIBRARIES(gl_TEMA dl gl frmwk)
+
+#VERSION standfor so version; SOVERSION standfor API version
+SET_TARGET_PROPERTIES(gl_TEMA PROPERTIES VERSION 1.0 SOVERSION 0)
+
+INSTALL(TARGETS gl_TEMA
+        RUNTIME DESTINATION task
+        LIBRARY DESTINATION libs
+        ARCHIVE DESTINATION libs
+)

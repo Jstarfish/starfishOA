@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.dao.WhCheckPointMapper" >
+  <resultMap id="BaseResultMap" type="cls.pilottery.model.WhCheckPoint" >
+    <id column="CP_NO" property="cpNo" jdbcType="CHAR" />
+    <result column="WAREHOUSE_CODE" property="warehouseCode" jdbcType="CHAR" />
+    <result column="CP_NAME" property="cpName" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="RESULT" property="result" jdbcType="DECIMAL" />
+    <result column="NOMATCH_TICKETS" property="nomatchTickets" jdbcType="DECIMAL" />
+    <result column="NOMATCH_AMOUNT" property="nomatchAmount" jdbcType="DECIMAL" />
+    <result column="CP_ADMIN" property="cpAdmin" jdbcType="DECIMAL" />
+    <result column="CP_DATE" property="cpDate" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CP_NO, WAREHOUSE_CODE, CP_NAME, STATUS, RESULT, NOMATCH_TICKETS, NOMATCH_AMOUNT, 
+    CP_ADMIN, CP_DATE, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WH_CHECK_POINT
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WH_CHECK_POINT
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cls.pilottery.model.WhCheckPoint" >
+    insert into WH_CHECK_POINT (CP_NO, WAREHOUSE_CODE, CP_NAME, 
+      STATUS, RESULT, NOMATCH_TICKETS, 
+      NOMATCH_AMOUNT, CP_ADMIN, CP_DATE, 
+      REMARK)
+    values (#{cpNo,jdbcType=CHAR}, #{warehouseCode,jdbcType=CHAR}, #{cpName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL}, #{result,jdbcType=DECIMAL}, #{nomatchTickets,jdbcType=DECIMAL}, 
+      #{nomatchAmount,jdbcType=DECIMAL}, #{cpAdmin,jdbcType=DECIMAL}, #{cpDate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cls.pilottery.model.WhCheckPoint" >
+    insert into WH_CHECK_POINT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cpNo != null" >
+        CP_NO,
+      </if>
+      <if test="warehouseCode != null" >
+        WAREHOUSE_CODE,
+      </if>
+      <if test="cpName != null" >
+        CP_NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="nomatchTickets != null" >
+        NOMATCH_TICKETS,
+      </if>
+      <if test="nomatchAmount != null" >
+        NOMATCH_AMOUNT,
+      </if>
+      <if test="cpAdmin != null" >
+        CP_ADMIN,
+      </if>
+      <if test="cpDate != null" >
+        CP_DATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cpNo != null" >
+        #{cpNo,jdbcType=CHAR},
+      </if>
+      <if test="warehouseCode != null" >
+        #{warehouseCode,jdbcType=CHAR},
+      </if>
+      <if test="cpName != null" >
+        #{cpName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=DECIMAL},
+      </if>
+      <if test="nomatchTickets != null" >
+        #{nomatchTickets,jdbcType=DECIMAL},
+      </if>
+      <if test="nomatchAmount != null" >
+        #{nomatchAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cpAdmin != null" >
+        #{cpAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="cpDate != null" >
+        #{cpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cls.pilottery.model.WhCheckPoint" >
+    update WH_CHECK_POINT
+    <set >
+      <if test="warehouseCode != null" >
+        WAREHOUSE_CODE = #{warehouseCode,jdbcType=CHAR},
+      </if>
+      <if test="cpName != null" >
+        CP_NAME = #{cpName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=DECIMAL},
+      </if>
+      <if test="nomatchTickets != null" >
+        NOMATCH_TICKETS = #{nomatchTickets,jdbcType=DECIMAL},
+      </if>
+      <if test="nomatchAmount != null" >
+        NOMATCH_AMOUNT = #{nomatchAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cpAdmin != null" >
+        CP_ADMIN = #{cpAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="cpDate != null" >
+        CP_DATE = #{cpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cls.pilottery.model.WhCheckPoint" >
+    update WH_CHECK_POINT
+    set WAREHOUSE_CODE = #{warehouseCode,jdbcType=CHAR},
+      CP_NAME = #{cpName,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      RESULT = #{result,jdbcType=DECIMAL},
+      NOMATCH_TICKETS = #{nomatchTickets,jdbcType=DECIMAL},
+      NOMATCH_AMOUNT = #{nomatchAmount,jdbcType=DECIMAL},
+      CP_ADMIN = #{cpAdmin,jdbcType=DECIMAL},
+      CP_DATE = #{cpDate,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where CP_NO = #{cpNo,jdbcType=CHAR}
+  </update>
+</mapper>

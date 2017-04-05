@@ -1,0 +1,37 @@
+﻿$axure.loadCurrentPage({
+  "url":"销售报表.html",
+  "generationDate":new Date(1443166060322.89),
+  "isCanvasEnabled":false,
+  "variables":["OnLoadVariable",
+"yz_msg"],
+  "page":{
+    "packageId":"d5561cb2a527465baed8568a0dd8ef1a",
+    "type":"Axure:Page",
+    "name":"销售报表",
+    "notes":{
+},
+    "style":{
+      "baseStyle":"627587b6038d43cca051c114ac41ad32",
+      "pageAlignment":"near",
+      "fill":{
+        "fillType":"solid",
+        "color":0xFFFFFFFF},
+      "image":null,
+      "imageHorizontalAlignment":"near",
+      "imageVerticalAlignment":"near",
+      "imageRepeat":"auto",
+      "favicon":null,
+      "sketchFactor":"0",
+      "colorStyle":"appliedColor",
+      "fontName":"应用字体",
+      "borderWidth":"0"},
+    "adaptiveStyles":{
+},
+    "interactionMap":{
+},
+    "diagram":{
+      "objects":[]}},
+  "masters":{
+},
+  "objectPaths":{
+}});

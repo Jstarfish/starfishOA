@@ -1,0 +1,231 @@
+package cls.taishan.web.dao.Impl;
+
+import java.sql.CallableStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Repository;
+
+import com.alibaba.fastjson.JSON;
+
+import cls.taishan.common.constants.SysConstants;
+import cls.taishan.web.dao.WingWithdrawDao;
+import cls.taishan.web.model.WingWithdrawDBParam;
+import cls.taishan.web.model.WingWithdrawInputParam;
+import cls.taishan.web.model.WingWithdrawOutputParam;
+import cls.taishan.web.model.WingWithdrawReq;
+import cls.taishan.web.model.WingWithdrawRes;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+@Repository
+@SuppressWarnings({ "unchecked", "rawtypes" })
+public class WingWithdrawDaoImpl implements WingWithdrawDao {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	public String errMsg = "";
+
+	private String gETradeFlow;
+	private String gCurrency;
+
+	@Override
+	public int recordWithdrawJsonData(WingWithdrawInputParam in, String eTradeFlow, String currency) {
+		try {
+			String sql = "{? = call p_wing_receive_withdraw(?,?,?,?,?, ?,?,?,?)}";
+			errMsg = String.format("[Withdraw] record the request json. execute SP : [%s]", "p_wing_receive_withdraw");
+			log.info(errMsg);
+
+			int errorcode = (int) jdbcTemplate.execute(sql, new CallableStatementCallback() {
+				@Override
+				public Object doInCallableStatement(CallableStatement cs) throws SQLException, DataAccessException {
+
+					cs.setString(1, in.getEUser());
+					cs.setString(2, in.getAccount());
+					cs.setLong(3, in.getAmount());
+					cs.setString(4, in.getUserAcc());
+					cs.setString(5, in.getReqFlow());
+					errMsg = String.format(
+							"[Withdraw] record the request json. execute SP Input Parameter : [%s], [%s], [%s], [%s], [%s]",
+							in.getEUser(), in.getAccount(), in.getAmount(), in.getUserAcc(), in.getReqFlow());
+					log.info(errMsg);
+
+					cs.registerOutParameter(6, Types.VARCHAR);
+					cs.registerOutParameter(7, Types.VARCHAR);
+					cs.registerOutParameter(8, Types.INTEGER);
+					cs.registerOutParameter(9, Types.VARCHAR);
+					cs.execute();
+
+					gETradeFlow = cs.getString(6);
+					gCurrency = cs.getString(7);
+					int errCode = cs.getInt(8);
+
+					errMsg = String.format(
+							"[Withdraw] record the request json. execute SP Return Parameter : [%s], [%s], [%s], [%s]",
+							cs.getString(6), cs.getString(7), cs.getString(8), cs.getString(9));
+					log.info(errMsg);
+					if (errCode != 0) {
+						errMsg = String.format(
+								"[Withdraw] record the request json. execute procedure p_wing_receive_withdraw with oracle error: code [%s], message [%s]",
+								cs.getString(8), cs.getString(9));
+						log.error(errMsg);
+						return SysConstants.ERR_COMMON_ORACLE_ERROR;
+					}
+
+					return errCode;
+				}
+			});
+			if (errorcode == 0) {
+				eTradeFlow = gETradeFlow;
+				currency = gCurrency;
+			}
+			return errorcode;
+		} catch (DataAccessException e) {
+			log.error(
+					"[Withdraw] record the request json. execute procedure p_wing_receive_withdraw with oracle error: ",
+					e);
+			return SysConstants.ERR_COMMON_ORACLE_ERROR;
+		}
+	}
+
+	@Override
+	public int restWingWithdraw(WingWithdrawReq req, WingWithdrawRes res, int httpStatusCode) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int recordWithdrawBeforeDB(WingWithdrawReq req, WingWithdrawDBParam dbParm) {
+		try {
+			String sql = "{? = call p_wing_transmoney(?,?,?,?,?, ?,?,?)}";
+			errMsg = String.format("[Withdraw] record the data before posting Wing. execute SP : [%s]",
+					"p_wing_transmoney");
+			log.info(errMsg);
+
+			int errorcode = (int) jdbcTemplate.execute(sql, new CallableStatementCallback() {
+				@Override
+				public Object doInCallableStatement(CallableStatement cs) throws SQLException, DataAccessException {
+
+					cs.setString(1, dbParm.getETradeFlow());
+					cs.setString(2, JSON.toJSONString(dbParm.getJsonData()));
+					cs.setLong(3, SysConstants.WING_REST_TRADE_STATUS_POSTING);
+					cs.setNull(4, Types.VARCHAR);
+					cs.setNull(5, Types.INTEGER);
+
+					errMsg = String.format(
+							"[Withdraw] record the data before posting Wing. execute SP Input Parameter : [%s], [%s], [%s], [null], [null]",
+							dbParm.getETradeFlow(), JSON.toJSONString(dbParm.getJsonData()),
+							SysConstants.WING_REST_TRADE_STATUS_POSTING);
+					log.info(errMsg);
+
+					cs.registerOutParameter(6, Types.VARCHAR);
+					cs.registerOutParameter(7, Types.INTEGER);
+					cs.registerOutParameter(8, Types.VARCHAR);
+					cs.execute();
+
+					dbParm.setEOutPostId(cs.getString(6));
+					dbParm.setErrorCode(cs.getInt(7));
+					dbParm.setErrorMessage(cs.getString(8));
+
+					int errCode = cs.getInt(7);
+
+					errMsg = String.format(
+							"[Withdraw] record the data before posting Wing. execute SP Return Parameter : [%s], [%s], [%s]",
+							cs.getString(6), cs.getString(7), cs.getString(8));
+					log.info(errMsg);
+					if (errCode != 0) {
+						errMsg = String.format(
+								"[Withdraw] record the data before posting Wing. execute procedure p_wing_transmoney with oracle error: code [%s], message [%s]",
+								cs.getString(7), cs.getString(8));
+						log.error(errMsg);
+						return SysConstants.ERR_COMMON_ORACLE_ERROR;
+					}
+
+					return errCode;
+				}
+			});
+			return errorcode;
+		} catch (DataAccessException e) {
+			log.error("[Withdraw] record the data before posting Wing. execute procedure p_wing_transmoney with oracle error: ", e);
+			return SysConstants.ERR_COMMON_ORACLE_ERROR;
+		}
+	}
+
+	@Override
+	public int recordWithdrawPostDB(WingWithdrawRes res, WingWithdrawDBParam dbParm) {
+		try {
+			String sql = "{? = call p_wing_transmoney(?,?,?,?,?, ?,?,?)}";
+			errMsg = String.format("[Withdraw] record the data after posting Wing. execute SP : [%s]",
+					"p_wing_transmoney");
+			log.info(errMsg);
+
+			int errorcode = (int) jdbcTemplate.execute(sql, new CallableStatementCallback() {
+				@Override
+				public Object doInCallableStatement(CallableStatement cs) throws SQLException, DataAccessException {
+
+					cs.setString(1, dbParm.getETradeFlow());
+					cs.setString(2, JSON.toJSONString(dbParm.getJsonData()));
+					cs.setLong(3, dbParm.getRestStatus());
+					cs.setString(4, dbParm.getEInPostId());
+					cs.setInt(5, dbParm.getHttpStatus());
+
+					errMsg = String.format(
+							"[Withdraw] record the data after posting Wing. execute SP Input Parameter : [%s], [%s], [%s], [%s], [%s]",
+							dbParm.getETradeFlow(), JSON.toJSONString(dbParm.getJsonData()),
+							dbParm.getRestStatus(),dbParm.getEInPostId(),dbParm.getHttpStatus());
+					log.info(errMsg);
+
+					cs.registerOutParameter(6, Types.VARCHAR);
+					cs.registerOutParameter(7, Types.INTEGER);
+					cs.registerOutParameter(8, Types.VARCHAR);
+					cs.execute();
+
+					dbParm.setEOutPostId(cs.getString(6));
+					dbParm.setErrorCode(cs.getInt(7));
+					dbParm.setErrorMessage(cs.getString(8));
+
+					int errCode = cs.getInt(7);
+
+					errMsg = String.format(
+							"[Withdraw] record the data after posting Wing. execute SP Return Parameter : [%s], [%s], [%s]",
+							cs.getString(6), cs.getString(7), cs.getString(8));
+					log.info(errMsg);
+					if (errCode != 0) {
+						errMsg = String.format(
+								"[Withdraw] record the data after posting Wing. execute procedure p_wing_transmoney with oracle error: code [%s], message [%s]",
+								cs.getString(7), cs.getString(8));
+						log.error(errMsg);
+						return SysConstants.ERR_COMMON_ORACLE_ERROR;
+					}
+
+					return errCode;
+				}
+			});
+			return errorcode;
+		} catch (DataAccessException e) {
+			log.error("[Withdraw] record the data after posting Wing. execute procedure p_wing_transmoney with oracle error: ", e);
+			return SysConstants.ERR_COMMON_ORACLE_ERROR;
+		}
+	}
+
+	@Override
+	public int genOutParam(WingWithdrawOutputParam out, String eTradeFlow) {
+		String sql = "select balance, fee, exchange_context, wing_trans_id, customer_name from trd_wing_record where e_trade_flow = ?";
+		
+		SqlRowSet r = jdbcTemplate.queryForRowSet(sql, eTradeFlow);
+		if (r.next()){
+			balance = r.getLong(1);
+			fee = r.getLong(2);
+			exchange = r.getString(3);
+			wingFlow = r.getString(4);
+			resFlow = eTradeFlow;
+		}
+		return 0;
+	}
+
+}

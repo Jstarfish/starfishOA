@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cls.pilottery.web.warehouses.dao.WarehouseDao">
+
+    <resultMap type="cls.pilottery.web.institutions.model.InfOrgs" id="institutionMap">
+        <id column="ORG_CODE" property="orgCode"/>
+        <result column="ORG_NAME" property="orgName"/>
+    </resultMap>
+    
+    <resultMap type="cls.pilottery.web.warehouses.model.WarehouseInfo" id="warehouseInfoMap">
+        <id column="WAREHOUSE_CODE" property="warehouseCode"/>
+        <result column="WAREHOUSE_NAME" property="warehouseName"/>
+        <result column="ORG_CODE" property="orgCode"/>
+        <result column="ORG_NAME" property="orgName"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="PHONE" property="phone"/>
+        <result column="DIRECTOR_ADMIN" property="directorAdmin"/>
+        <result column="ADMIN_REALNAME" property="directorName"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_ADMIN" property="createAdmin"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="STOP_ADMIN" property="stopAdmin"/>
+        <result column="STOP_DATE" property="stopDate"/>
+    </resultMap>
+    
+    <resultMap type="cls.pilottery.web.warehouses.model.WarehouseManager" id="warehouseManagerMap">
+    	<id column="WAREHOUSE_CODE" property="warehouseCode"/>
+    	<result column="WAREHOUSE_NAME" property="warehouseName"/>
+    	<result column="MANAGER_ID" property="managerID"/>
+    	<result column="ADMIN_REALNAME" property="managerName"/>
+    	<result column="ADMIN_LOGIN" property="userName"/>
+    	<result column="ADMIN_MOBILE" property="phone"/>
+    </resultMap>
+    
+    <resultMap type="cls.pilottery.web.system.model.User" id="userMap">
+    	<id column="admin_id" property="id"/>
+		<result column="admin_realname" property="realName"/>
+		<result column="admin_login" property="loginId"/>
+		<result column="admin_mobile" property="mobilePhone"/>
+		<result column="admin_org" property="institutionCode"/>
+		<result column="is_this_warehouse_manager" property="isWarehouseManger"/>
+    </resultMap>
+    
+    <select id="getAvailableInstitution" parameterType="cls.pilottery.web.warehouses.form.UserSessionForm" resultMap="institutionMap">
+        SELECT ORG_CODE, ORG_NAME
+        FROM INF_ORGS
+        WHERE 1 = 1
+        
+        <!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+        <if test="sessionOrgCode != null and sessionOrgCode != '00'">
+        AND ORG_CODE = #{sessionOrgCode}
+        </if>
+        
+        AND ORG_STATUS = 1
+    </select>
+    
+    <select id="getRecommendedWarehouseCode" parameterType="String" resultType="String">
+        SELECT F_GET_WAREHOUSE_CODE(#{orgCode}) FROM DUAL
+    </select>
+    
+    <select id="getUserUnder" parameterType="String" resultMap="userMap">
+    	SELECT admin_id, admin_realname, admin_login, admin_mobile
+    	FROM ADM_INFO
+    	WHERE ADMIN_STATUS = 1 
+    	AND ADMIN_ORG = #{orgCode}
+    </select>
+    
+    <select id="getWarehouseCount" parameterType="cls.pilottery.web.warehouses.form.WarehouseQueryForm" resultType="Integer">
+        SELECT COUNT(1)
+        FROM WH_INFO
+        WHERE 1 = 1
+        <if test="warehouseCodeQuery != null and warehouseCodeQuery != ''">
+            AND WAREHOUSE_CODE = #{warehouseCodeQuery}
+        </if>
+        
+        <if test="institutionQuery != null and institutionQuery != ''">
+            AND ORG_CODE = #{institutionQuery}
+        </if>
+        
+        <if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+        	AND ORG_CODE = #{sessionOrgCode}
+        </if>
+        AND (STATUS = 1 OR STATUS = 3)
+    </select>
+    
+    <select id="getWarehouseList" parameterType="cls.pilottery.web.warehouses.form.WarehouseQueryForm" resultMap="warehouseInfoMap">
+        SELECT * FROM (
+            SELECT S.*, ROWNUM RN FROM (
+                SELECT B.ORG_NAME, A.WAREHOUSE_CODE, A.WAREHOUSE_NAME, A.ADDRESS, A.STATUS, C.ADMIN_REALNAME
+                FROM WH_INFO A
+                  LEFT JOIN INF_ORGS B
+                   ON A.ORG_CODE = B.ORG_CODE
+                  LEFT JOIN ADM_INFO C
+                   ON A.DIRECTOR_ADMIN = C.ADMIN_ID
+                WHERE 1 = 1
+                <if test="warehouseCodeQuery != null and warehouseCodeQuery != ''">
+                AND WAREHOUSE_CODE = #{warehouseCodeQuery}
+                </if>
+            
+                <if test="institutionQuery != null and institutionQuery != ''">
+                AND A.ORG_CODE = #{institutionQuery}
+                </if>
+                
+                <if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+        		AND A.ORG_CODE = #{sessionOrgCode}
+        		</if>
+                
+                AND (A.STATUS = 1 OR A.STATUS = 3)
+                ORDER BY A.WAREHOUSE_CODE, A.WAREHOUSE_NAME, B.ORG_NAME
+  <![CDATA[ ) S
+        ) WHERE RN > ${beginNum} AND RN <= ${endNum} ]]>
+    </select>
+    
+    <update id="addWarehouse" statementType="CALLABLE" parameterType="cls.pilottery.web.warehouses.form.NewWarehouseForm">
+    	{CALL P_WAREHOUSE_CREATE(
+    		#{warehouseCode,mode=IN,jdbcType=VARCHAR},
+    		#{warehouseName,mode=IN,jdbcType=VARCHAR},
+    		#{institutionCode,mode=IN,jdbcType=VARCHAR},
+    		#{warehouseAddress,mode=IN,jdbcType=VARCHAR},
+    		#{contactPhone,mode=IN,jdbcType=VARCHAR},
+    		#{contactPerson,mode=IN,jdbcType=NUMERIC},
+    		#{createAdmin,mode=IN,jdbcType=NUMERIC},
+    		#{warehouseManager,mode=IN,jdbcType=VARCHAR},
+    		#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+    	)}
+    </update>
+    
+    <select id="getWarehouseDetails" parameterType="String" resultMap="warehouseInfoMap">
+    	SELECT A.WAREHOUSE_CODE, A.WAREHOUSE_NAME, A.ORG_CODE, B.ORG_NAME, A.ADDRESS, A.PHONE, A.DIRECTOR_ADMIN, C.ADMIN_REALNAME, A.STATUS
+        FROM WH_INFO A
+          LEFT JOIN INF_ORGS B
+           ON A.ORG_CODE = B.ORG_CODE
+          LEFT JOIN ADM_INFO C
+           ON A.DIRECTOR_ADMIN = C.ADMIN_ID
+        WHERE A.WAREHOUSE_CODE = #{curWarehouseCode}
+    </select>
+    
+    <select id="getWarehouseManagers" parameterType="cls.pilottery.web.warehouses.form.UserSessionForm" resultMap="warehouseManagerMap">
+    	SELECT A.MANAGER_ID, B.ADMIN_LOGIN, B.ADMIN_REALNAME, B.ADMIN_MOBILE
+    	FROM WH_MANAGER A
+    	  LEFT JOIN ADM_INFO B
+    	   ON A.MANAGER_ID = B.ADMIN_ID
+    	WHERE A.IS_VALID = 1 
+    	<if test="warehouseCode != null and warehouseCode != ''">
+    		AND A.WAREHOUSE_CODE = #{warehouseCode}
+    	</if>
+    	<if test="sessionOrgCode != null and sessionOrgCode != '00' and managerId != null">
+    		AND A.MANAGER_ID = #{managerId}
+    	</if>
+    </select>
+    
+    <update id="deleteWarehouse" parameterType="cls.pilottery.web.warehouses.form.WarehouseDeleteForm" statementType="CALLABLE">
+    	{CALL P_WAREHOUSE_DELETE(
+    		#{warehouseCode,mode=IN,jdbcType=VARCHAR},
+    		#{operator,mode=IN,jdbcType=VARCHAR},
+    		#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+    	)}
+    </update>
+    
+    <!-- 获得所属机构等于[仓库编码对应的机构编码]或者[仓库编码对应的机构编码对应的父机构编码]的所有用户
+         (但不包括那个已经是当前仓库负责人的用户) -->
+    <select id="getAvailableDirector" parameterType="String" resultMap="userMap">
+    	SELECT admin_id, admin_realname, admin_login, admin_mobile, admin_org
+    	  FROM adm_info
+    	 WHERE admin_status = 1
+    	   AND (
+    	       admin_org IN (
+    	                    SELECT org_code
+    	                      FROM wh_info
+    	                     WHERE warehouse_code = #{warehouseCode}
+    	                    )
+    	       OR
+    	       admin_org IN (
+    	                    SELECT super_org 
+    	                      FROM inf_orgs 
+    	                     WHERE org_code 
+    	                        IN (
+    	                           SELECT org_code 
+    	                             FROM wh_info 
+    	                            WHERE warehouse_code = #{warehouseCode}
+    	                           )
+                            )
+    	       )
+    	   AND admin_id NOT IN (
+    	                     SELECT director_admin
+    	                       FROM wh_info
+    	                      WHERE warehouse_code = #{warehouseCode}
+    	                     )
+      ORDER BY admin_id
+    </select>
+    
+    <!-- 获得当前仓库对应的机构下所有可用用户信息，并增加一个是否为本仓库的管理员的判断列 (如果一用户为当前仓库的管理员则该列置为1，否则为0) -->
+    <select id="getAvailableManager" parameterType="String" resultMap="userMap">
+        SELECT U.*, NVL2(M.manager_id,1,0) AS is_this_warehouse_manager
+          FROM (
+               SELECT admin_id, admin_realname, admin_login, admin_mobile 
+                 FROM adm_info
+                WHERE admin_org IN (SELECT org_code FROM wh_info WHERE warehouse_code = #{warehouseCode})
+                  AND admin_status = 1
+               ) U
+               LEFT JOIN
+               (SELECT manager_id FROM wh_manager WHERE warehouse_code = #{warehouseCode} AND is_valid = 1) M
+               ON U.admin_id = M.manager_id
+      ORDER BY is_this_warehouse_manager DESC, admin_id ASC
+    </select>
+    
+    <update id="modifyWarehouse" statementType="CALLABLE" parameterType="cls.pilottery.web.warehouses.form.NewWarehouseForm">
+    	{CALL P_WAREHOUSE_MODIFY(
+    		#{warehouseCode,mode=IN,jdbcType=VARCHAR},
+    		#{warehouseName,mode=IN,jdbcType=VARCHAR},
+    		#{institutionCode,mode=IN,jdbcType=VARCHAR},
+    		#{warehouseAddress,mode=IN,jdbcType=VARCHAR},
+    		#{contactPhone,mode=IN,jdbcType=VARCHAR},
+    		#{contactPerson,mode=IN,jdbcType=NUMERIC},
+    		#{warehouseManager,mode=IN,jdbcType=VARCHAR},
+    		#{c_errcode,mode=OUT,jdbcType=NUMERIC},
+    		#{c_errmsg,mode=OUT,jdbcType=VARCHAR}
+    	)}
+    </update>
+    
+    <select id="getAvailableWarehouse" parameterType="cls.pilottery.web.warehouses.form.UserSessionForm" resultType="cls.pilottery.web.warehouses.model.WarehouseInfo">
+    	SELECT warehouse_code AS warehouseCode, 
+    	       warehouse_name AS warehouseName
+    	FROM WH_INFO
+    	WHERE (STATUS = 1 OR STATUS = 3)
+    	
+    	<if test="sessionOrgCode != null and sessionOrgCode != '00'"><!-- 非总公司下的仓库管理员只能看到直属机构的仓库信息 -->
+        	AND ORG_CODE = #{sessionOrgCode}
+        </if>
+        
+        <if test="sessionOrgCode != null and sessionOrgCode != '00' and managerId != null"><!-- 此条件为需求不明确而导致的patch -->
+        	AND warehouse_code IN (SELECT warehouse_code FROM WH_MANAGER WHERE MANAGER_ID = #{managerId})
+        </if>
+        
+    	ORDER BY warehouse_code
+    </select>
+    
+    <select id="updateStatusEnableWarehouse" parameterType="String">
+    	UPDATE wh_info
+    	   SET status = 1
+    	 WHERE warehouse_code = #{warehouseCode}
+    </select>
+
+</mapper>

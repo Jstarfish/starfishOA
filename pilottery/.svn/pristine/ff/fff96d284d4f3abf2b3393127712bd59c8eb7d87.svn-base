@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cls.pilottery.web.capital.dao.OutletAcctDao">
+	<resultMap id="OutletAcctMap" type="cls.pilottery.web.capital.model.OutletAccount">
+		<id column="ACC_NO" property="accNo" jdbcType="CHAR" />
+		<result column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+		<result column="ACC_TYPE" property="accType" jdbcType="DECIMAL" />
+		<result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+		<result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+		<result column="ACC_STATUS" property="accStatus" jdbcType="DECIMAL" />
+		<result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="DECIMAL" />
+		<result column="FROZEN_BALANCE" property="frozenBalance" jdbcType="DECIMAL" />
+		<result column="CHECK_CODE" property="checkCode" jdbcType="VARCHAR" />
+		<collection property="outletCommRate" ofType="cls.pilottery.web.capital.model.OutletCommRate">
+			<id column="AGENCY_CODE" property="agencyCode" jdbcType="CHAR" />
+			<result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+			<result column="SALE_COMM" property="saleComm" jdbcType="DECIMAL" />
+			<result column="PAY_COMM" property="payComm" jdbcType="DECIMAL" />
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ACC_NO, AGENCY_CODE, ACC_TYPE, ACC_NAME, ACC_STATUS,
+		CREDIT_LIMIT,
+		ACCOUNT_BALANCE,
+		FROZEN_BALANCE, CHECK_CODE
+	</sql>
+
+	<!-- 站点账户信息列表 -->
+	<select id="getOutletAcctList" parameterType="cls.pilottery.web.capital.form.OutletAcctForm"
+		resultMap="OutletAcctMap">
+		select * from (
+		select tab.*,rownum rn from (SELECT
+		A.AGENCY_CODE,
+		A.ACC_NAME,
+		A.ACC_STATUS,
+		A.ACC_NO,
+		A.CREDIT_LIMIT,
+		A.ACCOUNT_BALANCE,
+		b.AGENCY_NAME,
+		c.PLAN_CODE,
+		c.SALE_COMM,
+		c.PAY_COMM
+		FROM ACC_AGENCY_ACCOUNT a
+		LEFT JOIN
+		INF_AGENCYS b ON (a.AGENCY_CODE = b.AGENCY_CODE)
+		LEFT JOIN
+		GAME_AGENCY_COMM_RATE c ON (a.AGENCY_CODE = c.AGENCY_CODE)
+		WHERE 1 = 1
+		<if test="agencyCode != null and agencyCode != ''">
+			AND a.AGENCY_CODE = #{agencyCode}
+		</if>
+		<if test="agencyName != null and agencyName != ''">
+			and B.AGENCY_NAME = #{agencyName}
+		</if>
+			and A.ACC_STATUS!=2
+			and B.status = 1
+			and B.ORG_CODE = #{orgCode}
+			ORDER BY A.AGENCY_CODE DESC
+		<![CDATA[ ) TAB ) where rn > ${beginNum} and rn <= ${endNum} ]]>
+	</select>
+
+	<!-- 分页记录总数 -->
+	<select id="getOutletAcctCount" parameterType="cls.pilottery.web.capital.form.OutletAcctForm"
+		resultType="Integer">
+		SELECT count(1)
+		FROM ACC_AGENCY_ACCOUNT a left join INF_AGENCYS b ON (a.AGENCY_CODE = b.AGENCY_CODE)
+		WHERE 1 = 1
+		<if test="agencyCode != null and agencyCode != ''">
+			AND a.AGENCY_CODE = #{agencyCode}
+		</if>
+		<if test="agencyName != null and agencyName != ''">
+			and B.AGENCY_NAME = #{agencyName}
+		</if>
+		and B.ORG_CODE = #{orgCode}
+	</select>
+
+	<select id="getOutletAcctInfo" parameterType="String"
+		resultType="cls.pilottery.web.capital.model.OutletAccountModel">
+		 select a.agency_code as agencycode,
+	            a.credit_limit as creditlimit,
+	            b.agency_name as agencyname,
+	            nvl(c.sale_comm, 0) as salecomm,
+	            nvl(c.pay_comm, 0) as paycomm,
+	            d.full_name as planname,
+	            d.plan_code as plancode
+	       from game_plans d
+	      cross join inf_agencys b
+	       left join game_agency_comm_rate c
+	         on d.plan_code = c.plan_code and  c.agency_code= b.agency_code
+	       left join acc_agency_account a
+	         on (a.agency_code = b.agency_code and a.acc_status = 1)
+	      where d.plan_code in
+             (select plan_code from game_batch_import_detail
+             where game_batch_import_detail.status= 1)
+			and a.agency_code = #{agencyCode}
+	</select>
+
+	<select id="getOutletAcctInfo2" parameterType="String"
+		resultType="cls.pilottery.web.capital.model.OutletAccountModel">
+		 select a.agency_code  as agencycode,
+             a.credit_limit as creditlimit,
+             b.agency_name  as agencyname
+        from acc_agency_account a
+        left join inf_agencys b
+          on (a.agency_code = b.agency_code and a.acc_status = 1)
+         and a.agency_code = #{agencyCode}
+	</select>
+
+	<!--获取游戏方案 -->
+	<select id="getGamePlans" resultType="cls.pilottery.web.goodsreceipts.model.GamePlans">
+		select A.PLAN_CODE as planCode,
+		A.FULL_NAME as fullName
+		from GAME_PLANS A
+		where 1 = 1
+	</select>
+
+	<!-- 根据方案获取方案佣金 -->
+	<select id="getOutletCommRateInfo" resultType="cls.pilottery.web.capital.model.OutletAccountModel">
+		select A.PLAN_CODE
+		as planCode,
+		A.FULL_NAME as planName,
+		B.SALE_COMM as saleComm,
+		B.PAY_COMM as payComm
+		FROM GAME_PLANS A
+		LEFT JOIN
+		GAME_AGENCY_COMM_RATE B
+		ON
+		(A.PLAN_CODE = B.PLAN_CODE)
+		WHERE 1 = 1
+	</select>
+	
+	<!-- 更新信用额度, 销售、兑奖提成比例 用存储过程-->
+	<update id="updateOutletAccount" parameterType="cls.pilottery.web.capital.model.OutletAccountModel">
+		UPDATE ACC_AGENCY_ACCOUNT 
+		SET CREDIT_LIMIT = #{creditLimit}
+		WHERE AGENCY_CODE = #{agencyCode}
+	</update>
+
+	<!-- 删除站点账户 -->
+	<update id="deleteupdeSatus" parameterType="String">
+		UPDATE ACC_AGENCY_ACCOUNT SET ACC_STATUS =2 WHERE AGENCY_CODE=#{agencyCode} 
+	</update>	
+	
+	<update id="updateAccountLimit" parameterType="map">
+		UPDATE ACC_AGENCY_ACCOUNT SET CREDIT_LIMIT =#{creditLimit} WHERE AGENCY_CODE=#{agencyCode} 
+	</update>
+	
+</mapper>

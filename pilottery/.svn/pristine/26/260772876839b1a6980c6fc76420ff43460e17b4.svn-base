@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cls.pilottery.pos.system.dao.BankTransDao">
+
+	<select id="getOutletPayType" resultType="cls.pilottery.pos.system.model.bank.OutletAccoutInfo">
+		select digital_acc_no accountID,
+		       digital_acc_username accountOwner
+		  from acc_agency_account_digital
+		  where acc_status =1 
+		  and agency_code=#{outletCode}
+		  and digital_acc_type=#{pType}
+	</select>
+	
+	<select id="getOutletTranInfo" resultType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo" parameterType="cls.pilottery.pos.system.model.bank.BankTopupRequest">
+		select f_get_digital_translog_seq() tranFlow,
+		       '--------' referFlow,
+		       agency_code agencyCode,
+		       acc_no agencyAccNo,
+		       digital_acc_seq digitalAccSeq,
+		       digital_acc_type accType,
+		       currency currency,
+		       digital_acc_no digitalAccNo
+		  from acc_agency_account_digital
+		  where agency_code=#{outletCode}
+		  and digital_acc_no=#{accountID}
+		  and acc_status =1 
+	</select>
+	
+	<select id="getOutletTranInfoNoFlow" resultType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo" parameterType="cls.pilottery.pos.system.model.bank.BankTopupRequest">
+		select digital_acc_type accType,
+		       '--------' referFlow,
+		       agency_code agencyCode,
+		       acc_no agencyAccNo,
+		       digital_acc_seq digitalAccSeq,
+		       digital_acc_type accType,
+		       currency currency,
+		       digital_acc_no digitalAccNo
+		  from acc_agency_account_digital d
+		 where agency_code = #{outletCode}
+		   and digital_acc_no = #{accountID}
+		   and acc_status = 1 
+	</select>
+	
+	<update id="updataTranLog" parameterType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo">
+			update fund_digital_translog
+		   set digital_trans_status = #{status},
+		       res_time = sysdate,
+		       res_json_data = #{repJsonData},
+		       fail_reason = #{failureReason}
+		 where digital_trans_no = #{tranFlow}		 
+	</update>
+	
+	
+	<update id="insertTranLog" parameterType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo">
+		insert into fund_digital_translog
+		  (digital_trans_no,
+		   ref_no,
+		   digital_trans_type,
+		   digital_acc_type,
+		   agency_code,
+		   acc_no,
+		   digital_acc_seq,
+		   digital_acc_no,
+		   trans_currency,
+		   apply_amount,
+		   trans_fee,
+		   digital_trans_status,
+		   req_time,
+		   req_json_data)
+		values
+		  (#{tranFlow},
+		   #{referFlow},
+		   #{tranType},
+		   #{accType},
+		   #{agencyCode},
+		   #{agencyAccNo},
+		   #{digitalAccSeq},
+		   #{digitalAccNo},
+		   #{currency},
+		   #{amount},
+		   0,
+		   #{status},
+		   sysdate,
+		   #{reqJsonData})	 
+	</update>
+	
+	<update id="topupConfirm" statementType="CALLABLE" parameterType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo">
+		{call p_outlet_topup_digital_succ(
+			#{tranFlow,mode=IN,jdbcType=VARCHAR},
+			#{bankFlow,mode=IN,jdbcType=VARCHAR},
+			#{fee,mode=IN,jdbcType=NUMERIC},
+			#{exchangeRate,mode=IN,jdbcType=VARCHAR},
+			#{repJsonData,mode=IN,jdbcType=VARCHAR},
+			#{adminId,mode=IN,jdbcType=NUMERIC},
+			#{afterAmout,mode=OUT,jdbcType=NUMERIC},
+			#{errCode,mode=OUT,jdbcType=NUMERIC},
+			#{errMessage,mode=OUT,jdbcType=VARCHAR}
+			)
+		}
+	</update>
+	
+	<update id="applyForWithdraw" statementType="CALLABLE" parameterType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo">
+		{call p_withdraw_apply_for_bank(
+			#{agencyCode,mode=IN,jdbcType=VARCHAR},
+			#{password,mode=IN,jdbcType=VARCHAR},
+			#{amount,mode=IN,jdbcType=NUMERIC},
+			#{adminId,mode=IN,jdbcType=NUMERIC},			
+			#{digitalAccNo,mode=IN,jdbcType=VARCHAR},
+			#{accType,mode=IN,jdbcType=NUMERIC},			
+			#{tranFlow,mode=OUT,jdbcType=VARCHAR},			
+			#{isOutLimit,mode=OUT,jdbcType=NUMERIC},
+			#{errCode,mode=OUT,jdbcType=NUMERIC},
+			#{errMessage,mode=OUT,jdbcType=VARCHAR}
+			)
+		}
+	</update>
+	
+	<update id="withdrawCancel" statementType="CALLABLE" parameterType="cls.pilottery.pos.system.model.bank.AgencyDigitalTranInfo">
+		{call p_withdraw_cancel_for_bank(
+			#{tranFlow,mode=IN,jdbcType=VARCHAR},
+			#{failureReason,mode=IN,jdbcType=VARCHAR},			
+			#{repJsonData,mode=IN,jdbcType=VARCHAR},
+			#{errCode,mode=OUT,jdbcType=NUMERIC},
+			#{errMessage,mode=OUT,jdbcType=VARCHAR}
+			)
+		}
+	</update>
+
+</mapper>
